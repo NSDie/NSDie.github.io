@@ -22,7 +22,7 @@
     <meta name="description" content>
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>游戏开发之路4 · yyfol&#39;s Blog</title>
+    <title>游戏开发之路2 · yyfol&#39;s Blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -198,16 +198,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
     <!-- 百度统计  -->
     
-    <script>
-        var _hmt = _hmt || [];
-        (function () {
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?rwwinh4BV5";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-        })();
-    </script>
-    
     <!-- 谷歌统计  -->
     
     <script>
@@ -217,7 +207,7 @@
         }, i[r].l = 1 * new Date(); a = s.createElement(o),
         m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
         })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
-        ga('create', 'gA05jjFkrL8HdSZdo6oJJ2SAeuTcYB14mRIVbGJuIls', 'auto');
+        ga('create', 'UA-135610801-1', 'auto');
         ga('send', 'pageview');
     </script>
     
@@ -238,7 +228,7 @@
                 <a href="/">yyfol&#39;s Blog.</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">游戏开发之路4</a>
+                <a href="#" class="post-name">游戏开发之路2</a>
             </div>
     </div>
     
@@ -268,7 +258,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            游戏开发之路4
+            游戏开发之路2
             <!-- 404 -->
             
         </h1>
@@ -416,28 +406,89 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h3 id="经验分享"><a href="#经验分享" class="headerlink" title="经验分享"></a>经验分享</h3><h4 id="第二轮demo比赛总结"><a href="#第二轮demo比赛总结" class="headerlink" title="第二轮demo比赛总结"></a>第二轮demo比赛总结</h4><blockquote>
-<p> &nbsp;&nbsp;&nbsp;&nbsp;经过第一轮的教训，在第二轮10天的游戏制作中，可以说比第一轮好非常多。无论是项目管理，还是协作开发，都有非常大的改善，当然也有挺多美中不足的地方需要提高。</p>
-</blockquote>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;这轮的题目是三选一的形式：<strong>a.跑酷\b.三消\c.回合制RPG</strong>。吸取第一轮的教训，坚决不做三消（其实三消做简单了，会被喷的很惨；做难了，也很难有新的创新，而且逻辑可能就很复杂了），所以最后综合考虑下，在RPG跟跑酷中，选择了跑酷。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;跑酷我们参考了传统的跑酷玩法，有<strong>天天酷跑</strong> 、<strong>Super Mario Run</strong> 等各种横板闯关类型的跑酷游戏。最终确定下来核心玩法是，<strong>二段跳跃+冲刺</strong> 。核心玩法定下来以后，就马上开工，程序这边是由我来设计了一下开发文档，大概导图如下：</p>
-<p><img src="http://img.yyf-blog.com/%E7%AC%AC%E4%BA%8C%E8%BD%AE%E8%B7%91%E9%85%B7%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91.png" alt></p>
-<blockquote>
-<p>部分具体实现可能有改动。</p>
-</blockquote>
-<p>然后游戏主逻辑这部分，大概在比赛第1天晚上就写完了吧，能跑能跳能冲刺，当然可能也有bug，然后在第2天出了第一个包，没有接入美术资源的包。然后在接下来的3、4、5天中，就疯狂的去迭代版本，加入一些策划想要的关卡设定，以及陆续接入一些已经画出来的美术资源。在第5天可能是一个分水岭吧，我们在那天发现了一个严重问题，我们的包没有优化，游戏运行内存大概可以跑几个G吧，当时都把我们吓到了。于是从第5天开始，我们对游戏开始进行优化，同时接入一些服务器的功能，不停的压缩美术的资源，删掉很多没用的图片。在后面几天里多亏了队友们，肝出了无尽模式跟关卡编辑器，让游戏又上了一个档次，完成度非常高。可惜最后有一些小遗憾，因为一两个小bug没修复，我们只拿到了第二名的成绩。</p>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;这次比赛主要原因受<strong>对接资源</strong>影响，导致最后测试时间不足，还有一些相应的功能没实现。我们主要做了三个关卡，但是第三个关卡在最后第9天策划才给我们，原因呢，就是他们前一天做完忘保存还是咋滴，文件丢失了（இ௰இ）。然后他们给我关卡之后，美术这边又需要调整，总之最后调调完，程序这边拿到已经第九天晚上了，这个跟计划时间差挺大的（原计划第九天白天就接入，下午晚上还能测试或者做一些其他功能优化）。于是乎第九天到第十天就不用睡觉了，通宵对接 _ (:з)∠) _ 。然后就草草接完，都没时间QA。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;除此之外，还有一个很大的问题，我作为一个服务端开发，我学了2D骨骼动画帮美术们做动画特效，然后还要整理一堆资源，策划摆完关卡，压根没分类，我拿到手还要花时间去整理归类，真的很浪费时间QAQ。不是我吐槽，我觉得我们如果美术跟策划再协同一点，策划设计关卡跟美术对接上，而不是交由程序对接，我觉得程序这边能留出更多时间，做很多事情，<strong>Debug</strong>、<strong>新功能的开发</strong> 、<strong>项目的优化</strong> 。所以这也算一次教训吧，这次比赛的一个遗憾之处，我服务器做了一堆功能，接入的也就排行榜模块。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;所以以后做项目，<strong>沟通</strong>真的非常重要，无论是哪边，只要需要<strong>对接的部分</strong>，都要<strong>统一好要求</strong>，不要各自做项目，最后做出来A跟B，还要把A调整B或者把B调整成A，这部分时间真的<strong>消耗</strong>很大，<strong>效率</strong>大大降低了。</p>
+        <h3 id="游戏开发"><a href="#游戏开发" class="headerlink" title="游戏开发"></a>游戏开发</h3><h4 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;用来开发客户端的语言非常多，<strong>unity引擎</strong>用的是<strong>c#</strong>，<strong>cocos引擎</strong>用的是<strong>c++</strong>、<strong>js</strong>，<strong>虚幻4引擎</strong>也是用<strong>c++</strong>，还有<strong>java</strong>和<strong>python</strong>。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;不过主流都是用<strong>unity</strong>跟<strong>虚幻4</strong>，再者就是自家公司研发的游戏引擎。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;由于我本身也不是客户端开发的，所以这这部分知识不会太细，就罗列一下引擎中的基本模块以及客户端开发过程中需要注意的地方。</p>
+<p><strong>引擎：</strong></p>
+<ol>
+<li>渲染部分（2d和3d） ——<strong>渲染管线</strong></li>
+<li>物理与碰撞</li>
+<li>音乐和音效</li>
+<li>场景管理</li>
+<li>交互处理</li>
+<li>寻路  ——A星算法、Mesh网格</li>
+<li>动画</li>
+</ol>
+<p><strong>开发文档</strong>：</p>
+<ul>
+<li>制定开发规范<ol>
+<li>变量命名、空间命名规范</li>
+<li>程序逻辑架构</li>
+<li>资源制作规范</li>
+<li>模块开发步骤</li>
+</ol>
+</li>
+<li>UI框架<ol>
+<li>可扩展性</li>
+<li>可维护性</li>
+<li>易用性</li>
+</ol>
+</li>
+<li>网络模块<ol>
+<li>TCP与UDP</li>
+<li>包头、包体</li>
+<li>数据交换格式<ul>
+<li>protobuf</li>
+<li>json</li>
+<li>二进制流</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>资源模块<ol>
+<li>制定存放规则</li>
+<li>制定UI、Icon、Texutre 存放规则</li>
+<li>制定模型存放规则</li>
+<li>制定特效存放规则</li>
+<li>制定资源命名规则</li>
+</ol>
+</li>
+<li>资源工具<ol>
+<li>统一模型设置</li>
+<li>统一贴图设置</li>
+</ol>
+</li>
+<li>美术规格<ol>
+<li>协助制定模型制作规范</li>
+<li>协助统一UI资源制作规范</li>
+<li>协助制作场景制作规范</li>
+<li>协助制作纹理制作规范</li>
+</ol>
+</li>
+<li>美术检查工具</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;大体上，客户端有这些事情要做。除了这些，如果要开发联机游戏，开发者要考虑选择帧同步还是状态同步的方式来完成客户端服务端数据同步，这个是一个难点。</p>
+<h4 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h4><p>用于服务端开发的语言有<strong>C++</strong> 、<strong>Java</strong>、<strong>C#</strong>、<strong>Go</strong>、python、nodejs…</p>
+<p>主流的语言是<strong>C++</strong> 。为什么呢？C++最接近低层，可以直接对内存分配进行操作，而且它本身也非常稳定，兼容多个平台。但是这个好处导致它开发非常困难，开发起来效率低，内存管理复杂。</p>
+<p>服务端除了业务逻辑外还有数据库优化维护，这些后续有空再讲，现在就简单介绍几个服务端架构，以及服务端跟客户端之间的通信。</p>
+<p><strong>第一代游戏服务器架构</strong></p>
+<p>数据库——游戏服务器——客户端         <strong>最原始</strong>也是<strong>最基本</strong>的结构，适合简单的游戏框架。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">st=&gt;start: DB</span><br><span class="line">op=&gt;operation: GameServe</span><br><span class="line">e=&gt;end: Client</span><br><span class="line"></span><br><span class="line">st-&gt;op-&gt;e</span><br></pre></td></tr></table></figure>
+<p><strong>后续更加完善的游戏服务器架构</strong> </p>
+<p>DB1、DB2  —— GS1、GS2、公共服务器——客户端——登陆服——调度服——GS1…. 这种比较成熟的框架就适合大部分网络游戏了，也是很多厂家的首选。</p>
+<p>这个就当了解一下，详细之后再写，有学习意愿可以评论留言一起探讨！</p>
+<p>服务器架构之后，就是服务端跟客户端之间的通信了。这部分一般是通过<strong>TCP协议</strong>或者<strong>UDP协议</strong>，然后自己定义报文格式以及数据格式，可以选用<strong>protobuf</strong>或者<strong>protostuff</strong>（protobuf升级版据说比快很多），虽然json格式也有，传输过程中也非常方便查看数据内容，但是json占的内存太大传输时间太慢，并且明文传输或者说字符串传输，被人拦截下来容易被人得知传输信息，不太安全。</p>
+<p>那么传输数据知道了，业务逻辑处理在哪里呢？这里就出现这个问题了，假设数据都传输到服务端统一计算过后，然后分发给各个客户端，那么可能会有某个客户端太卡丢包了，其他人就要等他重新连接了；那数据都在客户端处理，最终结果上报到服务端，服务端然后再广播到其他客户端，这样可能会遇到一个问题，我的数据是浮点数，发送给服务端可能会失真，就不准确了。这两种处理方式，前者叫<strong>状态同步</strong>，后者叫<strong>帧同步</strong>。</p>
+<p>由于时间问题，这两个讲起来可能也会很多，之后再详细写一篇关于它们的文章。</p>
 
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
             <p>原文作者：<a href="https://www.yyfol.com">Ye Yifan</a>
-            </p><p>原文链接：<a href="https://www.yyfol.com/2019/cjsvx2yj100033gq650hg3y69/">https://www.yyfol.com/2019/cjsvx2yj100033gq650hg3y69/</a>
-            </p><p>发表日期：<a href="https://www.yyfol.com/2019/cjsvx2yj100033gq650hg3y69/">March 5th 2019, 4:49:26 pm</a>
-            </p><p>更新日期：<a href="https://www.yyfol.com/2019/cjsvx2yj100033gq650hg3y69/">March 5th 2019, 4:56:02 pm</a>
+            </p><p>原文链接：<a href="https://www.yyfol.com/2019/cjsvy2j800001osq6087ra925/">https://www.yyfol.com/2019/cjsvy2j800001osq6087ra925/</a>
+            </p><p>发表日期：<a href="https://www.yyfol.com/2019/cjsvy2j800001osq6087ra925/">March 5th 2019, 4:49:27 pm</a>
+            </p><p>更新日期：<a href="https://www.yyfol.com/2019/cjsvy2j800001osq6087ra925/">March 5th 2019, 4:54:21 pm</a>
             </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -445,17 +496,12 @@ height:50vh;
     <ul class="post-paginator">
         <li class="next">
             
-                <div class="nextSlogan">Next Post</div>
-                <a href="/2019/cjsvx2yj500043gq67hoh7zhl/" title="游戏开发之路5">
-                    <div class="nextTitle">游戏开发之路5</div>
-                </a>
-            
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href="/2019/cjsvx2yix00023gq6wx5od2cy/" title="游戏开发之路3">
-                    <div class="prevTitle">游戏开发之路3</div>
+                <a href="/2019/cjsvy2j7s0000osq62s0386hn/" title="游戏开发之路1">
+                    <div class="prevTitle">游戏开发之路1</div>
                 </a>
             
         </li>
@@ -593,7 +639,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#经验分享"><span class="toc-number">1.</span> <span class="toc-text">经验分享</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#第二轮demo比赛总结"><span class="toc-number">1.1.</span> <span class="toc-text">第二轮demo比赛总结</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#总结"><span class="toc-number">1.2.</span> <span class="toc-text">总结</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#游戏开发"><span class="toc-number">1.</span> <span class="toc-text">游戏开发</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#客户端"><span class="toc-number">1.1.</span> <span class="toc-text">客户端</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#服务端"><span class="toc-number">1.2.</span> <span class="toc-text">服务端</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -675,7 +721,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/cjsvx2yj500043gq67hoh7zhl/">游戏开发之路5</a>
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/cjsvy2j8d0004osq6o20b4k51/">游戏开发之路5</a>
         </li>
     
     
@@ -689,7 +735,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/cjsvx2yj100033gq650hg3y69/">游戏开发之路4</a>
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/cjsvy2j820003osq6l3q4ycjn/">游戏开发之路4</a>
         </li>
     
     
@@ -703,7 +749,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/cjsvx2yix00023gq6wx5od2cy/">游戏开发之路3</a>
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/cjsvy2j810002osq6x3r20508/">游戏开发之路3</a>
         </li>
     
     
@@ -717,12 +763,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/cjsvx2yis00013gq6515nebr8/">游戏开发之路2</a>
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/cjsvy2j800001osq6087ra925/">游戏开发之路2</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/cjsvx2yia00003gq62hmt5ckq/">游戏开发之路1</a>
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/cjsvy2j7s0000osq62s0386hn/">游戏开发之路1</a>
         </li>
     
     </ul></div>
