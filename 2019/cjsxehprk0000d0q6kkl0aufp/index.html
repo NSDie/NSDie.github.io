@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="Ye Yifan">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="Ye Yifan">
+    
+    <meta name="keywords" content="ML,Java,Python">
+    
+    <meta name="description" content>
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Tensorflow做模型预测（入门级） · yyfol&#39;s Blog</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="stylesheet" href="/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href="/assets/favicon.ico">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js" as="script">
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+    <script>
+        (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+        (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-135610801-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/">yyfol&#39;s Blog.</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">Tensorflow做模型预测（入门级）</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href="/">yyfol's Blog.</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            Tensorflow做模型预测（入门级）
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">2k</span>阅读时长: <span class="post-count reading-time">8 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2019/03/07</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h2 id="使用-TensorFlow-的基本步骤"><a href="#使用-TensorFlow-的基本步骤" class="headerlink" title="使用 TensorFlow 的基本步骤"></a>使用 TensorFlow 的基本步骤</h2><h3 id="学习目标："><a href="#学习目标：" class="headerlink" title="学习目标："></a>学习目标：</h3><ul>
+<li>学习基本的 TensorFlow 概念</li>
+<li>在 TensorFlow 中使用 LinearRegressor 类并基于单个输入特征预测各城市街区的房屋价值中位数</li>
+<li>使用均方根误差 (RMSE) 评估模型预测的准确率</li>
+<li>通过调整模型的超参数提高模型准确率</li>
+</ul>
+<blockquote>
+<p>数据基于<em>加利福尼亚州 1990 年的人口普查数据</em>。</p>
+</blockquote>
+<h3 id="1-设置"><a href="#1-设置" class="headerlink" title="1. 设置"></a>1. 设置</h3><p>首先我们要<code>import</code>相应的库，做一些准备工作。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> math</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> IPython</span><br><span class="line">print(<span class="string">"IPython version: &#123;&#125;"</span>.format(IPython.__version__))</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> matplotlib</span><br><span class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> pyplot <span class="keyword">as</span> plt</span><br><span class="line">print(<span class="string">"matplotlib version: &#123;&#125;"</span>.format(matplotlib.__version__))</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">print(<span class="string">"NumPy version: &#123;&#125;"</span>.format(np.__version__))</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">print(<span class="string">"pandas version: &#123;&#125;"</span>.format(pd.__version__))</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> sklearn</span><br><span class="line">print(<span class="string">"scikit-learn version: &#123;&#125;"</span>.format(sklearn.__version__))</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line">print(<span class="string">"tensorflow version: &#123;&#125;"</span>.format(tf.__version__))</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> tensorflow.python.data <span class="keyword">import</span> Dataset</span><br><span class="line"><span class="comment">#设置 tf 训练过程中输出报错信息</span></span><br><span class="line"><span class="comment">#如果要设置 tf训练过程中输出loss信息，可以把ERROR改为INFO，复制粘贴一下。</span></span><br><span class="line">tf.logging.set_verbosity(tf.logging.ERROR)</span><br><span class="line"><span class="comment">#设置 pandas 的显示大小、格式</span></span><br><span class="line">pd.options.display.max_rows = <span class="number">10</span>  </span><br><span class="line">pd.options.display.float_format = <span class="string">'&#123;:.1f&#125;'</span>.format</span><br></pre></td></tr></table></figure>
+<p>这是我的配置：<br><img src="/2019/cjsxehprk0000d0q6kkl0aufp/1.png" alt></p>
+<p>接下来我们就添加数据集。用到<strong>pands</strong>的<code>read_csv</code>函数。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">california_housing_dataframe = pd.read_csv(<span class="string">"https://storage.googleapis.com/mledu-datasets/california_housing_train.csv"</span>, sep=<span class="string">","</span>)</span><br></pre></td></tr></table></figure>
+<p>我们将对数据进行随机化处理，以确保不会出现任何病态排序结果（可能会损害随机梯度下降法的效果）。此外，我们会将 <strong>median_house_value</strong> 调整为以千为单位，这样，模型就能够以常用范围内的学习速率较为轻松地学习这些数据。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">california_housing_dataframe = california_housing_dataframe.reindex(np.random.permutation(california_housing_dataframe.index))</span><br><span class="line">california_housing_dataframe[<span class="string">"median_house_value"</span>] /= <span class="number">1000.0</span></span><br><span class="line">california_housing_dataframe</span><br></pre></td></tr></table></figure></p>
+<p><img src="/2019/cjsxehprk0000d0q6kkl0aufp/2.png" alt></p>
+<h3 id="2-检查数据"><a href="#2-检查数据" class="headerlink" title="2. 检查数据"></a>2. 检查数据</h3><p>建议在使用之前，先观察一下数据，在上面那个步骤的最后一句话应该会输出数据的前几位和后几位，大概能了解数据的字段名。但是还有一个更实用的函数<code>describe()</code>可以输出数据的统计信息快速摘要：<strong>样本数</strong>、<strong>均值</strong>、<strong>标准偏差</strong>、<strong>最大值</strong>、<strong>最小值</strong>和<strong>各种分位数</strong>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">california_housing_dataframe.describe()</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/cjsxehprk0000d0q6kkl0aufp/3.png" alt><br>显示数据的统计摘要</p>
+<h3 id="3-构建第一个模型"><a href="#3-构建第一个模型" class="headerlink" title="3. 构建第一个模型"></a>3. 构建第一个模型</h3><p>我们将尝试预测 <strong>median_house_value</strong>，它将是我们的标签（有时也称为目标）。我们将使用 <strong>total_rooms</strong> 作为输入特征。</p>
+<h4 id="第-1-步：定义特征并配置特征列"><a href="#第-1-步：定义特征并配置特征列" class="headerlink" title="第 1 步：定义特征并配置特征列"></a><strong>第 1 步：定义特征并配置特征列</strong></h4><p>为了将我们的训练数据导入 TensorFlow，我们需要指定每个特征包含的数据类型。我们主要会使用以下两类数据：</p>
+<ul>
+<li><p><strong>分类数据</strong>：一种文字数据。在本练习中，我们的住房数据集不包含任何分类特征，但您可能会看到的示例包括家居风格以及房地产广告词。</p>
+</li>
+<li><p><strong>数值数据</strong>：一种数字（整数或浮点数）数据以及您希望视为数字的数据。有时您可能会希望将数值数据（例如邮政编码）视为分类数据（我们将在稍后的部分对此进行详细说明）。</p>
+</li>
+</ul>
+<p>在 TensorFlow 中，我们使用一种称为“特征列”的结构来表示特征的数据类型。特征列仅存储对特征数据的描述；不包含特征数据本身。 一开始，我们只使用一个数值输入特征 total_rooms。以下代码会从 california_housing_dataframe 中提取 total_rooms 数据，并使用 numeric_column 定义特征列，这样会将其数据指定为数值：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Define the input feature: total_rooms.</span></span><br><span class="line">my_feature = california_housing_dataframe[[<span class="string">"total_rooms"</span>]]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Configure a numeric feature column for total_rooms.</span></span><br><span class="line">feature_columns = [tf.feature_column.numeric_column(<span class="string">"total_rooms"</span>)]</span><br></pre></td></tr></table></figure>
+<h4 id="第-2-步：定义目标"><a href="#第-2-步：定义目标" class="headerlink" title="第 2 步：定义目标"></a><strong>第 2 步：定义目标</strong></h4><p>接下来，我们将定义目标，也就是 median_house_value。同样，我们可以从 california_housing_dataframe 中提取它：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Define the label.</span></span><br><span class="line">targets = california_housing_dataframe[<span class="string">"median_house_value"</span>]</span><br></pre></td></tr></table></figure>
+<h4 id="第-3-步：配置-LinearRegressor"><a href="#第-3-步：配置-LinearRegressor" class="headerlink" title="第 3 步：配置 LinearRegressor"></a><strong>第 3 步：配置 LinearRegressor</strong></h4><p>接下来，我们将使用 LinearRegressor 配置线性回归模型，并使用 <code>GradientDescentOptimizer</code>（它会实现小批量随机梯度下降法 (SGD)）训练该模型。learning_rate 参数可控制梯度步长的大小。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Use gradient descent as the optimizer for training the model.</span></span><br><span class="line">my_optimizer=tf.train.GradientDescentOptimizer(learning_rate=<span class="number">0.0000001</span>)</span><br><span class="line">my_optimizer = tf.contrib.estimator.clip_gradients_by_norm(my_optimizer, <span class="number">5.0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Configure the linear regression model with our feature columns and optimizer.</span></span><br><span class="line"><span class="comment"># Set a learning rate of 0.0000001 for Gradient Descent.</span></span><br><span class="line">linear_regressor = tf.estimator.LinearRegressor(</span><br><span class="line">    feature_columns=feature_columns,</span><br><span class="line">    optimizer=my_optimizer</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h4 id="第-4-步：定义输入函数"><a href="#第-4-步：定义输入函数" class="headerlink" title="第 4 步：定义输入函数"></a><strong>第 4 步：定义输入函数</strong></h4><p>模型配置完，目标与特征也选完了，把数据导入到<strong>LinearRegressor</strong>去，我们需要定义一个输入函数让它告诉 TensorFlow 如何对数据进行预处理，以及在模型训练期间如何批处理、随机处理和重复数据。 首先，我们将 Pandas 特征数据转换成 NumPy 数组字典。然后，我们可以使用 <strong>TensorFlow Dataset API</strong> 根据我们的数据构建 Dataset 对象，并将数据拆分成大小为 batch_size 的多批数据，以按照指定周期数 (num_epochs) 进行重复。</p>
+<blockquote>
+<p>注意：如果将默认值 num_epochs=None 传递到 repeat()，输入数据会无限期重复。</p>
+</blockquote>
+<p>然后，如果 shuffle 设置为 True，则我们会对数据进行随机处理，以便数据在训练期间以随机方式传递到模型。buffer_size 参数会指定 shuffle 将从中随机抽样的数据集的大小。 最后，输入函数会为该数据集构建一个迭代器，并向 LinearRegressor 返回下一批数据。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">my_input_fn</span><span class="params">(features, targets, batch_size=<span class="number">1</span>, shuffle=True, num_epochs=None)</span>:</span></span><br><span class="line">    <span class="string">"""用一个特征值训练一个线性回归模型</span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">      features: 特征值</span></span><br><span class="line"><span class="string">      targets: 目标值</span></span><br><span class="line"><span class="string">      batch_size: 传递给模型的batch的大小</span></span><br><span class="line"><span class="string">      shuffle: True or False. 决定是否要将数据打乱顺序</span></span><br><span class="line"><span class="string">      num_epochs: 可以重复的元组数， None 表示无重复</span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">      包含下一个数据批的特征、标签的元组（tuple）</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Convert pandas data into a dict of np arrays.</span></span><br><span class="line">    features = &#123;key:np.array(value) <span class="keyword">for</span> key,value <span class="keyword">in</span> dict(features).items()&#125;                                           </span><br><span class="line"></span><br><span class="line">    <span class="comment"># Construct a dataset, and configure batching/repeating</span></span><br><span class="line">    ds = Dataset.from_tensor_slices((features,targets)) <span class="comment"># warning: 2GB limit</span></span><br><span class="line">    ds = ds.batch(batch_size).repeat(num_epochs)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Shuffle the data, if specified</span></span><br><span class="line">    <span class="keyword">if</span> shuffle:</span><br><span class="line">      ds = ds.shuffle(buffer_size=<span class="number">10000</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Return the next batch of data</span></span><br><span class="line">    features, labels = ds.make_one_shot_iterator().get_next()</span><br><span class="line">    <span class="keyword">return</span> features, labels</span><br></pre></td></tr></table></figure>
+<h4 id="第-5-步：训练模型"><a href="#第-5-步：训练模型" class="headerlink" title="第 5 步：训练模型"></a><strong>第 5 步：训练模型</strong></h4><p>现在，我们可以在 linear_regressor 上调用 train() 来训练模型。我们会将 my_input_fn 封装在 lambda 中，以便可以将 my_feature 和 target 作为参数传入,我们可以先训练100步。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">linear_regressor.train(</span><br><span class="line">    input_fn = <span class="keyword">lambda</span>:my_input_fn(my_feature, targets),</span><br><span class="line">    steps=<span class="number">1000</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<h4 id="第-6-步：评估模型"><a href="#第-6-步：评估模型" class="headerlink" title="第 6 步：评估模型"></a><strong>第 6 步：评估模型</strong></h4><p>我们基于该训练数据做一次预测，看看我们的模型在训练期间与这些数据的拟合情况。 注意：训练误差可以衡量您的模型与训练数据的拟合情况，但并不能衡量模型<strong>泛化</strong>到新数据的效果。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Create an input function for predictions.</span></span><br><span class="line"><span class="comment"># Note: Since we're making just one prediction for each example, we don't </span></span><br><span class="line"><span class="comment"># need to repeat or shuffle the data here.</span></span><br><span class="line">prediction_input_fn =<span class="keyword">lambda</span>: my_input_fn(my_feature, targets, num_epochs=<span class="number">1</span>, shuffle=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Call predict() on the linear_regressor to make predictions.</span></span><br><span class="line">predictions = linear_regressor.predict(input_fn=prediction_input_fn)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Format predictions as a NumPy array, so we can calculate error metrics.</span></span><br><span class="line">predictions = np.array([item[<span class="string">'predictions'</span>][<span class="number">0</span>] <span class="keyword">for</span> item <span class="keyword">in</span> predictions])</span><br><span class="line"></span><br><span class="line"><span class="comment"># Print Mean Squared Error and Root Mean Squared Error.</span></span><br><span class="line">mean_squared_error = sklearn.metrics.mean_squared_error(predictions, targets)</span><br><span class="line">root_mean_squared_error = math.sqrt(mean_squared_error)</span><br><span class="line"><span class="keyword">print</span> <span class="string">"Mean Squared Error (on training data): %0.3f"</span> % mean_squared_error</span><br><span class="line"><span class="keyword">print</span> <span class="string">"Root Mean Squared Error (on training data): %0.3f"</span> % root_mean_squared_error</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/cjsxehprk0000d0q6kkl0aufp/4.png" alt></p>
+<p>然后我们看一下预测跟目标函数的统计摘要：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">calibration_data = pd.DataFrame()</span><br><span class="line">calibration_data[<span class="string">"predictions"</span>] = pd.Series(predictions)</span><br><span class="line">calibration_data[<span class="string">"targets"</span>] = pd.Series(targets)</span><br><span class="line">calibration_data.describe()</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/cjsxehprk0000d0q6kkl0aufp/5.png" alt></p>
+<p>我们也可以根据模型绘制出散点图：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">sample = california_housing_dataframe.sample(n=<span class="number">300</span>)</span><br><span class="line"><span class="comment"># Get the min and max total_rooms values.</span></span><br><span class="line">x_0 = sample[<span class="string">"total_rooms"</span>].min()</span><br><span class="line">x_1 = sample[<span class="string">"total_rooms"</span>].max()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Retrieve the final weight and bias generated during training.</span></span><br><span class="line">weight = linear_regressor.get_variable_value(<span class="string">'linear/linear_model/total_rooms/weights'</span>)[<span class="number">0</span>]</span><br><span class="line">bias = linear_regressor.get_variable_value(<span class="string">'linear/linear_model/bias_weights'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Get the predicted median_house_values for the min and max total_rooms values.</span></span><br><span class="line">y_0 = weight * x_0 + bias </span><br><span class="line">y_1 = weight * x_1 + bias</span><br><span class="line"></span><br><span class="line"><span class="comment"># Plot our regression line from (x_0, y_0) to (x_1, y_1).</span></span><br><span class="line">plt.plot([x_0, x_1], [y_0, y_1], c=<span class="string">'r'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Label the graph axes.</span></span><br><span class="line">plt.ylabel(<span class="string">"median_house_value"</span>)</span><br><span class="line">plt.xlabel(<span class="string">"total_rooms"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Plot a scatter plot from our data sample.</span></span><br><span class="line">plt.scatter(sample[<span class="string">"total_rooms"</span>], sample[<span class="string">"median_house_value"</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># Display graph.</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><img src="/2019/cjsxehprk0000d0q6kkl0aufp/6.png" alt></p>
+<p>这条初始线看起来与目标相差很大。看看您能否回想起摘要统计信息，并看到其中蕴含的相同信息。 然后重新设置之前的参数，继续训练，看能否找到更好的结果。<br>综上所述，这些初始健全性检查提示我们也许可以找到更好的线。</p>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="https://www.yyfol.com">Ye Yifan</a>
+            </p><p>原文链接：<a href="https://www.yyfol.com/2019/cjsxehprk0000d0q6kkl0aufp/">https://www.yyfol.com/2019/cjsxehprk0000d0q6kkl0aufp/</a>
+            </p><p>发表日期：<a href="https://www.yyfol.com/2019/cjsxehprk0000d0q6kkl0aufp/">March 7th 2019, 12:10:16 am</a>
+            </p><p>更新日期：<a href="https://www.yyfol.com/2019/cjsxehprk0000d0q6kkl0aufp/">March 7th 2019, 12:12:05 am</a>
+            </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2019/cjsxehprt0001d0q669xg1b38/" title="模板匹配（matlab实现）">
+                    <div class="prevTitle">模板匹配（matlab实现）</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+    <div id="lv-container" data-id="city" data-uid="MTAyMC80Mjk5Ni8xOTU0Mg==">
+        <script type="text/javascript">
+            (function (d, s) {
+                var j, e = d.getElementsByTagName(s)[0];
+                if (typeof LivereTower === 'function') { return; }
+                j = d.createElement(s);
+                j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                j.async = true;
+
+                e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+        </script>
+        <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+    </div>
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:yyfol@vip.qq.com" class="iconfont-archer email" title="email"></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/nsdie" class="iconfont-archer github" target="_blank" title="github"></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title="wechat">
+                  
+                  <img class="profile-qr" src="/assets/wechat.png">
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="https://steamcommunity.com/profiles/76561198098327197/" class="iconfont-archer steam" target="_blank" title="steam"></a>
+            
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#使用-TensorFlow-的基本步骤"><span class="toc-number">1.</span> <span class="toc-text">使用 TensorFlow 的基本步骤</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#学习目标："><span class="toc-number">1.1.</span> <span class="toc-text">学习目标：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-设置"><span class="toc-number">1.2.</span> <span class="toc-text">1. 设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-检查数据"><span class="toc-number">1.3.</span> <span class="toc-text">2. 检查数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-构建第一个模型"><span class="toc-number">1.4.</span> <span class="toc-text">3. 构建第一个模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#第-1-步：定义特征并配置特征列"><span class="toc-number">1.4.1.</span> <span class="toc-text">第 1 步：定义特征并配置特征列</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第-2-步：定义目标"><span class="toc-number">1.4.2.</span> <span class="toc-text">第 2 步：定义目标</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第-3-步：配置-LinearRegressor"><span class="toc-number">1.4.3.</span> <span class="toc-text">第 3 步：配置 LinearRegressor</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第-4-步：定义输入函数"><span class="toc-number">1.4.4.</span> <span class="toc-text">第 4 步：定义输入函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第-5-步：训练模型"><span class="toc-number">1.4.5.</span> <span class="toc-text">第 5 步：训练模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第-6-步：评估模型"><span class="toc-number">1.4.6.</span> <span class="toc-text">第 6 步：评估模型</span></a></li></ol></li></ol></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 7
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/cjsxehpse0006d0q6v6enm3t0/">游戏开发之路5</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/cjsxehps50005d0q6lz7g6wj3/">游戏开发之路4</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/cjsxehps30004d0q65j5ilb7s/">游戏开发之路3</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/06</span><a class="archive-post-title" href="/2019/cjsxehprt0001d0q669xg1b38/">模板匹配（matlab实现）</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/cjsxehps00003d0q6dvwbjdb4/">游戏开发之路2</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/cjsxehprw0002d0q6w1pzbd2g/">游戏开发之路1</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/cjsxehprk0000d0q6kkl0aufp/">Tensorflow做模型预测（入门级）</a>
+        </li>
+    
+    </ul></div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br>
+    1、请确保node版本大于6.2<br>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "Ye Yifan"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+

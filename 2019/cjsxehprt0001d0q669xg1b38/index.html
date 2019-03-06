@@ -407,8 +407,8 @@ height:50vh;
             <main class="main post-page">
     <article class="article-entry">
         <h3 id="基于像素匹配算法"><a href="#基于像素匹配算法" class="headerlink" title="基于像素匹配算法"></a>基于像素匹配算法</h3><p>模板匹配算法一般是通过滑窗的方式在待匹配的图像上滑动，通过比较模板与子图的相似度，找到相似度最大的子图。这种算法最核心部分在于如何设计一个相似性函数。   </p>
-<p>最容易想到的一个相似性函数便是欧式距离：<br><img src="/2019/cjsxb81wm000038q6j5tot59c/欧氏距离.png" alt="欧式距离公式"></p>
-<p>将这个相似性函数展开，可以得:<br><img src="/2019/cjsxb81wm000038q6j5tot59c/欧氏距离展开式.png" alt="欧氏距离展开式"><br>可以看出，只有第二项是有意义的，因为第一项和第三项的值在选定模板后是固定的。对于欧式距离相似函数，值越大表示越不相似，也就是说，第二项的值越小则越不相似。     再将第二项归一化:<br><img src="/2019/cjsxb81wm000038q6j5tot59c/欧氏距离归一化.png" alt="欧氏距离归一化"></p>
+<p>最容易想到的一个相似性函数便是欧式距离：<br><img src="/2019/cjsxehprt0001d0q669xg1b38/欧氏距离.png" alt="欧式距离公式"></p>
+<p>将这个相似性函数展开，可以得:<br><img src="/2019/cjsxehprt0001d0q669xg1b38/欧氏距离展开式.png" alt="欧氏距离展开式"><br>可以看出，只有第二项是有意义的，因为第一项和第三项的值在选定模板后是固定的。对于欧式距离相似函数，值越大表示越不相似，也就是说，第二项的值越小则越不相似。     再将第二项归一化:<br><img src="/2019/cjsxehprt0001d0q669xg1b38/欧氏距离归一化.png" alt="欧氏距离归一化"></p>
 <blockquote>
 <p>如果就仅仅匹配大小不变角度不变的模板，到此为止就够了。</p>
 </blockquote>
@@ -416,7 +416,7 @@ height:50vh;
 <h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><p>化简后的欧氏距离matlab实现方法。</p>
 <figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> <span class="built_in">i</span>=<span class="number">1</span>:m-m0+<span class="number">1</span>  </span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">j</span>=<span class="number">1</span>:n-n0+<span class="number">1</span>  </span><br><span class="line">        subMatr=test(<span class="built_in">i</span>:<span class="built_in">i</span>+m0<span class="number">-1</span>,<span class="built_in">j</span>:<span class="built_in">j</span>+n0<span class="number">-1</span>);  </span><br><span class="line">        vec=double( subMatr(:) );  </span><br><span class="line">        result(<span class="built_in">i</span>,<span class="built_in">j</span>)=vec'*vec_sub / (norm(vec)*norm_sub+<span class="built_in">eps</span>);  </span><br><span class="line">    <span class="keyword">end</span> </span><br><span class="line"> <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
 <p>结果图：</p>
-<p><img src="/2019/cjsxb81wm000038q6j5tot59c/1.png" alt><br><img src="/2019/cjsxb81wm000038q6j5tot59c/2.png" alt></p>
+<p><img src="/2019/cjsxehprt0001d0q669xg1b38/1.png" alt><br><img src="/2019/cjsxehprt0001d0q669xg1b38/2.png" alt></p>
 <blockquote>
 <p>具体源码 可以见<a href="https://github.com/NSDie/templet" target="_blank" rel="noopener">github</a>.</p>
 </blockquote>
@@ -426,9 +426,9 @@ height:50vh;
     
         <div class="license-wrapper">
             <p>原文作者：<a href="https://www.yyfol.com">Ye Yifan</a>
-            </p><p>原文链接：<a href="https://www.yyfol.com/2019/cjsxb81wm000038q6j5tot59c/">https://www.yyfol.com/2019/cjsxb81wm000038q6j5tot59c/</a>
-            </p><p>发表日期：<a href="https://www.yyfol.com/2019/cjsxb81wm000038q6j5tot59c/">March 6th 2019, 11:04:53 am</a>
-            </p><p>更新日期：<a href="https://www.yyfol.com/2019/cjsxb81wm000038q6j5tot59c/">March 6th 2019, 10:40:06 pm</a>
+            </p><p>原文链接：<a href="https://www.yyfol.com/2019/cjsxehprt0001d0q669xg1b38/">https://www.yyfol.com/2019/cjsxehprt0001d0q669xg1b38/</a>
+            </p><p>发表日期：<a href="https://www.yyfol.com/2019/cjsxehprt0001d0q669xg1b38/">March 6th 2019, 11:04:53 am</a>
+            </p><p>更新日期：<a href="https://www.yyfol.com/2019/cjsxehprt0001d0q669xg1b38/">March 6th 2019, 10:40:06 pm</a>
             </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -436,11 +436,16 @@ height:50vh;
     <ul class="post-paginator">
         <li class="next">
             
+                <div class="nextSlogan">Next Post</div>
+                <a href="/2019/cjsxehprk0000d0q6kkl0aufp/" title="Tensorflow做模型预测（入门级）">
+                    <div class="nextTitle">Tensorflow做模型预测（入门级）</div>
+                </a>
+            
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href="/2019/cjsxb81x6000238q6yzxvjaqg/" title="游戏开发之路2">
+                <a href="/2019/cjsxehps00003d0q6dvwbjdb4/" title="游戏开发之路2">
                     <div class="prevTitle">游戏开发之路2</div>
                 </a>
             
@@ -658,9 +663,26 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 6
+        Total : 7
         </div>
         <!-- search  -->
         
@@ -676,7 +698,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/cjsxb81xm000538q6gcpeq36u/">游戏开发之路5</a>
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/cjsxehpse0006d0q6v6enm3t0/">游戏开发之路5</a>
         </li>
     
     
@@ -690,7 +712,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/cjsxb81xi000438q6ca5jfwid/">游戏开发之路4</a>
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/cjsxehps50005d0q6lz7g6wj3/">游戏开发之路4</a>
         </li>
     
     
@@ -704,7 +726,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/cjsxb81xf000338q6bkl06t02/">游戏开发之路3</a>
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/cjsxehps30004d0q65j5ilb7s/">游戏开发之路3</a>
         </li>
     
     
@@ -718,17 +740,31 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/06</span><a class="archive-post-title" href="/2019/cjsxb81wm000038q6j5tot59c/">模板匹配（matlab实现）</a>
+            <span class="archive-post-date">03/06</span><a class="archive-post-title" href="/2019/cjsxehprt0001d0q669xg1b38/">模板匹配（matlab实现）</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/cjsxb81x6000238q6yzxvjaqg/">游戏开发之路2</a>
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/cjsxehps00003d0q6dvwbjdb4/">游戏开发之路2</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/cjsxb81x1000138q6mrn4v051/">游戏开发之路1</a>
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/cjsxehprw0002d0q6w1pzbd2g/">游戏开发之路1</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> Invalid date </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/cjsxehprk0000d0q6kkl0aufp/">Tensorflow做模型预测（入门级）</a>
         </li>
     
     </ul></div>
