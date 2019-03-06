@@ -370,6 +370,36 @@ height:50vh;
     
     
     <article class="index-post">
+        <a class="abstract-title" href="/2019/cjswmdeck0000dsq6roudxoo1/">
+            
+                <span>模板匹配（matlab实现）</span>
+        </a>
+        <div class="abstract-content">
+            基于像素匹配算法模板匹配算法一般是通过滑窗的方式在待匹配的图像上滑动，通过比较模板与子图的相似度，找到相似度最大的子图。这种算法最核心部分在于如何设计一个相似性函数。   
+最容易想到的一个相似性函数便是欧式距离：      
+将这个相似性函数展开，可以得：      可以看出，只有第二项是有意义的，因为第一项和第三项的值在选定模板后是固定的。对于欧式距离相似函数，值越大表示越不相似，也就是说，第二项的值越小则越不相似。     再将第二项归一化： 
+
+如果就仅仅匹配大小不变角度不变的模板，到此为止就够了。
+
+为了解决旋转不变性，我用很简单的很丑陋的方法————旋转模板再重新匹配。
+代码...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/06</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href="/2019/cjsvy2j800001osq6087ra925/">
             
                 <span>游戏开发之路2</span>
@@ -749,9 +779,24 @@ height:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 5
+        Total : 6
         </div>
         <!-- search  -->
         
@@ -761,6 +806,20 @@ height:50vh;
     
     
     
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/06</span><a class="archive-post-title" href="/2019/cjswmdeck0000dsq6roudxoo1/">模板匹配（matlab实现）</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
     
     <div class="archive-year"> Invalid date </div>
     <ul class="year-list">
