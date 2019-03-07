@@ -252,7 +252,7 @@ height:50vh;
     <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-img" style="background-image: url(https://source.unsplash.com/random)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
@@ -274,6 +274,14 @@ height:50vh;
         
             <div class="post-intros">
                 <!-- 文章页标签  -->
+                
+                    <div class="post-intro-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="tensorflow">tensorflow</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="python">python</a>
+    
+</div>
                 
                 
                     <div class="post-intro-read">
@@ -417,14 +425,14 @@ height:50vh;
 </blockquote>
 <h3 id="1-设置"><a href="#1-设置" class="headerlink" title="1. 设置"></a>1. 设置</h3><p>首先我们要<code>import</code>相应的库，做一些准备工作。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> math</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> IPython</span><br><span class="line">print(<span class="string">"IPython version: &#123;&#125;"</span>.format(IPython.__version__))</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> matplotlib</span><br><span class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> pyplot <span class="keyword">as</span> plt</span><br><span class="line">print(<span class="string">"matplotlib version: &#123;&#125;"</span>.format(matplotlib.__version__))</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">print(<span class="string">"NumPy version: &#123;&#125;"</span>.format(np.__version__))</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">print(<span class="string">"pandas version: &#123;&#125;"</span>.format(pd.__version__))</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> sklearn</span><br><span class="line">print(<span class="string">"scikit-learn version: &#123;&#125;"</span>.format(sklearn.__version__))</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line">print(<span class="string">"tensorflow version: &#123;&#125;"</span>.format(tf.__version__))</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> tensorflow.python.data <span class="keyword">import</span> Dataset</span><br><span class="line"><span class="comment">#设置 tf 训练过程中输出报错信息</span></span><br><span class="line"><span class="comment">#如果要设置 tf训练过程中输出loss信息，可以把ERROR改为INFO，复制粘贴一下。</span></span><br><span class="line">tf.logging.set_verbosity(tf.logging.ERROR)</span><br><span class="line"><span class="comment">#设置 pandas 的显示大小、格式</span></span><br><span class="line">pd.options.display.max_rows = <span class="number">10</span>  </span><br><span class="line">pd.options.display.float_format = <span class="string">'&#123;:.1f&#125;'</span>.format</span><br></pre></td></tr></table></figure>
-<p>这是我的配置：<br><img src="/2019/cjsxehprk0000d0q6kkl0aufp/1.png" alt></p>
+<p>这是我的配置：<br><img src="1.png" alt></p>
 <p>接下来我们就添加数据集。用到<strong>pands</strong>的<code>read_csv</code>函数。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">california_housing_dataframe = pd.read_csv(<span class="string">"https://storage.googleapis.com/mledu-datasets/california_housing_train.csv"</span>, sep=<span class="string">","</span>)</span><br></pre></td></tr></table></figure>
 <p>我们将对数据进行随机化处理，以确保不会出现任何病态排序结果（可能会损害随机梯度下降法的效果）。此外，我们会将 <strong>median_house_value</strong> 调整为以千为单位，这样，模型就能够以常用范围内的学习速率较为轻松地学习这些数据。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">california_housing_dataframe = california_housing_dataframe.reindex(np.random.permutation(california_housing_dataframe.index))</span><br><span class="line">california_housing_dataframe[<span class="string">"median_house_value"</span>] /= <span class="number">1000.0</span></span><br><span class="line">california_housing_dataframe</span><br></pre></td></tr></table></figure></p>
-<p><img src="/2019/cjsxehprk0000d0q6kkl0aufp/2.png" alt></p>
+<p><img src="2.png" alt></p>
 <h3 id="2-检查数据"><a href="#2-检查数据" class="headerlink" title="2. 检查数据"></a>2. 检查数据</h3><p>建议在使用之前，先观察一下数据，在上面那个步骤的最后一句话应该会输出数据的前几位和后几位，大概能了解数据的字段名。但是还有一个更实用的函数<code>describe()</code>可以输出数据的统计信息快速摘要：<strong>样本数</strong>、<strong>均值</strong>、<strong>标准偏差</strong>、<strong>最大值</strong>、<strong>最小值</strong>和<strong>各种分位数</strong>。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">california_housing_dataframe.describe()</span><br></pre></td></tr></table></figure>
-<p><img src="/2019/cjsxehprk0000d0q6kkl0aufp/3.png" alt><br>显示数据的统计摘要</p>
+<p><img src="3.png" alt><br>显示数据的统计摘要</p>
 <h3 id="3-构建第一个模型"><a href="#3-构建第一个模型" class="headerlink" title="3. 构建第一个模型"></a>3. 构建第一个模型</h3><p>我们将尝试预测 <strong>median_house_value</strong>，它将是我们的标签（有时也称为目标）。我们将使用 <strong>total_rooms</strong> 作为输入特征。</p>
 <h4 id="第-1-步：定义特征并配置特征列"><a href="#第-1-步：定义特征并配置特征列" class="headerlink" title="第 1 步：定义特征并配置特征列"></a><strong>第 1 步：定义特征并配置特征列</strong></h4><p>为了将我们的训练数据导入 TensorFlow，我们需要指定每个特征包含的数据类型。我们主要会使用以下两类数据：</p>
 <ul>
@@ -449,13 +457,13 @@ height:50vh;
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">linear_regressor.train(</span><br><span class="line">    input_fn = <span class="keyword">lambda</span>:my_input_fn(my_feature, targets),</span><br><span class="line">    steps=<span class="number">1000</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 <h4 id="第-6-步：评估模型"><a href="#第-6-步：评估模型" class="headerlink" title="第 6 步：评估模型"></a><strong>第 6 步：评估模型</strong></h4><p>我们基于该训练数据做一次预测，看看我们的模型在训练期间与这些数据的拟合情况。 注意：训练误差可以衡量您的模型与训练数据的拟合情况，但并不能衡量模型<strong>泛化</strong>到新数据的效果。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Create an input function for predictions.</span></span><br><span class="line"><span class="comment"># Note: Since we're making just one prediction for each example, we don't </span></span><br><span class="line"><span class="comment"># need to repeat or shuffle the data here.</span></span><br><span class="line">prediction_input_fn =<span class="keyword">lambda</span>: my_input_fn(my_feature, targets, num_epochs=<span class="number">1</span>, shuffle=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Call predict() on the linear_regressor to make predictions.</span></span><br><span class="line">predictions = linear_regressor.predict(input_fn=prediction_input_fn)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Format predictions as a NumPy array, so we can calculate error metrics.</span></span><br><span class="line">predictions = np.array([item[<span class="string">'predictions'</span>][<span class="number">0</span>] <span class="keyword">for</span> item <span class="keyword">in</span> predictions])</span><br><span class="line"></span><br><span class="line"><span class="comment"># Print Mean Squared Error and Root Mean Squared Error.</span></span><br><span class="line">mean_squared_error = sklearn.metrics.mean_squared_error(predictions, targets)</span><br><span class="line">root_mean_squared_error = math.sqrt(mean_squared_error)</span><br><span class="line"><span class="keyword">print</span> <span class="string">"Mean Squared Error (on training data): %0.3f"</span> % mean_squared_error</span><br><span class="line"><span class="keyword">print</span> <span class="string">"Root Mean Squared Error (on training data): %0.3f"</span> % root_mean_squared_error</span><br></pre></td></tr></table></figure>
-<p><img src="/2019/cjsxehprk0000d0q6kkl0aufp/4.png" alt></p>
+<p><img src="4.png" alt></p>
 <p>然后我们看一下预测跟目标函数的统计摘要：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">calibration_data = pd.DataFrame()</span><br><span class="line">calibration_data[<span class="string">"predictions"</span>] = pd.Series(predictions)</span><br><span class="line">calibration_data[<span class="string">"targets"</span>] = pd.Series(targets)</span><br><span class="line">calibration_data.describe()</span><br></pre></td></tr></table></figure>
-<p><img src="/2019/cjsxehprk0000d0q6kkl0aufp/5.png" alt></p>
+<p><img src="5.png" alt></p>
 <p>我们也可以根据模型绘制出散点图：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">sample = california_housing_dataframe.sample(n=<span class="number">300</span>)</span><br><span class="line"><span class="comment"># Get the min and max total_rooms values.</span></span><br><span class="line">x_0 = sample[<span class="string">"total_rooms"</span>].min()</span><br><span class="line">x_1 = sample[<span class="string">"total_rooms"</span>].max()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Retrieve the final weight and bias generated during training.</span></span><br><span class="line">weight = linear_regressor.get_variable_value(<span class="string">'linear/linear_model/total_rooms/weights'</span>)[<span class="number">0</span>]</span><br><span class="line">bias = linear_regressor.get_variable_value(<span class="string">'linear/linear_model/bias_weights'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Get the predicted median_house_values for the min and max total_rooms values.</span></span><br><span class="line">y_0 = weight * x_0 + bias </span><br><span class="line">y_1 = weight * x_1 + bias</span><br><span class="line"></span><br><span class="line"><span class="comment"># Plot our regression line from (x_0, y_0) to (x_1, y_1).</span></span><br><span class="line">plt.plot([x_0, x_1], [y_0, y_1], c=<span class="string">'r'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Label the graph axes.</span></span><br><span class="line">plt.ylabel(<span class="string">"median_house_value"</span>)</span><br><span class="line">plt.xlabel(<span class="string">"total_rooms"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Plot a scatter plot from our data sample.</span></span><br><span class="line">plt.scatter(sample[<span class="string">"total_rooms"</span>], sample[<span class="string">"median_house_value"</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># Display graph.</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
-<p><img src="/2019/cjsxehprk0000d0q6kkl0aufp/6.png" alt></p>
+<p><img src="6.png" alt></p>
 <p>这条初始线看起来与目标相差很大。看看您能否回想起摘要统计信息，并看到其中蕴含的相同信息。 然后重新设置之前的参数，继续训练，看能否找到更好的结果。<br>综上所述，这些初始健全性检查提示我们也许可以找到更好的线。</p>
 
     </article>
@@ -463,9 +471,9 @@ height:50vh;
     
         <div class="license-wrapper">
             <p>原文作者：<a href="https://www.yyfol.com">Ye Yifan</a>
-            </p><p>原文链接：<a href="https://www.yyfol.com/2019/cjsxehprk0000d0q6kkl0aufp/">https://www.yyfol.com/2019/cjsxehprk0000d0q6kkl0aufp/</a>
-            </p><p>发表日期：<a href="https://www.yyfol.com/2019/cjsxehprk0000d0q6kkl0aufp/">March 7th 2019, 12:10:16 am</a>
-            </p><p>更新日期：<a href="https://www.yyfol.com/2019/cjsxehprk0000d0q6kkl0aufp/">March 7th 2019, 12:12:05 am</a>
+            </p><p>原文链接：<a href="https://www.yyfol.com/2019/cjsy3176d00036oq6uwgzmdvi/">https://www.yyfol.com/2019/cjsy3176d00036oq6uwgzmdvi/</a>
+            </p><p>发表日期：<a href="https://www.yyfol.com/2019/cjsy3176d00036oq6uwgzmdvi/">March 7th 2019, 12:12:00 am</a>
+            </p><p>更新日期：<a href="https://www.yyfol.com/2019/cjsy3176d00036oq6uwgzmdvi/">March 7th 2019, 11:29:30 am</a>
             </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -477,7 +485,7 @@ height:50vh;
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href="/2019/cjsxehprt0001d0q669xg1b38/" title="模板匹配（matlab实现）">
+                <a href="/2019/cjsy3176700016oq6gjj5gnrg/" title="模板匹配（matlab实现）">
                     <div class="prevTitle">模板匹配（matlab实现）</div>
                 </a>
             
@@ -579,6 +587,10 @@ height:50vh;
     
         
     
+        
+            
+                <a href="/atom.xml" class="iconfont-archer rss" target="_blank" title="rss"></a>
+            
         
     
 
@@ -702,16 +714,6 @@ top:50vh;
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 7
@@ -725,84 +727,58 @@ top:50vh;
     
     
     
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/cjsxehpse0006d0q6v6enm3t0/">游戏开发之路5</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/cjsxehps50005d0q6lz7g6wj3/">游戏开发之路4</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/cjsxehps30004d0q65j5ilb7s/">游戏开发之路3</a>
-        </li>
-    
-    
-    
-    
-    
-        </ul>
-    
     <div class="archive-year"> 2019 </div>
     <ul class="year-list">
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/06</span><a class="archive-post-title" href="/2019/cjsxehprt0001d0q669xg1b38/">模板匹配（matlab实现）</a>
+            <span class="archive-post-date">03/07</span><a class="archive-post-title" href="/2019/cjsy3176d00036oq6uwgzmdvi/">Tensorflow做模型预测（入门级）</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/cjsxehps00003d0q6dvwbjdb4/">游戏开发之路2</a>
+            <span class="archive-post-date">03/06</span><a class="archive-post-title" href="/2019/cjsy3176700016oq6gjj5gnrg/">模板匹配（matlab实现）</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/cjsxehprw0002d0q6w1pzbd2g/">游戏开发之路1</a>
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/cjsy31779000c6oq66yzya0of/">游戏开发之路5</a>
         </li>
     
     
-    
-    
-    
-        </ul>
-    
-    <div class="archive-year"> Invalid date </div>
-    <ul class="year-list">
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/cjsy31771000b6oq6xhak1piv/">游戏开发之路4</a>
+        </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">Invalid date</span><a class="archive-post-title" href="/2019/cjsxehprk0000d0q6kkl0aufp/">Tensorflow做模型预测（入门级）</a>
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/cjsy3176l00086oq6mxdztdyo/">游戏开发之路3</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/cjsy3176k00076oq6bc9pf5pj/">游戏开发之路2</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/cjsy3176h00066oq61xhg7qpd/">游戏开发之路1</a>
         </li>
     
     </ul></div>
   </div>
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="matlab"><span class="iconfont-archer">&#xe606;</span>matlab</span>
+    
+        <span class="sidebar-tag-name" data-tags="图像处理"><span class="iconfont-archer">&#xe606;</span>图像处理</span>
+    
+        <span class="sidebar-tag-name" data-tags="tensorflow"><span class="iconfont-archer">&#xe606;</span>tensorflow</span>
+    
+        <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
+    
+        <span class="sidebar-tag-name" data-tags="游戏开发"><span class="iconfont-archer">&#xe606;</span>游戏开发</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
@@ -836,6 +812,10 @@ jsonContent:
 </div>
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="MachineLearning"><span class="iconfont-archer">&#xe60a;</span>MachineLearning</span>
+    
+        <span class="sidebar-category-name" data-categories="life"><span class="iconfont-archer">&#xe60a;</span>life</span>
     
     </div>
     <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
