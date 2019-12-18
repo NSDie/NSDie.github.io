@@ -22,7 +22,7 @@
     <meta name="description" content>
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>模板匹配（matlab实现） · yyfol&#39;s Blog</title>
+    <title>游戏开发之路5 · yyfol&#39;s Blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -228,7 +228,7 @@
                 <a href="/">yyfol&#39;s Blog.</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">模板匹配（matlab实现）</a>
+                <a href="#" class="post-name">游戏开发之路5</a>
             </div>
     </div>
     
@@ -258,7 +258,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            模板匹配（matlab实现）
+            游戏开发之路5
             <!-- 404 -->
             
         </h1>
@@ -277,20 +277,18 @@ height:50vh;
                 
                     <div class="post-intro-tags">
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="matlab">matlab</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="图像处理">图像处理</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags="游戏开发">游戏开发</a>
     
 </div>
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">306</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">1.4k</span>阅读时长: <span class="post-count reading-time">4 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2019/03/06</span>
+                    <span class="post-intro-time">2019/03/05</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -414,29 +412,24 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h3 id="基于像素匹配算法"><a href="#基于像素匹配算法" class="headerlink" title="基于像素匹配算法"></a>基于像素匹配算法</h3><p>模板匹配算法一般是通过滑窗的方式在待匹配的图像上滑动，通过比较模板与子图的相似度，找到相似度最大的子图。这种算法最核心部分在于如何设计一个相似性函数。   </p>
-<p>最容易想到的一个相似性函数便是欧式距离：<br><img src="欧氏距离.png" alt="欧式距离公式"></p>
-<p>将这个相似性函数展开，可以得:<br><img src="欧氏距离展开式.png" alt="欧氏距离展开式"><br>可以看出，只有第二项是有意义的，因为第一项和第三项的值在选定模板后是固定的。对于欧式距离相似函数，值越大表示越不相似，也就是说，第二项的值越小则越不相似。     再将第二项归一化:<br><img src="欧氏距离归一化.png" alt="欧氏距离归一化"></p>
-<blockquote>
-<p>如果就仅仅匹配大小不变角度不变的模板，到此为止就够了。</p>
-</blockquote>
-<p>为了解决旋转不变性，我用很简单的很丑陋的方法————旋转模板再重新匹配。</p>
-<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><p>化简后的欧氏距离matlab实现方法。</p>
-<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> <span class="built_in">i</span>=<span class="number">1</span>:m-m0+<span class="number">1</span>  </span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">j</span>=<span class="number">1</span>:n-n0+<span class="number">1</span>  </span><br><span class="line">        subMatr=test(<span class="built_in">i</span>:<span class="built_in">i</span>+m0<span class="number">-1</span>,<span class="built_in">j</span>:<span class="built_in">j</span>+n0<span class="number">-1</span>);  </span><br><span class="line">        vec=double( subMatr(:) );  </span><br><span class="line">        result(<span class="built_in">i</span>,<span class="built_in">j</span>)=vec'*vec_sub / (norm(vec)*norm_sub+<span class="built_in">eps</span>);  </span><br><span class="line">    <span class="keyword">end</span> </span><br><span class="line"> <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-<p>结果图：</p>
-<p><img src="1.png" alt><br><img src="2.png" alt></p>
-<blockquote>
-<p>具体源码 可以见<a href="https://github.com/NSDie/templet" target="_blank" rel="noopener">github</a>.</p>
-</blockquote>
+        <h3 id="经验分享"><a href="#经验分享" class="headerlink" title="经验分享"></a>经验分享</h3><h4 id="第三轮demo比赛总结"><a href="#第三轮demo比赛总结" class="headerlink" title="第三轮demo比赛总结"></a>第三轮demo比赛总结</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;这轮题目自拟，然后我们定了一个<strong>冒险+动作</strong>的游戏，参考了<strong>彩虹岛W</strong> 、<strong>冒险岛M</strong> 、星之骑士等动作冒险手游。这轮时间大概有13天半（去掉第一天的定方向，其实也不是很多，自拟的题目还是难抉择啊。），然后我们就想做一个比较大一点的游戏，策划也想的非常大，冒险+动作都要。既要<strong>设计关卡</strong> ，又要设计<strong>人物动作</strong>。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;由于这次主要逻辑不是我写的，所以我也不能说的很详细，整体框架是，人物动作由<strong>3DMax</strong> 完成，并且绑好骨骼做好动作。然后直接丢Unity里使用，但是场景是2D的，就人物是3D的，所以调整了很久。人物大概用了24个动作，然后Unity用状态机来管理，写了一个接口供逻辑调用。逻辑里面写了人物数值属性、输入控制、攻击受击死亡等状态；怪物属性、状态、AI行为树（用了Behavior插件）；还有BOSS专门写了AI。这次我负责的是2D怪物的动画，我用的<strong>2Danima</strong>插件绑的2D骨骼然后录制动画，总共2只Boss和6只小怪。Boss有8套动作、每种小怪有5套动作。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;<strong>转折点</strong>：中间有导师探班的时候，说我们的游戏应该最好偏向于某一方面：<strong>动作</strong> OR <strong>冒险</strong> 。最后我们选择了动作（偏复杂一点的路，虽然最后也没有成功）。既然选择了动作，我们就要把很多关卡设计方面的东西都砍掉，专注打击感的提升，我们为此做了：<strong>刀光</strong>、<strong>爆点</strong>、屏幕抖动、击退和挑飞等<strong>控制效果</strong>、还有一些蓄力快斩之类的节奏感<strong>技能</strong>。到了Deadline的前一天，我们整合出现了问题，导致提交作品的时候，没能交上一个比较完善的作品，UI部分还有一堆BUG，不然我有信心一定能拿第一。（算是一点遗憾把，没能把自己最好的一面展现出来）</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;比赛过程中，我在前五天，研究unity的一个联网引擎——PhotonServer，想要吃透它，结果也是学了个半吊子把，最后也没用上联网模式，由于当初定的是单人模式逻辑写的都死死的，后期想要转联网，还需要重构代码，比较耗时间。于是就干脆把联网部分砍掉。（这次我用的联网部分跟2D动画，以后若是有时间，再写专门的一篇文章介绍。）</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;<strong>总结</strong>： 唉，失败也是难免的。整理整理失败的原因，还是可以学到挺多东西的。感觉这轮比赛程序可能要背很大程度的锅，美术在最后三天前结束了他们的任务，而且我们程序还是没能完成任务，说明还是有很大的问题的。我来复盘一下程序这边13天做了啥把。<strong>前五天</strong>，我做了一个小型的联机Demo，未接入。其他部分做了单人模式的主逻辑、UI未开工、基本程序团队处于养老划水状态、很闲。<strong>第六天</strong>开始，我做一些2D动画方面的东西，并且继续研究联机，3D角色建模完成，导入Unity开始调整动作。<strong>第七、八天</strong>，继续调角色动作、并且整合美术关卡资源做成预制体，交由策划进行关卡摆放。<strong>第九、十天</strong>，各种特效的选取调整、策划摆完关卡不满意美术摆。<strong>第十一天</strong>开始做UI，开始了连续三天的通宵做UI，但是没想到UI是这么复杂，导致最后一天才做完UI准备接入，忘了说我联网在第十天开始就砍掉，准备帮助一起做主逻辑部分。最后接入的时候出了很多问题，Unity2018也经常卡死崩溃_ (:з)∠) _。如果UI能早点开始做，我们也不会落到这种地步。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;<strong>总的来说</strong> ，还是没有规划好，每天的任务清单，全凭感觉，但偏偏这轮感觉出了差错，本以为打包一次就几分钟，然后Unity打包一次大概30分钟，这次浪费了很多时间。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;<strong>除此之外</strong> ，我想说一句：一个项目的成功与否，在立项初期就已经决定好了。策划在这一步起<strong>关键性作用</strong>，一个好策划，提出了一个好想法，那这个项目已经成功了一半了，后面就看程序怎么实现它、美术如何打扮它。而且一个好策划最好能说出这个项目的卖点，并且能讲的非常详细不是很笼统，我相信很多人都会愿意配合，不然就说一句我们来做一个动作类游戏吧。这。。。怎么讲，动作类游戏，谁TM知道你想要做啥啊，跟没讲一样，而且这么一说士气就弱了三分，60分及格，顶多就一半30分了。<strong>开头很重要。</strong>这决定了这个项目能达到的最高高度。其次才是程序美术如何让它达到这个高度。</p>
+<p>最后放一张这轮游戏的海报：</p>
+<p><img src="海报.jpg" alt></p>
 
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
             <p>原文作者：<a href="https://www.yyfol.com">Ye Yifan</a>
-            </p><p>原文链接：<a href="https://www.yyfol.com/2019/ck4avn32e0007tkq6rgiek0hx/">https://www.yyfol.com/2019/ck4avn32e0007tkq6rgiek0hx/</a>
-            </p><p>发表日期：<a href="https://www.yyfol.com/2019/ck4avn32e0007tkq6rgiek0hx/">March 6th 2019, 10:40:00 pm</a>
-            </p><p>更新日期：<a href="https://www.yyfol.com/2019/ck4avn32e0007tkq6rgiek0hx/">March 7th 2019, 11:29:35 am</a>
+            </p><p>原文链接：<a href="https://www.yyfol.com/2019/ck4avsnfm000i5kq6n7ekm3md/">https://www.yyfol.com/2019/ck4avsnfm000i5kq6n7ekm3md/</a>
+            </p><p>发表日期：<a href="https://www.yyfol.com/2019/ck4avsnfm000i5kq6n7ekm3md/">March 5th 2019, 11:40:00 pm</a>
+            </p><p>更新日期：<a href="https://www.yyfol.com/2019/ck4avsnfm000i5kq6n7ekm3md/">March 7th 2019, 11:24:10 am</a>
             </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -445,16 +438,16 @@ height:50vh;
         <li class="next">
             
                 <div class="nextSlogan">Next Post</div>
-                <a href="/2019/ck4avn31v0001tkq60uha4d5v/" title="Tensorflow做模型预测（入门级）">
-                    <div class="nextTitle">Tensorflow做模型预测（入门级）</div>
+                <a href="/2019/ck4avsnf600075kq60wszyn7h/" title="模板匹配（matlab实现）">
+                    <div class="nextTitle">模板匹配（matlab实现）</div>
                 </a>
             
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href="/2019/ck4avn32v000jtkq6f8wgvn3n/" title="游戏开发之路5">
-                    <div class="prevTitle">游戏开发之路5</div>
+                <a href="/2019/ck4avsnff000c5kq6z57p2l0k/" title="游戏开发之路4">
+                    <div class="prevTitle">游戏开发之路4</div>
                 </a>
             
         </li>
@@ -571,8 +564,7 @@ height:50vh;
     <!-- 备案 -->
     <div class="copyright">
         浙ICP备
-        <a href="http://www.beian.miit.gov.cn">18018065号</a>
-        
+        <a href="http://www.beian.miit.gov.cn" target="_blank">18018065号</a>
     </div>
     <!-- 不蒜子  -->
     
@@ -603,7 +595,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#基于像素匹配算法"><span class="toc-number">1.</span> <span class="toc-text">基于像素匹配算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#代码"><span class="toc-number">1.1.</span> <span class="toc-text">代码</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#经验分享"><span class="toc-number">1.</span> <span class="toc-text">经验分享</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#第三轮demo比赛总结"><span class="toc-number">1.1.</span> <span class="toc-text">第三轮demo比赛总结</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -616,8 +608,6 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
-    
-    
     
     
     
@@ -721,47 +711,47 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/11</span><a class="archive-post-title" href="/2019/ck4avn3210003tkq6i79jz79g/">八大排序算法</a>
+            <span class="archive-post-date">03/11</span><a class="archive-post-title" href="/2019/ck4avsneq00015kq652bng758/">八大排序算法</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/08</span><a class="archive-post-title" href="/2019/ck4avn32b0006tkq6lc7wjbla/">机器学习入门路线</a>
+            <span class="archive-post-date">03/08</span><a class="archive-post-title" href="/2019/ck4avsnf300065kq635kwy0hn/">机器学习入门路线</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/07</span><a class="archive-post-title" href="/2019/ck4avn31v0001tkq60uha4d5v/">Tensorflow做模型预测（入门级）</a>
+            <span class="archive-post-date">03/07</span><a class="archive-post-title" href="/2019/ck4avsnex00035kq6w4djr131/">Tensorflow做模型预测（入门级）</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/06</span><a class="archive-post-title" href="/2019/ck4avn32e0007tkq6rgiek0hx/">模板匹配（matlab实现）</a>
+            <span class="archive-post-date">03/06</span><a class="archive-post-title" href="/2019/ck4avsnf600075kq60wszyn7h/">模板匹配（matlab实现）</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ck4avn32v000jtkq6f8wgvn3n/">游戏开发之路5</a>
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ck4avsnfm000i5kq6n7ekm3md/">游戏开发之路5</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ck4avn32s000gtkq679g40nv5/">游戏开发之路4</a>
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ck4avsnff000c5kq6z57p2l0k/">游戏开发之路4</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ck4avn32m000ctkq6xv8w5a7q/">游戏开发之路3</a>
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ck4avsnfa000b5kq6da2vczau/">游戏开发之路3</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ck4avn32f0008tkq6fvp826az/">游戏开发之路2</a>
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ck4avsnfj000g5kq63q4nrvca/">游戏开发之路2</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ck4avn32j000btkq66mrvnnbo/">游戏开发之路1</a>
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ck4avsnf700085kq6kftz6is5/">游戏开发之路1</a>
         </li>
     
     </ul></div>
@@ -769,13 +759,13 @@ top:50vh;
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="tensorflow"><span class="iconfont-archer">&#xe606;</span>tensorflow</span>
-    
-        <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
-    
         <span class="sidebar-tag-name" data-tags="算法"><span class="iconfont-archer">&#xe606;</span>算法</span>
     
         <span class="sidebar-tag-name" data-tags="c++"><span class="iconfont-archer">&#xe606;</span>c++</span>
+    
+        <span class="sidebar-tag-name" data-tags="tensorflow"><span class="iconfont-archer">&#xe606;</span>tensorflow</span>
+    
+        <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
     
         <span class="sidebar-tag-name" data-tags="matlab"><span class="iconfont-archer">&#xe606;</span>matlab</span>
     
@@ -816,9 +806,9 @@ jsonContent:
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
     
-        <span class="sidebar-category-name" data-categories="MachineLearning"><span class="iconfont-archer">&#xe60a;</span>MachineLearning</span>
-    
         <span class="sidebar-category-name" data-categories="Programming"><span class="iconfont-archer">&#xe60a;</span>Programming</span>
+    
+        <span class="sidebar-category-name" data-categories="MachineLearning"><span class="iconfont-archer">&#xe60a;</span>MachineLearning</span>
     
         <span class="sidebar-category-name" data-categories="life"><span class="iconfont-archer">&#xe60a;</span>life</span>
     
