@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.yyfol.com/"/>
-  <updated>2019-03-11T04:37:14.993Z</updated>
+  <updated>2019-12-30T13:50:12.397Z</updated>
   <id>https://www.yyfol.com/</id>
   
   <author>
@@ -17,9 +17,64 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Spring核心思想IOC、DI</title>
+    <link href="https://www.yyfol.com/2019/ck4si2sdq0001qsq6f8an17er/"/>
+    <id>https://www.yyfol.com/2019/ck4si2sdq0001qsq6f8an17er/</id>
+    <published>2019-12-30T13:37:00.000Z</published>
+    <updated>2019-12-30T13:50:12.397Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><ol><li>IOC是什么？     <strong>IOC(Inversion of Control)控制反转</strong>，IOC是一种新的Java编程模式，目前很多轻量级容器都在广泛使用的模式。</li><li>IOC解决了什么问题？     在IOC出现以前，组件之间的协调关系是由程序内部代码来控制的，或者说，以前我们使用New关键字来实现两组间之间的依赖关系的。     这种方式就造成了组件之间的互相 <strong>耦合</strong>。IOC(控制反转)就是来解决这个问题的，它将实现组件间的关系从程序内部提到<strong>外部容器</strong>来管理。     也就是说，由容器在运行期将组件间的某种依赖关系动态的注入组件中。</li><li>IOC的实现方式     1. <strong>依赖查找(Dependency Lookup)</strong>：容器中的受控对象通过容器的API来查找自己所依赖的资源和协作对象。这种方式虽然降低了对象间的依赖，但是同时也使用到了容器的API，造成了我们无法在容器外使用和测试对象。     依赖查找是一种更加传统的IOC实现方式。     2. <strong>依赖注入(Dependency Injection)</strong>：这就是DI，字面上理解，依赖注入就是将服务注入到使用它的地方。对象只提供普通的方法让容器去决定依赖关系，</li><li>IOC与DI的<strong>区别</strong>     对于IOC来说，DI更像是一个用来控制容器的工具，之所以依赖，是根据容器里各个组件之间的关系来决定。</li><li>Spring中的IOC和DI     IOC是Spring的核心，贯穿始终。对于Spring框架来说，就是由Spring来负责控制对象的<strong>生命周期</strong>和<strong>对象间的关系</strong>。     Spring中DI有两种实现方式—Setter方式(传值方式)和构造器方式(引用方式)。</li></ol><h3 id="IOC"><a href="#IOC" class="headerlink" title="IOC"></a>IOC</h3><p>​    假设一种情况，我们要做一个图书馆里系统，我们要定义一个书的Bean类，里面有<strong>书的id</strong>，<strong>书名</strong>，<strong>作者</strong>，<strong>出版社</strong>….等等属性，在一个对象中，如果要使用另外的对象，就必须得到它（自己new一个，或者从JNDI中查询一个），使用完之后还要将对象销毁（比如Connection等），对象始终会和其他的接口或类藕合起来。     而spring中是如何实现的呢？相当于一个图书管理员，它负责管理很多很多书籍的信息，你只需要提供你想要借哪本书、或者说哪种类型的书，那么它就会提供给你，如果不是我们想要的书，我们就抛出异常反馈给它。整个过程不再是我们自己控制的了，我们想要什么书，不用我们去找，也不用我们去造。所有的类都在<code>spring</code>这个容器内登记，我们只需要请求。所有类让<code>spring</code>创建、销毁，也就是说控制对象生存周期的不再是引用它的对象，而是<code>spring</code>。对于某个具体的对象而言，以前是它控制其他对象，现在是所有对象都被<code>spring</code>控制，所以这叫<strong>控制反转</strong>。     所以由上面看，spring的解决方案就是面向接口的编程，对<strong>对象</strong>的控制直接调用接口就可以实现了。（前提是配置好了。🙃）</p><blockquote><p>spring跟传统做法的区别:</p></blockquote><p><img src="1.png" alt="spring跟传统做法的区别" title="spring跟传统做法的区别"></p><blockquote><p>spring的配置原理图：</p></blockquote><p><img src="2.png" alt="spring的配置" title="spring的配置"></p><h3 id="DI"><a href="#DI" class="headerlink" title="DI"></a>DI</h3><p>​    IOC的一个<strong>重点</strong>是在系统运行中，动态的向某个对象提供它所需要的其他对象。这一点是通过<strong>DI（Dependency Injection，依赖注入）</strong>来实现的。比如对象A需要操作数据库，以前我们总是要在A中自己编写代码来获得一个<strong>Connection</strong>对象，有了<strong>spring</strong>我们就只需要告诉spring，A中需要一个<strong>Connection</strong>，至于这个<strong>Connection</strong>怎么构造，何时构造，A不需要知道。在系统运行时，<strong>spring</strong>会在适当的时候制造一个<strong>Connection</strong>，然后像打针一样，注射到A当中，这样就完成了对各个对象之间关系的控制。A需要依赖<strong>Connection</strong>才能正常运行，而这个<strong>Connection</strong>是由<strong>spring</strong>注入到A中的，依赖注入的名字就这么来的。那么DI是如何实现的呢？Java 1.3之后一个重要特征是<strong>反射（reflection）</strong>，它允许程序在运行的时候动态的生成对象、执行对象的方法、改变对象的属性，spring就是通过反射来实现注入的。</p><blockquote><p>更多关于<strong>反射</strong>的内容，可以参考<a href="https://docs.oracle.com/javase/7/docs/api/" title="JAVA文档" target="_blank" rel="noopener">JAVA文档</a></p></blockquote><blockquote><p>引自文章<a href="https://blog.csdn.net/baple/article/details/53667767" target="_blank" rel="noopener">《Spring核心思想，IoC与DI详解（如果还不明白，放弃java吧）》</a>              <a href="https://blog.csdn.net/javazejian/article/details/54561302" target="_blank" rel="noopener">《关于Spring IOC (DI-依赖注入)你需要知道的一切》</a></p></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;基本概念&quot;&gt;&lt;a href=&quot;#基本概念&quot; class=&quot;headerlink&quot; title=&quot;基本概念&quot;&gt;&lt;/a&gt;基本概念&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;IOC是什么？     &lt;strong&gt;IOC(Inversion of Control)控制反转&lt;/stron
+      
+    
+    </summary>
+    
+      <category term="开发" scheme="https://www.yyfol.com/categories/%E5%BC%80%E5%8F%91/"/>
+    
+    
+      <category term="Java" scheme="https://www.yyfol.com/tags/Java/"/>
+    
+      <category term="Spring" scheme="https://www.yyfol.com/tags/Spring/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Spring学习笔记一</title>
+    <link href="https://www.yyfol.com/2019/ck4si2sdv0002qsq6pg25yrdt/"/>
+    <id>https://www.yyfol.com/2019/ck4si2sdv0002qsq6pg25yrdt/</id>
+    <published>2019-12-30T13:35:00.000Z</published>
+    <updated>2019-12-30T13:36:33.636Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="IOC"><a href="#IOC" class="headerlink" title="IOC"></a>IOC</h3><h4 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;<code>Inversion of Control</code> ，翻译为”控制反转“，别名”依赖注入“(<code>Dependency Injection</code>)。</p><p>&nbsp;&nbsp;&nbsp;&nbsp;关键在于四个问题：<strong>谁控制谁</strong>,<strong>控制什么</strong>,<strong>反转是什么</strong>,<strong>哪些方面反转了</strong>。</p><blockquote><p>所谓IOC，就是由Spring IOC容器来负责对象的生命周期和对象之间的关系。</p></blockquote><p>​    我们可以先想象一个场景：你需要一个女朋友，直接<code>new BeautifulGirl()</code>，接下来你想要的各种要求，用set来设置。但是这个过程复杂又繁琐，而且我们必须要面对每个环节，同时在使用完成之后还要负责销毁。<strong>这种情况下我们的对象和它所依赖的对象耦合在一起</strong>。</p><p>​    但是我们知道，我们依赖对象并不是依赖对象本身，而是依赖对象所提供的<strong>服务</strong>，当我们需要它的时候，它能够<strong>及时提供服务即可</strong>，至于它是我们主动去创建还是别人送给我们的，并不那么重要。就像你需要一个女朋友，你可以不用自己找（new），你可以直接跟婚介公司说，你想要这样那样的妹子（<strong>需求</strong>），婚介公司就会给你一个妹子，你只需要负责接下来的工作。</p><p>​    所以<strong>IoC</strong>就是相当于一个中介，当你需要什么（功能） 的时候，IoC就会送过来给你，你不用自己去创建销毁。</p><p>​    现在，回答上面四个问题：</p><p>​    <strong>1.谁控制谁</strong>：<code>IOC Service Provider</code>(IOC容器) 控制对象。</p><p>​    <strong>2.控制什么</strong>：控制对象。</p><p>​    <strong>3.反转是什么</strong>：没有IOC，都是在对象中主动去创建被依赖的对象，这是<strong>正转</strong>；有IOC，所依赖的对象直接由IoC容器创建后注入到被注入的对象中，依赖的对象由原来的主动变为被动，这是<strong>反转</strong>。</p><p>​    <strong>4.哪些方面反转了</strong>：所依赖对象的获取被反转了。</p><h4 id="提供的注入方式"><a href="#提供的注入方式" class="headerlink" title="提供的注入方式"></a>提供的注入方式</h4><ol><li><strong>构造器注入</strong> 被注入的对象通过在其构造方法中声明依赖对象的参数列表，让外部知道它需要哪些依赖对象。</li><li><strong>setter 方法注入</strong> 对于JavaBean对象而言，我们一般是通过<code>getter</code>和<code>setter</code>方法来访问和设置对象的属性。所以，当前对象只需要为其所依赖的对象提供相应的<code>setter</code>方法，就可以通过该方法将相应的依赖对象设置到被注入对象中。</li><li><strong>接口方式注入</strong> 接口方式注入显得比较霸道，因为它需要被依赖的对象实现不必要的接口，带有侵入性。</li></ol><h3 id="IOC各部分"><a href="#IOC各部分" class="headerlink" title="IOC各部分"></a>IOC各部分</h3><p>​    五大体系：<strong>Resource体系</strong>、<strong>BeanFactory体系</strong>、<strong>Beandefinition</strong>、<strong>BeandefinitionReader体系</strong>、<strong>ApplicationContext体系</strong>。(简单介绍一下，后面再继续详细记录。)</p><ul><li><strong>Resource体系</strong> 对资源的抽象，它的每一个实现类都代表了一种资源的访问策略。如ClasspathResource、URLResource、FileSystemResource等。ps：资源加载——ResourceLoader。</li><li><strong>BeanFactory体系</strong> BeanFactory是一个非常纯粹的bean容器，它是IOC必备的数据结构，其中<em>BeanDefinition</em>是它的基本结构，它内部维护一个map，根据<em>BeanDefinition</em>的描述进行bean的创建和管理。</li><li><strong>BeanDefinition体系</strong> 用来描述Spring中的Bean对象。</li><li><strong>BeanDefinitionReader体系</strong> 用来读取Spring的配置文件，并转换成IOC容器内部的数据结构-》<em>BeanDefinition</em>。</li><li><strong>ApplicationContext体系</strong> Spring容器，应用上下文，继承<em>BeanFactory</em>。它与<em>BeanFactory</em>的区别有：1. 继承<em>MessageSource</em>，提供国际化的标准访问策略。 2. 继承<em>ApplicationEventPublisher</em>，提供强大的事件机制。 3. 扩展<em>ResourceLoader</em>，可以用来加载多个Resource，可以灵活访问不同的资源。 4. 对Web应用的支持。</li></ul><blockquote><p>学习笔记，原文章出处：<a href="http://cmsblogs.com/?p=2652" target="_blank" rel="noopener">http://cmsblogs.com/?p=2652</a>  </p></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;IOC&quot;&gt;&lt;a href=&quot;#IOC&quot; class=&quot;headerlink&quot; title=&quot;IOC&quot;&gt;&lt;/a&gt;IOC&lt;/h3&gt;&lt;h4 id=&quot;概念&quot;&gt;&lt;a href=&quot;#概念&quot; class=&quot;headerlink&quot; title=&quot;概念&quot;&gt;&lt;/a&gt;概念&lt;/h4&gt;&lt;p
+      
+    
+    </summary>
+    
+      <category term="开发" scheme="https://www.yyfol.com/categories/%E5%BC%80%E5%8F%91/"/>
+    
+    
+      <category term="Java" scheme="https://www.yyfol.com/tags/Java/"/>
+    
+      <category term="Spring" scheme="https://www.yyfol.com/tags/Spring/"/>
+    
+  </entry>
+  
+  <entry>
     <title>八大排序算法</title>
-    <link href="https://www.yyfol.com/2019/ck4shffsz0001mwq6m6l0j0d8/"/>
-    <id>https://www.yyfol.com/2019/ck4shffsz0001mwq6m6l0j0d8/</id>
+    <link href="https://www.yyfol.com/2019/ck4si2se30006qsq6lk2eivqt/"/>
+    <id>https://www.yyfol.com/2019/ck4si2se30006qsq6lk2eivqt/</id>
     <published>2019-03-11T04:32:00.000Z</published>
     <updated>2019-03-11T04:37:14.993Z</updated>
     
@@ -45,8 +100,8 @@
   
   <entry>
     <title>机器学习入门路线</title>
-    <link href="https://www.yyfol.com/2019/ck4shffu60008mwq61bj6gs54/"/>
-    <id>https://www.yyfol.com/2019/ck4shffu60008mwq61bj6gs54/</id>
+    <link href="https://www.yyfol.com/2019/ck4si2se70007qsq6w0supi9b/"/>
+    <id>https://www.yyfol.com/2019/ck4si2se70007qsq6w0supi9b/</id>
     <published>2019-03-08T06:22:34.000Z</published>
     <updated>2019-03-08T10:00:17.857Z</updated>
     
@@ -70,8 +125,8 @@
   
   <entry>
     <title>Tensorflow做模型预测（入门级）</title>
-    <link href="https://www.yyfol.com/2019/ck4shffun000pmwq6p3y6pxj6/"/>
-    <id>https://www.yyfol.com/2019/ck4shffun000pmwq6p3y6pxj6/</id>
+    <link href="https://www.yyfol.com/2019/ck4si2se00005qsq6j3ju9fqt/"/>
+    <id>https://www.yyfol.com/2019/ck4si2se00005qsq6j3ju9fqt/</id>
     <published>2019-03-06T16:12:00.000Z</published>
     <updated>2019-03-07T03:29:30.836Z</updated>
     
@@ -89,16 +144,16 @@
       <category term="MachineLearning" scheme="https://www.yyfol.com/categories/MachineLearning/"/>
     
     
-      <category term="python" scheme="https://www.yyfol.com/tags/python/"/>
-    
       <category term="tensorflow" scheme="https://www.yyfol.com/tags/tensorflow/"/>
+    
+      <category term="python" scheme="https://www.yyfol.com/tags/python/"/>
     
   </entry>
   
   <entry>
     <title>模板匹配（matlab实现）</title>
-    <link href="https://www.yyfol.com/2019/ck4shffua000dmwq6n9lghse2/"/>
-    <id>https://www.yyfol.com/2019/ck4shffua000dmwq6n9lghse2/</id>
+    <link href="https://www.yyfol.com/2019/ck4si2sef000aqsq6haemkrsv/"/>
+    <id>https://www.yyfol.com/2019/ck4si2sef000aqsq6haemkrsv/</id>
     <published>2019-03-06T14:40:00.000Z</published>
     <updated>2019-03-07T03:29:35.063Z</updated>
     
@@ -124,8 +179,8 @@
   
   <entry>
     <title>游戏开发之路5</title>
-    <link href="https://www.yyfol.com/2019/ck4shffui000kmwq6ck4k96mv/"/>
-    <id>https://www.yyfol.com/2019/ck4shffui000kmwq6ck4k96mv/</id>
+    <link href="https://www.yyfol.com/2019/ck4si2ser000nqsq6jz1hy6gc/"/>
+    <id>https://www.yyfol.com/2019/ck4si2ser000nqsq6jz1hy6gc/</id>
     <published>2019-03-05T15:40:00.000Z</published>
     <updated>2019-03-07T03:24:10.833Z</updated>
     
@@ -149,8 +204,8 @@
   
   <entry>
     <title>游戏开发之路4</title>
-    <link href="https://www.yyfol.com/2019/ck4shffuh000jmwq67nndw1ga/"/>
-    <id>https://www.yyfol.com/2019/ck4shffuh000jmwq67nndw1ga/</id>
+    <link href="https://www.yyfol.com/2019/ck4si2sep000mqsq6dnw7jazs/"/>
+    <id>https://www.yyfol.com/2019/ck4si2sep000mqsq6dnw7jazs/</id>
     <published>2019-03-05T14:50:00.000Z</published>
     <updated>2019-03-07T03:24:14.331Z</updated>
     
@@ -174,8 +229,8 @@
   
   <entry>
     <title>游戏开发之路3</title>
-    <link href="https://www.yyfol.com/2019/ck4shffuf000fmwq6a8d5nnj9/"/>
-    <id>https://www.yyfol.com/2019/ck4shffuf000fmwq6a8d5nnj9/</id>
+    <link href="https://www.yyfol.com/2019/ck4si2sem000hqsq62emhvhoa/"/>
+    <id>https://www.yyfol.com/2019/ck4si2sem000hqsq62emhvhoa/</id>
     <published>2019-03-05T14:36:00.000Z</published>
     <updated>2019-03-07T03:23:34.862Z</updated>
     
@@ -200,8 +255,8 @@
   
   <entry>
     <title>游戏开发之路2</title>
-    <link href="https://www.yyfol.com/2019/ck4shffud000emwq65knix2yp/"/>
-    <id>https://www.yyfol.com/2019/ck4shffud000emwq65knix2yp/</id>
+    <link href="https://www.yyfol.com/2019/ck4si2sel000fqsq6qx8zoyf1/"/>
+    <id>https://www.yyfol.com/2019/ck4si2sel000fqsq6qx8zoyf1/</id>
     <published>2019-03-05T08:40:00.000Z</published>
     <updated>2019-03-07T03:24:17.783Z</updated>
     
@@ -225,8 +280,8 @@
   
   <entry>
     <title>游戏开发之路1</title>
-    <link href="https://www.yyfol.com/2019/ck4shffu9000amwq6e8u6usk8/"/>
-    <id>https://www.yyfol.com/2019/ck4shffu9000amwq6e8u6usk8/</id>
+    <link href="https://www.yyfol.com/2019/ck4si2sei000bqsq6xgbvifp3/"/>
+    <id>https://www.yyfol.com/2019/ck4si2sei000bqsq6xgbvifp3/</id>
     <published>2019-03-05T02:40:00.000Z</published>
     <updated>2019-03-07T03:24:20.214Z</updated>
     
