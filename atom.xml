@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.yyfol.com/"/>
-  <updated>2019-12-30T13:50:12.397Z</updated>
+  <updated>2020-01-09T12:21:33.743Z</updated>
   <id>https://www.yyfol.com/</id>
   
   <author>
@@ -17,9 +17,36 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Java基础问题</title>
+    <link href="https://www.yyfol.com/2020/ck56pbkh70001jcq6av2o6dwc/"/>
+    <id>https://www.yyfol.com/2020/ck56pbkh70001jcq6av2o6dwc/</id>
+    <published>2020-01-09T12:21:00.000Z</published>
+    <updated>2020-01-09T12:21:33.743Z</updated>
+    
+    <content type="html"><![CDATA[<h5 id="1-static关键字有哪些作用？"><a href="#1-static关键字有哪些作用？" class="headerlink" title="1. static关键字有哪些作用？"></a>1. static关键字有哪些作用？</h5><p>static修饰变量、修饰方法。</p><p>static修饰静态块、静态内部类、静态导包。</p><h5 id="2-volatile关键字的底层实现原理"><a href="#2-volatile关键字的底层实现原理" class="headerlink" title="2. volatile关键字的底层实现原理"></a>2. volatile关键字的底层实现原理</h5><p>变量被<code>volatile</code>关键字修饰，那么所有<strong>线程</strong>都是可见的。</p><ul><li>对于普通变量：普通变量的值在线程间传递均需要通过主内存来完成。</li><li>对于<code>volatile</code>关键字修饰的变量：多线程下jvm会为每个线程分配一个<strong>独立的缓存</strong>来提高效率。</li></ul><p><code>volatile</code>变量<strong>不会被缓存在寄存器或者对其他处理器不可见</strong>的地方，保证了每次读写变量都从主内存中读，跳过CPU cache这一步。</p><p>指令重排序是JVM为了<strong>优化指令</strong>、<strong>提高程序运行效率</strong>，<strong>在不影响单线程程序执行结果的前提下，尽可能地提高并行度</strong>。</p><p>指令重排序包括<strong>编译器重排序</strong>和<strong>运行时重排序</strong>。</p><p>volatile关键字提供<strong>内存屏障</strong>的方式来防止指令被重排，编译器在生成字节码文件时，会在指令序列中插入<strong>内存屏障</strong>来禁止特定类型的处理器重排序。</p><h5 id="3-ConcurrentHashMap的锁分段技术"><a href="#3-ConcurrentHashMap的锁分段技术" class="headerlink" title="3. ConcurrentHashMap的锁分段技术"></a>3. ConcurrentHashMap的锁分段技术</h5><blockquote><p>HashMap与HashTable都是哈希表，但是hashmap线程不安全；hashtable线程安全，效率非常低。</p></blockquote><p>ConcurrentHashMap所使用的锁分段技术，首先将数据分成一段一段的存储，然后给每一段数据配一把锁，当一个线程占用锁访问其中一个段数据的时候，其他段的数据也能被其他线程访问。</p><p>ConcurrentHashMap是由Segment数组结构和HashEntry数组结构组成。Segment是一种可重入锁ReentrantLock，在ConcurrentHashMap里扮演锁的角色，HashEntry则用来存储键值对数据。（Segment数组+HashEntry数组）</p><h5 id="4-ConcurrentHashMap的读是否要加锁，为什么"><a href="#4-ConcurrentHashMap的读是否要加锁，为什么" class="headerlink" title="4. ConcurrentHashMap的读是否要加锁，为什么"></a>4. ConcurrentHashMap的读是否要加锁，为什么</h5><p>不需要，ConcurrentHashMap实现技术是保证HashEntry几乎是不可变的。</p><h5 id="5-ConcurrentHashMap的迭代器是强一致性的迭代器还是弱一致性的迭代器"><a href="#5-ConcurrentHashMap的迭代器是强一致性的迭代器还是弱一致性的迭代器" class="headerlink" title="5. ConcurrentHashMap的迭代器是强一致性的迭代器还是弱一致性的迭代器"></a>5. ConcurrentHashMap的迭代器是强一致性的迭代器还是弱一致性的迭代器</h5><p>弱一致迭代器。</p><h5 id="6-知道常用设计模式的优缺点"><a href="#6-知道常用设计模式的优缺点" class="headerlink" title="6. 知道常用设计模式的优缺点"></a>6. 知道常用设计模式的优缺点</h5><ul><li>简单工厂模式（<strong>Static Factory Method</strong>）</li></ul><p>优点： </p><ol><li>工厂类是整个模式的关键。包含了必要的逻辑判断，根据外界给定的信息，决定究竟应该创建哪个具体类的对象。</li><li>通过使用工厂类，外界可以从直接创建具体产品对象的尴尬局面摆脱出来，仅仅需要负责“消费”对象就可以了，而不必管这些对象究竟如何创建及如何组织。</li></ol><p>缺点：</p><ol><li>由于工厂类集中了所有实例的创建逻辑，违反了高内聚责任分配原则，将全部创建逻辑集中到了一个工厂类中，它所能创建的类只能是事先考虑到的，如果需要添加新的类，就需要改变工厂类。</li><li>当系统中的具体产品类不断增多时候，可能会出现要求工厂类根据不同条件创建不同实例的需求。对<strong>系统的维护</strong>和<strong>扩展</strong>非常不利。</li></ol><ul><li>策略模式（<strong>Strategy</strong>）</li></ul><p>优点：</p><ol><li>每个算法<strong>单独封装</strong>，<strong>减少</strong>了算法和算法调用者的耦合。</li><li>合理使用继承有助于提取出算法中的公共部分。</li><li>简化了单元测试。</li></ol><p>缺点：</p><ol><li>策略模式只适用于客户端知道所有的算法或行为的情况。</li><li>策略模式造成很多的策略类，每个具体策略类都会产生一个新类。</li></ol><ul><li>装饰模式（<strong>Decorator</strong>）</li></ul><p>优点：</p><ol><li><code>Decorator</code>模式与继承关系的目的都是要扩展对象的功能，但是<code>Decorator</code>可以提供比继承更多的灵活性。</li><li>通过使用不同的具体装饰类以及这些装饰类的排列组合，设计师可以创造出很多不同行为的组合。</li></ol><p>缺点：</p><ol><li>更加<strong>复杂</strong></li></ol><ul><li>代理模式（<strong>Proxy</strong>）</li></ul><p>优点：</p><ol><li>权责清晰，真实的角色就是实现实际的业务逻辑，不用关心其他非本职责的事务，通过后期的代理完成一件完成事务，附带的结果就是编程简洁清晰。</li><li>代理对象可以在客户端和目标对象之间起到中介的作用，这样起到了中介的作用和保护了目标对象的作用。</li><li>高扩展性</li></ol><p>缺点：</p><ol><li>在客户端和目标对象增加一个代理对象，会造成请求处理速度变慢。</li><li>增加了系统的复杂度。</li></ol><ul><li>工厂方法模式（<strong>Factory Method</strong>）</li></ul><p>优点：</p><ol><li>良好的<strong>封装性</strong>，代码结构清晰，<strong>减少模块间的耦合</strong>。</li><li>工厂方法模式的扩展性非常优秀。</li><li>屏蔽产品类。</li><li>工厂方法模式就是典型的解耦框架。</li></ol><p>缺点：</p><ol><li>使用者必须知道相应工厂的存在。</li><li>每次增加一个产品时，都需要增加一个具体类和对象实现工厂，使得系统中类的个数成倍增加，在一定程度上增加了系统的复杂度，同时也增加了系统具体类的依赖。</li></ol><ul><li>原型模式（<strong>Prototype</strong>）</li></ul><p>优点：</p><ol><li><strong>隐藏</strong>了对象创建的细节。</li><li>提高了性能。</li><li>不用重新初始化，动态获得对象运行的状态。</li></ol><p>缺点：</p><ol><li>适用性不是很广。</li><li>每一个类必须配备一个<strong>克隆方法</strong>。</li><li>配备克隆方法需要对类的功能进行通盘考虑，这对于全新的类不是很难，但对于已有的类不一定很容易，特别当一个类引用不支持串行化的间接对象或者引用含有循环结构的时候。</li></ol><ul><li>模板方法模式（<strong>Template Method</strong>）</li></ul><p>优点：</p><ol><li>提高代码<strong>复用性</strong>。</li><li>帮助子类摆脱重复的<strong>不变行为</strong>。</li></ol><p>缺点：</p><ol><li>考虑不全面统一出现问题。</li></ol><p>（更多模式待补充……..）</p><h5 id="7-构造器（constructor）是否可被重写（override）？"><a href="#7-构造器（constructor）是否可被重写（override）？" class="headerlink" title="7. 构造器（constructor）是否可被重写（override）？"></a>7. 构造器（constructor）是否可被重写（override）？</h5><p>构造器不能被继承，因此不能被重写，但可以被重载。</p><h5 id="8-是否可以继承String类？"><a href="#8-是否可以继承String类？" class="headerlink" title="8. 是否可以继承String类？"></a>8. 是否可以继承String类？</h5><p>String类是final类，不可以被继承。</p><blockquote><p>ps：继承String本身就是一个错误的行为，对String类型最好的重用方式是关联关系和依赖关系而不是继承关系。</p></blockquote><h5 id="9-重载（Overload）和重写（Override）的区别。重载的方法能否根据返回类型进行区分？"><a href="#9-重载（Overload）和重写（Override）的区别。重载的方法能否根据返回类型进行区分？" class="headerlink" title="9. 重载（Overload）和重写（Override）的区别。重载的方法能否根据返回类型进行区分？"></a>9. 重载（Overload）和重写（Override）的区别。重载的方法能否根据返回类型进行区分？</h5><p>方法的重载和重写都是<strong>实现多态</strong>的方式，区别在于前者实现的是<strong>编译</strong>时的多态性，而后者实现的是<strong>运行</strong>时的多态性。</p><p><strong>重载</strong>发生在一个类中，同名的方法如果有不同的参数列表（参数类型不同、参数个数不同或者二者都不同）则视为重载；<strong>重写</strong>发生在<strong>子类</strong>与<strong>父类</strong>之间，重写要求<strong>子类</strong>被重写方法与<strong>父类</strong>被重写方法有<strong>相同的返回类型</strong>，比父类被重写方法更好访问，不能比父类被重写方法声明更多的异常。<strong>重载</strong>对返回类型没有特殊的要求。</p><h5 id="10-get和post请求的区别？"><a href="#10-get和post请求的区别？" class="headerlink" title="10. get和post请求的区别？"></a>10. get和post请求的区别？</h5><p>①get请求用来从服务器上获得资源，而post是用来向服务器提交数据；</p><p>②get将表单中数据按照name=value的形式，添加到action所指向的URL后面，并且两者使用“？”连接，而各个变量之间使用“&amp;”连接；post是将表单中的数据放在HTTP协议的请求头或消息体中，传递到action所指向URL；</p><p>③get传输的数据要受到URL长度限制（1024字节）；而post可以传输大量的数据，上传文件通常要使用post方式；</p><p>④使用get时参数会显示在地址栏上，如果这些数据不是敏感数据，那么可以使用get；对于敏感数据应使用post；</p><p>⑤get使用MIME类型百分号编码文本的格式传递参数，保证被传送的参数由遵循规范的文本组成。</p><h5 id="11-实现会话跟踪的技术有哪些？"><a href="#11-实现会话跟踪的技术有哪些？" class="headerlink" title="11. 实现会话跟踪的技术有哪些？"></a>11. 实现会话跟踪的技术有哪些？</h5><ul><li><strong>URL重写</strong>：在URL中添加用户会话的信息作为请求的参数，或者将唯一的会话ID添加到URL结尾以标识一个会话。</li><li><strong>设置表单隐藏域</strong>：将和会话跟踪相关的字段添加到隐式表单域中，这些信息不会在浏览器中显示但是提交表单时会提交到服务器。这两种方式很难处理跨越多个页面的信息传递，因为如果每次都要修改URL或在页面中添加隐式表单域来存储用户会话相关信息，事情将变得非常麻烦。</li><li><strong>cookie</strong>：cookie有两种，一种是基于窗口的，浏览器窗口关闭后，cookie就没有了；另一种是将信息存储在一个临时文件中，并设置存在的时间。当用户通过浏览器和服务器建立一次会话后，会话ID就会随响应信息返回存储在基于窗口的cookie中，那就意味着只要浏览器没有关闭，会话没有超时，下一次请求时这个会话ID又会提交给服务器让服务器识别身份。</li></ul><blockquote><p>ps: HTML5中可以用Web Storage技术通过JavaScript来保存数据，例如<strong>localStorage</strong>和<strong>sessionStorage</strong>来保存用户会话的信息，也能够实现会话跟踪。</p></blockquote><h5 id="12-什么是ORM？"><a href="#12-什么是ORM？" class="headerlink" title="12. 什么是ORM？"></a>12. 什么是ORM？</h5><p>对象关系映射是一种为了解决程序的面向对象模型与数据库的关系模型互不匹配问题的技术；简单的说，ORM是通过使用描述对象和数据库之间映射的元数据，将程序中的对象自动持久化到关系数据库中或者将关系数据库表中的行转换成Java对象，其本质上就是将数据从一种形式转换到另一种形式。</p><h5 id="13-持久层设计要考虑的问题有哪些？持久层框架有哪些？"><a href="#13-持久层设计要考虑的问题有哪些？持久层框架有哪些？" class="headerlink" title="13. 持久层设计要考虑的问题有哪些？持久层框架有哪些？"></a>13. 持久层设计要考虑的问题有哪些？持久层框架有哪些？</h5><p>持久层设计的目标包括：</p><ol><li>数据存储逻辑的分离，提供抽象化的数据访问接口。</li><li>数据访问底层实现的分离，可以在不修改代码的情况下切换底层实现。</li><li>资源管理和调度的分离，在数据访问层实现统一的资源调度。</li><li>数据抽象，提供更面向对象的数据操作。</li></ol><blockquote><p>持久层框架有：</p><ul><li>Hibernate</li><li>MyBatis</li><li>Spring Data</li><li>ActiveJDBC</li><li>Guzz</li><li>jOOQ</li></ul></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h5 id=&quot;1-static关键字有哪些作用？&quot;&gt;&lt;a href=&quot;#1-static关键字有哪些作用？&quot; class=&quot;headerlink&quot; title=&quot;1. static关键字有哪些作用？&quot;&gt;&lt;/a&gt;1. static关键字有哪些作用？&lt;/h5&gt;&lt;p&gt;static修饰
+      
+    
+    </summary>
+    
+      <category term="开发" scheme="https://www.yyfol.com/categories/%E5%BC%80%E5%8F%91/"/>
+    
+    
+      <category term="Java" scheme="https://www.yyfol.com/tags/Java/"/>
+    
+      <category term="Spring" scheme="https://www.yyfol.com/tags/Spring/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Spring核心思想IOC、DI</title>
-    <link href="https://www.yyfol.com/2019/ck4si2sdq0001qsq6f8an17er/"/>
-    <id>https://www.yyfol.com/2019/ck4si2sdq0001qsq6f8an17er/</id>
+    <link href="https://www.yyfol.com/2019/ck56pbkhe0002jcq6iwvq2sc7/"/>
+    <id>https://www.yyfol.com/2019/ck56pbkhe0002jcq6iwvq2sc7/</id>
     <published>2019-12-30T13:37:00.000Z</published>
     <updated>2019-12-30T13:50:12.397Z</updated>
     
@@ -46,8 +73,8 @@
   
   <entry>
     <title>Spring学习笔记一</title>
-    <link href="https://www.yyfol.com/2019/ck4si2sdv0002qsq6pg25yrdt/"/>
-    <id>https://www.yyfol.com/2019/ck4si2sdv0002qsq6pg25yrdt/</id>
+    <link href="https://www.yyfol.com/2019/ck56pbkhj0005jcq6rt6opa2a/"/>
+    <id>https://www.yyfol.com/2019/ck56pbkhj0005jcq6rt6opa2a/</id>
     <published>2019-12-30T13:35:00.000Z</published>
     <updated>2019-12-30T13:36:33.636Z</updated>
     
@@ -73,8 +100,8 @@
   
   <entry>
     <title>八大排序算法</title>
-    <link href="https://www.yyfol.com/2019/ck4si2se30006qsq6lk2eivqt/"/>
-    <id>https://www.yyfol.com/2019/ck4si2se30006qsq6lk2eivqt/</id>
+    <link href="https://www.yyfol.com/2019/ck56pbki8000ojcq6xihq6rvi/"/>
+    <id>https://www.yyfol.com/2019/ck56pbki8000ojcq6xihq6rvi/</id>
     <published>2019-03-11T04:32:00.000Z</published>
     <updated>2019-03-11T04:37:14.993Z</updated>
     
@@ -100,8 +127,8 @@
   
   <entry>
     <title>机器学习入门路线</title>
-    <link href="https://www.yyfol.com/2019/ck4si2se70007qsq6w0supi9b/"/>
-    <id>https://www.yyfol.com/2019/ck4si2se70007qsq6w0supi9b/</id>
+    <link href="https://www.yyfol.com/2019/ck56pbkib000rjcq6jw5vdemc/"/>
+    <id>https://www.yyfol.com/2019/ck56pbkib000rjcq6jw5vdemc/</id>
     <published>2019-03-08T06:22:34.000Z</published>
     <updated>2019-03-08T10:00:17.857Z</updated>
     
@@ -125,8 +152,8 @@
   
   <entry>
     <title>Tensorflow做模型预测（入门级）</title>
-    <link href="https://www.yyfol.com/2019/ck4si2se00005qsq6j3ju9fqt/"/>
-    <id>https://www.yyfol.com/2019/ck4si2se00005qsq6j3ju9fqt/</id>
+    <link href="https://www.yyfol.com/2019/ck56pbki6000mjcq6b8irvmvu/"/>
+    <id>https://www.yyfol.com/2019/ck56pbki6000mjcq6b8irvmvu/</id>
     <published>2019-03-06T16:12:00.000Z</published>
     <updated>2019-03-07T03:29:30.836Z</updated>
     
@@ -152,8 +179,8 @@
   
   <entry>
     <title>模板匹配（matlab实现）</title>
-    <link href="https://www.yyfol.com/2019/ck4si2sef000aqsq6haemkrsv/"/>
-    <id>https://www.yyfol.com/2019/ck4si2sef000aqsq6haemkrsv/</id>
+    <link href="https://www.yyfol.com/2019/ck56pbkii000xjcq6l2z8rd1l/"/>
+    <id>https://www.yyfol.com/2019/ck56pbkii000xjcq6l2z8rd1l/</id>
     <published>2019-03-06T14:40:00.000Z</published>
     <updated>2019-03-07T03:29:35.063Z</updated>
     
@@ -179,8 +206,8 @@
   
   <entry>
     <title>游戏开发之路5</title>
-    <link href="https://www.yyfol.com/2019/ck4si2ser000nqsq6jz1hy6gc/"/>
-    <id>https://www.yyfol.com/2019/ck4si2ser000nqsq6jz1hy6gc/</id>
+    <link href="https://www.yyfol.com/2019/ck56pbkih000wjcq6j5atd41k/"/>
+    <id>https://www.yyfol.com/2019/ck56pbkih000wjcq6j5atd41k/</id>
     <published>2019-03-05T15:40:00.000Z</published>
     <updated>2019-03-07T03:24:10.833Z</updated>
     
@@ -204,8 +231,8 @@
   
   <entry>
     <title>游戏开发之路4</title>
-    <link href="https://www.yyfol.com/2019/ck4si2sep000mqsq6dnw7jazs/"/>
-    <id>https://www.yyfol.com/2019/ck4si2sep000mqsq6dnw7jazs/</id>
+    <link href="https://www.yyfol.com/2019/ck56pbkik0011jcq6wg2squds/"/>
+    <id>https://www.yyfol.com/2019/ck56pbkik0011jcq6wg2squds/</id>
     <published>2019-03-05T14:50:00.000Z</published>
     <updated>2019-03-07T03:24:14.331Z</updated>
     
@@ -229,8 +256,8 @@
   
   <entry>
     <title>游戏开发之路3</title>
-    <link href="https://www.yyfol.com/2019/ck4si2sem000hqsq62emhvhoa/"/>
-    <id>https://www.yyfol.com/2019/ck4si2sem000hqsq62emhvhoa/</id>
+    <link href="https://www.yyfol.com/2019/ck56pbkid000tjcq6x5gq60re/"/>
+    <id>https://www.yyfol.com/2019/ck56pbkid000tjcq6x5gq60re/</id>
     <published>2019-03-05T14:36:00.000Z</published>
     <updated>2019-03-07T03:23:34.862Z</updated>
     
@@ -255,8 +282,8 @@
   
   <entry>
     <title>游戏开发之路2</title>
-    <link href="https://www.yyfol.com/2019/ck4si2sel000fqsq6qx8zoyf1/"/>
-    <id>https://www.yyfol.com/2019/ck4si2sel000fqsq6qx8zoyf1/</id>
+    <link href="https://www.yyfol.com/2019/ck56pbkil0013jcq6b3z71vuw/"/>
+    <id>https://www.yyfol.com/2019/ck56pbkil0013jcq6b3z71vuw/</id>
     <published>2019-03-05T08:40:00.000Z</published>
     <updated>2019-03-07T03:24:17.783Z</updated>
     
@@ -280,8 +307,8 @@
   
   <entry>
     <title>游戏开发之路1</title>
-    <link href="https://www.yyfol.com/2019/ck4si2sei000bqsq6xgbvifp3/"/>
-    <id>https://www.yyfol.com/2019/ck4si2sei000bqsq6xgbvifp3/</id>
+    <link href="https://www.yyfol.com/2019/ck56pbkic000sjcq6vdxrjcsn/"/>
+    <id>https://www.yyfol.com/2019/ck56pbkic000sjcq6vdxrjcsn/</id>
     <published>2019-03-05T02:40:00.000Z</published>
     <updated>2019-03-07T03:24:20.214Z</updated>
     
