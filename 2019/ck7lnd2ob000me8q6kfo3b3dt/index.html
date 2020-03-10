@@ -22,7 +22,7 @@
     <meta name="description" content>
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>模板匹配（matlab实现） · yyfol&#39;s Blog</title>
+    <title>游戏开发之路3 · yyfol&#39;s Blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -228,7 +228,7 @@
                 <a href="/">yyfol&#39;s Blog.</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">模板匹配（matlab实现）</a>
+                <a href="#" class="post-name">游戏开发之路3</a>
             </div>
     </div>
     
@@ -258,7 +258,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            模板匹配（matlab实现）
+            游戏开发之路3
             <!-- 404 -->
             
         </h1>
@@ -277,20 +277,18 @@ height:50vh;
                 
                     <div class="post-intro-tags">
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="matlab">matlab</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="图像处理">图像处理</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags="游戏开发">游戏开发</a>
     
 </div>
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">306</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">1.8k</span>阅读时长: <span class="post-count reading-time">5 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2019/03/06</span>
+                    <span class="post-intro-time">2019/03/05</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -414,19 +412,26 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h3 id="基于像素匹配算法"><a href="#基于像素匹配算法" class="headerlink" title="基于像素匹配算法"></a>基于像素匹配算法</h3><p>模板匹配算法一般是通过滑窗的方式在待匹配的图像上滑动，通过比较模板与子图的相似度，找到相似度最大的子图。这种算法最核心部分在于如何设计一个相似性函数。   </p>
-<p>最容易想到的一个相似性函数便是欧式距离：<br><img src="欧氏距离.png" alt="欧式距离公式"></p>
-<p>将这个相似性函数展开，可以得:<br><img src="欧氏距离展开式.png" alt="欧氏距离展开式"><br>可以看出，只有第二项是有意义的，因为第一项和第三项的值在选定模板后是固定的。对于欧式距离相似函数，值越大表示越不相似，也就是说，第二项的值越小则越不相似。     再将第二项归一化:<br><img src="欧氏距离归一化.png" alt="欧氏距离归一化"></p>
-<blockquote>
-<p>如果就仅仅匹配大小不变角度不变的模板，到此为止就够了。</p>
+        <h3 id="经验分享"><a href="#经验分享" class="headerlink" title="经验分享"></a>经验分享</h3><blockquote>
+<p>经过十天的学习，对游戏的开发流程有了大致的了解后，就是三轮的游戏demo制作比赛。但是有点遗憾，在第一轮5天的比赛中，并没有做出什么非常完美的作品，心里也很难受。不过没关系后面还有两轮，并且在这轮中吸取了很多经验。</p>
 </blockquote>
-<p>为了解决旋转不变性，我用很简单的很丑陋的方法————旋转模板再重新匹配。</p>
-<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><p>化简后的欧氏距离matlab实现方法。</p>
-<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> <span class="built_in">i</span>=<span class="number">1</span>:m-m0+<span class="number">1</span>  </span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">j</span>=<span class="number">1</span>:n-n0+<span class="number">1</span>  </span><br><span class="line">        subMatr=test(<span class="built_in">i</span>:<span class="built_in">i</span>+m0<span class="number">-1</span>,<span class="built_in">j</span>:<span class="built_in">j</span>+n0<span class="number">-1</span>);  </span><br><span class="line">        vec=double( subMatr(:) );  </span><br><span class="line">        result(<span class="built_in">i</span>,<span class="built_in">j</span>)=vec'*vec_sub / (norm(vec)*norm_sub+<span class="built_in">eps</span>);  </span><br><span class="line">    <span class="keyword">end</span> </span><br><span class="line"> <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-<p>结果图：</p>
-<p><img src="1.png" alt><br><img src="2.png" alt></p>
+<h4 id="一、第一轮Demo简要介绍"><a href="#一、第一轮Demo简要介绍" class="headerlink" title="一、第一轮Demo简要介绍"></a>一、第一轮Demo简要介绍</h4><blockquote>
+<p>对于项目，工程就不发了，毕竟是组队开发的，不太好意思未经他人允许公开他的代码。我会简要讲一下第一个demo的核心玩法，以及实现方式。最后顺便附上我自己写的一份开发文档</p>
+</blockquote>
+<p>游戏名字叫<strong>《重逢》</strong>（策划那边起的，我也不知道有什么具体含义）。内容是：一个叫Pan的男人寻找他亡妻的故事，游戏里有一个冥界塔的设定，就是玩家们需要操作的场景。<font color="red">核心玩法</font>就是<strong>扫雷</strong>跟<strong>PopStar！</strong>的结合，点开一个方块，你点到炸弹就会扣血，点到空方块就会消除一片连通空白块。然后消除后产生的空的地方，方块会和<strong>PopStar！</strong>中的方块一样落下来，最上面一排会跟扫雷一样显示周围雷区的数量。当然长按标记这些也都有，加上锤子、加血包、计时器三种道具。获胜条件为：从上到下消直到落到最下面一层，就算通关；如果血扣完了或者计时器到零，就判定失败。对应冥界塔的下楼方式，你在冲塔的过程中为遇到一系列问题，比如怪物、宝藏、迷雾、岩浆、陨星…..每种问题对应一种新玩法，每一种玩法都会有新的得分机制，目前没有划分到获胜机制里（之后在看情况做修改），核心玩法还是不变的。</p>
+<p><strong>开发部分</strong> 的话，是采用unity做客户端，java做服务端。</p>
+<p><img src="《重逢》开发文档.png" alt></p>
+<p>部分框架是介个样子，模块分很多，系统也分很多。（所以这次5天的开发时间，可以说完全是通宵爆肝了，然而还是没有完成）</p>
+<h4 id="二、总结与反思"><a href="#二、总结与反思" class="headerlink" title="二、总结与反思"></a>二、总结与反思</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;复盘一下这几天都做了啥把，第一天简单搭了一下服务器和研究了一下网络通信方面，第二天由于队伍内部出现了纠纷，没有解决。策划又提出了一堆新的需求，导致项目代码重构，花了大量的时间。第三天写项目文档，完善框架里面的数据架构。第四天第五天疯狂填内容，以及对接美术资源，画UI，把3D特效动画整合到逻辑层上去。可惜时间不够，出现一堆bug。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;所以现在回顾了一下，大概有以下几点经验：</p>
+<ol>
+<li>做游戏<strong>demo</strong>，不要过度追求精细，不要为未来考虑过多的东西，未来还很长，从demo到上线可能还要经过很长时间，不是一天两天就能直接出来的。作为demo，它所具备最核心的部分就是能跑，只要能跑无论长的好看还是长的丑，能跑就是一个游戏，是一个产品。你玩法说的再新颖，美术画的再好看，产品出不来，那就是一堆垃圾，是空谈大话。首先能体现你的玩法，其次再加一些美术资源，让它更加生动易于被理解。<strong>因此，作为一名开发者，一定要把控好开发时间，设定好deadline，分阶段开发项目，比如一个项目总共有5天，可以分成两个阶段，那就两天出一个包，然后提意见改bug，过三天再出一个包，分阶段迭代， 这样子就算你后面那个版本夭折了，你也还能回滚到前面的版本，不会一无所有。</strong> </li>
+<li>我们开发到了后期，其实项目功能已经非常庞大了，很难维护，并且接口函数都非常乱。<strong>因此，作为程序开发的小组，需要一个开发文档，并且日常去维护它。首先，你或者队伍里的一个人先去构建一个大体的框架，比如分几层。然后，根据策划的需求，或者组内讨论，按需求和实现的功能，再去细分。最后大家挑自己想要开发的部分，并且在开发过程中，要及时把自己写的接口名，更新到开发文档上，写好关键注释说明。</strong>这样子的话，即便到了后期，假设其他组员或者你自己遇到了什么bug，或者想要扩展新功能，只要翻阅一下文档，就很容易找到自己需要的接口，虽然写文档对某些人来说可能会很麻烦，觉得浪费时间，但是对开发效率上看有很大的提高。</li>
+<li><strong>队内出现意见分歧纠纷，需要及时解决。</strong>我们这次开发失利，其实有一大部分原因也来自这个，本来多一个人就能少很多工作，但是在第一天我们就损失了一名队友，他出现分歧后，我们没有选择去沟通跟他妥协。于是没办法，只好各走各的路，他在后面的几天里都处于<strong>离队状态</strong>。所以，关于队伍里的不和，一定一定一定要及时处理，越早越好，这不仅对整个项目有好处，而且对整个队伍士气氛围也有很大的帮助。如果不管不问，这个问题会在不久的未来不断被放大，后果不可估量。不过说到底，其实这个也是队长的<strong>责任义务</strong>，如果你是一名队长，那你就要跟社区大妈一样，什么事情都得插一脚，去关心队员的内心想法，为什么不想干了，哪个模块不喜欢了，还是遇到什么问题解决不了了……都要去了解，并且解决掉，这个很重要，对于团队开发来说，无论是做游戏还是做APP。</li>
+<li>程序对于策划，需要有自己的想法，需要对策划提出需求做一个风险评估。在给定的一个<strong>Deadline</strong>中你就要跟策划说好，你只能完成那些部分，其他需求可能做不到，要砍掉。不然等到了<strong>Deadline</strong>不仅是你交不上代码，而且项目可能会因为你而推迟下一阶段的开发时间。<strong>有时候<font color="red">减</font>就是<font color="red">加</font>。</strong> </li>
+</ol>
 <blockquote>
-<p>具体源码 可以见<a href="https://github.com/NSDie/templet" target="_blank" rel="noopener">github</a>.</p>
+<p>总结大概就这些， 希望自己能学到一些东西，看这篇文章的小伙伴们也能学到一些，这些都未来在工作中可能会遇到的，提前打好预防针。</p>
 </blockquote>
 
     </article>
@@ -434,9 +439,9 @@ height:50vh;
     
         <div class="license-wrapper">
             <p>原文作者：<a href="https://www.yyfol.com">Ye Yifan</a>
-            </p><p>原文链接：<a href="https://www.yyfol.com/2019/ck56pbkii000xjcq6l2z8rd1l/">https://www.yyfol.com/2019/ck56pbkii000xjcq6l2z8rd1l/</a>
-            </p><p>发表日期：<a href="https://www.yyfol.com/2019/ck56pbkii000xjcq6l2z8rd1l/">March 6th 2019, 10:40:00 pm</a>
-            </p><p>更新日期：<a href="https://www.yyfol.com/2019/ck56pbkii000xjcq6l2z8rd1l/">March 7th 2019, 11:29:35 am</a>
+            </p><p>原文链接：<a href="https://www.yyfol.com/2019/ck7lnd2ob000me8q6kfo3b3dt/">https://www.yyfol.com/2019/ck7lnd2ob000me8q6kfo3b3dt/</a>
+            </p><p>发表日期：<a href="https://www.yyfol.com/2019/ck7lnd2ob000me8q6kfo3b3dt/">March 5th 2019, 10:36:00 pm</a>
+            </p><p>更新日期：<a href="https://www.yyfol.com/2019/ck7lnd2ob000me8q6kfo3b3dt/">March 7th 2019, 11:23:34 am</a>
             </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -445,16 +450,16 @@ height:50vh;
         <li class="next">
             
                 <div class="nextSlogan">Next Post</div>
-                <a href="/2019/ck56pbki6000mjcq6b8irvmvu/" title="Tensorflow做模型预测（入门级）">
-                    <div class="nextTitle">Tensorflow做模型预测（入门级）</div>
+                <a href="/2019/ck7lnd2p1000re8q69rkuyilg/" title="游戏开发之路4">
+                    <div class="nextTitle">游戏开发之路4</div>
                 </a>
             
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href="/2019/ck56pbkih000wjcq6j5atd41k/" title="游戏开发之路5">
-                    <div class="prevTitle">游戏开发之路5</div>
+                <a href="/2019/ck7lnd2oq000ne8q65hjbklir/" title="游戏开发之路2">
+                    <div class="prevTitle">游戏开发之路2</div>
                 </a>
             
         </li>
@@ -602,7 +607,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#基于像素匹配算法"><span class="toc-number">1.</span> <span class="toc-text">基于像素匹配算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#代码"><span class="toc-number">1.1.</span> <span class="toc-text">代码</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#经验分享"><span class="toc-number">1.</span> <span class="toc-text">经验分享</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#一、第一轮Demo简要介绍"><span class="toc-number">1.1.</span> <span class="toc-text">一、第一轮Demo简要介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#二、总结与反思"><span class="toc-number">1.2.</span> <span class="toc-text">二、总结与反思</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -743,9 +748,22 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 12
+        Total : 13
         </div>
         <!-- search  -->
         
@@ -761,7 +779,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/09</span><a class="archive-post-title" href="/2020/ck56pbkh70001jcq6av2o6dwc/">Java基础问题</a>
+            <span class="archive-post-date">03/10</span><a class="archive-post-title" href="/2020/ck7lnd2n60007e8q6i8biqva8/">华为Cloud Bu 软开凉经</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/09</span><a class="archive-post-title" href="/2020/ck7lnd2mq0002e8q67oc9jiux/">Java基础问题</a>
         </li>
     
     
@@ -775,57 +798,57 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/30</span><a class="archive-post-title" href="/2019/ck56pbkhe0002jcq6iwvq2sc7/">Spring核心思想IOC、DI</a>
+            <span class="archive-post-date">12/30</span><a class="archive-post-title" href="/2019/ck7lnd2n10005e8q6ihf1ipra/">Spring核心思想IOC、DI</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/30</span><a class="archive-post-title" href="/2019/ck56pbkhj0005jcq6rt6opa2a/">Spring学习笔记一</a>
+            <span class="archive-post-date">12/30</span><a class="archive-post-title" href="/2019/ck7lnd2ml0001e8q6hd5etzwz/">Spring学习笔记一</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/11</span><a class="archive-post-title" href="/2019/ck56pbki8000ojcq6xihq6rvi/">八大排序算法</a>
+            <span class="archive-post-date">03/11</span><a class="archive-post-title" href="/2019/ck7lnd2ng000ae8q6f3asg28v/">八大排序算法</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/08</span><a class="archive-post-title" href="/2019/ck56pbkib000rjcq6jw5vdemc/">机器学习入门路线</a>
+            <span class="archive-post-date">03/08</span><a class="archive-post-title" href="/2019/ck7lnd2ni000be8q64sas09nq/">机器学习入门路线</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/07</span><a class="archive-post-title" href="/2019/ck56pbki6000mjcq6b8irvmvu/">Tensorflow做模型预测（入门级）</a>
+            <span class="archive-post-date">03/07</span><a class="archive-post-title" href="/2019/ck7lnd2n50006e8q6kwo6ml8n/">Tensorflow做模型预测（入门级）</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/06</span><a class="archive-post-title" href="/2019/ck56pbkii000xjcq6l2z8rd1l/">模板匹配（matlab实现）</a>
+            <span class="archive-post-date">03/06</span><a class="archive-post-title" href="/2019/ck7lnd2nm000fe8q603trtdcu/">模板匹配（matlab实现）</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ck56pbkih000wjcq6j5atd41k/">游戏开发之路5</a>
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ck7lnd2si0024e8q63xhu4d4l/">游戏开发之路5</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ck56pbkik0011jcq6wg2squds/">游戏开发之路4</a>
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ck7lnd2p1000re8q69rkuyilg/">游戏开发之路4</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ck56pbkid000tjcq6x5gq60re/">游戏开发之路3</a>
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ck7lnd2ob000me8q6kfo3b3dt/">游戏开发之路3</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ck56pbkil0013jcq6b3z71vuw/">游戏开发之路2</a>
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ck7lnd2oq000ne8q65hjbklir/">游戏开发之路2</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ck56pbkic000sjcq6vdxrjcsn/">游戏开发之路1</a>
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ck7lnd2nz000he8q6v51cy3a5/">游戏开发之路1</a>
         </li>
     
     </ul></div>
@@ -845,11 +868,11 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="c++"><span class="iconfont-archer">&#xe606;</span>c++</span>
     
-        <span class="sidebar-tag-name" data-tags="游戏开发"><span class="iconfont-archer">&#xe606;</span>游戏开发</span>
-    
         <span class="sidebar-tag-name" data-tags="matlab"><span class="iconfont-archer">&#xe606;</span>matlab</span>
     
         <span class="sidebar-tag-name" data-tags="图像处理"><span class="iconfont-archer">&#xe606;</span>图像处理</span>
+    
+        <span class="sidebar-tag-name" data-tags="游戏开发"><span class="iconfont-archer">&#xe606;</span>游戏开发</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
@@ -887,6 +910,8 @@ jsonContent:
         <span class="sidebar-category-name" data-categories="开发"><span class="iconfont-archer">&#xe60a;</span>开发</span>
     
         <span class="sidebar-category-name" data-categories="MachineLearning"><span class="iconfont-archer">&#xe60a;</span>MachineLearning</span>
+    
+        <span class="sidebar-category-name" data-categories="开发/面试"><span class="iconfont-archer">&#xe60a;</span>开发/面试</span>
     
         <span class="sidebar-category-name" data-categories="Programming"><span class="iconfont-archer">&#xe60a;</span>Programming</span>
     
