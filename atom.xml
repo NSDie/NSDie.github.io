@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.yyfol.com/"/>
-  <updated>2020-03-10T08:30:17.133Z</updated>
+  <updated>2020-03-10T08:53:10.803Z</updated>
   <id>https://www.yyfol.com/</id>
   
   <author>
@@ -17,21 +17,19 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>华为Cloud Bu 软开凉经</title>
-    <link href="https://www.yyfol.com/2020/ck7lnd2n60007e8q6i8biqva8/"/>
-    <id>https://www.yyfol.com/2020/ck7lnd2n60007e8q6i8biqva8/</id>
+    <title>华为Cloud&amp;Bu 软开凉经</title>
+    <link href="https://www.yyfol.com/2020/ck7lnqj1m000bxoq64ch3jc2c/"/>
+    <id>https://www.yyfol.com/2020/ck7lnqj1m000bxoq64ch3jc2c/</id>
     <published>2020-03-10T08:29:00.000Z</published>
-    <updated>2020-03-10T08:30:17.133Z</updated>
+    <updated>2020-03-10T08:53:10.803Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="华为Cloud-Bu-软开面经"><a href="#华为Cloud-Bu-软开面经" class="headerlink" title="华为Cloud Bu 软开面经"></a>华为Cloud Bu 软开面经</h2><p>###一面：</p><ol><li><strong>计算机网络</strong>：V-LAN、虚拟网关</li><li><strong>操作系统</strong>：两个线程如何通信</li><li><strong>组成原理</strong>：软中断和硬中断</li><li><strong>项目（Java）</strong>：<br>多线程如何实现；<br>所有类的父类是什么；<br>SpringBoot有啥特点；<br>SpringBoot的Bean都有哪些；<br>SpringBoot中的Request跟Response是多线程的吗，在哪里生成，如何赋值。<br>SpringBoot里对象的生命周期<br>手撕 or 设计模式</li><li><strong>数据结构</strong>：<br>问：速度最快且稳定的排序算法<br>答：归并吧<br>“那你实现一下吧”<br>（手撕一道水题）实现一个归并算法</li></ol><h3 id="二面："><a href="#二面：" class="headerlink" title="二面："></a>二面：</h3><ol><li><strong>数据结构</strong>：<br>数组跟链表有什么区别？<br>平衡二叉树定义说一下、如何插入一个数、有什么应用？</li><li>设计模式了解吗？说一下常用的几个设计模式。</li><li>那你做过什么项目，用什么语言，答：Java<br>（感觉不会java的面试官 2333）<br>聊项目。</li><li>给了一个情景，假如有很多条主机数据，他们有各自的ip跟存储的信息，我想要去重，（集合？），那你设计一下这个主机类，如何用集合来去重？ balabalabala…….</li></ol><p>ok 来看一道题目给你20分钟（然后共享屏幕开始敲）<br>题目是leetcode.56 合并区间 大意就是给你一堆区间的集合，然后你把重叠区间合并掉，返回全部区间的集合。</p><h3 id="三面-主管面"><a href="#三面-主管面" class="headerlink" title="三面(主管面):"></a>三面(主管面):</h3><ol><li>看你实习过，先说一下你实习期间做了什么吧</li><li>（因为我说大三准备考研了）你学习成绩怎么样。班级里考研的多吗，现在找到工作的多吗</li><li>复盘一面的知识：你说一下你一面算法题实现了什么东西。balabala….<br>计算机网络：说一下TCP/IP协议的三次握手/四次握手<br>数据结构：说一下冒泡排序</li><li>你还做过什么项目，你在项目里的定位是什么，实现了什么功能。<br>数据库：主键和外键<br>平时会看什么书…… （聊一下Spring微服务吧 这个应该跟你看了什么书有关系）</li><li>你有什么问题要问我的。</li></ol>]]></content>
+    <content type="html"><![CDATA[<h2 id="华为Cloud-amp-Bu-软开面经"><a href="#华为Cloud-amp-Bu-软开面经" class="headerlink" title="华为Cloud&amp;Bu 软开面经"></a>华为Cloud&amp;Bu 软开面经</h2><h3 id="一面："><a href="#一面：" class="headerlink" title="一面："></a>一面：</h3><ol><li><strong>计算机网络</strong>：V-LAN、虚拟网关</li><li><strong>操作系统</strong>：两个线程如何通信</li><li><strong>组成原理</strong>：软中断和硬中断</li><li><strong>项目（Java）</strong>：<br>多线程如何实现；<br>所有类的父类是什么；<br>SpringBoot有啥特点；<br>SpringBoot的Bean都有哪些；<br>SpringBoot中的Request跟Response是多线程的吗，在哪里生成，如何赋值。<br>SpringBoot里对象的生命周期<br>手撕 or 设计模式</li><li><strong>数据结构</strong>：<br>问：速度最快且稳定的排序算法<br>答：归并吧<br>“那你实现一下吧”<br>（手撕一道水题）实现一个归并算法</li></ol><h3 id="二面："><a href="#二面：" class="headerlink" title="二面："></a>二面：</h3><ol><li><strong>数据结构</strong>：<br>数组跟链表有什么区别？<br>平衡二叉树定义说一下、如何插入一个数、有什么应用？</li><li>设计模式了解吗？说一下常用的几个设计模式。</li><li>那你做过什么项目，用什么语言，答：Java<br>（感觉不会java的面试官 2333）<br>聊项目。</li><li>给了一个情景，假如有很多条主机数据，他们有各自的ip跟存储的信息，我想要去重，（集合？），那你设计一下这个主机类，如何用集合来去重？ balabalabala…….</li></ol><p>ok 来看一道题目给你20分钟（然后共享屏幕开始敲）<br>题目是leetcode.56 合并区间 大意就是给你一堆区间的集合，然后你把重叠区间合并掉，返回全部区间的集合。</p><h3 id="三面-主管面"><a href="#三面-主管面" class="headerlink" title="三面(主管面):"></a>三面(主管面):</h3><ol><li>看你实习过，先说一下你实习期间做了什么吧</li><li>（因为我说大三准备考研了）你学习成绩怎么样。班级里考研的多吗，现在找到工作的多吗</li><li>复盘一面的知识：你说一下你一面算法题实现了什么东西。balabala….<br>计算机网络：说一下TCP/IP协议的三次握手/四次握手<br>数据结构：说一下冒泡排序</li><li>你还做过什么项目，你在项目里的定位是什么，实现了什么功能。<br>数据库：主键和外键<br>平时会看什么书…… （聊一下Spring微服务吧 这个应该跟你看了什么书有关系）</li><li>你有什么问题要问我的。</li></ol>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;h2 id=&quot;华为Cloud-Bu-软开面经&quot;&gt;&lt;a href=&quot;#华为Cloud-Bu-软开面经&quot; class=&quot;headerlink&quot; title=&quot;华为Cloud Bu 软开面经&quot;&gt;&lt;/a&gt;华为Cloud Bu 软开面经&lt;/h2&gt;&lt;p&gt;###一面：&lt;/p&gt;
-&lt;ol&gt;
-&lt;l
+        &lt;h2 id=&quot;华为Cloud-amp-Bu-软开面经&quot;&gt;&lt;a href=&quot;#华为Cloud-amp-Bu-软开面经&quot; class=&quot;headerlink&quot; title=&quot;华为Cloud&amp;amp;Bu 软开面经&quot;&gt;&lt;/a&gt;华为Cloud&amp;amp;Bu 软开面经&lt;/h2&gt;&lt;h3 i
       
     
     </summary>
@@ -49,8 +47,8 @@
   
   <entry>
     <title>Java基础问题</title>
-    <link href="https://www.yyfol.com/2020/ck7lnd2mq0002e8q67oc9jiux/"/>
-    <id>https://www.yyfol.com/2020/ck7lnd2mq0002e8q67oc9jiux/</id>
+    <link href="https://www.yyfol.com/2020/ck7lnqj0i0003xoq689w1i39s/"/>
+    <id>https://www.yyfol.com/2020/ck7lnqj0i0003xoq689w1i39s/</id>
     <published>2020-01-09T12:21:00.000Z</published>
     <updated>2020-01-09T12:21:33.743Z</updated>
     
@@ -76,8 +74,8 @@
   
   <entry>
     <title>Spring核心思想IOC、DI</title>
-    <link href="https://www.yyfol.com/2019/ck7lnd2n10005e8q6ihf1ipra/"/>
-    <id>https://www.yyfol.com/2019/ck7lnd2n10005e8q6ihf1ipra/</id>
+    <link href="https://www.yyfol.com/2019/ck7lnqj0y0006xoq618ng8s5m/"/>
+    <id>https://www.yyfol.com/2019/ck7lnqj0y0006xoq618ng8s5m/</id>
     <published>2019-12-30T13:37:00.000Z</published>
     <updated>2019-12-30T13:50:12.397Z</updated>
     
@@ -104,8 +102,8 @@
   
   <entry>
     <title>Spring学习笔记一</title>
-    <link href="https://www.yyfol.com/2019/ck7lnd2ml0001e8q6hd5etzwz/"/>
-    <id>https://www.yyfol.com/2019/ck7lnd2ml0001e8q6hd5etzwz/</id>
+    <link href="https://www.yyfol.com/2019/ck7lnqj080001xoq6urs2hbh4/"/>
+    <id>https://www.yyfol.com/2019/ck7lnqj080001xoq6urs2hbh4/</id>
     <published>2019-12-30T13:35:00.000Z</published>
     <updated>2019-12-30T13:36:33.636Z</updated>
     
@@ -131,8 +129,8 @@
   
   <entry>
     <title>八大排序算法</title>
-    <link href="https://www.yyfol.com/2019/ck7lnd2ng000ae8q6f3asg28v/"/>
-    <id>https://www.yyfol.com/2019/ck7lnd2ng000ae8q6f3asg28v/</id>
+    <link href="https://www.yyfol.com/2019/ck7lnqj1f0008xoq645ml5tsk/"/>
+    <id>https://www.yyfol.com/2019/ck7lnqj1f0008xoq645ml5tsk/</id>
     <published>2019-03-11T04:32:00.000Z</published>
     <updated>2019-03-11T04:37:14.993Z</updated>
     
@@ -158,8 +156,8 @@
   
   <entry>
     <title>机器学习入门路线</title>
-    <link href="https://www.yyfol.com/2019/ck7lnd2ni000be8q64sas09nq/"/>
-    <id>https://www.yyfol.com/2019/ck7lnd2ni000be8q64sas09nq/</id>
+    <link href="https://www.yyfol.com/2019/ck7lnqj1n000cxoq6fj8zcuz1/"/>
+    <id>https://www.yyfol.com/2019/ck7lnqj1n000cxoq6fj8zcuz1/</id>
     <published>2019-03-08T06:22:34.000Z</published>
     <updated>2019-03-08T10:00:17.857Z</updated>
     
@@ -183,8 +181,8 @@
   
   <entry>
     <title>Tensorflow做模型预测（入门级）</title>
-    <link href="https://www.yyfol.com/2019/ck7lnd2n50006e8q6kwo6ml8n/"/>
-    <id>https://www.yyfol.com/2019/ck7lnd2n50006e8q6kwo6ml8n/</id>
+    <link href="https://www.yyfol.com/2019/ck7lnqj170007xoq69iw7megr/"/>
+    <id>https://www.yyfol.com/2019/ck7lnqj170007xoq69iw7megr/</id>
     <published>2019-03-06T16:12:00.000Z</published>
     <updated>2019-03-07T03:29:30.836Z</updated>
     
@@ -210,8 +208,8 @@
   
   <entry>
     <title>模板匹配（matlab实现）</title>
-    <link href="https://www.yyfol.com/2019/ck7lnd2nm000fe8q603trtdcu/"/>
-    <id>https://www.yyfol.com/2019/ck7lnd2nm000fe8q603trtdcu/</id>
+    <link href="https://www.yyfol.com/2019/ck7lnqj1x000hxoq648j6dvd0/"/>
+    <id>https://www.yyfol.com/2019/ck7lnqj1x000hxoq648j6dvd0/</id>
     <published>2019-03-06T14:40:00.000Z</published>
     <updated>2019-03-07T03:29:35.063Z</updated>
     
@@ -237,8 +235,8 @@
   
   <entry>
     <title>游戏开发之路5</title>
-    <link href="https://www.yyfol.com/2019/ck7lnd2si0024e8q63xhu4d4l/"/>
-    <id>https://www.yyfol.com/2019/ck7lnd2si0024e8q63xhu4d4l/</id>
+    <link href="https://www.yyfol.com/2019/ck7lnqj2m000wxoq68uooycnu/"/>
+    <id>https://www.yyfol.com/2019/ck7lnqj2m000wxoq68uooycnu/</id>
     <published>2019-03-05T15:40:00.000Z</published>
     <updated>2019-03-07T03:24:10.833Z</updated>
     
@@ -262,8 +260,8 @@
   
   <entry>
     <title>游戏开发之路4</title>
-    <link href="https://www.yyfol.com/2019/ck7lnd2p1000re8q69rkuyilg/"/>
-    <id>https://www.yyfol.com/2019/ck7lnd2p1000re8q69rkuyilg/</id>
+    <link href="https://www.yyfol.com/2019/ck7lnqj2k000uxoq6163af3b7/"/>
+    <id>https://www.yyfol.com/2019/ck7lnqj2k000uxoq6163af3b7/</id>
     <published>2019-03-05T14:50:00.000Z</published>
     <updated>2019-03-07T03:24:14.331Z</updated>
     
@@ -287,8 +285,8 @@
   
   <entry>
     <title>游戏开发之路3</title>
-    <link href="https://www.yyfol.com/2019/ck7lnd2ob000me8q6kfo3b3dt/"/>
-    <id>https://www.yyfol.com/2019/ck7lnd2ob000me8q6kfo3b3dt/</id>
+    <link href="https://www.yyfol.com/2019/ck7lnqj2e000qxoq6vo27t6ub/"/>
+    <id>https://www.yyfol.com/2019/ck7lnqj2e000qxoq6vo27t6ub/</id>
     <published>2019-03-05T14:36:00.000Z</published>
     <updated>2019-03-07T03:23:34.862Z</updated>
     
@@ -313,8 +311,8 @@
   
   <entry>
     <title>游戏开发之路2</title>
-    <link href="https://www.yyfol.com/2019/ck7lnd2oq000ne8q65hjbklir/"/>
-    <id>https://www.yyfol.com/2019/ck7lnd2oq000ne8q65hjbklir/</id>
+    <link href="https://www.yyfol.com/2019/ck7lnqj2a000oxoq6lr65rq4b/"/>
+    <id>https://www.yyfol.com/2019/ck7lnqj2a000oxoq6lr65rq4b/</id>
     <published>2019-03-05T08:40:00.000Z</published>
     <updated>2019-03-07T03:24:17.783Z</updated>
     
@@ -338,8 +336,8 @@
   
   <entry>
     <title>游戏开发之路1</title>
-    <link href="https://www.yyfol.com/2019/ck7lnd2nz000he8q6v51cy3a5/"/>
-    <id>https://www.yyfol.com/2019/ck7lnd2nz000he8q6v51cy3a5/</id>
+    <link href="https://www.yyfol.com/2019/ck7lnqj22000jxoq60tf8kb4t/"/>
+    <id>https://www.yyfol.com/2019/ck7lnqj22000jxoq60tf8kb4t/</id>
     <published>2019-03-05T02:40:00.000Z</published>
     <updated>2019-03-07T03:24:20.214Z</updated>
     

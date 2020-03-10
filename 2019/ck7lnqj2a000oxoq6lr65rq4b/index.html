@@ -22,7 +22,7 @@
     <meta name="description" content>
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>模板匹配（matlab实现） · yyfol&#39;s Blog</title>
+    <title>游戏开发之路2 · yyfol&#39;s Blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -228,7 +228,7 @@
                 <a href="/">yyfol&#39;s Blog.</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">模板匹配（matlab实现）</a>
+                <a href="#" class="post-name">游戏开发之路2</a>
             </div>
     </div>
     
@@ -258,7 +258,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            模板匹配（matlab实现）
+            游戏开发之路2
             <!-- 404 -->
             
         </h1>
@@ -277,20 +277,18 @@ height:50vh;
                 
                     <div class="post-intro-tags">
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="matlab">matlab</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="图像处理">图像处理</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags="游戏开发">游戏开发</a>
     
 </div>
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">306</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">1.1k</span>阅读时长: <span class="post-count reading-time">3 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2019/03/06</span>
+                    <span class="post-intro-time">2019/03/05</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -414,29 +412,89 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h3 id="基于像素匹配算法"><a href="#基于像素匹配算法" class="headerlink" title="基于像素匹配算法"></a>基于像素匹配算法</h3><p>模板匹配算法一般是通过滑窗的方式在待匹配的图像上滑动，通过比较模板与子图的相似度，找到相似度最大的子图。这种算法最核心部分在于如何设计一个相似性函数。   </p>
-<p>最容易想到的一个相似性函数便是欧式距离：<br><img src="欧氏距离.png" alt="欧式距离公式"></p>
-<p>将这个相似性函数展开，可以得:<br><img src="欧氏距离展开式.png" alt="欧氏距离展开式"><br>可以看出，只有第二项是有意义的，因为第一项和第三项的值在选定模板后是固定的。对于欧式距离相似函数，值越大表示越不相似，也就是说，第二项的值越小则越不相似。     再将第二项归一化:<br><img src="欧氏距离归一化.png" alt="欧氏距离归一化"></p>
-<blockquote>
-<p>如果就仅仅匹配大小不变角度不变的模板，到此为止就够了。</p>
-</blockquote>
-<p>为了解决旋转不变性，我用很简单的很丑陋的方法————旋转模板再重新匹配。</p>
-<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><p>化简后的欧氏距离matlab实现方法。</p>
-<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> <span class="built_in">i</span>=<span class="number">1</span>:m-m0+<span class="number">1</span>  </span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">j</span>=<span class="number">1</span>:n-n0+<span class="number">1</span>  </span><br><span class="line">        subMatr=test(<span class="built_in">i</span>:<span class="built_in">i</span>+m0<span class="number">-1</span>,<span class="built_in">j</span>:<span class="built_in">j</span>+n0<span class="number">-1</span>);  </span><br><span class="line">        vec=double( subMatr(:) );  </span><br><span class="line">        result(<span class="built_in">i</span>,<span class="built_in">j</span>)=vec'*vec_sub / (norm(vec)*norm_sub+<span class="built_in">eps</span>);  </span><br><span class="line">    <span class="keyword">end</span> </span><br><span class="line"> <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-<p>结果图：</p>
-<p><img src="1.png" alt><br><img src="2.png" alt></p>
-<blockquote>
-<p>具体源码 可以见<a href="https://github.com/NSDie/templet" target="_blank" rel="noopener">github</a>.</p>
-</blockquote>
+        <h3 id="游戏开发"><a href="#游戏开发" class="headerlink" title="游戏开发"></a>游戏开发</h3><h4 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;用来开发客户端的语言非常多，<strong>unity引擎</strong>用的是<strong>c#</strong>，<strong>cocos引擎</strong>用的是<strong>c++</strong>、<strong>js</strong>，<strong>虚幻4引擎</strong>也是用<strong>c++</strong>，还有<strong>java</strong>和<strong>python</strong>。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;不过主流都是用<strong>unity</strong>跟<strong>虚幻4</strong>，再者就是自家公司研发的游戏引擎。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;由于我本身也不是客户端开发的，所以这这部分知识不会太细，就罗列一下引擎中的基本模块以及客户端开发过程中需要注意的地方。</p>
+<p><strong>引擎：</strong></p>
+<ol>
+<li>渲染部分（2d和3d） ——<strong>渲染管线</strong></li>
+<li>物理与碰撞</li>
+<li>音乐和音效</li>
+<li>场景管理</li>
+<li>交互处理</li>
+<li>寻路  ——A星算法、Mesh网格</li>
+<li>动画</li>
+</ol>
+<p><strong>开发文档</strong>：</p>
+<ul>
+<li>制定开发规范<ol>
+<li>变量命名、空间命名规范</li>
+<li>程序逻辑架构</li>
+<li>资源制作规范</li>
+<li>模块开发步骤</li>
+</ol>
+</li>
+<li>UI框架<ol>
+<li>可扩展性</li>
+<li>可维护性</li>
+<li>易用性</li>
+</ol>
+</li>
+<li>网络模块<ol>
+<li>TCP与UDP</li>
+<li>包头、包体</li>
+<li>数据交换格式<ul>
+<li>protobuf</li>
+<li>json</li>
+<li>二进制流</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>资源模块<ol>
+<li>制定存放规则</li>
+<li>制定UI、Icon、Texutre 存放规则</li>
+<li>制定模型存放规则</li>
+<li>制定特效存放规则</li>
+<li>制定资源命名规则</li>
+</ol>
+</li>
+<li>资源工具<ol>
+<li>统一模型设置</li>
+<li>统一贴图设置</li>
+</ol>
+</li>
+<li>美术规格<ol>
+<li>协助制定模型制作规范</li>
+<li>协助统一UI资源制作规范</li>
+<li>协助制作场景制作规范</li>
+<li>协助制作纹理制作规范</li>
+</ol>
+</li>
+<li>美术检查工具</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;大体上，客户端有这些事情要做。除了这些，如果要开发联机游戏，开发者要考虑选择帧同步还是状态同步的方式来完成客户端服务端数据同步，这个是一个难点。</p>
+<h4 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h4><p>用于服务端开发的语言有<strong>C++</strong> 、<strong>Java</strong>、<strong>C#</strong>、<strong>Go</strong>、python、nodejs…</p>
+<p>主流的语言是<strong>C++</strong> 。为什么呢？C++最接近低层，可以直接对内存分配进行操作，而且它本身也非常稳定，兼容多个平台。但是这个好处导致它开发非常困难，开发起来效率低，内存管理复杂。</p>
+<p>服务端除了业务逻辑外还有数据库优化维护，这些后续有空再讲，现在就简单介绍几个服务端架构，以及服务端跟客户端之间的通信。</p>
+<p><strong>第一代游戏服务器架构</strong></p>
+<p>数据库——游戏服务器——客户端         <strong>最原始</strong>也是<strong>最基本</strong>的结构，适合简单的游戏框架。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">st=&gt;start: DB</span><br><span class="line">op=&gt;operation: GameServe</span><br><span class="line">e=&gt;end: Client</span><br><span class="line"></span><br><span class="line">st-&gt;op-&gt;e</span><br></pre></td></tr></table></figure>
+<p><strong>后续更加完善的游戏服务器架构</strong> </p>
+<p>DB1、DB2  —— GS1、GS2、公共服务器——客户端——登陆服——调度服——GS1…. 这种比较成熟的框架就适合大部分网络游戏了，也是很多厂家的首选。</p>
+<p>这个就当了解一下，详细之后再写，有学习意愿可以评论留言一起探讨！</p>
+<p>服务器架构之后，就是服务端跟客户端之间的通信了。这部分一般是通过<strong>TCP协议</strong>或者<strong>UDP协议</strong>，然后自己定义报文格式以及数据格式，可以选用<strong>protobuf</strong>或者<strong>protostuff</strong>（protobuf升级版据说比快很多），虽然json格式也有，传输过程中也非常方便查看数据内容，但是json占的内存太大传输时间太慢，并且明文传输或者说字符串传输，被人拦截下来容易被人得知传输信息，不太安全。</p>
+<p>那么传输数据知道了，业务逻辑处理在哪里呢？这里就出现这个问题了，假设数据都传输到服务端统一计算过后，然后分发给各个客户端，那么可能会有某个客户端太卡丢包了，其他人就要等他重新连接了；那数据都在客户端处理，最终结果上报到服务端，服务端然后再广播到其他客户端，这样可能会遇到一个问题，我的数据是浮点数，发送给服务端可能会失真，就不准确了。这两种处理方式，前者叫<strong>状态同步</strong>，后者叫<strong>帧同步</strong>。</p>
+<p>由于时间问题，这两个讲起来可能也会很多，之后再详细写一篇关于它们的文章。</p>
 
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
             <p>原文作者：<a href="https://www.yyfol.com">Ye Yifan</a>
-            </p><p>原文链接：<a href="https://www.yyfol.com/2019/ck7lnd2nm000fe8q603trtdcu/">https://www.yyfol.com/2019/ck7lnd2nm000fe8q603trtdcu/</a>
-            </p><p>发表日期：<a href="https://www.yyfol.com/2019/ck7lnd2nm000fe8q603trtdcu/">March 6th 2019, 10:40:00 pm</a>
-            </p><p>更新日期：<a href="https://www.yyfol.com/2019/ck7lnd2nm000fe8q603trtdcu/">March 7th 2019, 11:29:35 am</a>
+            </p><p>原文链接：<a href="https://www.yyfol.com/2019/ck7lnqj2a000oxoq6lr65rq4b/">https://www.yyfol.com/2019/ck7lnqj2a000oxoq6lr65rq4b/</a>
+            </p><p>发表日期：<a href="https://www.yyfol.com/2019/ck7lnqj2a000oxoq6lr65rq4b/">March 5th 2019, 4:40:00 pm</a>
+            </p><p>更新日期：<a href="https://www.yyfol.com/2019/ck7lnqj2a000oxoq6lr65rq4b/">March 7th 2019, 11:24:17 am</a>
             </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -445,16 +503,16 @@ height:50vh;
         <li class="next">
             
                 <div class="nextSlogan">Next Post</div>
-                <a href="/2019/ck7lnd2n50006e8q6kwo6ml8n/" title="Tensorflow做模型预测（入门级）">
-                    <div class="nextTitle">Tensorflow做模型预测（入门级）</div>
+                <a href="/2019/ck7lnqj2e000qxoq6vo27t6ub/" title="游戏开发之路3">
+                    <div class="nextTitle">游戏开发之路3</div>
                 </a>
             
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href="/2019/ck7lnd2si0024e8q63xhu4d4l/" title="游戏开发之路5">
-                    <div class="prevTitle">游戏开发之路5</div>
+                <a href="/2019/ck7lnqj22000jxoq60tf8kb4t/" title="游戏开发之路1">
+                    <div class="prevTitle">游戏开发之路1</div>
                 </a>
             
         </li>
@@ -602,7 +660,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#基于像素匹配算法"><span class="toc-number">1.</span> <span class="toc-text">基于像素匹配算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#代码"><span class="toc-number">1.1.</span> <span class="toc-text">代码</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#游戏开发"><span class="toc-number">1.</span> <span class="toc-text">游戏开发</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#客户端"><span class="toc-number">1.1.</span> <span class="toc-text">客户端</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#服务端"><span class="toc-number">1.2.</span> <span class="toc-text">服务端</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -615,6 +673,10 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
     
     
     
@@ -774,12 +836,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/10</span><a class="archive-post-title" href="/2020/ck7lnd2n60007e8q6i8biqva8/">华为Cloud Bu 软开凉经</a>
+            <span class="archive-post-date">03/10</span><a class="archive-post-title" href="/2020/ck7lnqj1m000bxoq64ch3jc2c/">华为Cloud&Bu 软开凉经</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/09</span><a class="archive-post-title" href="/2020/ck7lnd2mq0002e8q67oc9jiux/">Java基础问题</a>
+            <span class="archive-post-date">01/09</span><a class="archive-post-title" href="/2020/ck7lnqj0i0003xoq689w1i39s/">Java基础问题</a>
         </li>
     
     
@@ -793,57 +855,57 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/30</span><a class="archive-post-title" href="/2019/ck7lnd2n10005e8q6ihf1ipra/">Spring核心思想IOC、DI</a>
+            <span class="archive-post-date">12/30</span><a class="archive-post-title" href="/2019/ck7lnqj0y0006xoq618ng8s5m/">Spring核心思想IOC、DI</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/30</span><a class="archive-post-title" href="/2019/ck7lnd2ml0001e8q6hd5etzwz/">Spring学习笔记一</a>
+            <span class="archive-post-date">12/30</span><a class="archive-post-title" href="/2019/ck7lnqj080001xoq6urs2hbh4/">Spring学习笔记一</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/11</span><a class="archive-post-title" href="/2019/ck7lnd2ng000ae8q6f3asg28v/">八大排序算法</a>
+            <span class="archive-post-date">03/11</span><a class="archive-post-title" href="/2019/ck7lnqj1f0008xoq645ml5tsk/">八大排序算法</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/08</span><a class="archive-post-title" href="/2019/ck7lnd2ni000be8q64sas09nq/">机器学习入门路线</a>
+            <span class="archive-post-date">03/08</span><a class="archive-post-title" href="/2019/ck7lnqj1n000cxoq6fj8zcuz1/">机器学习入门路线</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/07</span><a class="archive-post-title" href="/2019/ck7lnd2n50006e8q6kwo6ml8n/">Tensorflow做模型预测（入门级）</a>
+            <span class="archive-post-date">03/07</span><a class="archive-post-title" href="/2019/ck7lnqj170007xoq69iw7megr/">Tensorflow做模型预测（入门级）</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/06</span><a class="archive-post-title" href="/2019/ck7lnd2nm000fe8q603trtdcu/">模板匹配（matlab实现）</a>
+            <span class="archive-post-date">03/06</span><a class="archive-post-title" href="/2019/ck7lnqj1x000hxoq648j6dvd0/">模板匹配（matlab实现）</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ck7lnd2si0024e8q63xhu4d4l/">游戏开发之路5</a>
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ck7lnqj2m000wxoq68uooycnu/">游戏开发之路5</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ck7lnd2p1000re8q69rkuyilg/">游戏开发之路4</a>
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ck7lnqj2k000uxoq6163af3b7/">游戏开发之路4</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ck7lnd2ob000me8q6kfo3b3dt/">游戏开发之路3</a>
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ck7lnqj2e000qxoq6vo27t6ub/">游戏开发之路3</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ck7lnd2oq000ne8q65hjbklir/">游戏开发之路2</a>
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ck7lnqj2a000oxoq6lr65rq4b/">游戏开发之路2</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ck7lnd2nz000he8q6v51cy3a5/">游戏开发之路1</a>
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ck7lnqj22000jxoq60tf8kb4t/">游戏开发之路1</a>
         </li>
     
     </ul></div>
@@ -906,9 +968,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="MachineLearning"><span class="iconfont-archer">&#xe60a;</span>MachineLearning</span>
     
-        <span class="sidebar-category-name" data-categories="开发/面试"><span class="iconfont-archer">&#xe60a;</span>开发/面试</span>
-    
         <span class="sidebar-category-name" data-categories="Programming"><span class="iconfont-archer">&#xe60a;</span>Programming</span>
+    
+        <span class="sidebar-category-name" data-categories="开发/面试"><span class="iconfont-archer">&#xe60a;</span>开发/面试</span>
     
         <span class="sidebar-category-name" data-categories="life"><span class="iconfont-archer">&#xe60a;</span>life</span>
     
