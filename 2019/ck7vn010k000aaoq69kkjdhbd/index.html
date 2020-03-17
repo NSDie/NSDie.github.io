@@ -285,7 +285,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">4.8k</span>阅读时长: <span class="post-count reading-time">21 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">4.9k</span>阅读时长: <span class="post-count reading-time">22 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -452,6 +452,7 @@ height:50vh;
 </code></pre><p>最后以 1 为步长进行排序（此时就是简单的插入排序了）。 简而言之，希尔排序就是每隔几个插入的插入排序。（每隔几个就是步长）。 步长更新一般是d=d/2 或者d=3d+1<br>二、代码<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">    <span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; ShellSort(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; <span class="built_in">list</span>)&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; result = <span class="built_in">list</span>;</span><br><span class="line">    <span class="keyword">int</span> n = result.size();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> gap = n &gt;&gt; <span class="number">1</span>; gap &gt; <span class="number">0</span>; gap &gt;&gt;= <span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = gap; i &lt; n; i++)&#123;</span><br><span class="line">            <span class="keyword">int</span> temp = result[i];</span><br><span class="line">            <span class="keyword">int</span> j = i - gap;</span><br><span class="line">            <span class="keyword">while</span> (j &gt;= <span class="number">0</span> &amp;&amp; result[j] &gt; temp)&#123;</span><br><span class="line">                result[j + gap] = result[j];</span><br><span class="line">                j -= gap;</span><br><span class="line">            &#125;</span><br><span class="line">            result[j + gap] = temp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; result.size(); i++)&#123;</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; result[i] &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> arr[] = &#123; <span class="number">6</span>, <span class="number">4</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span> &#125;;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; test(arr, arr + <span class="keyword">sizeof</span>(arr) / <span class="keyword">sizeof</span>(arr[<span class="number">0</span>]));</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"排序前"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; test.size(); i++)&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; test[i] &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; result;</span><br><span class="line">    result = ShellSort(test);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">"排序后"</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; result.size(); i++)&#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; result[i] &lt;&lt; <span class="string">" "</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    system(<span class="string">"pause"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>时间复杂度跟步长有关，步长不同，时间复杂度也不同。 希尔排序中相等的数据可能会交换位置，所以希尔排序是<strong>不稳定</strong>的算法。 直接插入排序是<strong>稳定</strong>的；而希尔排序是<strong>不稳定</strong>的。 直接插入排序更适合于原始记录<strong>基本有序</strong>的集合。 希尔排序的比较次数和移动次数都要比直接插入排序少，当N越大时，效果越明显。 直接插入排序也<strong>适用于链式存储结构</strong>；希尔排序<strong>不适用于链式结构</strong>。</p>
 <h4 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h4><p>一、算法思想     快速排序的基本思想是：通过一趟排序将要排序的数据<strong>分割</strong>成独立的两部分：<strong>分割点左边都是比它小的数，右边都是比它大的数</strong>。     然后再按此方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，以此达到整个数据变成有序序列。 <img src="3.gif" alt="快速排序的示意图"> 二、代码 我就不手写了，直接调用库函数<code>qsort()</code>，用法的话，就是定义一个cmp比较函数，然后放进去就好了。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Partition</span><span class="params">(<span class="keyword">int</span> a[], <span class="keyword">int</span> low, <span class="keyword">int</span> hight)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> pivot = a[high];</span><br><span class="line">    <span class="keyword">int</span> cur = low;</span><br><span class="line">    <span class="keyword">int</span> pre = cur - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (cur &lt; high) &#123;</span><br><span class="line">        <span class="keyword">while</span> (a[cur] &lt; pivot &amp;&amp; ++pre != cur)</span><br><span class="line">            swap(a[cur], a[pre]);</span><br><span class="line">        ++cur;</span><br><span class="line">    &#125;</span><br><span class="line">    swap(a[++pre], a[high]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">quickSort</span><span class="params">(<span class="keyword">int</span> a[], <span class="keyword">int</span> low, <span class="keyword">int</span> high)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(low &lt; high) &#123;</span><br><span class="line">        <span class="keyword">int</span> pivotPos = Partition(a, low, high);</span><br><span class="line">        quickSort(a, low, pivotPos - <span class="number">1</span>);</span><br><span class="line">        quickSort(a, pivotPos + <span class="number">1</span>, high);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="简单选择排序"><a href="#简单选择排序" class="headerlink" title="简单选择排序"></a>简单选择排序</h4><p>一、算法思想 简单排序很简单，它的大致处理流程为：</p>
 <ul>
 <li>从待排序序列中，找到关键字最小的元素；</li>
@@ -483,9 +484,9 @@ height:50vh;
     
         <div class="license-wrapper">
             <p>原文作者：<a href="https://www.yyfol.com">Ye Yifan</a>
-            </p><p>原文链接：<a href="https://www.yyfol.com/2019/ck7lnqj1f0008xoq645ml5tsk/">https://www.yyfol.com/2019/ck7lnqj1f0008xoq645ml5tsk/</a>
-            </p><p>发表日期：<a href="https://www.yyfol.com/2019/ck7lnqj1f0008xoq645ml5tsk/">March 11th 2019, 12:32:00 pm</a>
-            </p><p>更新日期：<a href="https://www.yyfol.com/2019/ck7lnqj1f0008xoq645ml5tsk/">March 11th 2019, 12:37:14 pm</a>
+            </p><p>原文链接：<a href="https://www.yyfol.com/2019/ck7vn010k000aaoq69kkjdhbd/">https://www.yyfol.com/2019/ck7vn010k000aaoq69kkjdhbd/</a>
+            </p><p>发表日期：<a href="https://www.yyfol.com/2019/ck7vn010k000aaoq69kkjdhbd/">March 11th 2019, 12:32:00 pm</a>
+            </p><p>更新日期：<a href="https://www.yyfol.com/2019/ck7vn010k000aaoq69kkjdhbd/">March 17th 2020, 4:26:05 pm</a>
             </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -494,7 +495,7 @@ height:50vh;
         <li class="next">
             
                 <div class="nextSlogan">Next Post</div>
-                <a href="/2019/ck7lnqj080001xoq6urs2hbh4/" title="Spring学习笔记一">
+                <a href="/2019/ck7vn00up0001aoq6lsqx8sqo/" title="Spring学习笔记一">
                     <div class="nextTitle">Spring学习笔记一</div>
                 </a>
             
@@ -502,7 +503,7 @@ height:50vh;
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href="/2019/ck7lnqj1n000cxoq6fj8zcuz1/" title="机器学习入门路线">
+                <a href="/2019/ck7vn011b0013aoq6za7t8n49/" title="机器学习入门路线">
                     <div class="prevTitle">机器学习入门路线</div>
                 </a>
             
@@ -805,10 +806,6 @@ top:50vh;
     
     
     
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 13
@@ -827,12 +824,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/10</span><a class="archive-post-title" href="/2020/ck7lnqj1m000bxoq64ch3jc2c/">华为Cloud&Bu 软开凉经</a>
+            <span class="archive-post-date">03/10</span><a class="archive-post-title" href="/2020/ck7vn010t000jaoq6bcyvbne0/">华为Cloud&Bu 软开凉经</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/09</span><a class="archive-post-title" href="/2020/ck7lnqj0i0003xoq689w1i39s/">Java基础问题</a>
+            <span class="archive-post-date">01/09</span><a class="archive-post-title" href="/2020/ck7vn010m000caoq6zqsvs2g0/">Java基础问题</a>
         </li>
     
     
@@ -846,57 +843,57 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/30</span><a class="archive-post-title" href="/2019/ck7lnqj0y0006xoq618ng8s5m/">Spring核心思想IOC、DI</a>
+            <span class="archive-post-date">12/30</span><a class="archive-post-title" href="/2019/ck7vn010g0008aoq6o0c6wvhl/">Spring核心思想IOC、DI</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/30</span><a class="archive-post-title" href="/2019/ck7lnqj080001xoq6urs2hbh4/">Spring学习笔记一</a>
+            <span class="archive-post-date">12/30</span><a class="archive-post-title" href="/2019/ck7vn00up0001aoq6lsqx8sqo/">Spring学习笔记一</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/11</span><a class="archive-post-title" href="/2019/ck7lnqj1f0008xoq645ml5tsk/">八大排序算法</a>
+            <span class="archive-post-date">03/11</span><a class="archive-post-title" href="/2019/ck7vn010k000aaoq69kkjdhbd/">八大排序算法</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/08</span><a class="archive-post-title" href="/2019/ck7lnqj1n000cxoq6fj8zcuz1/">机器学习入门路线</a>
+            <span class="archive-post-date">03/08</span><a class="archive-post-title" href="/2019/ck7vn011b0013aoq6za7t8n49/">机器学习入门路线</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/07</span><a class="archive-post-title" href="/2019/ck7lnqj170007xoq69iw7megr/">Tensorflow做模型预测（入门级）</a>
+            <span class="archive-post-date">03/07</span><a class="archive-post-title" href="/2019/ck7vn010r000gaoq65k5slhey/">Tensorflow做模型预测（入门级）</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/06</span><a class="archive-post-title" href="/2019/ck7lnqj1x000hxoq648j6dvd0/">模板匹配（matlab实现）</a>
+            <span class="archive-post-date">03/06</span><a class="archive-post-title" href="/2019/ck7vn010u000laoq6kqdhin5q/">模板匹配（matlab实现）</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ck7lnqj2m000wxoq68uooycnu/">游戏开发之路5</a>
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ck7vn0117000yaoq6941vm4p9/">游戏开发之路5</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ck7lnqj2k000uxoq6163af3b7/">游戏开发之路4</a>
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ck7vn010x000qaoq6avzopogr/">游戏开发之路3</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ck7lnqj2e000qxoq6vo27t6ub/">游戏开发之路3</a>
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ck7vn0113000waoq68x4zpo5k/">游戏开发之路4</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ck7lnqj2a000oxoq6lr65rq4b/">游戏开发之路2</a>
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ck7vn0120001vaoq6v9bxyqf6/">游戏开发之路2</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ck7lnqj22000jxoq60tf8kb4t/">游戏开发之路1</a>
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ck7vn0111000saoq62oamsfws/">游戏开发之路1</a>
         </li>
     
     </ul></div>
@@ -908,13 +905,13 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="Spring"><span class="iconfont-archer">&#xe606;</span>Spring</span>
     
-        <span class="sidebar-tag-name" data-tags="tensorflow"><span class="iconfont-archer">&#xe606;</span>tensorflow</span>
-    
-        <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
-    
         <span class="sidebar-tag-name" data-tags="算法"><span class="iconfont-archer">&#xe606;</span>算法</span>
     
         <span class="sidebar-tag-name" data-tags="c++"><span class="iconfont-archer">&#xe606;</span>c++</span>
+    
+        <span class="sidebar-tag-name" data-tags="tensorflow"><span class="iconfont-archer">&#xe606;</span>tensorflow</span>
+    
+        <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
     
         <span class="sidebar-tag-name" data-tags="matlab"><span class="iconfont-archer">&#xe606;</span>matlab</span>
     
@@ -957,9 +954,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="开发"><span class="iconfont-archer">&#xe60a;</span>开发</span>
     
-        <span class="sidebar-category-name" data-categories="MachineLearning"><span class="iconfont-archer">&#xe60a;</span>MachineLearning</span>
-    
         <span class="sidebar-category-name" data-categories="Programming"><span class="iconfont-archer">&#xe60a;</span>Programming</span>
+    
+        <span class="sidebar-category-name" data-categories="MachineLearning"><span class="iconfont-archer">&#xe60a;</span>MachineLearning</span>
     
         <span class="sidebar-category-name" data-categories="开发/面试"><span class="iconfont-archer">&#xe60a;</span>开发/面试</span>
     
