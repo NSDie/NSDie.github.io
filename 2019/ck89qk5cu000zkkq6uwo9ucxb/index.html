@@ -22,7 +22,7 @@
     <meta name="description" content>
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Spring核心思想IOC、DI · yyfol&#39;s Blog</title>
+    <title>模板匹配（matlab实现） · yyfol&#39;s Blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -228,7 +228,7 @@
                 <a href="/">yyfol&#39;s Blog.</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">Spring核心思想IOC、DI</a>
+                <a href="#" class="post-name">模板匹配（matlab实现）</a>
             </div>
     </div>
     
@@ -258,7 +258,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            Spring核心思想IOC、DI
+            模板匹配（matlab实现）
             <!-- 404 -->
             
         </h1>
@@ -277,20 +277,20 @@ height:50vh;
                 
                     <div class="post-intro-tags">
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="Java">Java</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags="matlab">matlab</a>
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="Spring">Spring</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags="图像处理">图像处理</a>
     
 </div>
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">1.2k</span>阅读时长: <span class="post-count reading-time">4 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">306</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2019/12/30</span>
+                    <span class="post-intro-time">2019/03/06</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -414,28 +414,19 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><ol>
-<li>IOC是什么？     <strong>IOC(Inversion of Control)控制反转</strong>，IOC是一种新的Java编程模式，目前很多轻量级容器都在广泛使用的模式。</li>
-<li>IOC解决了什么问题？     在IOC出现以前，组件之间的协调关系是由程序内部代码来控制的，或者说，以前我们使用New关键字来实现两组间之间的依赖关系的。     这种方式就造成了组件之间的互相 <strong>耦合</strong>。IOC(控制反转)就是来解决这个问题的，它将实现组件间的关系从程序内部提到<strong>外部容器</strong>来管理。     也就是说，由容器在运行期将组件间的某种依赖关系动态的注入组件中。</li>
-<li>IOC的实现方式     1. <strong>依赖查找(Dependency Lookup)</strong>：容器中的受控对象通过容器的API来查找自己所依赖的资源和协作对象。这种方式虽然降低了对象间的依赖，但是同时也使用到了容器的API，造成了我们无法在容器外使用和测试对象。     依赖查找是一种更加传统的IOC实现方式。     2. <strong>依赖注入(Dependency Injection)</strong>：这就是DI，字面上理解，依赖注入就是将服务注入到使用它的地方。对象只提供普通的方法让容器去决定依赖关系，</li>
-<li>IOC与DI的<strong>区别</strong>     对于IOC来说，DI更像是一个用来控制容器的工具，之所以依赖，是根据容器里各个组件之间的关系来决定。</li>
-<li>Spring中的IOC和DI     IOC是Spring的核心，贯穿始终。对于Spring框架来说，就是由Spring来负责控制对象的<strong>生命周期</strong>和<strong>对象间的关系</strong>。     Spring中DI有两种实现方式—Setter方式(传值方式)和构造器方式(引用方式)。</li>
-</ol>
-<h3 id="IOC"><a href="#IOC" class="headerlink" title="IOC"></a>IOC</h3><p>​    假设一种情况，我们要做一个图书馆里系统，我们要定义一个书的Bean类，里面有<strong>书的id</strong>，<strong>书名</strong>，<strong>作者</strong>，<strong>出版社</strong>….等等属性，在一个对象中，如果要使用另外的对象，就必须得到它（自己new一个，或者从JNDI中查询一个），使用完之后还要将对象销毁（比如Connection等），对象始终会和其他的接口或类藕合起来。     而spring中是如何实现的呢？相当于一个图书管理员，它负责管理很多很多书籍的信息，你只需要提供你想要借哪本书、或者说哪种类型的书，那么它就会提供给你，如果不是我们想要的书，我们就抛出异常反馈给它。整个过程不再是我们自己控制的了，我们想要什么书，不用我们去找，也不用我们去造。所有的类都在<code>spring</code>这个容器内登记，我们只需要请求。所有类让<code>spring</code>创建、销毁，也就是说控制对象生存周期的不再是引用它的对象，而是<code>spring</code>。对于某个具体的对象而言，以前是它控制其他对象，现在是所有对象都被<code>spring</code>控制，所以这叫<strong>控制反转</strong>。     所以由上面看，spring的解决方案就是面向接口的编程，对<strong>对象</strong>的控制直接调用接口就可以实现了。（前提是配置好了。🙃）</p>
+        <h3 id="基于像素匹配算法"><a href="#基于像素匹配算法" class="headerlink" title="基于像素匹配算法"></a>基于像素匹配算法</h3><p>模板匹配算法一般是通过滑窗的方式在待匹配的图像上滑动，通过比较模板与子图的相似度，找到相似度最大的子图。这种算法最核心部分在于如何设计一个相似性函数。   </p>
+<p>最容易想到的一个相似性函数便是欧式距离：<br><img src="欧氏距离.png" alt="欧式距离公式"></p>
+<p>将这个相似性函数展开，可以得:<br><img src="欧氏距离展开式.png" alt="欧氏距离展开式"><br>可以看出，只有第二项是有意义的，因为第一项和第三项的值在选定模板后是固定的。对于欧式距离相似函数，值越大表示越不相似，也就是说，第二项的值越小则越不相似。     再将第二项归一化:<br><img src="欧氏距离归一化.png" alt="欧氏距离归一化"></p>
 <blockquote>
-<p>spring跟传统做法的区别:</p>
+<p>如果就仅仅匹配大小不变角度不变的模板，到此为止就够了。</p>
 </blockquote>
-<p><img src="1.png" alt="spring跟传统做法的区别" title="spring跟传统做法的区别"></p>
+<p>为了解决旋转不变性，我用很简单的很丑陋的方法————旋转模板再重新匹配。</p>
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><p>化简后的欧氏距离matlab实现方法。</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> <span class="built_in">i</span>=<span class="number">1</span>:m-m0+<span class="number">1</span>  </span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">j</span>=<span class="number">1</span>:n-n0+<span class="number">1</span>  </span><br><span class="line">        subMatr=test(<span class="built_in">i</span>:<span class="built_in">i</span>+m0<span class="number">-1</span>,<span class="built_in">j</span>:<span class="built_in">j</span>+n0<span class="number">-1</span>);  </span><br><span class="line">        vec=double( subMatr(:) );  </span><br><span class="line">        result(<span class="built_in">i</span>,<span class="built_in">j</span>)=vec'*vec_sub / (norm(vec)*norm_sub+<span class="built_in">eps</span>);  </span><br><span class="line">    <span class="keyword">end</span> </span><br><span class="line"> <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>结果图：</p>
+<p><img src="1.png" alt><br><img src="2.png" alt></p>
 <blockquote>
-<p>spring的配置原理图：</p>
-</blockquote>
-<p><img src="2.png" alt="spring的配置" title="spring的配置"></p>
-<h3 id="DI"><a href="#DI" class="headerlink" title="DI"></a>DI</h3><p>​    IOC的一个<strong>重点</strong>是在系统运行中，动态的向某个对象提供它所需要的其他对象。这一点是通过<strong>DI（Dependency Injection，依赖注入）</strong>来实现的。比如对象A需要操作数据库，以前我们总是要在A中自己编写代码来获得一个<strong>Connection</strong>对象，有了<strong>spring</strong>我们就只需要告诉spring，A中需要一个<strong>Connection</strong>，至于这个<strong>Connection</strong>怎么构造，何时构造，A不需要知道。在系统运行时，<strong>spring</strong>会在适当的时候制造一个<strong>Connection</strong>，然后像打针一样，注射到A当中，这样就完成了对各个对象之间关系的控制。A需要依赖<strong>Connection</strong>才能正常运行，而这个<strong>Connection</strong>是由<strong>spring</strong>注入到A中的，依赖注入的名字就这么来的。那么DI是如何实现的呢？Java 1.3之后一个重要特征是<strong>反射（reflection）</strong>，它允许程序在运行的时候动态的生成对象、执行对象的方法、改变对象的属性，spring就是通过反射来实现注入的。</p>
-<blockquote>
-<p>更多关于<strong>反射</strong>的内容，可以参考<a href="https://docs.oracle.com/javase/7/docs/api/" title="JAVA文档" target="_blank" rel="noopener">JAVA文档</a></p>
-</blockquote>
-<blockquote>
-<p>引自文章<a href="https://blog.csdn.net/baple/article/details/53667767" target="_blank" rel="noopener">《Spring核心思想，IoC与DI详解（如果还不明白，放弃java吧）》</a>              <a href="https://blog.csdn.net/javazejian/article/details/54561302" target="_blank" rel="noopener">《关于Spring IOC (DI-依赖注入)你需要知道的一切》</a></p>
+<p>具体源码 可以见<a href="https://github.com/NSDie/templet" target="_blank" rel="noopener">github</a>.</p>
 </blockquote>
 
     </article>
@@ -443,9 +434,9 @@ height:50vh;
     
         <div class="license-wrapper">
             <p>原文作者：<a href="https://www.yyfol.com">Ye Yifan</a>
-            </p><p>原文链接：<a href="https://www.yyfol.com/2019/ck7vn010g0008aoq6o0c6wvhl/">https://www.yyfol.com/2019/ck7vn010g0008aoq6o0c6wvhl/</a>
-            </p><p>发表日期：<a href="https://www.yyfol.com/2019/ck7vn010g0008aoq6o0c6wvhl/">December 30th 2019, 9:37:00 pm</a>
-            </p><p>更新日期：<a href="https://www.yyfol.com/2019/ck7vn010g0008aoq6o0c6wvhl/">December 30th 2019, 9:50:12 pm</a>
+            </p><p>原文链接：<a href="https://www.yyfol.com/2019/ck89qk5cu000zkkq6uwo9ucxb/">https://www.yyfol.com/2019/ck89qk5cu000zkkq6uwo9ucxb/</a>
+            </p><p>发表日期：<a href="https://www.yyfol.com/2019/ck89qk5cu000zkkq6uwo9ucxb/">March 6th 2019, 10:40:00 pm</a>
+            </p><p>更新日期：<a href="https://www.yyfol.com/2019/ck89qk5cu000zkkq6uwo9ucxb/">March 7th 2019, 11:29:35 am</a>
             </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -454,16 +445,16 @@ height:50vh;
         <li class="next">
             
                 <div class="nextSlogan">Next Post</div>
-                <a href="/2020/ck7vn010m000caoq6zqsvs2g0/" title="Java基础问题">
-                    <div class="nextTitle">Java基础问题</div>
+                <a href="/2019/ck89qk5ck000mkkq6uja9ix1h/" title="Tensorflow做模型预测（入门级）">
+                    <div class="nextTitle">Tensorflow做模型预测（入门级）</div>
                 </a>
             
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href="/2019/ck7vn00up0001aoq6lsqx8sqo/" title="Spring学习笔记一">
-                    <div class="prevTitle">Spring学习笔记一</div>
+                <a href="/2019/ck89qk5d50016kkq61rc617lr/" title="游戏开发之路5">
+                    <div class="prevTitle">游戏开发之路5</div>
                 </a>
             
         </li>
@@ -611,7 +602,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#基本概念"><span class="toc-number">1.</span> <span class="toc-text">基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#IOC"><span class="toc-number">1.1.</span> <span class="toc-text">IOC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DI"><span class="toc-number">1.2.</span> <span class="toc-text">DI</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#基于像素匹配算法"><span class="toc-number">1.</span> <span class="toc-text">基于像素匹配算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#代码"><span class="toc-number">1.1.</span> <span class="toc-text">代码</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -624,12 +615,6 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
-    
-    
-    
-    
-    
-    
     
     
     
@@ -783,12 +768,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/10</span><a class="archive-post-title" href="/2020/ck7vn010t000jaoq6bcyvbne0/">华为Cloud&Bu 软开凉经</a>
+            <span class="archive-post-date">03/10</span><a class="archive-post-title" href="/2020/ck89qk5cm000okkq66zd94qr8/">华为Cloud&Bu 软开凉经</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/09</span><a class="archive-post-title" href="/2020/ck7vn010m000caoq6zqsvs2g0/">Java基础问题</a>
+            <span class="archive-post-date">01/09</span><a class="archive-post-title" href="/2020/ck89qk5bq0002kkq6vjbbujcc/">Java基础问题</a>
         </li>
     
     
@@ -802,57 +787,57 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/30</span><a class="archive-post-title" href="/2019/ck7vn010g0008aoq6o0c6wvhl/">Spring核心思想IOC、DI</a>
+            <span class="archive-post-date">12/30</span><a class="archive-post-title" href="/2019/ck89qk5ag0001kkq67kwpam57/">Spring学习笔记一</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/30</span><a class="archive-post-title" href="/2019/ck7vn00up0001aoq6lsqx8sqo/">Spring学习笔记一</a>
+            <span class="archive-post-date">12/30</span><a class="archive-post-title" href="/2019/ck89qk5cc000hkkq68vsa2ap5/">Spring核心思想IOC、DI</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/11</span><a class="archive-post-title" href="/2019/ck7vn010k000aaoq69kkjdhbd/">八大排序算法</a>
+            <span class="archive-post-date">03/11</span><a class="archive-post-title" href="/2019/ck89qk5c9000fkkq6ndwdbisa/">八大排序算法</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/08</span><a class="archive-post-title" href="/2019/ck7vn011b0013aoq6za7t8n49/">机器学习入门路线</a>
+            <span class="archive-post-date">03/08</span><a class="archive-post-title" href="/2019/ck89qk5ce000kkkq6hfjckaej/">机器学习入门路线</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/07</span><a class="archive-post-title" href="/2019/ck7vn010r000gaoq65k5slhey/">Tensorflow做模型预测（入门级）</a>
+            <span class="archive-post-date">03/07</span><a class="archive-post-title" href="/2019/ck89qk5ck000mkkq6uja9ix1h/">Tensorflow做模型预测（入门级）</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/06</span><a class="archive-post-title" href="/2019/ck7vn010u000laoq6kqdhin5q/">模板匹配（matlab实现）</a>
+            <span class="archive-post-date">03/06</span><a class="archive-post-title" href="/2019/ck89qk5cu000zkkq6uwo9ucxb/">模板匹配（matlab实现）</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ck7vn0117000yaoq6941vm4p9/">游戏开发之路5</a>
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ck89qk5d50016kkq61rc617lr/">游戏开发之路5</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ck7vn010x000qaoq6avzopogr/">游戏开发之路3</a>
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ck89qk5d10011kkq6n4064kkw/">游戏开发之路4</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ck7vn0113000waoq68x4zpo5k/">游戏开发之路4</a>
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ck89qk5cp000skkq6op5llwwj/">游戏开发之路3</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ck7vn0120001vaoq6v9bxyqf6/">游戏开发之路2</a>
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ck89qk5eo001zkkq669r8pe96/">游戏开发之路2</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ck7vn0111000saoq62oamsfws/">游戏开发之路1</a>
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ck89qk5cr000ukkq66cripjfs/">游戏开发之路1</a>
         </li>
     
     </ul></div>
@@ -868,15 +853,15 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="c++"><span class="iconfont-archer">&#xe606;</span>c++</span>
     
+        <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
+    
         <span class="sidebar-tag-name" data-tags="tensorflow"><span class="iconfont-archer">&#xe606;</span>tensorflow</span>
     
-        <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
+        <span class="sidebar-tag-name" data-tags="游戏开发"><span class="iconfont-archer">&#xe606;</span>游戏开发</span>
     
         <span class="sidebar-tag-name" data-tags="matlab"><span class="iconfont-archer">&#xe606;</span>matlab</span>
     
         <span class="sidebar-tag-name" data-tags="图像处理"><span class="iconfont-archer">&#xe606;</span>图像处理</span>
-    
-        <span class="sidebar-tag-name" data-tags="游戏开发"><span class="iconfont-archer">&#xe606;</span>游戏开发</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
