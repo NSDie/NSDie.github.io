@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://www.yyfol.com/"/>
-  <updated>2020-06-14T07:41:32.190Z</updated>
+  <updated>2020-06-28T16:29:47.721Z</updated>
   <id>https://www.yyfol.com/</id>
   
   <author>
@@ -17,9 +17,38 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>高性能MySQL 读书笔记二</title>
+    <link href="https://www.yyfol.com/2020/ckbzahyii0012ioq6t5cs9k3c/"/>
+    <id>https://www.yyfol.com/2020/ckbzahyii0012ioq6t5cs9k3c/</id>
+    <published>2020-06-28T16:29:00.000Z</published>
+    <updated>2020-06-28T16:29:47.721Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="高性能MySQL-读书笔记二"><a href="#高性能MySQL-读书笔记二" class="headerlink" title="高性能MySQL 读书笔记二"></a>高性能MySQL 读书笔记二</h2><h3 id="一、MySQL基准测试"><a href="#一、MySQL基准测试" class="headerlink" title="一、MySQL基准测试"></a>一、MySQL基准测试</h3><p><strong>基准测试</strong>是针对系统设计的一种压力测试。通常的目标是为了掌握系统的行为。基准测试是一种测量和评估软件性能指标的活动用于建立某个时刻的<strong>性能基准</strong>，以便当系统发生软硬件变化时重新进行基准测试以评估变化对<strong>性能</strong>的影响。</p><table><thead><tr><th>名称</th><th>基准测试</th><th>压力测试</th></tr></thead><tbody><tr><td>对比</td><td>直接、简单、易于比较，用于评估服务器的处理能力</td><td>对真实的业务数据进行测试，获得真实系统所能承受的压力</td></tr><tr><td></td><td>可能不关心<strong>业务逻辑</strong>，所使用的查询和业务的真实性可以和业务环境没关系</td><td>需要针对不同主题，所使用的数据和查询也是真实用到的</td></tr></tbody></table><p><strong>特性：</strong></p><ol><li><strong>可重复性</strong>  可进行重复性的测试，这样做有利于比较每次的测试结果，得到性能结果的长期变化趋势，为系统调优和上线前的容量规划做参考。</li><li><strong>可观测性</strong> 通过全方位的监控（包括测试开始到结束，执行机、服务器、数据库），及时了解和分析测试过程发生了什么</li><li><strong>可展示性</strong> 相关人员可以直观明了的了解测试结果</li><li><strong>真实性</strong> 测试结果反映了客户体验到的真实的情况</li><li><strong>可执行性</strong> 相关人员可以快速的进行测试验证修改调优</li></ol><h4 id="1-1-为什么需要基准测试？"><a href="#1-1-为什么需要基准测试？" class="headerlink" title="1.1 为什么需要基准测试？"></a>1.1 为什么需要基准测试？</h4><ul><li>验证基于系统的一些假设，确认这些假设是否符合实际情况。</li><li>重现系统中的某些异常行为，解决这些异常。</li><li>测试系统当前的运行情况。</li><li>模拟比当前系统更高的负载。</li><li>规划未来的业务增长。</li><li>测试应用适应可变环境的能力</li><li>测试不同的硬件、软件和操作系统配置。</li><li>证明新采购的设备是否配置正确。</li><li>…..</li></ul><h4 id="1-2-基准测试的策略"><a href="#1-2-基准测试的策略" class="headerlink" title="1.2 基准测试的策略"></a>1.2 基准测试的策略</h4><p><strong>基准测试</strong>有两种主要的策略：集成式（对整个系统的基准测试）、单组件式（单独测试MySQL）。</p><p>需要测试的<strong>测试指标</strong>：吞吐量、响应时间、并发性、可扩展性。</p><p>总的来说，<strong>测试那些对用户来说最重要的指标</strong>。</p><h4 id="1-3-基准测试方法"><a href="#1-3-基准测试方法" class="headerlink" title="1.3 基准测试方法"></a>1.3 基准测试方法</h4><p>基准测试的一般步骤：</p><ol><li>提出问题并明确目标。</li><li>采用标准的基准测试/设计专用的测试。</li><li>针对数据运行查询。</li></ol><p>在测试过程中或完毕之后，详细地写下测试规划和测试记录。测试可能需要多次反复运行，因此需要精确地重现测试过程。</p><blockquote><p>测试规划应该记录<strong>测试数据</strong>、<strong>系统配置的步骤</strong>、<strong>如何测量和分析结果</strong>、<strong>以及预热的方案</strong>等。</p></blockquote><p>应该建立将参数和结果文档化的规范，每一轮测试都必须进行详细记录。可以使用电子表格或者记事本形式。</p><h4 id="1-4-基准测试应该运行多长时间"><a href="#1-4-基准测试应该运行多长时间" class="headerlink" title="1.4 基准测试应该运行多长时间"></a>1.4 基准测试应该运行多长时间</h4><p>基准测试应该运行足够长的时间。（系统如果有大量的数据和内存，等待他到达稳定状态需要非常长的时间。）</p><p><img src="1.png" alt></p><p>这是一个在已知系统上执行测试的例子，系统预热后，读I/O活动在三四个小时后曲线趋于稳定。（一些写I/O可能至少在八小时内变化还是很大，具体根据实际情况来考虑）</p><h4 id="1-5-获取系统性能和状态"><a href="#1-5-获取系统性能和状态" class="headerlink" title="1.5 获取系统性能和状态"></a>1.5 获取系统性能和状态</h4><p>在执行基准测试的时候，要尽可能多地收集被测试系统的信息。</p><p>最好为基准测试建立一个目录，并且每执行一轮测试都创建单独的子目录，将<code>测试结果、配置文件、测试指标、脚本和其他相关说明</code>都保存在其中。</p><p>需要记录的数据包括<strong>系统状态</strong>和<strong>性能指标</strong>，如CPU使用率、磁盘I/O、网络流量统计、SHOWGLOBAL STATUS 计数器。</p><h4 id="1-6-获得准确的测试结果"><a href="#1-6-获得准确的测试结果" class="headerlink" title="1.6 获得准确的测试结果"></a>1.6 获得准确的测试结果</h4><p>在判断结果正确与否之前，先想一下：</p><ul><li><strong>是否选择了正确的基准测试？</strong></li><li><strong>是否为问题收集了相关的数据？</strong></li><li><strong>是否采用了错误的测试标准？</strong></li></ul><p>然后，<strong>确认测试结果是否可重复</strong>。每次重新测试之前要确保系统的状态是一致的。需要测试的系统是经过预热的系统，还需要确保预热的时间足够长。如果预热采用的是<strong>随机查询</strong>，那么测试结果可能就是<strong>不可重复</strong>的。如果测试的过程会修改数据或者schema，那么每次测试前，需要利用快照还原数据。</p><p>影响测试结果的因素有很多，如<code>外部的压力、性能分析和监控系统、详细的日志记录、周期性作业</code>等。<strong>每次测试中，修改的参数应该尽可能少</strong>。如果必须要一次修改多个参数，那么可能会丢失一些信息。有些参数依赖其他参数，这些参数可能无法单独修改。有时候甚至都没有意识到这些依赖，这给测试带来了复杂性。</p><h4 id="1-7-运行基准测试并分析结果"><a href="#1-7-运行基准测试并分析结果" class="headerlink" title="1.7 运行基准测试并分析结果"></a>1.7 运行基准测试并分析结果</h4><p>通常来说，<strong>自动化基准测试</strong>是个好主意。这样做可以获得更精准的测试结果。因为自动化的过程可以防止测试人员偶尔遗漏某些步骤，或者误操作。另外有助于归档整个测试过程。</p><h3 id="二、基准测试工具"><a href="#二、基准测试工具" class="headerlink" title="二、基准测试工具"></a>二、基准测试工具</h3><h4 id="2-1-集成式测试工具"><a href="#2-1-集成式测试工具" class="headerlink" title="2.1 集成式测试工具"></a>2.1 集成式测试工具</h4><ul><li><strong>ab</strong> 一个Apache HTTP 服务器基准测试工具。它可以测试HTTP服务器每秒最多可以处理多少请求。如果测试的是<strong>Web应用服务</strong>，这个结果可以转换成整个应用每秒可以满足多少请求。具体使用命令可以<a href="http://httpd.apache.org/docs/2.0/programs/ab.html" target="_blank" rel="noopener">参考网址</a></li><li><strong>http_load</strong> 这个工具概念上和ab类似，但是比ab更灵活，可以通过一个输入文件提供多个URL。可以随机测试、定制http_load按照时间比率进行测试。具体使用命令可以<a href="http://www.acme.com/software/http_load/" target="_blank" rel="noopener">参考网址</a></li><li><strong>JMeter</strong> 一个Java应用程序，可以加载其他应用并测试其性能。可以测试WEB引用，也可以测试FTP服务器、通过JDBC测试数据库查询。比ab和http_load更复杂，功能也更多，可以对测试进行记录、绘图，然后离线重演。具体使用可以<a href="https://jmeter.apache.org/" target="_blank" rel="noopener">参考网址</a></li></ul><h4 id="2-2-单组件式测试工具"><a href="#2-2-单组件式测试工具" class="headerlink" title="2.2 单组件式测试工具"></a>2.2 单组件式测试工具</h4><ul><li><strong>mysqlslap</strong> 可以模拟服务器的负载，并输出计时信息。它包含在<a href="https://dev.mysql.com/doc/refman/8.0/en/mysqlslap.html" target="_blank" rel="noopener">MySQL5.1的发行包</a>中。测试时可以执行并发连接数，并指定SQL语句。</li><li><strong>MySQL Benchmark Suite</strong> 在MySQL的发行包中也提供了一款自己的基准测试套件，可以用在不同数据库服务器上进行比较测试。它是单线程的，主要用于测试服务器执行查询的速度。结果会显示哪种类型的操作在服务器上执行得更快。</li><li><strong>Super Smack</strong> 一款用于MySQL和PostgreSQL的基准测试工具，可以提供压力测试和负载生成。这是一个复杂而强大的工具，可以模拟多用户访问，可以加载测试数据到数据库，并支持使用随机数据填充测试表。——》<a href="http://vegan.net/tony/supersmack/" target="_blank" rel="noopener">入口</a>（现在好像没有维护了，已崩）</li><li><strong>sysbench</strong> 一款<strong>多线程</strong>系统压测工具。它可以根据影响数据库服务器性能的各种因素来评估系统的性能。sysbench是一款受大家喜欢的全能测试工具，支持MySQL、操作系统和硬件的硬件测试。——》<a href="https://launchpad.net/sysbench" target="_blank" rel="noopener">入口</a></li></ul><p>这里先简单介绍一下这些工具，后面会有具体使用的案例，以及提供工具的安装包。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;高性能MySQL-读书笔记二&quot;&gt;&lt;a href=&quot;#高性能MySQL-读书笔记二&quot; class=&quot;headerlink&quot; title=&quot;高性能MySQL 读书笔记二&quot;&gt;&lt;/a&gt;高性能MySQL 读书笔记二&lt;/h2&gt;&lt;h3 id=&quot;一、MySQL基准测试&quot;&gt;&lt;a h
+      
+    
+    </summary>
+    
+      <category term="开发" scheme="https://www.yyfol.com/categories/%E5%BC%80%E5%8F%91/"/>
+    
+      <category term="笔记" scheme="https://www.yyfol.com/categories/%E5%BC%80%E5%8F%91/%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="Mysql" scheme="https://www.yyfol.com/tags/Mysql/"/>
+    
+      <category term="数据库" scheme="https://www.yyfol.com/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+  </entry>
+  
+  <entry>
     <title>高性能MySQL 读书笔记一</title>
-    <link href="https://www.yyfol.com/2020/ckbergguc0013asq6jv7whbu4/"/>
-    <id>https://www.yyfol.com/2020/ckbergguc0013asq6jv7whbu4/</id>
+    <link href="https://www.yyfol.com/2020/ckbzahyih0011ioq6rfhl35wa/"/>
+    <id>https://www.yyfol.com/2020/ckbzahyih0011ioq6rfhl35wa/</id>
     <published>2020-06-12T08:29:00.000Z</published>
     <updated>2020-06-14T07:41:32.190Z</updated>
     
@@ -47,8 +76,8 @@
   
   <entry>
     <title>华为Cloud&amp;Bu 软开凉经</title>
-    <link href="https://www.yyfol.com/2020/ckberggtn000basq6cadij2ur/"/>
-    <id>https://www.yyfol.com/2020/ckberggtn000basq6cadij2ur/</id>
+    <link href="https://www.yyfol.com/2020/ckbzahyhw000gioq6cis3uyba/"/>
+    <id>https://www.yyfol.com/2020/ckbzahyhw000gioq6cis3uyba/</id>
     <published>2020-03-10T08:29:00.000Z</published>
     <updated>2020-03-10T08:53:10.803Z</updated>
     
@@ -76,8 +105,8 @@
   
   <entry>
     <title>Java基础问题</title>
-    <link href="https://www.yyfol.com/2020/ckberggsw0001asq6rctf8iqw/"/>
-    <id>https://www.yyfol.com/2020/ckberggsw0001asq6rctf8iqw/</id>
+    <link href="https://www.yyfol.com/2020/ckbzahyhd0003ioq6g1gff33y/"/>
+    <id>https://www.yyfol.com/2020/ckbzahyhd0003ioq6g1gff33y/</id>
     <published>2020-01-09T12:21:00.000Z</published>
     <updated>2020-01-09T12:21:33.743Z</updated>
     
@@ -103,8 +132,8 @@
   
   <entry>
     <title>Spring核心思想IOC、DI</title>
-    <link href="https://www.yyfol.com/2019/ckberggtc0007asq6voe54tp0/"/>
-    <id>https://www.yyfol.com/2019/ckberggtc0007asq6voe54tp0/</id>
+    <link href="https://www.yyfol.com/2019/ckbzahyh70001ioq6mhqvdulh/"/>
+    <id>https://www.yyfol.com/2019/ckbzahyh70001ioq6mhqvdulh/</id>
     <published>2019-12-30T13:37:00.000Z</published>
     <updated>2019-12-30T13:50:12.397Z</updated>
     
@@ -131,8 +160,8 @@
   
   <entry>
     <title>Spring学习笔记一</title>
-    <link href="https://www.yyfol.com/2019/ckberggt30003asq6w1k7gbra/"/>
-    <id>https://www.yyfol.com/2019/ckberggt30003asq6w1k7gbra/</id>
+    <link href="https://www.yyfol.com/2019/ckbzahyhi0006ioq69iyuznwt/"/>
+    <id>https://www.yyfol.com/2019/ckbzahyhi0006ioq69iyuznwt/</id>
     <published>2019-12-30T13:35:00.000Z</published>
     <updated>2019-12-30T13:36:33.636Z</updated>
     
@@ -158,8 +187,8 @@
   
   <entry>
     <title>八大排序算法</title>
-    <link href="https://www.yyfol.com/2019/ckberggth0008asq62fclzwug/"/>
-    <id>https://www.yyfol.com/2019/ckberggth0008asq62fclzwug/</id>
+    <link href="https://www.yyfol.com/2019/ckbzahyhl0008ioq6u3y2owwo/"/>
+    <id>https://www.yyfol.com/2019/ckbzahyhl0008ioq6u3y2owwo/</id>
     <published>2019-03-11T04:32:00.000Z</published>
     <updated>2020-03-27T05:18:00.516Z</updated>
     
@@ -185,8 +214,8 @@
   
   <entry>
     <title>机器学习入门路线</title>
-    <link href="https://www.yyfol.com/2019/ckberggtp000casq60g8ab8c0/"/>
-    <id>https://www.yyfol.com/2019/ckberggtp000casq60g8ab8c0/</id>
+    <link href="https://www.yyfol.com/2019/ckbzahyhp000bioq6wzxzdcxy/"/>
+    <id>https://www.yyfol.com/2019/ckbzahyhp000bioq6wzxzdcxy/</id>
     <published>2019-03-08T06:22:34.000Z</published>
     <updated>2019-03-08T10:00:17.857Z</updated>
     
@@ -210,8 +239,8 @@
   
   <entry>
     <title>Tensorflow做模型预测（入门级）</title>
-    <link href="https://www.yyfol.com/2019/ckberggt90006asq6tufof21b/"/>
-    <id>https://www.yyfol.com/2019/ckberggt90006asq6tufof21b/</id>
+    <link href="https://www.yyfol.com/2019/ckbzahyhk0007ioq6emsv7dy5/"/>
+    <id>https://www.yyfol.com/2019/ckbzahyhk0007ioq6emsv7dy5/</id>
     <published>2019-03-06T16:12:00.000Z</published>
     <updated>2019-03-07T03:29:30.836Z</updated>
     
@@ -237,8 +266,8 @@
   
   <entry>
     <title>模板匹配（matlab实现）</title>
-    <link href="https://www.yyfol.com/2019/ckberggtv000hasq6lals9duq/"/>
-    <id>https://www.yyfol.com/2019/ckberggtv000hasq6lals9duq/</id>
+    <link href="https://www.yyfol.com/2019/ckbzahyhq000cioq6r3gca1l8/"/>
+    <id>https://www.yyfol.com/2019/ckbzahyhq000cioq6r3gca1l8/</id>
     <published>2019-03-06T14:40:00.000Z</published>
     <updated>2019-03-07T03:29:35.063Z</updated>
     
@@ -264,8 +293,8 @@
   
   <entry>
     <title>游戏开发之路5</title>
-    <link href="https://www.yyfol.com/2019/ckberggu6000vasq60ag17o0o/"/>
-    <id>https://www.yyfol.com/2019/ckberggu6000vasq60ag17o0o/</id>
+    <link href="https://www.yyfol.com/2019/ckbzahyif000wioq6p4109svh/"/>
+    <id>https://www.yyfol.com/2019/ckbzahyif000wioq6p4109svh/</id>
     <published>2019-03-05T15:40:00.000Z</published>
     <updated>2019-03-07T03:24:10.833Z</updated>
     
@@ -289,8 +318,8 @@
   
   <entry>
     <title>游戏开发之路4</title>
-    <link href="https://www.yyfol.com/2019/ckberggu8000yasq62kjzc9l0/"/>
-    <id>https://www.yyfol.com/2019/ckberggu8000yasq62kjzc9l0/</id>
+    <link href="https://www.yyfol.com/2019/ckbzahyid000uioq6xln1ycrj/"/>
+    <id>https://www.yyfol.com/2019/ckbzahyid000uioq6xln1ycrj/</id>
     <published>2019-03-05T14:50:00.000Z</published>
     <updated>2019-03-07T03:24:14.331Z</updated>
     
@@ -314,8 +343,8 @@
   
   <entry>
     <title>游戏开发之路3</title>
-    <link href="https://www.yyfol.com/2019/ckberggu2000pasq6e8jxocwv/"/>
-    <id>https://www.yyfol.com/2019/ckberggu2000pasq6e8jxocwv/</id>
+    <link href="https://www.yyfol.com/2019/ckbzahyia000pioq6z79qqkg1/"/>
+    <id>https://www.yyfol.com/2019/ckbzahyia000pioq6z79qqkg1/</id>
     <published>2019-03-05T14:36:00.000Z</published>
     <updated>2019-03-07T03:23:34.862Z</updated>
     
@@ -340,8 +369,8 @@
   
   <entry>
     <title>游戏开发之路2</title>
-    <link href="https://www.yyfol.com/2019/ckberggu4000rasq671whpazc/"/>
-    <id>https://www.yyfol.com/2019/ckberggu4000rasq671whpazc/</id>
+    <link href="https://www.yyfol.com/2019/ckbzahyhz000iioq67a72554r/"/>
+    <id>https://www.yyfol.com/2019/ckbzahyhz000iioq67a72554r/</id>
     <published>2019-03-05T08:40:00.000Z</published>
     <updated>2019-03-07T03:24:17.783Z</updated>
     
@@ -365,8 +394,8 @@
   
   <entry>
     <title>游戏开发之路1</title>
-    <link href="https://www.yyfol.com/2019/ckberggtx000kasq6yro6vqmu/"/>
-    <id>https://www.yyfol.com/2019/ckberggtx000kasq6yro6vqmu/</id>
+    <link href="https://www.yyfol.com/2019/ckbzahyi5000nioq69k27qxn0/"/>
+    <id>https://www.yyfol.com/2019/ckbzahyi5000nioq69k27qxn0/</id>
     <published>2019-03-05T02:40:00.000Z</published>
     <updated>2019-03-07T03:24:20.214Z</updated>
     

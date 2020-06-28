@@ -10,7 +10,7 @@
 
 
 
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="author" content="Ye Yifan">
@@ -22,7 +22,7 @@
     <meta name="description" content>
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>游戏开发之路5 · yyfol&#39;s Blog</title>
+    <title>Java基础问题 · yyfol&#39;s Blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -225,14 +225,14 @@
     
     <div class="banner">
             <div class="blog-title">
-                <a href="/">yyfol&#39;s Blog.</a>
+                <a href="/" >yyfol&#39;s Blog.</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">游戏开发之路5</a>
+                <a href="#" class="post-name">Java基础问题</a>
             </div>
     </div>
     
-    <a class="home-link" href="/">yyfol's Blog.</a>
+    <a class="home-link" href=/>yyfol's Blog.</a>
 </header>
     <div class="wrapper">
         <div class="site-intro" style="
@@ -258,7 +258,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            游戏开发之路5
+            Java基础问题
             <!-- 404 -->
             
         </h1>
@@ -275,20 +275,22 @@ height:50vh;
             <div class="post-intros">
                 <!-- 文章页标签  -->
                 
-                    <div class="post-intro-tags">
+                    <div class= post-intro-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="游戏开发">游戏开发</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Java">Java</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Spring">Spring</a>
     
 </div>
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">1.4k</span>阅读时长: <span class="post-count reading-time">4 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">2.6k</span>阅读时长: <span class="post-count reading-time">9 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2019/03/05</span>
+                    <span class="post-intro-time">2020/01/09</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -412,25 +414,169 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h3 id="经验分享"><a href="#经验分享" class="headerlink" title="经验分享"></a>经验分享</h3><h4 id="第三轮demo比赛总结"><a href="#第三轮demo比赛总结" class="headerlink" title="第三轮demo比赛总结"></a>第三轮demo比赛总结</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;这轮题目自拟，然后我们定了一个<strong>冒险+动作</strong>的游戏，参考了<strong>彩虹岛W</strong> 、<strong>冒险岛M</strong> 、星之骑士等动作冒险手游。这轮时间大概有13天半（去掉第一天的定方向，其实也不是很多，自拟的题目还是难抉择啊。），然后我们就想做一个比较大一点的游戏，策划也想的非常大，冒险+动作都要。既要<strong>设计关卡</strong> ，又要设计<strong>人物动作</strong>。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;由于这次主要逻辑不是我写的，所以我也不能说的很详细，整体框架是，人物动作由<strong>3DMax</strong> 完成，并且绑好骨骼做好动作。然后直接丢Unity里使用，但是场景是2D的，就人物是3D的，所以调整了很久。人物大概用了24个动作，然后Unity用状态机来管理，写了一个接口供逻辑调用。逻辑里面写了人物数值属性、输入控制、攻击受击死亡等状态；怪物属性、状态、AI行为树（用了Behavior插件）；还有BOSS专门写了AI。这次我负责的是2D怪物的动画，我用的<strong>2Danima</strong>插件绑的2D骨骼然后录制动画，总共2只Boss和6只小怪。Boss有8套动作、每种小怪有5套动作。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;<strong>转折点</strong>：中间有导师探班的时候，说我们的游戏应该最好偏向于某一方面：<strong>动作</strong> OR <strong>冒险</strong> 。最后我们选择了动作（偏复杂一点的路，虽然最后也没有成功）。既然选择了动作，我们就要把很多关卡设计方面的东西都砍掉，专注打击感的提升，我们为此做了：<strong>刀光</strong>、<strong>爆点</strong>、屏幕抖动、击退和挑飞等<strong>控制效果</strong>、还有一些蓄力快斩之类的节奏感<strong>技能</strong>。到了Deadline的前一天，我们整合出现了问题，导致提交作品的时候，没能交上一个比较完善的作品，UI部分还有一堆BUG，不然我有信心一定能拿第一。（算是一点遗憾把，没能把自己最好的一面展现出来）</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;比赛过程中，我在前五天，研究unity的一个联网引擎——PhotonServer，想要吃透它，结果也是学了个半吊子把，最后也没用上联网模式，由于当初定的是单人模式逻辑写的都死死的，后期想要转联网，还需要重构代码，比较耗时间。于是就干脆把联网部分砍掉。（这次我用的联网部分跟2D动画，以后若是有时间，再写专门的一篇文章介绍。）</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;<strong>总结</strong>： 唉，失败也是难免的。整理整理失败的原因，还是可以学到挺多东西的。感觉这轮比赛程序可能要背很大程度的锅，美术在最后三天前结束了他们的任务，而且我们程序还是没能完成任务，说明还是有很大的问题的。我来复盘一下程序这边13天做了啥把。<strong>前五天</strong>，我做了一个小型的联机Demo，未接入。其他部分做了单人模式的主逻辑、UI未开工、基本程序团队处于养老划水状态、很闲。<strong>第六天</strong>开始，我做一些2D动画方面的东西，并且继续研究联机，3D角色建模完成，导入Unity开始调整动作。<strong>第七、八天</strong>，继续调角色动作、并且整合美术关卡资源做成预制体，交由策划进行关卡摆放。<strong>第九、十天</strong>，各种特效的选取调整、策划摆完关卡不满意美术摆。<strong>第十一天</strong>开始做UI，开始了连续三天的通宵做UI，但是没想到UI是这么复杂，导致最后一天才做完UI准备接入，忘了说我联网在第十天开始就砍掉，准备帮助一起做主逻辑部分。最后接入的时候出了很多问题，Unity2018也经常卡死崩溃_ (:з)∠) _。如果UI能早点开始做，我们也不会落到这种地步。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;<strong>总的来说</strong> ，还是没有规划好，每天的任务清单，全凭感觉，但偏偏这轮感觉出了差错，本以为打包一次就几分钟，然后Unity打包一次大概30分钟，这次浪费了很多时间。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;<strong>除此之外</strong> ，我想说一句：一个项目的成功与否，在立项初期就已经决定好了。策划在这一步起<strong>关键性作用</strong>，一个好策划，提出了一个好想法，那这个项目已经成功了一半了，后面就看程序怎么实现它、美术如何打扮它。而且一个好策划最好能说出这个项目的卖点，并且能讲的非常详细不是很笼统，我相信很多人都会愿意配合，不然就说一句我们来做一个动作类游戏吧。这。。。怎么讲，动作类游戏，谁TM知道你想要做啥啊，跟没讲一样，而且这么一说士气就弱了三分，60分及格，顶多就一半30分了。<strong>开头很重要。</strong>这决定了这个项目能达到的最高高度。其次才是程序美术如何让它达到这个高度。</p>
-<p>最后放一张这轮游戏的海报：</p>
-<p><img src="海报.jpg" alt></p>
+        <h5 id="1-static关键字有哪些作用？"><a href="#1-static关键字有哪些作用？" class="headerlink" title="1. static关键字有哪些作用？"></a>1. static关键字有哪些作用？</h5><p>static修饰变量、修饰方法。</p>
+<p>static修饰静态块、静态内部类、静态导包。</p>
+<h5 id="2-volatile关键字的底层实现原理"><a href="#2-volatile关键字的底层实现原理" class="headerlink" title="2. volatile关键字的底层实现原理"></a>2. volatile关键字的底层实现原理</h5><p>变量被<code>volatile</code>关键字修饰，那么所有<strong>线程</strong>都是可见的。</p>
+<ul>
+<li>对于普通变量：普通变量的值在线程间传递均需要通过主内存来完成。</li>
+<li>对于<code>volatile</code>关键字修饰的变量：多线程下jvm会为每个线程分配一个<strong>独立的缓存</strong>来提高效率。</li>
+</ul>
+<p><code>volatile</code>变量<strong>不会被缓存在寄存器或者对其他处理器不可见</strong>的地方，保证了每次读写变量都从主内存中读，跳过CPU cache这一步。</p>
+<p>指令重排序是JVM为了<strong>优化指令</strong>、<strong>提高程序运行效率</strong>，<strong>在不影响单线程程序执行结果的前提下，尽可能地提高并行度</strong>。</p>
+<p>指令重排序包括<strong>编译器重排序</strong>和<strong>运行时重排序</strong>。</p>
+<p>volatile关键字提供<strong>内存屏障</strong>的方式来防止指令被重排，编译器在生成字节码文件时，会在指令序列中插入<strong>内存屏障</strong>来禁止特定类型的处理器重排序。</p>
+<h5 id="3-ConcurrentHashMap的锁分段技术"><a href="#3-ConcurrentHashMap的锁分段技术" class="headerlink" title="3. ConcurrentHashMap的锁分段技术"></a>3. ConcurrentHashMap的锁分段技术</h5><blockquote>
+<p>HashMap与HashTable都是哈希表，但是hashmap线程不安全；hashtable线程安全，效率非常低。</p>
+</blockquote>
+<p>ConcurrentHashMap所使用的锁分段技术，首先将数据分成一段一段的存储，然后给每一段数据配一把锁，当一个线程占用锁访问其中一个段数据的时候，其他段的数据也能被其他线程访问。</p>
+<p>ConcurrentHashMap是由Segment数组结构和HashEntry数组结构组成。Segment是一种可重入锁ReentrantLock，在ConcurrentHashMap里扮演锁的角色，HashEntry则用来存储键值对数据。（Segment数组+HashEntry数组）</p>
+<h5 id="4-ConcurrentHashMap的读是否要加锁，为什么"><a href="#4-ConcurrentHashMap的读是否要加锁，为什么" class="headerlink" title="4. ConcurrentHashMap的读是否要加锁，为什么"></a>4. ConcurrentHashMap的读是否要加锁，为什么</h5><p>不需要，ConcurrentHashMap实现技术是保证HashEntry几乎是不可变的。</p>
+<h5 id="5-ConcurrentHashMap的迭代器是强一致性的迭代器还是弱一致性的迭代器"><a href="#5-ConcurrentHashMap的迭代器是强一致性的迭代器还是弱一致性的迭代器" class="headerlink" title="5. ConcurrentHashMap的迭代器是强一致性的迭代器还是弱一致性的迭代器"></a>5. ConcurrentHashMap的迭代器是强一致性的迭代器还是弱一致性的迭代器</h5><p>弱一致迭代器。</p>
+<h5 id="6-知道常用设计模式的优缺点"><a href="#6-知道常用设计模式的优缺点" class="headerlink" title="6. 知道常用设计模式的优缺点"></a>6. 知道常用设计模式的优缺点</h5><ul>
+<li>简单工厂模式（<strong>Static Factory Method</strong>）</li>
+</ul>
+<p>优点： </p>
+<ol>
+<li>工厂类是整个模式的关键。包含了必要的逻辑判断，根据外界给定的信息，决定究竟应该创建哪个具体类的对象。</li>
+<li>通过使用工厂类，外界可以从直接创建具体产品对象的尴尬局面摆脱出来，仅仅需要负责“消费”对象就可以了，而不必管这些对象究竟如何创建及如何组织。</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>由于工厂类集中了所有实例的创建逻辑，违反了高内聚责任分配原则，将全部创建逻辑集中到了一个工厂类中，它所能创建的类只能是事先考虑到的，如果需要添加新的类，就需要改变工厂类。</li>
+<li>当系统中的具体产品类不断增多时候，可能会出现要求工厂类根据不同条件创建不同实例的需求。对<strong>系统的维护</strong>和<strong>扩展</strong>非常不利。</li>
+</ol>
+<ul>
+<li>策略模式（<strong>Strategy</strong>）</li>
+</ul>
+<p>优点：</p>
+<ol>
+<li>每个算法<strong>单独封装</strong>，<strong>减少</strong>了算法和算法调用者的耦合。</li>
+<li>合理使用继承有助于提取出算法中的公共部分。</li>
+<li>简化了单元测试。</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>策略模式只适用于客户端知道所有的算法或行为的情况。</li>
+<li>策略模式造成很多的策略类，每个具体策略类都会产生一个新类。</li>
+</ol>
+<ul>
+<li>装饰模式（<strong>Decorator</strong>）</li>
+</ul>
+<p>优点：</p>
+<ol>
+<li><code>Decorator</code>模式与继承关系的目的都是要扩展对象的功能，但是<code>Decorator</code>可以提供比继承更多的灵活性。</li>
+<li>通过使用不同的具体装饰类以及这些装饰类的排列组合，设计师可以创造出很多不同行为的组合。</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>更加<strong>复杂</strong></li>
+</ol>
+<ul>
+<li>代理模式（<strong>Proxy</strong>）</li>
+</ul>
+<p>优点：</p>
+<ol>
+<li>权责清晰，真实的角色就是实现实际的业务逻辑，不用关心其他非本职责的事务，通过后期的代理完成一件完成事务，附带的结果就是编程简洁清晰。</li>
+<li>代理对象可以在客户端和目标对象之间起到中介的作用，这样起到了中介的作用和保护了目标对象的作用。</li>
+<li>高扩展性</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>在客户端和目标对象增加一个代理对象，会造成请求处理速度变慢。</li>
+<li>增加了系统的复杂度。</li>
+</ol>
+<ul>
+<li>工厂方法模式（<strong>Factory Method</strong>）</li>
+</ul>
+<p>优点：</p>
+<ol>
+<li>良好的<strong>封装性</strong>，代码结构清晰，<strong>减少模块间的耦合</strong>。</li>
+<li>工厂方法模式的扩展性非常优秀。</li>
+<li>屏蔽产品类。</li>
+<li>工厂方法模式就是典型的解耦框架。</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>使用者必须知道相应工厂的存在。</li>
+<li>每次增加一个产品时，都需要增加一个具体类和对象实现工厂，使得系统中类的个数成倍增加，在一定程度上增加了系统的复杂度，同时也增加了系统具体类的依赖。</li>
+</ol>
+<ul>
+<li>原型模式（<strong>Prototype</strong>）</li>
+</ul>
+<p>优点：</p>
+<ol>
+<li><strong>隐藏</strong>了对象创建的细节。</li>
+<li>提高了性能。</li>
+<li>不用重新初始化，动态获得对象运行的状态。</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>适用性不是很广。</li>
+<li>每一个类必须配备一个<strong>克隆方法</strong>。</li>
+<li>配备克隆方法需要对类的功能进行通盘考虑，这对于全新的类不是很难，但对于已有的类不一定很容易，特别当一个类引用不支持串行化的间接对象或者引用含有循环结构的时候。</li>
+</ol>
+<ul>
+<li>模板方法模式（<strong>Template Method</strong>）</li>
+</ul>
+<p>优点：</p>
+<ol>
+<li>提高代码<strong>复用性</strong>。</li>
+<li>帮助子类摆脱重复的<strong>不变行为</strong>。</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>考虑不全面统一出现问题。</li>
+</ol>
+<p>（更多模式待补充……..）</p>
+<h5 id="7-构造器（constructor）是否可被重写（override）？"><a href="#7-构造器（constructor）是否可被重写（override）？" class="headerlink" title="7. 构造器（constructor）是否可被重写（override）？"></a>7. 构造器（constructor）是否可被重写（override）？</h5><p>构造器不能被继承，因此不能被重写，但可以被重载。</p>
+<h5 id="8-是否可以继承String类？"><a href="#8-是否可以继承String类？" class="headerlink" title="8. 是否可以继承String类？"></a>8. 是否可以继承String类？</h5><p>String类是final类，不可以被继承。</p>
+<blockquote>
+<p>ps：继承String本身就是一个错误的行为，对String类型最好的重用方式是关联关系和依赖关系而不是继承关系。</p>
+</blockquote>
+<h5 id="9-重载（Overload）和重写（Override）的区别。重载的方法能否根据返回类型进行区分？"><a href="#9-重载（Overload）和重写（Override）的区别。重载的方法能否根据返回类型进行区分？" class="headerlink" title="9. 重载（Overload）和重写（Override）的区别。重载的方法能否根据返回类型进行区分？"></a>9. 重载（Overload）和重写（Override）的区别。重载的方法能否根据返回类型进行区分？</h5><p>方法的重载和重写都是<strong>实现多态</strong>的方式，区别在于前者实现的是<strong>编译</strong>时的多态性，而后者实现的是<strong>运行</strong>时的多态性。</p>
+<p><strong>重载</strong>发生在一个类中，同名的方法如果有不同的参数列表（参数类型不同、参数个数不同或者二者都不同）则视为重载；<strong>重写</strong>发生在<strong>子类</strong>与<strong>父类</strong>之间，重写要求<strong>子类</strong>被重写方法与<strong>父类</strong>被重写方法有<strong>相同的返回类型</strong>，比父类被重写方法更好访问，不能比父类被重写方法声明更多的异常。<strong>重载</strong>对返回类型没有特殊的要求。</p>
+<h5 id="10-get和post请求的区别？"><a href="#10-get和post请求的区别？" class="headerlink" title="10. get和post请求的区别？"></a>10. get和post请求的区别？</h5><p>①get请求用来从服务器上获得资源，而post是用来向服务器提交数据；</p>
+<p>②get将表单中数据按照name=value的形式，添加到action所指向的URL后面，并且两者使用“？”连接，而各个变量之间使用“&amp;”连接；post是将表单中的数据放在HTTP协议的请求头或消息体中，传递到action所指向URL；</p>
+<p>③get传输的数据要受到URL长度限制（1024字节）；而post可以传输大量的数据，上传文件通常要使用post方式；</p>
+<p>④使用get时参数会显示在地址栏上，如果这些数据不是敏感数据，那么可以使用get；对于敏感数据应使用post；</p>
+<p>⑤get使用MIME类型百分号编码文本的格式传递参数，保证被传送的参数由遵循规范的文本组成。</p>
+<h5 id="11-实现会话跟踪的技术有哪些？"><a href="#11-实现会话跟踪的技术有哪些？" class="headerlink" title="11. 实现会话跟踪的技术有哪些？"></a>11. 实现会话跟踪的技术有哪些？</h5><ul>
+<li><strong>URL重写</strong>：在URL中添加用户会话的信息作为请求的参数，或者将唯一的会话ID添加到URL结尾以标识一个会话。</li>
+<li><strong>设置表单隐藏域</strong>：将和会话跟踪相关的字段添加到隐式表单域中，这些信息不会在浏览器中显示但是提交表单时会提交到服务器。这两种方式很难处理跨越多个页面的信息传递，因为如果每次都要修改URL或在页面中添加隐式表单域来存储用户会话相关信息，事情将变得非常麻烦。</li>
+<li><strong>cookie</strong>：cookie有两种，一种是基于窗口的，浏览器窗口关闭后，cookie就没有了；另一种是将信息存储在一个临时文件中，并设置存在的时间。当用户通过浏览器和服务器建立一次会话后，会话ID就会随响应信息返回存储在基于窗口的cookie中，那就意味着只要浏览器没有关闭，会话没有超时，下一次请求时这个会话ID又会提交给服务器让服务器识别身份。</li>
+</ul>
+<blockquote>
+<p>ps: HTML5中可以用Web Storage技术通过JavaScript来保存数据，例如<strong>localStorage</strong>和<strong>sessionStorage</strong>来保存用户会话的信息，也能够实现会话跟踪。</p>
+</blockquote>
+<h5 id="12-什么是ORM？"><a href="#12-什么是ORM？" class="headerlink" title="12. 什么是ORM？"></a>12. 什么是ORM？</h5><p>对象关系映射是一种为了解决程序的面向对象模型与数据库的关系模型互不匹配问题的技术；简单的说，ORM是通过使用描述对象和数据库之间映射的元数据，将程序中的对象自动持久化到关系数据库中或者将关系数据库表中的行转换成Java对象，其本质上就是将数据从一种形式转换到另一种形式。</p>
+<h5 id="13-持久层设计要考虑的问题有哪些？持久层框架有哪些？"><a href="#13-持久层设计要考虑的问题有哪些？持久层框架有哪些？" class="headerlink" title="13. 持久层设计要考虑的问题有哪些？持久层框架有哪些？"></a>13. 持久层设计要考虑的问题有哪些？持久层框架有哪些？</h5><p>持久层设计的目标包括：</p>
+<ol>
+<li>数据存储逻辑的分离，提供抽象化的数据访问接口。</li>
+<li>数据访问底层实现的分离，可以在不修改代码的情况下切换底层实现。</li>
+<li>资源管理和调度的分离，在数据访问层实现统一的资源调度。</li>
+<li>数据抽象，提供更面向对象的数据操作。</li>
+</ol>
+<blockquote>
+<p>持久层框架有：</p>
+<ul>
+<li>Hibernate</li>
+<li>MyBatis</li>
+<li>Spring Data</li>
+<li>ActiveJDBC</li>
+<li>Guzz</li>
+<li>jOOQ</li>
+</ul>
+</blockquote>
 
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
             <p>原文作者：<a href="https://www.yyfol.com">Ye Yifan</a>
-            </p><p>原文链接：<a href="https://www.yyfol.com/2019/ckberggu6000vasq60ag17o0o/">https://www.yyfol.com/2019/ckberggu6000vasq60ag17o0o/</a>
-            </p><p>发表日期：<a href="https://www.yyfol.com/2019/ckberggu6000vasq60ag17o0o/">March 5th 2019, 11:40:00 pm</a>
-            </p><p>更新日期：<a href="https://www.yyfol.com/2019/ckberggu6000vasq60ag17o0o/">March 7th 2019, 11:24:10 am</a>
-            </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+            <p>原文链接：<a href="https://www.yyfol.com/2020/ckbzahyhd0003ioq6g1gff33y/">https://www.yyfol.com/2020/ckbzahyhd0003ioq6g1gff33y/</a>
+            <p>发表日期：<a href="https://www.yyfol.com/2020/ckbzahyhd0003ioq6g1gff33y/">January 9th 2020, 8:21:00 pm</a>
+            <p>更新日期：<a href="https://www.yyfol.com/2020/ckbzahyhd0003ioq6g1gff33y/">January 9th 2020, 8:21:33 pm</a>
+            <p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
     <!-- paginator  -->
@@ -438,16 +584,16 @@ height:50vh;
         <li class="next">
             
                 <div class="nextSlogan">Next Post</div>
-                <a href="/2019/ckberggtv000hasq6lals9duq/" title="模板匹配（matlab实现）">
-                    <div class="nextTitle">模板匹配（matlab实现）</div>
+                <a href= "/2020/ckbzahyhw000gioq6cis3uyba/" title= "华为Cloud&Bu 软开凉经">
+                    <div class="nextTitle">华为Cloud&Bu 软开凉经</div>
                 </a>
             
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href="/2019/ckberggu8000yasq62kjzc9l0/" title="游戏开发之路4">
-                    <div class="prevTitle">游戏开发之路4</div>
+                <a href= "/2019/ckbzahyh70001ioq6mhqvdulh/" title= "Spring核心思想IOC、DI">
+                    <div class="prevTitle">Spring核心思想IOC、DI</div>
                 </a>
             
         </li>
@@ -455,7 +601,7 @@ height:50vh;
     <!-- 评论插件 -->
     <!-- 来必力City版安装代码 -->
 
-    <div id="lv-container" data-id="city" data-uid="MTAyMC80Mjk5Ni8xOTU0Mg==">
+    <div id="lv-container" data-id="city" data-uid= MTAyMC80Mjk5Ni8xOTU0Mg==>
         <script type="text/javascript">
             (function (d, s) {
                 var j, e = d.getElementsByTagName(s)[0];
@@ -493,21 +639,21 @@ height:50vh;
     
         
             
-                <a href="mailto:yyfol@vip.qq.com" class="iconfont-archer email" title="email"></a>
+                <a href="mailto:yyfol@vip.qq.com" class="iconfont-archer email" title=email ></a>
             
         
     
         
             
-                <a href="//github.com/nsdie" class="iconfont-archer github" target="_blank" title="github"></a>
+                <a href="//github.com/nsdie" class="iconfont-archer github" target="_blank" title=github></a>
             
         
     
         
             
-                <span class="iconfont-archer wechat" title="wechat">
+                <span class="iconfont-archer wechat" title=wechat>
                   
-                  <img class="profile-qr" src="/assets/wechat.png">
+                  <img class="profile-qr" src="/assets/wechat.png" />
                 </span>
             
         
@@ -542,7 +688,7 @@ height:50vh;
     
         
             
-                <a href="https://steamcommunity.com/profiles/76561198098327197/" class="iconfont-archer steam" target="_blank" title="steam"></a>
+                <a href="https://steamcommunity.com/profiles/76561198098327197/" class="iconfont-archer steam" target="_blank" title=steam></a>
             
         
     
@@ -550,7 +696,7 @@ height:50vh;
     
         
             
-                <a href="/atom.xml" class="iconfont-archer rss" target="_blank" title="rss"></a>
+                <a href="/atom.xml" class="iconfont-archer rss" target="_blank" title=rss></a>
             
         
     
@@ -595,7 +741,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#经验分享"><span class="toc-number">1.</span> <span class="toc-text">经验分享</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#第三轮demo比赛总结"><span class="toc-number">1.1.</span> <span class="toc-text">第三轮demo比赛总结</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-static关键字有哪些作用？"><span class="toc-number">1.</span> <span class="toc-text">1. static关键字有哪些作用？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-volatile关键字的底层实现原理"><span class="toc-number">2.</span> <span class="toc-text">2. volatile关键字的底层实现原理</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-ConcurrentHashMap的锁分段技术"><span class="toc-number">3.</span> <span class="toc-text">3. ConcurrentHashMap的锁分段技术</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-ConcurrentHashMap的读是否要加锁，为什么"><span class="toc-number">4.</span> <span class="toc-text">4. ConcurrentHashMap的读是否要加锁，为什么</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-ConcurrentHashMap的迭代器是强一致性的迭代器还是弱一致性的迭代器"><span class="toc-number">5.</span> <span class="toc-text">5. ConcurrentHashMap的迭代器是强一致性的迭代器还是弱一致性的迭代器</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#6-知道常用设计模式的优缺点"><span class="toc-number">6.</span> <span class="toc-text">6. 知道常用设计模式的优缺点</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#7-构造器（constructor）是否可被重写（override）？"><span class="toc-number">7.</span> <span class="toc-text">7. 构造器（constructor）是否可被重写（override）？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#8-是否可以继承String类？"><span class="toc-number">8.</span> <span class="toc-text">8. 是否可以继承String类？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#9-重载（Overload）和重写（Override）的区别。重载的方法能否根据返回类型进行区分？"><span class="toc-number">9.</span> <span class="toc-text">9. 重载（Overload）和重写（Override）的区别。重载的方法能否根据返回类型进行区分？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#10-get和post请求的区别？"><span class="toc-number">10.</span> <span class="toc-text">10. get和post请求的区别？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#11-实现会话跟踪的技术有哪些？"><span class="toc-number">11.</span> <span class="toc-text">11. 实现会话跟踪的技术有哪些？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#12-什么是ORM？"><span class="toc-number">12.</span> <span class="toc-text">12. 什么是ORM？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#13-持久层设计要考虑的问题有哪些？持久层框架有哪些？"><span class="toc-number">13.</span> <span class="toc-text">13. 持久层设计要考虑的问题有哪些？持久层框架有哪些？</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -768,9 +914,24 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 14
+        Total : 15
         </div>
         <!-- search  -->
         
@@ -786,17 +947,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href="/2020/ckbergguc0013asq6jv7whbu4/">高性能MySQL 读书笔记一</a>
+            <span class="archive-post-date">06/29</span><a class="archive-post-title" href= "/2020/ckbzahyii0012ioq6t5cs9k3c/" >高性能MySQL 读书笔记二</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/10</span><a class="archive-post-title" href="/2020/ckberggtn000basq6cadij2ur/">华为Cloud&Bu 软开凉经</a>
+            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/ckbzahyih0011ioq6rfhl35wa/" >高性能MySQL 读书笔记一</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/09</span><a class="archive-post-title" href="/2020/ckberggsw0001asq6rctf8iqw/">Java基础问题</a>
+            <span class="archive-post-date">03/10</span><a class="archive-post-title" href= "/2020/ckbzahyhw000gioq6cis3uyba/" >华为Cloud&Bu 软开凉经</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/09</span><a class="archive-post-title" href= "/2020/ckbzahyhd0003ioq6g1gff33y/" >Java基础问题</a>
         </li>
     
     
@@ -810,60 +976,60 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/30</span><a class="archive-post-title" href="/2019/ckberggt30003asq6w1k7gbra/">Spring学习笔记一</a>
+            <span class="archive-post-date">12/30</span><a class="archive-post-title" href= "/2019/ckbzahyhi0006ioq69iyuznwt/" >Spring学习笔记一</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/30</span><a class="archive-post-title" href="/2019/ckberggtc0007asq6voe54tp0/">Spring核心思想IOC、DI</a>
+            <span class="archive-post-date">12/30</span><a class="archive-post-title" href= "/2019/ckbzahyh70001ioq6mhqvdulh/" >Spring核心思想IOC、DI</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/11</span><a class="archive-post-title" href="/2019/ckberggth0008asq62fclzwug/">八大排序算法</a>
+            <span class="archive-post-date">03/11</span><a class="archive-post-title" href= "/2019/ckbzahyhl0008ioq6u3y2owwo/" >八大排序算法</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/08</span><a class="archive-post-title" href="/2019/ckberggtp000casq60g8ab8c0/">机器学习入门路线</a>
+            <span class="archive-post-date">03/08</span><a class="archive-post-title" href= "/2019/ckbzahyhp000bioq6wzxzdcxy/" >机器学习入门路线</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/07</span><a class="archive-post-title" href="/2019/ckberggt90006asq6tufof21b/">Tensorflow做模型预测（入门级）</a>
+            <span class="archive-post-date">03/07</span><a class="archive-post-title" href= "/2019/ckbzahyhk0007ioq6emsv7dy5/" >Tensorflow做模型预测（入门级）</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/06</span><a class="archive-post-title" href="/2019/ckberggtv000hasq6lals9duq/">模板匹配（matlab实现）</a>
+            <span class="archive-post-date">03/06</span><a class="archive-post-title" href= "/2019/ckbzahyhq000cioq6r3gca1l8/" >模板匹配（matlab实现）</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ckberggu6000vasq60ag17o0o/">游戏开发之路5</a>
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href= "/2019/ckbzahyif000wioq6p4109svh/" >游戏开发之路5</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ckberggu8000yasq62kjzc9l0/">游戏开发之路4</a>
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href= "/2019/ckbzahyid000uioq6xln1ycrj/" >游戏开发之路4</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ckberggu2000pasq6e8jxocwv/">游戏开发之路3</a>
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href= "/2019/ckbzahyia000pioq6z79qqkg1/" >游戏开发之路3</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ckberggu4000rasq671whpazc/">游戏开发之路2</a>
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href= "/2019/ckbzahyhz000iioq67a72554r/" >游戏开发之路2</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/05</span><a class="archive-post-title" href="/2019/ckberggtx000kasq6yro6vqmu/">游戏开发之路1</a>
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href= "/2019/ckbzahyi5000nioq69k27qxn0/" >游戏开发之路1</a>
         </li>
     
-    </ul></div>
+    </div>
   </div>
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
@@ -893,10 +1059,10 @@ top:50vh;
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
     <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
-    缺失模块。<br>
-    1、请确保node版本大于6.2<br>
-    2、在博客根目录（注意不是archer根目录）执行以下命令：<br>
-    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br>
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
     3、在根目录_config.yml里添加配置：
     <pre style="color: #787878; font-size: 0.6rem;">
 jsonContent:
