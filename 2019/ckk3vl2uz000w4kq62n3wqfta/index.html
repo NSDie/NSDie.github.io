@@ -22,7 +22,7 @@
     <meta name="description" content>
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Spring学习笔记一 · yyfol&#39;s Blog</title>
+    <title>游戏开发之路4 · yyfol&#39;s Blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -228,7 +228,7 @@
                 <a href="/" >yyfol&#39;s Blog.</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">Spring学习笔记一</a>
+                <a href="#" class="post-name">游戏开发之路4</a>
             </div>
     </div>
     
@@ -258,7 +258,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            Spring学习笔记一
+            游戏开发之路4
             <!-- 404 -->
             
         </h1>
@@ -277,20 +277,18 @@ height:50vh;
                 
                     <div class= post-intro-tags >
     
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Java">Java</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Spring">Spring</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags = "游戏开发">游戏开发</a>
     
 </div>
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">949</span>阅读时长: <span class="post-count reading-time">3 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">1.1k</span>阅读时长: <span class="post-count reading-time">3 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2019/12/30</span>
+                    <span class="post-intro-time">2019/03/05</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -414,44 +412,28 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h3 id="IOC"><a href="#IOC" class="headerlink" title="IOC"></a>IOC</h3><h4 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;<code>Inversion of Control</code> ，翻译为”控制反转“，别名”依赖注入“(<code>Dependency Injection</code>)。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;关键在于四个问题：<strong>谁控制谁</strong>,<strong>控制什么</strong>,<strong>反转是什么</strong>,<strong>哪些方面反转了</strong>。</p>
-<blockquote>
-<p>所谓IOC，就是由Spring IOC容器来负责对象的生命周期和对象之间的关系。</p>
+        <h3 id="经验分享"><a href="#经验分享" class="headerlink" title="经验分享"></a>经验分享</h3><h4 id="第二轮demo比赛总结"><a href="#第二轮demo比赛总结" class="headerlink" title="第二轮demo比赛总结"></a>第二轮demo比赛总结</h4><blockquote>
+<p> &nbsp;&nbsp;&nbsp;&nbsp;经过第一轮的教训，在第二轮10天的游戏制作中，可以说比第一轮好非常多。无论是项目管理，还是协作开发，都有非常大的改善，当然也有挺多美中不足的地方需要提高。</p>
 </blockquote>
-<p>​    我们可以先想象一个场景：你需要一个女朋友，直接<code>new BeautifulGirl()</code>，接下来你想要的各种要求，用set来设置。但是这个过程复杂又繁琐，而且我们必须要面对每个环节，同时在使用完成之后还要负责销毁。<strong>这种情况下我们的对象和它所依赖的对象耦合在一起</strong>。</p>
-<p>​    但是我们知道，我们依赖对象并不是依赖对象本身，而是依赖对象所提供的<strong>服务</strong>，当我们需要它的时候，它能够<strong>及时提供服务即可</strong>，至于它是我们主动去创建还是别人送给我们的，并不那么重要。就像你需要一个女朋友，你可以不用自己找（new），你可以直接跟婚介公司说，你想要这样那样的妹子（<strong>需求</strong>），婚介公司就会给你一个妹子，你只需要负责接下来的工作。</p>
-<p>​    所以<strong>IoC</strong>就是相当于一个中介，当你需要什么（功能） 的时候，IoC就会送过来给你，你不用自己去创建销毁。</p>
-<p>​    现在，回答上面四个问题：</p>
-<p>​    <strong>1.谁控制谁</strong>：<code>IOC Service Provider</code>(IOC容器) 控制对象。</p>
-<p>​    <strong>2.控制什么</strong>：控制对象。</p>
-<p>​    <strong>3.反转是什么</strong>：没有IOC，都是在对象中主动去创建被依赖的对象，这是<strong>正转</strong>；有IOC，所依赖的对象直接由IoC容器创建后注入到被注入的对象中，依赖的对象由原来的主动变为被动，这是<strong>反转</strong>。</p>
-<p>​    <strong>4.哪些方面反转了</strong>：所依赖对象的获取被反转了。</p>
-<h4 id="提供的注入方式"><a href="#提供的注入方式" class="headerlink" title="提供的注入方式"></a>提供的注入方式</h4><ol>
-<li><strong>构造器注入</strong> 被注入的对象通过在其构造方法中声明依赖对象的参数列表，让外部知道它需要哪些依赖对象。</li>
-<li><strong>setter 方法注入</strong> 对于JavaBean对象而言，我们一般是通过<code>getter</code>和<code>setter</code>方法来访问和设置对象的属性。所以，当前对象只需要为其所依赖的对象提供相应的<code>setter</code>方法，就可以通过该方法将相应的依赖对象设置到被注入对象中。</li>
-<li><strong>接口方式注入</strong> 接口方式注入显得比较霸道，因为它需要被依赖的对象实现不必要的接口，带有侵入性。</li>
-</ol>
-<h3 id="IOC各部分"><a href="#IOC各部分" class="headerlink" title="IOC各部分"></a>IOC各部分</h3><p>​    五大体系：<strong>Resource体系</strong>、<strong>BeanFactory体系</strong>、<strong>Beandefinition</strong>、<strong>BeandefinitionReader体系</strong>、<strong>ApplicationContext体系</strong>。(简单介绍一下，后面再继续详细记录。)</p>
-<ul>
-<li><strong>Resource体系</strong> 对资源的抽象，它的每一个实现类都代表了一种资源的访问策略。如ClasspathResource、URLResource、FileSystemResource等。ps：资源加载——ResourceLoader。</li>
-<li><strong>BeanFactory体系</strong> BeanFactory是一个非常纯粹的bean容器，它是IOC必备的数据结构，其中<em>BeanDefinition</em>是它的基本结构，它内部维护一个map，根据<em>BeanDefinition</em>的描述进行bean的创建和管理。</li>
-<li><strong>BeanDefinition体系</strong> 用来描述Spring中的Bean对象。</li>
-<li><strong>BeanDefinitionReader体系</strong> 用来读取Spring的配置文件，并转换成IOC容器内部的数据结构-》<em>BeanDefinition</em>。</li>
-<li><strong>ApplicationContext体系</strong> Spring容器，应用上下文，继承<em>BeanFactory</em>。它与<em>BeanFactory</em>的区别有：1. 继承<em>MessageSource</em>，提供国际化的标准访问策略。 2. 继承<em>ApplicationEventPublisher</em>，提供强大的事件机制。 3. 扩展<em>ResourceLoader</em>，可以用来加载多个Resource，可以灵活访问不同的资源。 4. 对Web应用的支持。</li>
-</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;这轮的题目是三选一的形式：<strong>a.跑酷\b.三消\c.回合制RPG</strong>。吸取第一轮的教训，坚决不做三消（其实三消做简单了，会被喷的很惨；做难了，也很难有新的创新，而且逻辑可能就很复杂了），所以最后综合考虑下，在RPG跟跑酷中，选择了跑酷。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;跑酷我们参考了传统的跑酷玩法，有<strong>天天酷跑</strong> 、<strong>Super Mario Run</strong> 等各种横板闯关类型的跑酷游戏。最终确定下来核心玩法是，<strong>二段跳跃+冲刺</strong> 。核心玩法定下来以后，就马上开工，程序这边是由我来设计了一下开发文档，大概导图如下：</p>
+<p><img src="第二轮跑酷游戏开发.png" alt></p>
 <blockquote>
-<p>学习笔记，原文章出处：<a href="http://cmsblogs.com/?p=2652" target="_blank" rel="noopener">http://cmsblogs.com/?p=2652</a>  </p>
+<p>部分具体实现可能有改动。</p>
 </blockquote>
+<p>然后游戏主逻辑这部分，大概在比赛第1天晚上就写完了吧，能跑能跳能冲刺，当然可能也有bug，然后在第2天出了第一个包，没有接入美术资源的包。然后在接下来的3、4、5天中，就疯狂的去迭代版本，加入一些策划想要的关卡设定，以及陆续接入一些已经画出来的美术资源。在第5天可能是一个分水岭吧，我们在那天发现了一个严重问题，我们的包没有优化，游戏运行内存大概可以跑几个G吧，当时都把我们吓到了。于是从第5天开始，我们对游戏开始进行优化，同时接入一些服务器的功能，不停的压缩美术的资源，删掉很多没用的图片。在后面几天里多亏了队友们，肝出了无尽模式跟关卡编辑器，让游戏又上了一个档次，完成度非常高。可惜最后有一些小遗憾，因为一两个小bug没修复，我们只拿到了第二名的成绩。</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;这次比赛主要原因受<strong>对接资源</strong>影响，导致最后测试时间不足，还有一些相应的功能没实现。我们主要做了三个关卡，但是第三个关卡在最后第9天策划才给我们，原因呢，就是他们前一天做完忘保存还是咋滴，文件丢失了（இ௰இ）。然后他们给我关卡之后，美术这边又需要调整，总之最后调调完，程序这边拿到已经第九天晚上了，这个跟计划时间差挺大的（原计划第九天白天就接入，下午晚上还能测试或者做一些其他功能优化）。于是乎第九天到第十天就不用睡觉了，通宵对接 _ (:з)∠) _ 。然后就草草接完，都没时间QA。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;除此之外，还有一个很大的问题，我作为一个服务端开发，我学了2D骨骼动画帮美术们做动画特效，然后还要整理一堆资源，策划摆完关卡，压根没分类，我拿到手还要花时间去整理归类，真的很浪费时间QAQ。不是我吐槽，我觉得我们如果美术跟策划再协同一点，策划设计关卡跟美术对接上，而不是交由程序对接，我觉得程序这边能留出更多时间，做很多事情，<strong>Debug</strong>、<strong>新功能的开发</strong> 、<strong>项目的优化</strong> 。所以这也算一次教训吧，这次比赛的一个遗憾之处，我服务器做了一堆功能，接入的也就排行榜模块。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;所以以后做项目，<strong>沟通</strong>真的非常重要，无论是哪边，只要需要<strong>对接的部分</strong>，都要<strong>统一好要求</strong>，不要各自做项目，最后做出来A跟B，还要把A调整B或者把B调整成A，这部分时间真的<strong>消耗</strong>很大，<strong>效率</strong>大大降低了。</p>
 
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
             <p>原文作者：<a href="https://www.yyfol.com">Ye Yifan</a>
-            <p>原文链接：<a href="https://www.yyfol.com/2019/ckjbbh77w00055kq6mlkaeu2i/">https://www.yyfol.com/2019/ckjbbh77w00055kq6mlkaeu2i/</a>
-            <p>发表日期：<a href="https://www.yyfol.com/2019/ckjbbh77w00055kq6mlkaeu2i/">December 30th 2019, 9:35:00 pm</a>
-            <p>更新日期：<a href="https://www.yyfol.com/2019/ckjbbh77w00055kq6mlkaeu2i/">December 30th 2019, 9:36:33 pm</a>
+            <p>原文链接：<a href="https://www.yyfol.com/2019/ckk3vl2uz000w4kq62n3wqfta/">https://www.yyfol.com/2019/ckk3vl2uz000w4kq62n3wqfta/</a>
+            <p>发表日期：<a href="https://www.yyfol.com/2019/ckk3vl2uz000w4kq62n3wqfta/">March 5th 2019, 10:50:00 pm</a>
+            <p>更新日期：<a href="https://www.yyfol.com/2019/ckk3vl2uz000w4kq62n3wqfta/">March 7th 2019, 11:24:14 am</a>
             <p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -460,16 +442,16 @@ height:50vh;
         <li class="next">
             
                 <div class="nextSlogan">Next Post</div>
-                <a href= "/2019/ckjbbh77y00065kq6452f7yfl/" title= "Spring核心思想IOC、DI">
-                    <div class="nextTitle">Spring核心思想IOC、DI</div>
+                <a href= "/2019/ckk3vl2ux000u4kq6895gtdtd/" title= "游戏开发之路5">
+                    <div class="nextTitle">游戏开发之路5</div>
                 </a>
             
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2019/ckjbbh78v00165kq6j3qmtpah/" title= "八大排序算法">
-                    <div class="prevTitle">八大排序算法</div>
+                <a href= "/2019/ckk3vl2uu000n4kq677f336vn/" title= "游戏开发之路3">
+                    <div class="prevTitle">游戏开发之路3</div>
                 </a>
             
         </li>
@@ -585,8 +567,7 @@ height:50vh;
     </div>
     <!-- 备案 -->
     <div class="copyright">
-        浙ICP备
-        <a href="https://beian.miit.gov.cn" target="_blank">18018065号-2</a>
+        <a href="https://beian.miit.gov.cn" target="_blank">浙ICP备18018065号-2</a>
     </div>
     <!-- 不蒜子  -->
     
@@ -617,7 +598,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#IOC"><span class="toc-number">1.</span> <span class="toc-text">IOC</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#概念"><span class="toc-number">1.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#提供的注入方式"><span class="toc-number">1.2.</span> <span class="toc-text">提供的注入方式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IOC各部分"><span class="toc-number">2.</span> <span class="toc-text">IOC各部分</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#经验分享"><span class="toc-number">1.</span> <span class="toc-text">经验分享</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#第二轮demo比赛总结"><span class="toc-number">1.1.</span> <span class="toc-text">第二轮demo比赛总结</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#总结"><span class="toc-number">1.2.</span> <span class="toc-text">总结</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -630,18 +611,6 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     
@@ -831,22 +800,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/29</span><a class="archive-post-title" href= "/2020/ckjbbh79e001x5kq68jpwljvj/" >高性能MySQL 读书笔记二</a>
+            <span class="archive-post-date">06/29</span><a class="archive-post-title" href= "/2020/ckk3vl2v200124kq6qy99xp5o/" >高性能MySQL 读书笔记二</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/ckjbbh79g001y5kq6yvlvxzgp/" >高性能MySQL 读书笔记一</a>
+            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/ckk3vl2v100114kq6r17vbt2i/" >高性能MySQL 读书笔记一</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/10</span><a class="archive-post-title" href= "/2020/ckjbbh78q00145kq6bzv2qylh/" >华为Cloud&Bu 软开凉经</a>
+            <span class="archive-post-date">03/10</span><a class="archive-post-title" href= "/2020/ckk3vl2uo000c4kq62l0v0t0l/" >华为Cloud&Bu 软开凉经</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/09</span><a class="archive-post-title" href= "/2020/ckjbbh75a00015kq64iufe2wz/" >Java基础问题</a>
+            <span class="archive-post-date">01/09</span><a class="archive-post-title" href= "/2020/ckk3vl2u400014kq683wh5zux/" >Java基础问题</a>
         </li>
     
     
@@ -860,57 +829,57 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/30</span><a class="archive-post-title" href= "/2019/ckjbbh77y00065kq6452f7yfl/" >Spring核心思想IOC、DI</a>
+            <span class="archive-post-date">12/30</span><a class="archive-post-title" href= "/2019/ckk3vl2ud00064kq6apymc4if/" >Spring核心思想IOC、DI</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/30</span><a class="archive-post-title" href= "/2019/ckjbbh77w00055kq6mlkaeu2i/" >Spring学习笔记一</a>
+            <span class="archive-post-date">12/30</span><a class="archive-post-title" href= "/2019/ckk3vl2u800034kq6g2hrtx2t/" >Spring学习笔记一</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/11</span><a class="archive-post-title" href= "/2019/ckjbbh78v00165kq6j3qmtpah/" >八大排序算法</a>
+            <span class="archive-post-date">03/11</span><a class="archive-post-title" href= "/2019/ckk3vl2um000b4kq6ivam9fpz/" >八大排序算法</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/08</span><a class="archive-post-title" href= "/2019/ckjbbh78d000r5kq6sevk2oek/" >机器学习入门路线</a>
+            <span class="archive-post-date">03/08</span><a class="archive-post-title" href= "/2019/ckk3vl2uj00084kq65vx1z1ff/" >机器学习入门路线</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/07</span><a class="archive-post-title" href= "/2019/ckjbbh77s00025kq6tvmh1qv3/" >Tensorflow做模型预测（入门级）</a>
+            <span class="archive-post-date">03/07</span><a class="archive-post-title" href= "/2019/ckk3vl2ug00074kq6f6ie59o0/" >Tensorflow做模型预测（入门级）</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/06</span><a class="archive-post-title" href= "/2019/ckjbbh78f000t5kq6r1n1et3l/" >模板匹配（matlab实现）</a>
+            <span class="archive-post-date">03/06</span><a class="archive-post-title" href= "/2019/ckk3vl2up000g4kq6kpkptxew/" >模板匹配（matlab实现）</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/05</span><a class="archive-post-title" href= "/2019/ckjbbh79h00205kq68967giwk/" >游戏开发之路5</a>
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href= "/2019/ckk3vl2ux000u4kq6895gtdtd/" >游戏开发之路5</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/05</span><a class="archive-post-title" href= "/2019/ckjbbh78l000x5kq68cbwi08a/" >游戏开发之路3</a>
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href= "/2019/ckk3vl2uu000n4kq677f336vn/" >游戏开发之路3</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/05</span><a class="archive-post-title" href= "/2019/ckjbbh78o00125kq6qho0a44l/" >游戏开发之路4</a>
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href= "/2019/ckk3vl2uz000w4kq62n3wqfta/" >游戏开发之路4</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/05</span><a class="archive-post-title" href= "/2019/ckjbbh78n00105kq6uelrs69i/" >游戏开发之路2</a>
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href= "/2019/ckk3vl2uw000p4kq6xrtigupy/" >游戏开发之路2</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/05</span><a class="archive-post-title" href= "/2019/ckjbbh78h000v5kq6f3sxp1bv/" >游戏开发之路1</a>
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href= "/2019/ckk3vl2us000i4kq6sb13ofir/" >游戏开发之路1</a>
         </li>
     
     </div>
@@ -926,15 +895,15 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
     
+        <span class="sidebar-tag-name" data-tags="算法"><span class="iconfont-archer">&#xe606;</span>算法</span>
+    
+        <span class="sidebar-tag-name" data-tags="c++"><span class="iconfont-archer">&#xe606;</span>c++</span>
+    
         <span class="sidebar-tag-name" data-tags="matlab"><span class="iconfont-archer">&#xe606;</span>matlab</span>
     
         <span class="sidebar-tag-name" data-tags="图像处理"><span class="iconfont-archer">&#xe606;</span>图像处理</span>
     
         <span class="sidebar-tag-name" data-tags="游戏开发"><span class="iconfont-archer">&#xe606;</span>游戏开发</span>
-    
-        <span class="sidebar-tag-name" data-tags="算法"><span class="iconfont-archer">&#xe606;</span>算法</span>
-    
-        <span class="sidebar-tag-name" data-tags="c++"><span class="iconfont-archer">&#xe606;</span>c++</span>
     
         <span class="sidebar-tag-name" data-tags="Mysql"><span class="iconfont-archer">&#xe606;</span>Mysql</span>
     
@@ -977,11 +946,11 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="MachineLearning"><span class="iconfont-archer">&#xe60a;</span>MachineLearning</span>
     
-        <span class="sidebar-category-name" data-categories="life"><span class="iconfont-archer">&#xe60a;</span>life</span>
+        <span class="sidebar-category-name" data-categories="Programming"><span class="iconfont-archer">&#xe60a;</span>Programming</span>
     
         <span class="sidebar-category-name" data-categories="开发/面试"><span class="iconfont-archer">&#xe60a;</span>开发/面试</span>
     
-        <span class="sidebar-category-name" data-categories="Programming"><span class="iconfont-archer">&#xe60a;</span>Programming</span>
+        <span class="sidebar-category-name" data-categories="life"><span class="iconfont-archer">&#xe60a;</span>life</span>
     
         <span class="sidebar-category-name" data-categories="开发/笔记"><span class="iconfont-archer">&#xe60a;</span>开发/笔记</span>
     

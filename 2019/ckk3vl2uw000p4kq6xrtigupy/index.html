@@ -22,7 +22,7 @@
     <meta name="description" content>
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>游戏开发之路3 · yyfol&#39;s Blog</title>
+    <title>游戏开发之路2 · yyfol&#39;s Blog</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -228,7 +228,7 @@
                 <a href="/" >yyfol&#39;s Blog.</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">游戏开发之路3</a>
+                <a href="#" class="post-name">游戏开发之路2</a>
             </div>
     </div>
     
@@ -258,7 +258,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            游戏开发之路3
+            游戏开发之路2
             <!-- 404 -->
             
         </h1>
@@ -283,7 +283,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">1.8k</span>阅读时长: <span class="post-count reading-time">5 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">1.1k</span>阅读时长: <span class="post-count reading-time">3 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -412,36 +412,89 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h3 id="经验分享"><a href="#经验分享" class="headerlink" title="经验分享"></a>经验分享</h3><blockquote>
-<p>经过十天的学习，对游戏的开发流程有了大致的了解后，就是三轮的游戏demo制作比赛。但是有点遗憾，在第一轮5天的比赛中，并没有做出什么非常完美的作品，心里也很难受。不过没关系后面还有两轮，并且在这轮中吸取了很多经验。</p>
-</blockquote>
-<h4 id="一、第一轮Demo简要介绍"><a href="#一、第一轮Demo简要介绍" class="headerlink" title="一、第一轮Demo简要介绍"></a>一、第一轮Demo简要介绍</h4><blockquote>
-<p>对于项目，工程就不发了，毕竟是组队开发的，不太好意思未经他人允许公开他的代码。我会简要讲一下第一个demo的核心玩法，以及实现方式。最后顺便附上我自己写的一份开发文档</p>
-</blockquote>
-<p>游戏名字叫<strong>《重逢》</strong>（策划那边起的，我也不知道有什么具体含义）。内容是：一个叫Pan的男人寻找他亡妻的故事，游戏里有一个冥界塔的设定，就是玩家们需要操作的场景。<font color="red">核心玩法</font>就是<strong>扫雷</strong>跟<strong>PopStar！</strong>的结合，点开一个方块，你点到炸弹就会扣血，点到空方块就会消除一片连通空白块。然后消除后产生的空的地方，方块会和<strong>PopStar！</strong>中的方块一样落下来，最上面一排会跟扫雷一样显示周围雷区的数量。当然长按标记这些也都有，加上锤子、加血包、计时器三种道具。获胜条件为：从上到下消直到落到最下面一层，就算通关；如果血扣完了或者计时器到零，就判定失败。对应冥界塔的下楼方式，你在冲塔的过程中为遇到一系列问题，比如怪物、宝藏、迷雾、岩浆、陨星…..每种问题对应一种新玩法，每一种玩法都会有新的得分机制，目前没有划分到获胜机制里（之后在看情况做修改），核心玩法还是不变的。</p>
-<p><strong>开发部分</strong> 的话，是采用unity做客户端，java做服务端。</p>
-<p><img src="《重逢》开发文档.png" alt></p>
-<p>部分框架是介个样子，模块分很多，系统也分很多。（所以这次5天的开发时间，可以说完全是通宵爆肝了，然而还是没有完成）</p>
-<h4 id="二、总结与反思"><a href="#二、总结与反思" class="headerlink" title="二、总结与反思"></a>二、总结与反思</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;复盘一下这几天都做了啥把，第一天简单搭了一下服务器和研究了一下网络通信方面，第二天由于队伍内部出现了纠纷，没有解决。策划又提出了一堆新的需求，导致项目代码重构，花了大量的时间。第三天写项目文档，完善框架里面的数据架构。第四天第五天疯狂填内容，以及对接美术资源，画UI，把3D特效动画整合到逻辑层上去。可惜时间不够，出现一堆bug。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;所以现在回顾了一下，大概有以下几点经验：</p>
+        <h3 id="游戏开发"><a href="#游戏开发" class="headerlink" title="游戏开发"></a>游戏开发</h3><h4 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;用来开发客户端的语言非常多，<strong>unity引擎</strong>用的是<strong>c#</strong>，<strong>cocos引擎</strong>用的是<strong>c++</strong>、<strong>js</strong>，<strong>虚幻4引擎</strong>也是用<strong>c++</strong>，还有<strong>java</strong>和<strong>python</strong>。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;不过主流都是用<strong>unity</strong>跟<strong>虚幻4</strong>，再者就是自家公司研发的游戏引擎。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;由于我本身也不是客户端开发的，所以这这部分知识不会太细，就罗列一下引擎中的基本模块以及客户端开发过程中需要注意的地方。</p>
+<p><strong>引擎：</strong></p>
 <ol>
-<li>做游戏<strong>demo</strong>，不要过度追求精细，不要为未来考虑过多的东西，未来还很长，从demo到上线可能还要经过很长时间，不是一天两天就能直接出来的。作为demo，它所具备最核心的部分就是能跑，只要能跑无论长的好看还是长的丑，能跑就是一个游戏，是一个产品。你玩法说的再新颖，美术画的再好看，产品出不来，那就是一堆垃圾，是空谈大话。首先能体现你的玩法，其次再加一些美术资源，让它更加生动易于被理解。<strong>因此，作为一名开发者，一定要把控好开发时间，设定好deadline，分阶段开发项目，比如一个项目总共有5天，可以分成两个阶段，那就两天出一个包，然后提意见改bug，过三天再出一个包，分阶段迭代， 这样子就算你后面那个版本夭折了，你也还能回滚到前面的版本，不会一无所有。</strong> </li>
-<li>我们开发到了后期，其实项目功能已经非常庞大了，很难维护，并且接口函数都非常乱。<strong>因此，作为程序开发的小组，需要一个开发文档，并且日常去维护它。首先，你或者队伍里的一个人先去构建一个大体的框架，比如分几层。然后，根据策划的需求，或者组内讨论，按需求和实现的功能，再去细分。最后大家挑自己想要开发的部分，并且在开发过程中，要及时把自己写的接口名，更新到开发文档上，写好关键注释说明。</strong>这样子的话，即便到了后期，假设其他组员或者你自己遇到了什么bug，或者想要扩展新功能，只要翻阅一下文档，就很容易找到自己需要的接口，虽然写文档对某些人来说可能会很麻烦，觉得浪费时间，但是对开发效率上看有很大的提高。</li>
-<li><strong>队内出现意见分歧纠纷，需要及时解决。</strong>我们这次开发失利，其实有一大部分原因也来自这个，本来多一个人就能少很多工作，但是在第一天我们就损失了一名队友，他出现分歧后，我们没有选择去沟通跟他妥协。于是没办法，只好各走各的路，他在后面的几天里都处于<strong>离队状态</strong>。所以，关于队伍里的不和，一定一定一定要及时处理，越早越好，这不仅对整个项目有好处，而且对整个队伍士气氛围也有很大的帮助。如果不管不问，这个问题会在不久的未来不断被放大，后果不可估量。不过说到底，其实这个也是队长的<strong>责任义务</strong>，如果你是一名队长，那你就要跟社区大妈一样，什么事情都得插一脚，去关心队员的内心想法，为什么不想干了，哪个模块不喜欢了，还是遇到什么问题解决不了了……都要去了解，并且解决掉，这个很重要，对于团队开发来说，无论是做游戏还是做APP。</li>
-<li>程序对于策划，需要有自己的想法，需要对策划提出需求做一个风险评估。在给定的一个<strong>Deadline</strong>中你就要跟策划说好，你只能完成那些部分，其他需求可能做不到，要砍掉。不然等到了<strong>Deadline</strong>不仅是你交不上代码，而且项目可能会因为你而推迟下一阶段的开发时间。<strong>有时候<font color="red">减</font>就是<font color="red">加</font>。</strong> </li>
+<li>渲染部分（2d和3d） ——<strong>渲染管线</strong></li>
+<li>物理与碰撞</li>
+<li>音乐和音效</li>
+<li>场景管理</li>
+<li>交互处理</li>
+<li>寻路  ——A星算法、Mesh网格</li>
+<li>动画</li>
 </ol>
-<blockquote>
-<p>总结大概就这些， 希望自己能学到一些东西，看这篇文章的小伙伴们也能学到一些，这些都未来在工作中可能会遇到的，提前打好预防针。</p>
-</blockquote>
+<p><strong>开发文档</strong>：</p>
+<ul>
+<li>制定开发规范<ol>
+<li>变量命名、空间命名规范</li>
+<li>程序逻辑架构</li>
+<li>资源制作规范</li>
+<li>模块开发步骤</li>
+</ol>
+</li>
+<li>UI框架<ol>
+<li>可扩展性</li>
+<li>可维护性</li>
+<li>易用性</li>
+</ol>
+</li>
+<li>网络模块<ol>
+<li>TCP与UDP</li>
+<li>包头、包体</li>
+<li>数据交换格式<ul>
+<li>protobuf</li>
+<li>json</li>
+<li>二进制流</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>资源模块<ol>
+<li>制定存放规则</li>
+<li>制定UI、Icon、Texutre 存放规则</li>
+<li>制定模型存放规则</li>
+<li>制定特效存放规则</li>
+<li>制定资源命名规则</li>
+</ol>
+</li>
+<li>资源工具<ol>
+<li>统一模型设置</li>
+<li>统一贴图设置</li>
+</ol>
+</li>
+<li>美术规格<ol>
+<li>协助制定模型制作规范</li>
+<li>协助统一UI资源制作规范</li>
+<li>协助制作场景制作规范</li>
+<li>协助制作纹理制作规范</li>
+</ol>
+</li>
+<li>美术检查工具</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;大体上，客户端有这些事情要做。除了这些，如果要开发联机游戏，开发者要考虑选择帧同步还是状态同步的方式来完成客户端服务端数据同步，这个是一个难点。</p>
+<h4 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h4><p>用于服务端开发的语言有<strong>C++</strong> 、<strong>Java</strong>、<strong>C#</strong>、<strong>Go</strong>、python、nodejs…</p>
+<p>主流的语言是<strong>C++</strong> 。为什么呢？C++最接近低层，可以直接对内存分配进行操作，而且它本身也非常稳定，兼容多个平台。但是这个好处导致它开发非常困难，开发起来效率低，内存管理复杂。</p>
+<p>服务端除了业务逻辑外还有数据库优化维护，这些后续有空再讲，现在就简单介绍几个服务端架构，以及服务端跟客户端之间的通信。</p>
+<p><strong>第一代游戏服务器架构</strong></p>
+<p>数据库——游戏服务器——客户端         <strong>最原始</strong>也是<strong>最基本</strong>的结构，适合简单的游戏框架。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">st=&gt;start: DB</span><br><span class="line">op=&gt;operation: GameServe</span><br><span class="line">e=&gt;end: Client</span><br><span class="line"></span><br><span class="line">st-&gt;op-&gt;e</span><br></pre></td></tr></table></figure>
+<p><strong>后续更加完善的游戏服务器架构</strong> </p>
+<p>DB1、DB2  —— GS1、GS2、公共服务器——客户端——登陆服——调度服——GS1…. 这种比较成熟的框架就适合大部分网络游戏了，也是很多厂家的首选。</p>
+<p>这个就当了解一下，详细之后再写，有学习意愿可以评论留言一起探讨！</p>
+<p>服务器架构之后，就是服务端跟客户端之间的通信了。这部分一般是通过<strong>TCP协议</strong>或者<strong>UDP协议</strong>，然后自己定义报文格式以及数据格式，可以选用<strong>protobuf</strong>或者<strong>protostuff</strong>（protobuf升级版据说比快很多），虽然json格式也有，传输过程中也非常方便查看数据内容，但是json占的内存太大传输时间太慢，并且明文传输或者说字符串传输，被人拦截下来容易被人得知传输信息，不太安全。</p>
+<p>那么传输数据知道了，业务逻辑处理在哪里呢？这里就出现这个问题了，假设数据都传输到服务端统一计算过后，然后分发给各个客户端，那么可能会有某个客户端太卡丢包了，其他人就要等他重新连接了；那数据都在客户端处理，最终结果上报到服务端，服务端然后再广播到其他客户端，这样可能会遇到一个问题，我的数据是浮点数，发送给服务端可能会失真，就不准确了。这两种处理方式，前者叫<strong>状态同步</strong>，后者叫<strong>帧同步</strong>。</p>
+<p>由于时间问题，这两个讲起来可能也会很多，之后再详细写一篇关于它们的文章。</p>
 
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
             <p>原文作者：<a href="https://www.yyfol.com">Ye Yifan</a>
-            <p>原文链接：<a href="https://www.yyfol.com/2019/ckjbbh78l000x5kq68cbwi08a/">https://www.yyfol.com/2019/ckjbbh78l000x5kq68cbwi08a/</a>
-            <p>发表日期：<a href="https://www.yyfol.com/2019/ckjbbh78l000x5kq68cbwi08a/">March 5th 2019, 10:36:00 pm</a>
-            <p>更新日期：<a href="https://www.yyfol.com/2019/ckjbbh78l000x5kq68cbwi08a/">March 7th 2019, 11:23:34 am</a>
+            <p>原文链接：<a href="https://www.yyfol.com/2019/ckk3vl2uw000p4kq6xrtigupy/">https://www.yyfol.com/2019/ckk3vl2uw000p4kq6xrtigupy/</a>
+            <p>发表日期：<a href="https://www.yyfol.com/2019/ckk3vl2uw000p4kq6xrtigupy/">March 5th 2019, 4:40:00 pm</a>
+            <p>更新日期：<a href="https://www.yyfol.com/2019/ckk3vl2uw000p4kq6xrtigupy/">March 7th 2019, 11:24:17 am</a>
             <p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -450,16 +503,16 @@ height:50vh;
         <li class="next">
             
                 <div class="nextSlogan">Next Post</div>
-                <a href= "/2019/ckjbbh78o00125kq6qho0a44l/" title= "游戏开发之路4">
-                    <div class="nextTitle">游戏开发之路4</div>
+                <a href= "/2019/ckk3vl2uu000n4kq677f336vn/" title= "游戏开发之路3">
+                    <div class="nextTitle">游戏开发之路3</div>
                 </a>
             
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2019/ckjbbh78n00105kq6uelrs69i/" title= "游戏开发之路2">
-                    <div class="prevTitle">游戏开发之路2</div>
+                <a href= "/2019/ckk3vl2us000i4kq6sb13ofir/" title= "游戏开发之路1">
+                    <div class="prevTitle">游戏开发之路1</div>
                 </a>
             
         </li>
@@ -575,8 +628,7 @@ height:50vh;
     </div>
     <!-- 备案 -->
     <div class="copyright">
-        浙ICP备
-        <a href="https://beian.miit.gov.cn" target="_blank">18018065号-2</a>
+        <a href="https://beian.miit.gov.cn" target="_blank">浙ICP备18018065号-2</a>
     </div>
     <!-- 不蒜子  -->
     
@@ -607,7 +659,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#经验分享"><span class="toc-number">1.</span> <span class="toc-text">经验分享</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#一、第一轮Demo简要介绍"><span class="toc-number">1.1.</span> <span class="toc-text">一、第一轮Demo简要介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#二、总结与反思"><span class="toc-number">1.2.</span> <span class="toc-text">二、总结与反思</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#游戏开发"><span class="toc-number">1.</span> <span class="toc-text">游戏开发</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#客户端"><span class="toc-number">1.1.</span> <span class="toc-text">客户端</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#服务端"><span class="toc-number">1.2.</span> <span class="toc-text">服务端</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -620,18 +672,6 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     
@@ -821,22 +861,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/29</span><a class="archive-post-title" href= "/2020/ckjbbh79e001x5kq68jpwljvj/" >高性能MySQL 读书笔记二</a>
+            <span class="archive-post-date">06/29</span><a class="archive-post-title" href= "/2020/ckk3vl2v200124kq6qy99xp5o/" >高性能MySQL 读书笔记二</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/ckjbbh79g001y5kq6yvlvxzgp/" >高性能MySQL 读书笔记一</a>
+            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/ckk3vl2v100114kq6r17vbt2i/" >高性能MySQL 读书笔记一</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/10</span><a class="archive-post-title" href= "/2020/ckjbbh78q00145kq6bzv2qylh/" >华为Cloud&Bu 软开凉经</a>
+            <span class="archive-post-date">03/10</span><a class="archive-post-title" href= "/2020/ckk3vl2uo000c4kq62l0v0t0l/" >华为Cloud&Bu 软开凉经</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/09</span><a class="archive-post-title" href= "/2020/ckjbbh75a00015kq64iufe2wz/" >Java基础问题</a>
+            <span class="archive-post-date">01/09</span><a class="archive-post-title" href= "/2020/ckk3vl2u400014kq683wh5zux/" >Java基础问题</a>
         </li>
     
     
@@ -850,57 +890,57 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/30</span><a class="archive-post-title" href= "/2019/ckjbbh77y00065kq6452f7yfl/" >Spring核心思想IOC、DI</a>
+            <span class="archive-post-date">12/30</span><a class="archive-post-title" href= "/2019/ckk3vl2ud00064kq6apymc4if/" >Spring核心思想IOC、DI</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/30</span><a class="archive-post-title" href= "/2019/ckjbbh77w00055kq6mlkaeu2i/" >Spring学习笔记一</a>
+            <span class="archive-post-date">12/30</span><a class="archive-post-title" href= "/2019/ckk3vl2u800034kq6g2hrtx2t/" >Spring学习笔记一</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/11</span><a class="archive-post-title" href= "/2019/ckjbbh78v00165kq6j3qmtpah/" >八大排序算法</a>
+            <span class="archive-post-date">03/11</span><a class="archive-post-title" href= "/2019/ckk3vl2um000b4kq6ivam9fpz/" >八大排序算法</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/08</span><a class="archive-post-title" href= "/2019/ckjbbh78d000r5kq6sevk2oek/" >机器学习入门路线</a>
+            <span class="archive-post-date">03/08</span><a class="archive-post-title" href= "/2019/ckk3vl2uj00084kq65vx1z1ff/" >机器学习入门路线</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/07</span><a class="archive-post-title" href= "/2019/ckjbbh77s00025kq6tvmh1qv3/" >Tensorflow做模型预测（入门级）</a>
+            <span class="archive-post-date">03/07</span><a class="archive-post-title" href= "/2019/ckk3vl2ug00074kq6f6ie59o0/" >Tensorflow做模型预测（入门级）</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/06</span><a class="archive-post-title" href= "/2019/ckjbbh78f000t5kq6r1n1et3l/" >模板匹配（matlab实现）</a>
+            <span class="archive-post-date">03/06</span><a class="archive-post-title" href= "/2019/ckk3vl2up000g4kq6kpkptxew/" >模板匹配（matlab实现）</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/05</span><a class="archive-post-title" href= "/2019/ckjbbh79h00205kq68967giwk/" >游戏开发之路5</a>
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href= "/2019/ckk3vl2ux000u4kq6895gtdtd/" >游戏开发之路5</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/05</span><a class="archive-post-title" href= "/2019/ckjbbh78l000x5kq68cbwi08a/" >游戏开发之路3</a>
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href= "/2019/ckk3vl2uu000n4kq677f336vn/" >游戏开发之路3</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/05</span><a class="archive-post-title" href= "/2019/ckjbbh78o00125kq6qho0a44l/" >游戏开发之路4</a>
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href= "/2019/ckk3vl2uz000w4kq62n3wqfta/" >游戏开发之路4</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/05</span><a class="archive-post-title" href= "/2019/ckjbbh78n00105kq6uelrs69i/" >游戏开发之路2</a>
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href= "/2019/ckk3vl2uw000p4kq6xrtigupy/" >游戏开发之路2</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">03/05</span><a class="archive-post-title" href= "/2019/ckjbbh78h000v5kq6f3sxp1bv/" >游戏开发之路1</a>
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href= "/2019/ckk3vl2us000i4kq6sb13ofir/" >游戏开发之路1</a>
         </li>
     
     </div>
@@ -916,15 +956,15 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
     
+        <span class="sidebar-tag-name" data-tags="算法"><span class="iconfont-archer">&#xe606;</span>算法</span>
+    
+        <span class="sidebar-tag-name" data-tags="c++"><span class="iconfont-archer">&#xe606;</span>c++</span>
+    
         <span class="sidebar-tag-name" data-tags="matlab"><span class="iconfont-archer">&#xe606;</span>matlab</span>
     
         <span class="sidebar-tag-name" data-tags="图像处理"><span class="iconfont-archer">&#xe606;</span>图像处理</span>
     
         <span class="sidebar-tag-name" data-tags="游戏开发"><span class="iconfont-archer">&#xe606;</span>游戏开发</span>
-    
-        <span class="sidebar-tag-name" data-tags="算法"><span class="iconfont-archer">&#xe606;</span>算法</span>
-    
-        <span class="sidebar-tag-name" data-tags="c++"><span class="iconfont-archer">&#xe606;</span>c++</span>
     
         <span class="sidebar-tag-name" data-tags="Mysql"><span class="iconfont-archer">&#xe606;</span>Mysql</span>
     
@@ -967,11 +1007,11 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="MachineLearning"><span class="iconfont-archer">&#xe60a;</span>MachineLearning</span>
     
-        <span class="sidebar-category-name" data-categories="life"><span class="iconfont-archer">&#xe60a;</span>life</span>
+        <span class="sidebar-category-name" data-categories="Programming"><span class="iconfont-archer">&#xe60a;</span>Programming</span>
     
         <span class="sidebar-category-name" data-categories="开发/面试"><span class="iconfont-archer">&#xe60a;</span>开发/面试</span>
     
-        <span class="sidebar-category-name" data-categories="Programming"><span class="iconfont-archer">&#xe60a;</span>Programming</span>
+        <span class="sidebar-category-name" data-categories="life"><span class="iconfont-archer">&#xe60a;</span>life</span>
     
         <span class="sidebar-category-name" data-categories="开发/笔记"><span class="iconfont-archer">&#xe60a;</span>开发/笔记</span>
     
