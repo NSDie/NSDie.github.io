@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="Ye Yifan">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="Ye Yifan">
+    
+    <meta name="keywords" content="ML,Java,Python">
+    
+    <meta name="description" content>
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>计算机视觉笔记 · yyfol&#39;s Blog</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="stylesheet" href="/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href="/assets/favicon.ico">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js" as="script">
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+    <script>
+        (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+        (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-135610801-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >yyfol&#39;s Blog.</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">计算机视觉笔记</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>yyfol's Blog.</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(https://source.unsplash.com/random)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            计算机视觉笔记
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "python">python</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "cv">cv</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">3.9k</span>阅读时长: <span class="post-count reading-time">14 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2021/01/21</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h3 id="计算机视觉概论"><a href="#计算机视觉概论" class="headerlink" title="计算机视觉概论"></a>计算机视觉概论</h3><p><strong>1.</strong>   <strong>什么是计算机视觉？</strong></p>
+<p>答：计算机是指机器，视觉是指人对世界的感知。所以计算机视觉是通过让摄影机和电脑代替人眼对目标进行识别、跟踪和测量等行为，从图像或者多维数据中获取信息的一门学科。</p>
+<p><strong>2.</strong>   <strong>计算机视觉要完成的主要任务是什么？</strong></p>
+<p>答：计算机视觉的任务是用图像创建或恢复现实世界模型，然后认知现实世界。让计算机具有对周围世界的空间物体进行传感、抽象、判断的能力，从而达到识别、理解的目的。</p>
+<p><strong>3.</strong>   <strong>请将数字图像处理的主要知识点自己回顾或整理一下，如果还没学过，自己通过网络资源初步了解一下，然后把主要的知识点加以整理，然后记录在这里。</strong></p>
+<p>答：数字图像处理主要有两个目的：改善图示信息以便人们解释理解；为存储、传输和表示而对图像数据进行处理，便于机器理解。数字图像处理常用的几种方法有：灰度变换，对图像的单个像素进行操作，目的是处理对比度和阈值；空间域滤波，对图像每个像素的邻域进行处理，锐化图像以及一些改善性能的目的；频率域滤波，通过一些傅里叶变换来进行操作图像，目的是锐化图像或者平滑图像；图像复原与重建，通过一些滤波器来进行噪声的复原和消除；彩色图像处理，最常见的图像，存在三通道，一般进行彩色到灰度的变换，再进行下一步操作。更深入的应用还有，小波和多分辨率处理；图像压缩，通过霍夫曼编码、Golomb编码以及其他一些编码计算公式来进行有损压缩和无损压缩；形态学图像处理；图像分割；图像的表示和描述；目标识别等。</p>
+<h3 id="图像处理相关基础"><a href="#图像处理相关基础" class="headerlink" title="图像处理相关基础"></a>图像处理相关基础</h3><p><strong>1.</strong>   <strong>常见的滤波器有哪几种？分别说明它们的功能。</strong></p>
+<p>答：</p>
+<p>线性(均值)滤波器：用来减少图像灰度的“尖锐”变化，减少噪声。即过滤了高频信号，因此也被称之为低通滤波器。</p>
+<p>中值滤波器：强迫滤波器区域内突出的亮点更像它周围的值，以消除孤立的亮点。用来去除噪声。</p>
+<p>最大值滤波器：用于发现图像中最亮的点，可以用来过滤“胡椒”噪声。</p>
+<p>最小值滤波器：用于发现图像中最暗的点，可以用来过滤“盐”噪声。</p>
+<p>拉普拉斯滤波器：高通滤波器，突出边缘信息，同时也要包含背景区域信息，可以用来图像增强。</p>
+<p>平滑滤波器：用于平滑处理，如图像由于量化不足产生的虚假轮廓时，同时，也可以用于去除噪声。</p>
+<p>锐化滤波器：增强边缘信息，可用于边缘提取。</p>
+<p><strong>2.</strong>   <strong>图像金字塔有哪些用途？</strong></p>
+<p>将粗糙尺度图像通过插值计算扩展为较细的尺度图像。可以用于图像分割、目标识别、图像理解、视觉感知、消除噪声、分析纹理、标记图像特征。</p>
+<p><strong>3.</strong>   <strong>在实际应用中，哪些应用需要低分辨率特征，请举出具体实例说明。</strong></p>
+<p>视频压缩：由于自身显示器的限制还有流量带宽的区别，网络上视频一般都提供多个画质分辨率，如果显示器分辨率不高以及为了节省流量，可以用低分辨率来观看视频。</p>
+<p>图片打马赛克：想要在超清图片上的某个部位变得模糊，打上马赛克，让人看不清，这里需要用到低分辨率特征。</p>
+<p>微信头像缩略图：超清图片分辨率高，内存大，存储以及传输所消耗资源也高，就采取图片压缩的方式，减小图片大小，又不能丢失图片原来的轮廓，这里需要用到低分辨率特征。</p>
+<h3 id="图像特征"><a href="#图像特征" class="headerlink" title="图像特征"></a>图像特征</h3><p><strong>1.</strong>   <strong>什么是图像的对应？图像特征点在对应中的作用是什么？</strong></p>
+<p>答：1）图像的对应是利用特征算法，找到两个图像中符合向量匹配的图像特征点。</p>
+<p> 2）图像特征点的作用：用来描述不同的图像，做图像切割、对齐等图像变换操作；利用多幅二维图像来进行三维图像的重建、复原。</p>
+<p><strong>2.</strong>   <strong>图像对齐时，常用的特征有哪些？</strong></p>
+<p>答：颜色特征、纹理特征、形状特征、空间位置特征、局部区域特征、边缘特征、点特征。</p>
+<p><strong>3.</strong>   <strong>你知道利用SIFT算子描述特征时，图像对齐的步骤吗？</strong></p>
+<p>1）生成高斯差分金字塔（DOG金字塔），尺度空间构建</p>
+<p>2）空间极值点检测（关键点的初步查探）</p>
+<p>3）稳定关键点的精确定位</p>
+<p>4）稳定关键点方向信息分配</p>
+<p>5）关键点描述</p>
+<p>6）特征点匹配</p>
+<p>7）图像对齐</p>
+<h3 id="图像对齐"><a href="#图像对齐" class="headerlink" title="图像对齐"></a>图像对齐</h3><p><strong>1.</strong>   <strong>图像对应的本质是什么？</strong> </p>
+<p>答：图像对应的本质：可以看作是参数拟合的问题，利用两个图像之间匹配的特征点，将变换模型进行拟合。</p>
+<p><strong>2.</strong>   <strong>图像对齐有哪些用途？</strong></p>
+<p>答：图像拼接、目标识别、图像变换、模板匹配。</p>
+<p><strong>3.</strong>   <strong>图像对齐的常见步骤有哪些？</strong></p>
+<p>1)   随机抽取当前图像帧和另一幅图像间的一组特征点，计算基础矩阵</p>
+<p>2)   利用这些特征点计算组间变换矩阵</p>
+<p>3)   根据计算的矩阵，求得局内点</p>
+<p>4)   利用所有的正确匹配点重新计算基础矩阵</p>
+<p>5)   在此基础上重新搜索正确的匹配点对</p>
+<p>6)   重复4，5步骤，直至匹配点对的数目达到稳定状态。</p>
+<p>7)   找到两个图像之间的对齐关系。</p>
+<h3 id="二值图像分析"><a href="#二值图像分析" class="headerlink" title="二值图像分析"></a>二值图像分析</h3><p><strong>1.</strong>    <strong>二值图像有哪些用途？（可以查阅文献说明）</strong></p>
+<p>答: </p>
+<p><strong>边界跟踪算法</strong>：利用二值图像识别中的图像轮廓，来实现的边界跟踪。</p>
+<p><strong>目标识别</strong>：基于二值图像的灰度变化，进行物体的精确识别跟定位。</p>
+<p><strong>提取图像的连通区域</strong>：利用图像二值化，找出图像变化的连通区域，再根据先值面积消除法达到去除图像中所有前景和背景噪声的效果。</p>
+<p><strong>2.</strong>    <strong>说明彩色图像二值化计算的步骤。</strong></p>
+<p>答: </p>
+<p>先进行灰度化，灰度化的操作一般是将图像RGB的值用一定的权值来计算得到。</p>
+<p>然后进行二值化，利用阈值分割，从图像中分出前景和背景，实现二值化。</p>
+<p><strong>3.</strong>    <strong>均值迭代求取阈值的二值化步骤是怎样的？</strong></p>
+<p>答：</p>
+<ol>
+<li><p>选择一个初始化的阈值T</p>
+</li>
+<li><p>使用阈值T将图像的像素分为两部分：G1包含灰度满足大于T，G2包含灰度满足小于T。</p>
+</li>
+<li><p>计算G1中所有像素的均值μ1,以及G2中所有像素的均值μ2。</p>
+</li>
+<li><p>计算新的阈值：T’=<img src="1.png" alt="img"></p>
+</li>
+<li><p>重新迭代步骤2-4，直到计算得到新的阈值T’小于预先确定的阈值为止。</p>
+</li>
+</ol>
+<h3 id="纹理特征及分析"><a href="#纹理特征及分析" class="headerlink" title="纹理特征及分析"></a>纹理特征及分析</h3><p><strong>1.</strong>   <strong>简单说明纹理分析和研究的主要目的是什么？</strong></p>
+<p>答：纹理分析是通过一定的图像处理提取出来纹理特征参数，从而获得纹理的定量或定性描述的处理过程。</p>
+<p>目的是研究纹理的观赏特性。</p>
+<p><strong>2.</strong>   <strong>什么是纹理？</strong></p>
+<p>纹理是一种普遍存在的视觉现象，目前有两个定义：</p>
+<p>一个定义是按一定规则对元素或者基元进行排列所形成的重复模式。</p>
+<p>另一个定义是如果图像函数的一组局部属性是恒定的，或者是缓变的，或者是近似周期性的，则图像中的对应区域具有恒定的纹理。</p>
+<p><strong>3.</strong>   <strong>纹理特征提取与分析方法的主要方法有哪几种？</strong></p>
+<p>统计分析法、结构分析法、模型分析法、频谱分析法</p>
+<p><strong>假设位置算子（dx,dy）为（1,1），计算下面纹理的共生矩阵：</strong></p>
+<p><img src="2.png" alt="img"></p>
+<p>位置算子为（1,1），所以统计斜对角线上的(i,j)对子数。</p>
+<p><img src="3.png" alt="img"></p>
+<h3 id="图像分割"><a href="#图像分割" class="headerlink" title="图像分割"></a>图像分割</h3><p><strong>1.</strong>   <strong>什么是图像分割？简单说明其用途</strong></p>
+<p>答：图像分割就是把图像分成若干个特定的、具有独特性质的区域。</p>
+<p>比如常见的人脸识别，就是把人脸图像从完整的图像中分割出来。</p>
+<p><strong>2.</strong>   <strong>图像分割的目的是什么？</strong></p>
+<p>答：图像分割可以把人们感兴趣的部分从图像中提取出来，有选择地对感兴趣对象定位。</p>
+<p><strong>3.</strong>   <strong>查阅文献至少1篇，关键词：image segmentation，阅读后写出主要思想</strong></p>
+<p>答：《Rethinking Atrous Convolution for Semantic Image Segmentation》</p>
+<p>主要思想：在这篇论文里，卷积是一种强大的工具，可在语义图像分割的应用中显式调整过滤器的视场并控制由深度卷积神经网络计算的特征响应的分辨率。为了处理在多个尺度上分割对象的问题，我们设计了模块，该模块采用级联或并行的原子卷积，通过采用多个原子速率来捕获多尺度上下文。此外，这篇论文建议扩充先前提出的Atrous空间金字塔池化模块，该模块以编码全局上下文的图像级特征进一步探究多尺度的卷积特征，从而进一步提高性能。</p>
+<p><strong>4.</strong> <strong>查找代码，实现图像分割功能，给出代码和运行结果截图，传统方法，不限语言</strong><br><img src="4.png" alt="img"><br><img src="5.png" alt="img"><br>打印结果分别原图，灰度图，K取2，K取3的效果图：<br><img src="6.png" alt="img"><br><img src="7.png" alt="img"></p>
+<h3 id="摄影机模型和多视几何"><a href="#摄影机模型和多视几何" class="headerlink" title="摄影机模型和多视几何"></a>摄影机模型和多视几何</h3><p>\1.   <strong>摄像机模型中，内部参数和外部参数分别有哪些？</strong></p>
+<p>摄像机的内参数（Intrinsic)：</p>
+<p>​     由摄像机本身决定，只与摄像机本身有关。其参数有：参数矩阵（fx,fy,cx,cy)和畸变系数(三个径向k1,k2,k3;两个切向p1,p2)</p>
+<p>摄像机的外参数（Extrinsic)：<br>      摄像机在世界坐标系中的位姿，由摄像机与世界坐标系的相对位姿关系决定。其参数有：旋转向量R（大小为1x3的矢量或旋转矩阵3x3）和平移向量T(Tx,Ty,Tz)</p>
+<p><strong>2.</strong>   <strong>张正友方法的主要思想和步骤是什么？</strong></p>
+<p>张氏标定法的主要思想是使用二维方格组成的标定板进行标定，采集标定板不同位姿图片，提取图片中角点像素坐标，通过单应矩阵计算出相机的内外参数初始值，利用非线性最小二乘法估计畸变系数，最后使用极大似然估计法优化参数。</p>
+<p>步骤：</p>
+<p>A. 从不同角度拍摄若干张模板图象 </p>
+<p>B. 求出摄像机的内参数和外参数 </p>
+<p>C. 优化求精</p>
+<h3 id="三维重建"><a href="#三维重建" class="headerlink" title="三维重建"></a>三维重建</h3><p><strong>1.</strong>   <strong>什么是深度点云？</strong></p>
+<p>答：</p>
+<p>点云是某个坐标系下的点的数据集。</p>
+<p>深度相机得到的是三维点云数据，把这些点云重建到一个坐标系下，拼接成一个整体的点云。</p>
+<p><strong>2.</strong>   <strong>查阅文献，理解深度点云的重建策略。查阅最新文献**</strong>2<strong>**篇：</strong></p>
+<p><a href="https://dblp.uni-trier.de/" target="_blank" rel="noopener">https://dblp.uni-trier.de/</a></p>
+<p>关键词： depth map,reconstruction</p>
+<p>[1]–《Digging into the multi-scale structure for a more refined depth map and 3D reconstruction》</p>
+<p>[2]–《Depth-map completion for large indoor scene reconstruction》</p>
+<p>深度点云的重建策略：基于深度学习的三维重建方法大多是基于3D CNN来进行深度图的预测。但是这种方法对内存消耗达到了分辨率的三次方量级，使得生成结果的分辨率受到了很大的限制。而通过点云，可以很高效且十分精准的实现三维重建。</p>
+<p>在[1]论文中提出了MVS算法，这个算法是通过假设摄像机参数和姿势信息均已通过“运动结构”（SFM）算法计算出密集点云，从而恢复场景的3D立体表示。该技术具有许多实际应用，例如3D映射，计算机视频游戏和文化遗产保护。MVS算法的主要评估方法是重构精度和完整性，涉及图像分辨率，相机布置，场景纹理等。</p>
+<p>而[2]论文是通过CNN-SLAM的方式，来进行改进优化，用神经网络分析不用的点云数据，找出密集点云，形成3D模型。</p>
+<p>MVS算法中的点匹配方法，在图片上的一条线上进行探测，寻找两张图片上的同一点。主要方法为逐像素判断，两个照片上的点是否是同一点。从而提出了“一致性判定函数”。</p>
+<h3 id="光流计算"><a href="#光流计算" class="headerlink" title="光流计算"></a>光流计算</h3><p><strong>1.</strong>   <strong>查阅代码利用OPENCV，结合python编码，计算图像的光流，并显示结果。</strong></p>
+<p><strong>方法：</strong> </p>
+<p><a href="https://github.com/" target="_blank" rel="noopener"><strong>https://github.com/</strong></a></p>
+<p><strong>关键词，</strong> <strong>optical flow, opencv</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np  </span><br><span class="line"><span class="keyword">import</span> cv2 <span class="keyword">as</span> cv  </span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line">cap = cv.VideoCapture(<span class="string">'shibuya.mp4'</span>)  </span><br><span class="line">  </span><br><span class="line"><span class="comment">#角点检测参数  </span></span><br><span class="line">feature_params = dict(maxCorners=<span class="number">100</span>, qualityLevel=<span class="number">0.2</span>, minDistance=<span class="number">7</span>, blockSize=<span class="number">7</span>)  	  </span><br><span class="line"><span class="comment">#KLT光流参数  </span></span><br><span class="line">lk_params = dict(winSize=(<span class="number">15</span>, <span class="number">15</span>), maxLevel=<span class="number">2</span>, criteria=(cv.TERM_CRITERIA_EPS | cv.TERM_CRITERIA_COUNT, <span class="number">10</span>, <span class="number">0.02</span>))  </span><br><span class="line"> </span><br><span class="line">height = cap.get(cv.CAP_PROP_FRAME_HEIGHT)  </span><br><span class="line">width = cap.get(cv.CAP_PROP_FRAME_WIDTH)  </span><br><span class="line">fps = cap.get(cv.CAP_PROP_FPS)  </span><br><span class="line"><span class="comment">#out = cv.VideoWriter("reslut.avi", cv.VideoWriter_fourcc('D', 'I', 'V', 'X'), fps,  </span></span><br><span class="line"><span class="comment">#(np.int(width), np.int(height)), True)  </span></span><br><span class="line">  </span><br><span class="line">tracks = []  </span><br><span class="line">track_len = <span class="number">20</span>  </span><br><span class="line">frame_idx = <span class="number">0</span>  </span><br><span class="line">detect_interval = <span class="number">5</span>  </span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:  </span><br><span class="line">    ret, frame = cap.read()  </span><br><span class="line">    <span class="keyword">if</span> ret:  </span><br><span class="line">        frame_gray = cv.cvtColor(frame, v.COLOR_BGR2GRAY)  </span><br><span class="line">        vis = frame.copy()  </span><br><span class="line">  </span><br><span class="line">        <span class="keyword">if</span> len(tracks)&gt;<span class="number">0</span>:  </span><br><span class="line">            img0 ,img1 = prev_gray, frame_gray  </span><br><span class="line">            p0 = np.float32([tr[<span class="number">-1</span>] <span class="keyword">for</span> tr <span class="keyword">in</span> tracks]).reshape(<span class="number">-1</span>,<span class="number">1</span>,<span class="number">2</span>)  </span><br><span class="line">            <span class="comment"># 上一帧的角点和当前帧的图像作为输入来得到角点在当前帧的位置  </span></span><br><span class="line">            p1, st, err = cv.calcOpticalFlowPyrLK(img0, img1, p0, <span class="literal">None</span>, **lk_params)  </span><br><span class="line">            <span class="comment"># 反向检查,当前帧跟踪到的角点及图像和前一帧的图像作为输入来找到前一帧的角点位置  </span></span><br><span class="line">            p0r, _, _ = cv.calcOpticalFlowPyrLK(img1, img0, p1, <span class="literal">None</span>, **lk_params)  </span><br><span class="line">            <span class="comment"># 得到角点回溯与前一帧实际角点的位置变化关系  </span></span><br><span class="line">            d = abs(p0-p0r).reshape(<span class="number">-1</span>,<span class="number">2</span>).max(<span class="number">-1</span>)  </span><br><span class="line">            <span class="comment">#判断d内的值是否小于1，大于1跟踪被认为是错误的跟踪点  </span></span><br><span class="line">            good = d &lt; <span class="number">1</span>  </span><br><span class="line">            new_tracks = []  </span><br><span class="line">            <span class="keyword">for</span> i, (tr, (x, y), flag) <span class="keyword">in</span> enumerate(zip(tracks, p1.reshape(<span class="number">-1</span>, <span class="number">2</span>), good)):  </span><br><span class="line">                <span class="comment"># 判断是否为正确的跟踪点  </span></span><br><span class="line">                <span class="keyword">if</span> <span class="keyword">not</span> flag:  </span><br><span class="line">                    <span class="keyword">continue</span>  </span><br><span class="line">                <span class="comment"># 存储动态的角点  </span></span><br><span class="line">                tr.append((x, y))  </span><br><span class="line">                <span class="comment"># 只保留track_len长度的数据，消除掉前面的超出的轨迹  </span></span><br><span class="line">                <span class="keyword">if</span> len(tr) &gt; track_len:  </span><br><span class="line">                    <span class="keyword">del</span> tr[<span class="number">0</span>]  </span><br><span class="line">                <span class="comment"># 保存在新的list中  </span></span><br><span class="line">                new_tracks.append(tr)  </span><br><span class="line">                cv.circle(vis, (x, y), <span class="number">2</span>, (<span class="number">0</span>, <span class="number">255</span>, <span class="number">0</span>), <span class="number">-1</span>)  </span><br><span class="line">            <span class="comment"># 更新特征点  </span></span><br><span class="line">            tracks = new_tracks  </span><br><span class="line">  </span><br><span class="line">            <span class="comment"># #以上一振角点为初始点，当前帧跟踪到的点为终点,画出运动轨迹  </span></span><br><span class="line">            cv.polylines(vis, [np.int32(tr) <span class="keyword">for</span> tr <span class="keyword">in</span> tracks], <span class="literal">False</span>, (<span class="number">0</span>, <span class="number">255</span>, <span class="number">0</span>), <span class="number">1</span>)  </span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">        <span class="comment"># 每隔 detect_interval 时间检测一次特征点  </span></span><br><span class="line">        <span class="keyword">if</span> frame_idx % detect_interval==<span class="number">0</span>:  </span><br><span class="line">            mask = np.zeros_like(frame_gray)  </span><br><span class="line">            mask[:] = <span class="number">255</span>  </span><br><span class="line">  </span><br><span class="line">            <span class="keyword">if</span> frame_idx !=<span class="number">0</span>:  </span><br><span class="line">                <span class="keyword">for</span> x,y <span class="keyword">in</span> [np.int32(tr[<span class="number">-1</span>]) <span class="keyword">for</span> tr <span class="keyword">in</span> tracks]:  </span><br><span class="line">                    cv.circle(mask, (x, y), <span class="number">5</span>, <span class="number">0</span>, <span class="number">-1</span>)  </span><br><span class="line">  </span><br><span class="line">            p = cv.goodFeaturesToTrack(frame_gray, mask=mask, **feature_params)  </span><br><span class="line">            <span class="keyword">if</span> p <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:  </span><br><span class="line">                <span class="keyword">for</span> x, y <span class="keyword">in</span> np.float32(p).reshape(<span class="number">-1</span>,<span class="number">2</span>): </span><br><span class="line">                    tracks.append([(x, y)])  </span><br><span class="line">  </span><br><span class="line">        frame_idx += <span class="number">1</span>  </span><br><span class="line">        prev_gray = frame_gray  </span><br><span class="line">  </span><br><span class="line">        cv.imshow(<span class="string">'track'</span>, vis)  </span><br><span class="line">        <span class="comment">#out.write(vis)  </span></span><br><span class="line">	        ch = cv.waitKey(<span class="number">1</span>)  </span><br><span class="line">        <span class="keyword">if</span> ch ==<span class="number">27</span>:  </span><br><span class="line">            cv.imwrite(<span class="string">'track.jpg'</span>, vis)  </span><br><span class="line">            <span class="keyword">break</span>  </span><br><span class="line">    <span class="keyword">else</span>:  </span><br><span class="line">        <span class="keyword">break</span>  </span><br><span class="line">  </span><br><span class="line">cv.destroyAllWindows()  </span><br><span class="line">cap.release()</span><br></pre></td></tr></table></figure></p>
+<p>实验效果:</p>
+<p><img src="8.jpg" alt="img"></p>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="https://www.yyfol.com">Ye Yifan</a>
+            <p>原文链接：<a href="https://www.yyfol.com/2021/ckk5fthh00010k8q643nm58kx/">https://www.yyfol.com/2021/ckk5fthh00010k8q643nm58kx/</a>
+            <p>发表日期：<a href="https://www.yyfol.com/2021/ckk5fthh00010k8q643nm58kx/">January 21st 2021, 2:22:34 pm</a>
+            <p>更新日期：<a href="https://www.yyfol.com/2021/ckk5fthh00010k8q643nm58kx/">January 20th 2021, 9:02:22 pm</a>
+            <p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2020/ckk5fthim002mk8q6eskuz0g0/" title= "高性能MySQL 读书笔记二">
+                    <div class="prevTitle">高性能MySQL 读书笔记二</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+    <div id="lv-container" data-id="city" data-uid= MTAyMC80Mjk5Ni8xOTU0Mg==>
+        <script type="text/javascript">
+            (function (d, s) {
+                var j, e = d.getElementsByTagName(s)[0];
+                if (typeof LivereTower === 'function') { return; }
+                j = d.createElement(s);
+                j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                j.async = true;
+
+                e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+        </script>
+        <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+    </div>
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:yyfol@vip.qq.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/nsdie" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                  
+                  <img class="profile-qr" src="/assets/wechat.png" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="https://steamcommunity.com/profiles/76561198098327197/" class="iconfont-archer steam" target="_blank" title=steam></a>
+            
+        
+    
+        
+    
+        
+            
+                <a href="/atom.xml" class="iconfont-archer rss" target="_blank" title=rss></a>
+            
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 备案 -->
+    <div class="copyright">
+        <a href="https://beian.miit.gov.cn" target="_blank">浙ICP备18018065号-2</a>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#计算机视觉概论"><span class="toc-number">1.</span> <span class="toc-text">计算机视觉概论</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#图像处理相关基础"><span class="toc-number">2.</span> <span class="toc-text">图像处理相关基础</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#图像特征"><span class="toc-number">3.</span> <span class="toc-text">图像特征</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#图像对齐"><span class="toc-number">4.</span> <span class="toc-text">图像对齐</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二值图像分析"><span class="toc-number">5.</span> <span class="toc-text">二值图像分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#纹理特征及分析"><span class="toc-number">6.</span> <span class="toc-text">纹理特征及分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#图像分割"><span class="toc-number">7.</span> <span class="toc-text">图像分割</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#摄影机模型和多视几何"><span class="toc-number">8.</span> <span class="toc-text">摄影机模型和多视几何</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三维重建"><span class="toc-number">9.</span> <span class="toc-text">三维重建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#光流计算"><span class="toc-number">10.</span> <span class="toc-text">光流计算</span></a></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 16
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2021 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/21</span><a class="archive-post-title" href= "/2021/ckk5fthh00010k8q643nm58kx/" >计算机视觉笔记</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2020 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/29</span><a class="archive-post-title" href= "/2020/ckk5fthim002mk8q6eskuz0g0/" >高性能MySQL 读书笔记二</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/12</span><a class="archive-post-title" href= "/2020/ckk5fthi0002dk8q6uj1pdzhq/" >高性能MySQL 读书笔记一</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/10</span><a class="archive-post-title" href= "/2020/ckk5fthgj000ak8q66x12raty/" >华为Cloud&Bu 软开凉经</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/09</span><a class="archive-post-title" href= "/2020/ckk5fthg20001k8q6e7lbutvc/" >Java基础问题</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/30</span><a class="archive-post-title" href= "/2019/ckk5fthga0005k8q68fmfnfkd/" >Spring学习笔记一</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/30</span><a class="archive-post-title" href= "/2019/ckk5fthg60002k8q6ph89p3ck/" >Spring核心思想IOC、DI</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/11</span><a class="archive-post-title" href= "/2019/ckk5fthgg0007k8q6hsehity3/" >八大排序算法</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/08</span><a class="archive-post-title" href= "/2019/ckk5fthgl000bk8q6q1f99hjh/" >机器学习入门路线</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/07</span><a class="archive-post-title" href= "/2019/ckk5fthgd0006k8q6vejg77jr/" >Tensorflow做模型预测（入门级）</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/06</span><a class="archive-post-title" href= "/2019/ckk5fthgo000gk8q6fm6l9xo3/" >模板匹配（matlab实现）</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href= "/2019/ckk5fthgy000vk8q62fdteost/" >游戏开发之路5</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href= "/2019/ckk5fthgt000pk8q6hllnqdp4/" >游戏开发之路3</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href= "/2019/ckk5fthgw000tk8q6ulpf81lh/" >游戏开发之路4</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href= "/2019/ckk5fthgp000ik8q6w04gbarm/" >游戏开发之路2</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/05</span><a class="archive-post-title" href= "/2019/ckk5fthgr000nk8q60gd7aj59/" >游戏开发之路1</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="Java"><span class="iconfont-archer">&#xe606;</span>Java</span>
+    
+        <span class="sidebar-tag-name" data-tags="Spring"><span class="iconfont-archer">&#xe606;</span>Spring</span>
+    
+        <span class="sidebar-tag-name" data-tags="tensorflow"><span class="iconfont-archer">&#xe606;</span>tensorflow</span>
+    
+        <span class="sidebar-tag-name" data-tags="python"><span class="iconfont-archer">&#xe606;</span>python</span>
+    
+        <span class="sidebar-tag-name" data-tags="算法"><span class="iconfont-archer">&#xe606;</span>算法</span>
+    
+        <span class="sidebar-tag-name" data-tags="c++"><span class="iconfont-archer">&#xe606;</span>c++</span>
+    
+        <span class="sidebar-tag-name" data-tags="matlab"><span class="iconfont-archer">&#xe606;</span>matlab</span>
+    
+        <span class="sidebar-tag-name" data-tags="图像处理"><span class="iconfont-archer">&#xe606;</span>图像处理</span>
+    
+        <span class="sidebar-tag-name" data-tags="游戏开发"><span class="iconfont-archer">&#xe606;</span>游戏开发</span>
+    
+        <span class="sidebar-tag-name" data-tags="cv"><span class="iconfont-archer">&#xe606;</span>cv</span>
+    
+        <span class="sidebar-tag-name" data-tags="Mysql"><span class="iconfont-archer">&#xe606;</span>Mysql</span>
+    
+        <span class="sidebar-tag-name" data-tags="数据库"><span class="iconfont-archer">&#xe606;</span>数据库</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="开发"><span class="iconfont-archer">&#xe60a;</span>开发</span>
+    
+        <span class="sidebar-category-name" data-categories="MachineLearning"><span class="iconfont-archer">&#xe60a;</span>MachineLearning</span>
+    
+        <span class="sidebar-category-name" data-categories="Programming"><span class="iconfont-archer">&#xe60a;</span>Programming</span>
+    
+        <span class="sidebar-category-name" data-categories="开发/面试"><span class="iconfont-archer">&#xe60a;</span>开发/面试</span>
+    
+        <span class="sidebar-category-name" data-categories="life"><span class="iconfont-archer">&#xe60a;</span>life</span>
+    
+        <span class="sidebar-category-name" data-categories="开发/笔记"><span class="iconfont-archer">&#xe60a;</span>开发/笔记</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "Ye Yifan"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+
