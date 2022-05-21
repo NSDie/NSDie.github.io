@@ -1,47 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Spring学习笔记一</title>
-    <url>/spring%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%80/</url>
-    <content><![CDATA[<h3 id="IOC"><a href="#IOC" class="headerlink" title="IOC"></a>IOC</h3><h4 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h4><p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<code>Inversion of Control</code> ，翻译为”控制反转“，别名”依赖注入“(<code>Dependency Injection</code>)。</p>
-<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;关键在于四个问题：<strong>谁控制谁</strong>,<strong>控制什么</strong>,<strong>反转是什么</strong>,<strong>哪些方面反转了</strong>。</p>
-<blockquote>
-<p>所谓IOC，就是由Spring IOC容器来负责对象的生命周期和对象之间的关系。</p>
-</blockquote>
-<p>​	我们可以先想象一个场景：你需要一个女朋友，直接<code>new BeautifulGirl()</code>，接下来你想要的各种要求，用set来设置。但是这个过程复杂又繁琐，而且我们必须要面对每个环节，同时在使用完成之后还要负责销毁。<strong>这种情况下我们的对象和它所依赖的对象耦合在一起</strong>。</p>
-<p>​	但是我们知道，我们依赖对象并不是依赖对象本身，而是依赖对象所提供的<strong>服务</strong>，当我们需要它的时候，它能够<strong>及时提供服务即可</strong>，至于它是我们主动去创建还是别人送给我们的，并不那么重要。就像你需要一个女朋友，你可以不用自己找（new），你可以直接跟婚介公司说，你想要这样那样的妹子（<strong>需求</strong>），婚介公司就会给你一个妹子，你只需要负责接下来的工作。</p>
-<p>​	所以<strong>IoC</strong>就是相当于一个中介，当你需要什么（功能） 的时候，IoC就会送过来给你，你不用自己去创建销毁。</p>
-<p>​	现在，回答上面四个问题：</p>
-<p>​	<strong>1.谁控制谁</strong>：<code>IOC Service Provider</code>(IOC容器) 控制对象。</p>
-<p>​	<strong>2.控制什么</strong>：控制对象。</p>
-<p>​	<strong>3.反转是什么</strong>：没有IOC，都是在对象中主动去创建被依赖的对象，这是<strong>正转</strong>；有IOC，所依赖的对象直接由IoC容器创建后注入到被注入的对象中，依赖的对象由原来的主动变为被动，这是<strong>反转</strong>。</p>
-<p>​	<strong>4.哪些方面反转了</strong>：所依赖对象的获取被反转了。</p>
-<h4 id="提供的注入方式"><a href="#提供的注入方式" class="headerlink" title="提供的注入方式"></a>提供的注入方式</h4><ol>
-<li><strong>构造器注入</strong> 被注入的对象通过在其构造方法中声明依赖对象的参数列表，让外部知道它需要哪些依赖对象。</li>
-<li><strong>setter 方法注入</strong> 对于JavaBean对象而言，我们一般是通过<code>getter</code>和<code>setter</code>方法来访问和设置对象的属性。所以，当前对象只需要为其所依赖的对象提供相应的<code>setter</code>方法，就可以通过该方法将相应的依赖对象设置到被注入对象中。</li>
-<li><strong>接口方式注入</strong> 接口方式注入显得比较霸道，因为它需要被依赖的对象实现不必要的接口，带有侵入性。</li>
-</ol>
-<h3 id="IOC各部分"><a href="#IOC各部分" class="headerlink" title="IOC各部分"></a>IOC各部分</h3><p>​	五大体系：<strong>Resource体系</strong>、<strong>BeanFactory体系</strong>、<strong>Beandefinition</strong>、<strong>BeandefinitionReader体系</strong>、<strong>ApplicationContext体系</strong>。(简单介绍一下，后面再继续详细记录。)</p>
-<ul>
-<li><strong>Resource体系</strong> 对资源的抽象，它的每一个实现类都代表了一种资源的访问策略。如ClasspathResource、URLResource、FileSystemResource等。ps：资源加载——ResourceLoader。</li>
-<li><strong>BeanFactory体系</strong> BeanFactory是一个非常纯粹的bean容器，它是IOC必备的数据结构，其中<em>BeanDefinition</em>是它的基本结构，它内部维护一个map，根据<em>BeanDefinition</em>的描述进行bean的创建和管理。</li>
-<li><strong>BeanDefinition体系</strong> 用来描述Spring中的Bean对象。</li>
-<li><strong>BeanDefinitionReader体系</strong> 用来读取Spring的配置文件，并转换成IOC容器内部的数据结构-》<em>BeanDefinition</em>。</li>
-<li><strong>ApplicationContext体系</strong> Spring容器，应用上下文，继承<em>BeanFactory</em>。它与<em>BeanFactory</em>的区别有：1. 继承<em>MessageSource</em>，提供国际化的标准访问策略。 2. 继承<em>ApplicationEventPublisher</em>，提供强大的事件机制。 3. 扩展<em>ResourceLoader</em>，可以用来加载多个Resource，可以灵活访问不同的资源。 4. 对Web应用的支持。</li>
-</ul>
-<blockquote>
-<p>学习笔记，原文章出处：<a href="http://cmsblogs.com/?p=2652">http://cmsblogs.com/?p=2652</a>  </p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>开发</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-        <tag>Spring</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Java基础问题</title>
     <url>/java%E5%9F%BA%E7%A1%80%E9%97%AE%E9%A2%98/</url>
     <content><![CDATA[<h5 id="1-static关键字有哪些作用？"><a href="#1-static关键字有哪些作用？" class="headerlink" title="1. static关键字有哪些作用？"></a>1. static关键字有哪些作用？</h5><p>static修饰变量、修饰方法。</p>
@@ -207,6 +166,47 @@
       </tags>
   </entry>
   <entry>
+    <title>Spring学习笔记一</title>
+    <url>/spring%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%80/</url>
+    <content><![CDATA[<h3 id="IOC"><a href="#IOC" class="headerlink" title="IOC"></a>IOC</h3><h4 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h4><p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<code>Inversion of Control</code> ，翻译为”控制反转“，别名”依赖注入“(<code>Dependency Injection</code>)。</p>
+<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;关键在于四个问题：<strong>谁控制谁</strong>,<strong>控制什么</strong>,<strong>反转是什么</strong>,<strong>哪些方面反转了</strong>。</p>
+<blockquote>
+<p>所谓IOC，就是由Spring IOC容器来负责对象的生命周期和对象之间的关系。</p>
+</blockquote>
+<p>​	我们可以先想象一个场景：你需要一个女朋友，直接<code>new BeautifulGirl()</code>，接下来你想要的各种要求，用set来设置。但是这个过程复杂又繁琐，而且我们必须要面对每个环节，同时在使用完成之后还要负责销毁。<strong>这种情况下我们的对象和它所依赖的对象耦合在一起</strong>。</p>
+<p>​	但是我们知道，我们依赖对象并不是依赖对象本身，而是依赖对象所提供的<strong>服务</strong>，当我们需要它的时候，它能够<strong>及时提供服务即可</strong>，至于它是我们主动去创建还是别人送给我们的，并不那么重要。就像你需要一个女朋友，你可以不用自己找（new），你可以直接跟婚介公司说，你想要这样那样的妹子（<strong>需求</strong>），婚介公司就会给你一个妹子，你只需要负责接下来的工作。</p>
+<p>​	所以<strong>IoC</strong>就是相当于一个中介，当你需要什么（功能） 的时候，IoC就会送过来给你，你不用自己去创建销毁。</p>
+<p>​	现在，回答上面四个问题：</p>
+<p>​	<strong>1.谁控制谁</strong>：<code>IOC Service Provider</code>(IOC容器) 控制对象。</p>
+<p>​	<strong>2.控制什么</strong>：控制对象。</p>
+<p>​	<strong>3.反转是什么</strong>：没有IOC，都是在对象中主动去创建被依赖的对象，这是<strong>正转</strong>；有IOC，所依赖的对象直接由IoC容器创建后注入到被注入的对象中，依赖的对象由原来的主动变为被动，这是<strong>反转</strong>。</p>
+<p>​	<strong>4.哪些方面反转了</strong>：所依赖对象的获取被反转了。</p>
+<h4 id="提供的注入方式"><a href="#提供的注入方式" class="headerlink" title="提供的注入方式"></a>提供的注入方式</h4><ol>
+<li><strong>构造器注入</strong> 被注入的对象通过在其构造方法中声明依赖对象的参数列表，让外部知道它需要哪些依赖对象。</li>
+<li><strong>setter 方法注入</strong> 对于JavaBean对象而言，我们一般是通过<code>getter</code>和<code>setter</code>方法来访问和设置对象的属性。所以，当前对象只需要为其所依赖的对象提供相应的<code>setter</code>方法，就可以通过该方法将相应的依赖对象设置到被注入对象中。</li>
+<li><strong>接口方式注入</strong> 接口方式注入显得比较霸道，因为它需要被依赖的对象实现不必要的接口，带有侵入性。</li>
+</ol>
+<h3 id="IOC各部分"><a href="#IOC各部分" class="headerlink" title="IOC各部分"></a>IOC各部分</h3><p>​	五大体系：<strong>Resource体系</strong>、<strong>BeanFactory体系</strong>、<strong>Beandefinition</strong>、<strong>BeandefinitionReader体系</strong>、<strong>ApplicationContext体系</strong>。(简单介绍一下，后面再继续详细记录。)</p>
+<ul>
+<li><strong>Resource体系</strong> 对资源的抽象，它的每一个实现类都代表了一种资源的访问策略。如ClasspathResource、URLResource、FileSystemResource等。ps：资源加载——ResourceLoader。</li>
+<li><strong>BeanFactory体系</strong> BeanFactory是一个非常纯粹的bean容器，它是IOC必备的数据结构，其中<em>BeanDefinition</em>是它的基本结构，它内部维护一个map，根据<em>BeanDefinition</em>的描述进行bean的创建和管理。</li>
+<li><strong>BeanDefinition体系</strong> 用来描述Spring中的Bean对象。</li>
+<li><strong>BeanDefinitionReader体系</strong> 用来读取Spring的配置文件，并转换成IOC容器内部的数据结构-》<em>BeanDefinition</em>。</li>
+<li><strong>ApplicationContext体系</strong> Spring容器，应用上下文，继承<em>BeanFactory</em>。它与<em>BeanFactory</em>的区别有：1. 继承<em>MessageSource</em>，提供国际化的标准访问策略。 2. 继承<em>ApplicationEventPublisher</em>，提供强大的事件机制。 3. 扩展<em>ResourceLoader</em>，可以用来加载多个Resource，可以灵活访问不同的资源。 4. 对Web应用的支持。</li>
+</ul>
+<blockquote>
+<p>学习笔记，原文章出处：<a href="http://cmsblogs.com/?p=2652">http://cmsblogs.com/?p=2652</a>  </p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>开发</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Spring核心思想IOC、DI</title>
     <url>/spring%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3ioc%E3%80%81di/</url>
     <content><![CDATA[<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><ol>
@@ -239,6 +239,99 @@
       <tags>
         <tag>Java</tag>
         <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机器学习入门路线</title>
+    <url>/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%E8%B7%AF%E7%BA%BF/</url>
+    <content><![CDATA[<h3 id="Python进阶学习——机器学习入门路线"><a href="#Python进阶学习——机器学习入门路线" class="headerlink" title="Python进阶学习——机器学习入门路线"></a>Python进阶学习——机器学习入门路线</h3><h5 id="一、引言"><a href="#一、引言" class="headerlink" title="一、引言"></a>一、引言</h5><p>套用一下大神们对机器学习的定义，机器学习研究的是计算机怎样模拟人类的学习行为，以获取新的知识或技能，并重新组织已有的知识结构使之不断改善自身。简单一点说，就是计算机从数据中学习出规律和模式，以应用在新数据上做预测的任务。近年来互联网数据大爆炸，数据的丰富度和覆盖面远远超出人工可以观察和总结的范畴，而机器学习的算法能指引计算机在海量数据中，挖掘出有用的价值，也使得无数学习者为之着迷。</p>
+<h5 id="二、解决的问题"><a href="#二、解决的问题" class="headerlink" title="二、解决的问题"></a>二、解决的问题</h5><ol>
+<li><p>分类问题（有限个类别）</p>
+<ul>
+<li>垃圾邮件分类</li>
+<li>文本情感分类</li>
+<li>图像内容识别</li>
+</ul>
+</li>
+<li><p>回归问题</p>
+<ul>
+<li>电影票房预测</li>
+<li>房价预测</li>
+</ul>
+</li>
+<li><p>聚类问题（相近\相关的样本抱团）</p>
+<ul>
+<li>用户群体划分</li>
+<li>电影划分</li>
+</ul>
+<h5 id="实际应用"><a href="#实际应用" class="headerlink" title="实际应用"></a>实际应用</h5></li>
+<li><p>计算机视觉</p>
+<ul>
+<li><strong>人脸识别</strong>、<strong>车牌识别</strong>、<strong>扫描文字</strong></li>
+</ul>
+</li>
+<li><p>自然语言处理</p>
+<ul>
+<li><strong>搜索引擎匹配</strong>、<strong>文本理解</strong>、<strong>文本情绪判断</strong></li>
+</ul>
+</li>
+<li><p>社会网络分析</p>
+<ul>
+<li><strong>用户画像</strong>、<strong>欺诈作弊发现、热点发现</strong></li>
+</ul>
+</li>
+<li><p>产品推荐</p>
+<ul>
+<li>音乐的<strong>”歌曲推荐“</strong>、某宝&#x2F;某东的<strong>“商品推荐”</strong></li>
+</ul>
+</li>
+</ol>
+<h5 id="三、学习任务"><a href="#三、学习任务" class="headerlink" title="三、学习任务"></a>三、学习任务</h5><ol>
+<li>可能会用到的工具<ul>
+<li>网页爬虫（之前学过的）主要是获取数据</li>
+<li>pandas：模拟R，进行数据浏览与预处理</li>
+<li>numpy：数组运算</li>
+<li>scipy：高效的科学计算</li>
+<li>matplotlib：非常方便的数据可视化工具（各种曲线图）</li>
+<li>sklearn：机器学习包，自带很多模型</li>
+<li>libsvm：svm模型实现</li>
+<li>TensorFlow：用于深度学习的包，很方便搭建神经网络，配上tensorboard食用更佳</li>
+<li>nltk：自然语言处理相关的功能</li>
+<li>ipython notebook：这个类似于编辑器，其实推荐安装一个Anconda，自带python2.7&#x2F;3.6，所以可能会和之前安装过的python冲突</li>
+</ul>
+</li>
+<li>可能会用到的数学知识<ul>
+<li>微积分</li>
+<li>线性代数</li>
+<li>概率与统计</li>
+</ul>
+</li>
+</ol>
+<h5 id="四、基本工作流程"><a href="#四、基本工作流程" class="headerlink" title="四、基本工作流程"></a>四、基本工作流程</h5><p>这个自己在后面学习之后就会知道，在这里我可以先总结一下（这只是个人做题的习惯）：</p>
+<ol>
+<li>分析问题，抽象成数学问题</li>
+<li>获取数据集</li>
+<li>特征预处理、特征选择</li>
+<li>模型建立、训练、调优</li>
+<li>判断准确度、诊断</li>
+</ol>
+<h5 id="五、入门资源"><a href="#五、入门资源" class="headerlink" title="五、入门资源"></a>五、入门资源</h5><p>内容可能会有点多，但是可以先一点一点的学，相关还没学到的数学知识也可以先跳过直接记住结论。</p>
+<ul>
+<li><a href="https://www.coursera.org/learn/machine-learning/">Coursera 吴恩达的机器学习</a>（这个可能需要科学上网，有条件可以看，没条件可以看B站大佬下载的）</li>
+<li><a href="https://developers.google.cn/machine-learning/crash-course/">google 机器学习速成课程</a> （这个我是在看完coursera后看的，感觉还不错，提供练习，而且内容也不多，但是节奏有些快，不过入门是够了，<strong>重点</strong>是不用科学上网就能访问）</li>
+<li>机器学习 ——周志华 （西瓜书）</li>
+<li>机器学习实战 （封面是个农民，有很多实战例子）</li>
+<li>统计学习 ——李航 （这本书我还没看过，听别人说挺不错的，用统计学的方法来描述机器学习，很容易理解）</li>
+</ul>
+<blockquote>
+<p>ps:大概就这些视频跟这些书籍，这些如果能看得完，其他的什么也没必要了，如果还有空可以去<strong>kaggle</strong>上面逛逛。</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>MachineLearning</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
       </tags>
   </entry>
   <entry>
@@ -316,8 +409,8 @@
         <category>MachineLearning</category>
       </categories>
       <tags>
-        <tag>tensorflow</tag>
         <tag>python</tag>
+        <tag>tensorflow</tag>
       </tags>
   </entry>
   <entry>
@@ -352,6 +445,33 @@
       <tags>
         <tag>Java</tag>
         <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>模板匹配（matlab实现）</title>
+    <url>/%E6%A8%A1%E6%9D%BF%E5%8C%B9%E9%85%8D%EF%BC%88matlab%E5%AE%9E%E7%8E%B0%EF%BC%89/</url>
+    <content><![CDATA[<h3 id="基于像素匹配算法"><a href="#基于像素匹配算法" class="headerlink" title="基于像素匹配算法"></a>基于像素匹配算法</h3><p>模板匹配算法一般是通过滑窗的方式在待匹配的图像上滑动，通过比较模板与子图的相似度，找到相似度最大的子图。这种算法最核心部分在于如何设计一个相似性函数。   </p>
+<p>最容易想到的一个相似性函数便是欧式距离：<br><img src="/%E6%A8%A1%E6%9D%BF%E5%8C%B9%E9%85%8D%EF%BC%88matlab%E5%AE%9E%E7%8E%B0%EF%BC%89/%E6%AC%A7%E6%B0%8F%E8%B7%9D%E7%A6%BB.png" alt="欧式距离公式"></p>
+<p>将这个相似性函数展开，可以得:<br><img src="/%E6%A8%A1%E6%9D%BF%E5%8C%B9%E9%85%8D%EF%BC%88matlab%E5%AE%9E%E7%8E%B0%EF%BC%89/%E6%AC%A7%E6%B0%8F%E8%B7%9D%E7%A6%BB%E5%B1%95%E5%BC%80%E5%BC%8F.png" alt="欧氏距离展开式"><br>可以看出，只有第二项是有意义的，因为第一项和第三项的值在选定模板后是固定的。对于欧式距离相似函数，值越大表示越不相似，也就是说，第二项的值越小则越不相似。     再将第二项归一化:<br><img src="/%E6%A8%A1%E6%9D%BF%E5%8C%B9%E9%85%8D%EF%BC%88matlab%E5%AE%9E%E7%8E%B0%EF%BC%89/%E6%AC%A7%E6%B0%8F%E8%B7%9D%E7%A6%BB%E5%BD%92%E4%B8%80%E5%8C%96.png" alt="欧氏距离归一化"></p>
+<blockquote>
+<p>如果就仅仅匹配大小不变角度不变的模板，到此为止就够了。</p>
+</blockquote>
+<p>为了解决旋转不变性，我用很简单的很丑陋的方法————旋转模板再重新匹配。</p>
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><p>化简后的欧氏距离matlab实现方法。</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> <span class="built_in">i</span>=<span class="number">1</span>:m-m0+<span class="number">1</span>  </span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">j</span>=<span class="number">1</span>:n-n0+<span class="number">1</span>  </span><br><span class="line">        subMatr=test(<span class="built_in">i</span>:<span class="built_in">i</span>+m0<span class="number">-1</span>,<span class="built_in">j</span>:<span class="built_in">j</span>+n0<span class="number">-1</span>);  </span><br><span class="line">        vec=double( subMatr(:) );  </span><br><span class="line">        result(<span class="built_in">i</span>,<span class="built_in">j</span>)=vec&#x27;*vec_sub / (norm(vec)*norm_sub+<span class="built_in">eps</span>);  </span><br><span class="line">    <span class="keyword">end</span> </span><br><span class="line"> <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>结果图：</p>
+<p><img src="/%E6%A8%A1%E6%9D%BF%E5%8C%B9%E9%85%8D%EF%BC%88matlab%E5%AE%9E%E7%8E%B0%EF%BC%89/1.png"><br><img src="/%E6%A8%A1%E6%9D%BF%E5%8C%B9%E9%85%8D%EF%BC%88matlab%E5%AE%9E%E7%8E%B0%EF%BC%89/2.png"></p>
+<blockquote>
+<p>具体源码 可以见<a href="https://github.com/NSDie/templet">github</a>.</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>MachineLearning</category>
+      </categories>
+      <tags>
+        <tag>matlab</tag>
+        <tag>图像处理</tag>
       </tags>
   </entry>
   <entry>
@@ -451,137 +571,6 @@
       </tags>
   </entry>
   <entry>
-    <title>机器学习入门路线</title>
-    <url>/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%E8%B7%AF%E7%BA%BF/</url>
-    <content><![CDATA[<h3 id="Python进阶学习——机器学习入门路线"><a href="#Python进阶学习——机器学习入门路线" class="headerlink" title="Python进阶学习——机器学习入门路线"></a>Python进阶学习——机器学习入门路线</h3><h5 id="一、引言"><a href="#一、引言" class="headerlink" title="一、引言"></a>一、引言</h5><p>套用一下大神们对机器学习的定义，机器学习研究的是计算机怎样模拟人类的学习行为，以获取新的知识或技能，并重新组织已有的知识结构使之不断改善自身。简单一点说，就是计算机从数据中学习出规律和模式，以应用在新数据上做预测的任务。近年来互联网数据大爆炸，数据的丰富度和覆盖面远远超出人工可以观察和总结的范畴，而机器学习的算法能指引计算机在海量数据中，挖掘出有用的价值，也使得无数学习者为之着迷。</p>
-<h5 id="二、解决的问题"><a href="#二、解决的问题" class="headerlink" title="二、解决的问题"></a>二、解决的问题</h5><ol>
-<li><p>分类问题（有限个类别）</p>
-<ul>
-<li>垃圾邮件分类</li>
-<li>文本情感分类</li>
-<li>图像内容识别</li>
-</ul>
-</li>
-<li><p>回归问题</p>
-<ul>
-<li>电影票房预测</li>
-<li>房价预测</li>
-</ul>
-</li>
-<li><p>聚类问题（相近\相关的样本抱团）</p>
-<ul>
-<li>用户群体划分</li>
-<li>电影划分</li>
-</ul>
-<h5 id="实际应用"><a href="#实际应用" class="headerlink" title="实际应用"></a>实际应用</h5></li>
-<li><p>计算机视觉</p>
-<ul>
-<li><strong>人脸识别</strong>、<strong>车牌识别</strong>、<strong>扫描文字</strong></li>
-</ul>
-</li>
-<li><p>自然语言处理</p>
-<ul>
-<li><strong>搜索引擎匹配</strong>、<strong>文本理解</strong>、<strong>文本情绪判断</strong></li>
-</ul>
-</li>
-<li><p>社会网络分析</p>
-<ul>
-<li><strong>用户画像</strong>、<strong>欺诈作弊发现、热点发现</strong></li>
-</ul>
-</li>
-<li><p>产品推荐</p>
-<ul>
-<li>音乐的<strong>”歌曲推荐“</strong>、某宝&#x2F;某东的<strong>“商品推荐”</strong></li>
-</ul>
-</li>
-</ol>
-<h5 id="三、学习任务"><a href="#三、学习任务" class="headerlink" title="三、学习任务"></a>三、学习任务</h5><ol>
-<li>可能会用到的工具<ul>
-<li>网页爬虫（之前学过的）主要是获取数据</li>
-<li>pandas：模拟R，进行数据浏览与预处理</li>
-<li>numpy：数组运算</li>
-<li>scipy：高效的科学计算</li>
-<li>matplotlib：非常方便的数据可视化工具（各种曲线图）</li>
-<li>sklearn：机器学习包，自带很多模型</li>
-<li>libsvm：svm模型实现</li>
-<li>TensorFlow：用于深度学习的包，很方便搭建神经网络，配上tensorboard食用更佳</li>
-<li>nltk：自然语言处理相关的功能</li>
-<li>ipython notebook：这个类似于编辑器，其实推荐安装一个Anconda，自带python2.7&#x2F;3.6，所以可能会和之前安装过的python冲突</li>
-</ul>
-</li>
-<li>可能会用到的数学知识<ul>
-<li>微积分</li>
-<li>线性代数</li>
-<li>概率与统计</li>
-</ul>
-</li>
-</ol>
-<h5 id="四、基本工作流程"><a href="#四、基本工作流程" class="headerlink" title="四、基本工作流程"></a>四、基本工作流程</h5><p>这个自己在后面学习之后就会知道，在这里我可以先总结一下（这只是个人做题的习惯）：</p>
-<ol>
-<li>分析问题，抽象成数学问题</li>
-<li>获取数据集</li>
-<li>特征预处理、特征选择</li>
-<li>模型建立、训练、调优</li>
-<li>判断准确度、诊断</li>
-</ol>
-<h5 id="五、入门资源"><a href="#五、入门资源" class="headerlink" title="五、入门资源"></a>五、入门资源</h5><p>内容可能会有点多，但是可以先一点一点的学，相关还没学到的数学知识也可以先跳过直接记住结论。</p>
-<ul>
-<li><a href="https://www.coursera.org/learn/machine-learning/">Coursera 吴恩达的机器学习</a>（这个可能需要科学上网，有条件可以看，没条件可以看B站大佬下载的）</li>
-<li><a href="https://developers.google.cn/machine-learning/crash-course/">google 机器学习速成课程</a> （这个我是在看完coursera后看的，感觉还不错，提供练习，而且内容也不多，但是节奏有些快，不过入门是够了，<strong>重点</strong>是不用科学上网就能访问）</li>
-<li>机器学习 ——周志华 （西瓜书）</li>
-<li>机器学习实战 （封面是个农民，有很多实战例子）</li>
-<li>统计学习 ——李航 （这本书我还没看过，听别人说挺不错的，用统计学的方法来描述机器学习，很容易理解）</li>
-</ul>
-<blockquote>
-<p>ps:大概就这些视频跟这些书籍，这些如果能看得完，其他的什么也没必要了，如果还有空可以去<strong>kaggle</strong>上面逛逛。</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>MachineLearning</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>游戏开发之路1</title>
-    <url>/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF1/</url>
-    <content><![CDATA[<h3 id="经验分享"><a href="#经验分享" class="headerlink" title="经验分享"></a>经验分享</h3><blockquote>
-<p><em>引言</em> ：本来作为一个Web后端开发者兼网瘾少年，以前幻想过，自己能做出一款能改变世界的游戏。没想到自己这次机缘巧合的通过了一家游戏公司的面试，并且参加了游戏开发的培训，了解到了Web后端开发也能作为游戏服务端的开发。我也尽量有空就写下随笔，记录几天培训的内容，让更多人了解到游戏开发是怎么样一个过程。</p>
-</blockquote>
-<h4 id="什么是游戏？"><a href="#什么是游戏？" class="headerlink" title="什么是游戏？"></a>什么是游戏？</h4><p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;你会给游戏的定义是什么？有规则有玩家有输赢的活动？我也去查了一下百度，给出的定义也非常多。但是看下来也可以总结成一个词：<strong>好玩</strong>。游戏就是一个<strong>好玩的东西</strong>，任何好玩的东西，都可以称之为游戏。</p>
-<h4 id="那么为什么现代人会喜欢玩游戏？你喜欢玩游戏吗？"><a href="#那么为什么现代人会喜欢玩游戏？你喜欢玩游戏吗？" class="headerlink" title="那么为什么现代人会喜欢玩游戏？你喜欢玩游戏吗？"></a>那么为什么现代人会喜欢玩游戏？你喜欢玩游戏吗？</h4><ul>
-<li>生活中压力大，无论是工作中、还是学习中，白领、学生都有来自社会家庭非常大的压力。但是，他们又无处释放，而在游戏过程中，能够让自己放松，释放掉大部分的压力。</li>
-<li>在游戏中，你可以扮演很多角色，可以做到许多现实生活中做不到的事情，体验不一样的人生。比如在<strong>《刺客信条》系列 <strong>中你可以扮演一名刺客游走在世界各个地方，体验各地不同的文化；在</strong>《坦克世界》</strong> 中你可以驾驶坦克，体验二战时期的激烈；在<strong>《GTAⅤ》</strong> 中你可以扮演一个黑帮老大为所欲为…. 这些都是在现实中无法感受到的。</li>
-</ul>
-<blockquote>
-<p>PS:所以，从小到大游戏虽然让我成瘾着迷，但也让我学到了很多。</p>
-</blockquote>
-<h4 id="跟游戏相关的技术开发-（先简单介绍，后面再详细讲）"><a href="#跟游戏相关的技术开发-（先简单介绍，后面再详细讲）" class="headerlink" title="跟游戏相关的技术开发 （先简单介绍，后面再详细讲）"></a>跟游戏相关的技术开发 （先简单介绍，后面再详细讲）</h4><ul>
-<li><strong>C++</strong>  （服务端、操作系统）<ul>
-<li>更加接近底层</li>
-<li>强大的抽象能力</li>
-<li>高性能</li>
-</ul>
-</li>
-<li><strong>Unity</strong> （客户端、电影CG）</li>
-<li><strong>Lua</strong> （脚本语言，上层接口）<ul>
-<li>方便策划、美术使用</li>
-<li>结构简洁、简单</li>
-</ul>
-</li>
-<li><strong>Python</strong>（作为动态解释语言，机器学习、AI系统、服务器）</li>
-<li><strong>Node.js js</strong> （脚本语言）</li>
-</ul>
-]]></content>
-      <categories>
-        <category>life</category>
-      </categories>
-      <tags>
-        <tag>游戏开发</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>游戏开发之路2</title>
     <url>/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF2/</url>
     <content><![CDATA[<h3 id="游戏开发"><a href="#游戏开发" class="headerlink" title="游戏开发"></a>游戏开发</h3><h4 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h4><p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;用来开发客户端的语言非常多，<strong>unity引擎</strong>用的是<strong>c#<strong>，</strong>cocos引擎</strong>用的是<strong>c++<strong>、</strong>js</strong>，<strong>虚幻4引擎</strong>也是用<strong>c++<strong>，还有</strong>java</strong>和<strong>python</strong>。</p>
@@ -667,30 +656,41 @@
       </tags>
   </entry>
   <entry>
-    <title>模板匹配（matlab实现）</title>
-    <url>/%E6%A8%A1%E6%9D%BF%E5%8C%B9%E9%85%8D%EF%BC%88matlab%E5%AE%9E%E7%8E%B0%EF%BC%89/</url>
-    <content><![CDATA[<h3 id="基于像素匹配算法"><a href="#基于像素匹配算法" class="headerlink" title="基于像素匹配算法"></a>基于像素匹配算法</h3><p>模板匹配算法一般是通过滑窗的方式在待匹配的图像上滑动，通过比较模板与子图的相似度，找到相似度最大的子图。这种算法最核心部分在于如何设计一个相似性函数。   </p>
-<p>最容易想到的一个相似性函数便是欧式距离：<br><img src="/%E6%A8%A1%E6%9D%BF%E5%8C%B9%E9%85%8D%EF%BC%88matlab%E5%AE%9E%E7%8E%B0%EF%BC%89/%E6%AC%A7%E6%B0%8F%E8%B7%9D%E7%A6%BB.png" alt="欧式距离公式"></p>
-<p>将这个相似性函数展开，可以得:<br><img src="/%E6%A8%A1%E6%9D%BF%E5%8C%B9%E9%85%8D%EF%BC%88matlab%E5%AE%9E%E7%8E%B0%EF%BC%89/%E6%AC%A7%E6%B0%8F%E8%B7%9D%E7%A6%BB%E5%B1%95%E5%BC%80%E5%BC%8F.png" alt="欧氏距离展开式"><br>可以看出，只有第二项是有意义的，因为第一项和第三项的值在选定模板后是固定的。对于欧式距离相似函数，值越大表示越不相似，也就是说，第二项的值越小则越不相似。     再将第二项归一化:<br><img src="/%E6%A8%A1%E6%9D%BF%E5%8C%B9%E9%85%8D%EF%BC%88matlab%E5%AE%9E%E7%8E%B0%EF%BC%89/%E6%AC%A7%E6%B0%8F%E8%B7%9D%E7%A6%BB%E5%BD%92%E4%B8%80%E5%8C%96.png" alt="欧氏距离归一化"></p>
-<blockquote>
-<p>如果就仅仅匹配大小不变角度不变的模板，到此为止就够了。</p>
+    <title>游戏开发之路1</title>
+    <url>/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF1/</url>
+    <content><![CDATA[<h3 id="经验分享"><a href="#经验分享" class="headerlink" title="经验分享"></a>经验分享</h3><blockquote>
+<p><em>引言</em> ：本来作为一个Web后端开发者兼网瘾少年，以前幻想过，自己能做出一款能改变世界的游戏。没想到自己这次机缘巧合的通过了一家游戏公司的面试，并且参加了游戏开发的培训，了解到了Web后端开发也能作为游戏服务端的开发。我也尽量有空就写下随笔，记录几天培训的内容，让更多人了解到游戏开发是怎么样一个过程。</p>
 </blockquote>
-<p>为了解决旋转不变性，我用很简单的很丑陋的方法————旋转模板再重新匹配。</p>
-<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><p>化简后的欧氏距离matlab实现方法。</p>
-<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> <span class="built_in">i</span>=<span class="number">1</span>:m-m0+<span class="number">1</span>  </span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">j</span>=<span class="number">1</span>:n-n0+<span class="number">1</span>  </span><br><span class="line">        subMatr=test(<span class="built_in">i</span>:<span class="built_in">i</span>+m0<span class="number">-1</span>,<span class="built_in">j</span>:<span class="built_in">j</span>+n0<span class="number">-1</span>);  </span><br><span class="line">        vec=double( subMatr(:) );  </span><br><span class="line">        result(<span class="built_in">i</span>,<span class="built_in">j</span>)=vec&#x27;*vec_sub / (norm(vec)*norm_sub+<span class="built_in">eps</span>);  </span><br><span class="line">    <span class="keyword">end</span> </span><br><span class="line"> <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
-<p>结果图：</p>
-<p><img src="/%E6%A8%A1%E6%9D%BF%E5%8C%B9%E9%85%8D%EF%BC%88matlab%E5%AE%9E%E7%8E%B0%EF%BC%89/1.png"><br><img src="/%E6%A8%A1%E6%9D%BF%E5%8C%B9%E9%85%8D%EF%BC%88matlab%E5%AE%9E%E7%8E%B0%EF%BC%89/2.png"></p>
+<h4 id="什么是游戏？"><a href="#什么是游戏？" class="headerlink" title="什么是游戏？"></a>什么是游戏？</h4><p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;你会给游戏的定义是什么？有规则有玩家有输赢的活动？我也去查了一下百度，给出的定义也非常多。但是看下来也可以总结成一个词：<strong>好玩</strong>。游戏就是一个<strong>好玩的东西</strong>，任何好玩的东西，都可以称之为游戏。</p>
+<h4 id="那么为什么现代人会喜欢玩游戏？你喜欢玩游戏吗？"><a href="#那么为什么现代人会喜欢玩游戏？你喜欢玩游戏吗？" class="headerlink" title="那么为什么现代人会喜欢玩游戏？你喜欢玩游戏吗？"></a>那么为什么现代人会喜欢玩游戏？你喜欢玩游戏吗？</h4><ul>
+<li>生活中压力大，无论是工作中、还是学习中，白领、学生都有来自社会家庭非常大的压力。但是，他们又无处释放，而在游戏过程中，能够让自己放松，释放掉大部分的压力。</li>
+<li>在游戏中，你可以扮演很多角色，可以做到许多现实生活中做不到的事情，体验不一样的人生。比如在<strong>《刺客信条》系列 <strong>中你可以扮演一名刺客游走在世界各个地方，体验各地不同的文化；在</strong>《坦克世界》</strong> 中你可以驾驶坦克，体验二战时期的激烈；在<strong>《GTAⅤ》</strong> 中你可以扮演一个黑帮老大为所欲为…. 这些都是在现实中无法感受到的。</li>
+</ul>
 <blockquote>
-<p>具体源码 可以见<a href="https://github.com/NSDie/templet">github</a>.</p>
+<p>PS:所以，从小到大游戏虽然让我成瘾着迷，但也让我学到了很多。</p>
 </blockquote>
+<h4 id="跟游戏相关的技术开发-（先简单介绍，后面再详细讲）"><a href="#跟游戏相关的技术开发-（先简单介绍，后面再详细讲）" class="headerlink" title="跟游戏相关的技术开发 （先简单介绍，后面再详细讲）"></a>跟游戏相关的技术开发 （先简单介绍，后面再详细讲）</h4><ul>
+<li><strong>C++</strong>  （服务端、操作系统）<ul>
+<li>更加接近底层</li>
+<li>强大的抽象能力</li>
+<li>高性能</li>
+</ul>
+</li>
+<li><strong>Unity</strong> （客户端、电影CG）</li>
+<li><strong>Lua</strong> （脚本语言，上层接口）<ul>
+<li>方便策划、美术使用</li>
+<li>结构简洁、简单</li>
+</ul>
+</li>
+<li><strong>Python</strong>（作为动态解释语言，机器学习、AI系统、服务器）</li>
+<li><strong>Node.js js</strong> （脚本语言）</li>
+</ul>
 ]]></content>
       <categories>
-        <category>MachineLearning</category>
+        <category>life</category>
       </categories>
       <tags>
-        <tag>matlab</tag>
-        <tag>图像处理</tag>
+        <tag>游戏开发</tag>
       </tags>
   </entry>
   <entry>
@@ -913,99 +913,6 @@
       </tags>
   </entry>
   <entry>
-    <title>高性能MySQL 读书笔记二</title>
-    <url>/%E9%AB%98%E6%80%A7%E8%83%BDmysql-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%BA%8C/</url>
-    <content><![CDATA[<h2 id="高性能MySQL-读书笔记二"><a href="#高性能MySQL-读书笔记二" class="headerlink" title="高性能MySQL 读书笔记二"></a>高性能MySQL 读书笔记二</h2><h3 id="一、MySQL基准测试"><a href="#一、MySQL基准测试" class="headerlink" title="一、MySQL基准测试"></a>一、MySQL基准测试</h3><p><strong>基准测试</strong>是针对系统设计的一种压力测试。通常的目标是为了掌握系统的行为。基准测试是一种测量和评估软件性能指标的活动用于建立某个时刻的<strong>性能基准</strong>，以便当系统发生软硬件变化时重新进行基准测试以评估变化对<strong>性能</strong>的影响。</p>
-<table>
-<thead>
-<tr>
-<th>名称</th>
-<th>基准测试</th>
-<th>压力测试</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>对比</td>
-<td>直接、简单、易于比较，用于评估服务器的处理能力</td>
-<td>对真实的业务数据进行测试，获得真实系统所能承受的压力</td>
-</tr>
-<tr>
-<td></td>
-<td>可能不关心<strong>业务逻辑</strong>，所使用的查询和业务的真实性可以和业务环境没关系</td>
-<td>需要针对不同主题，所使用的数据和查询也是真实用到的</td>
-</tr>
-</tbody></table>
-<p><strong>特性：</strong></p>
-<ol>
-<li><strong>可重复性</strong>  可进行重复性的测试，这样做有利于比较每次的测试结果，得到性能结果的长期变化趋势，为系统调优和上线前的容量规划做参考。</li>
-<li><strong>可观测性</strong> 通过全方位的监控（包括测试开始到结束，执行机、服务器、数据库），及时了解和分析测试过程发生了什么</li>
-<li><strong>可展示性</strong> 相关人员可以直观明了的了解测试结果</li>
-<li><strong>真实性</strong> 测试结果反映了客户体验到的真实的情况</li>
-<li><strong>可执行性</strong> 相关人员可以快速的进行测试验证修改调优</li>
-</ol>
-<h4 id="1-1-为什么需要基准测试？"><a href="#1-1-为什么需要基准测试？" class="headerlink" title="1.1 为什么需要基准测试？"></a>1.1 为什么需要基准测试？</h4><ul>
-<li>验证基于系统的一些假设，确认这些假设是否符合实际情况。</li>
-<li>重现系统中的某些异常行为，解决这些异常。</li>
-<li>测试系统当前的运行情况。</li>
-<li>模拟比当前系统更高的负载。</li>
-<li>规划未来的业务增长。</li>
-<li>测试应用适应可变环境的能力</li>
-<li>测试不同的硬件、软件和操作系统配置。</li>
-<li>证明新采购的设备是否配置正确。</li>
-<li>…..</li>
-</ul>
-<h4 id="1-2-基准测试的策略"><a href="#1-2-基准测试的策略" class="headerlink" title="1.2 基准测试的策略"></a>1.2 基准测试的策略</h4><p><strong>基准测试</strong>有两种主要的策略：集成式（对整个系统的基准测试）、单组件式（单独测试MySQL）。</p>
-<p>需要测试的<strong>测试指标</strong>：吞吐量、响应时间、并发性、可扩展性。</p>
-<p>总的来说，<strong>测试那些对用户来说最重要的指标</strong>。</p>
-<h4 id="1-3-基准测试方法"><a href="#1-3-基准测试方法" class="headerlink" title="1.3 基准测试方法"></a>1.3 基准测试方法</h4><p>基准测试的一般步骤：</p>
-<ol>
-<li>提出问题并明确目标。</li>
-<li>采用标准的基准测试&#x2F;设计专用的测试。</li>
-<li>针对数据运行查询。</li>
-</ol>
-<p>在测试过程中或完毕之后，详细地写下测试规划和测试记录。测试可能需要多次反复运行，因此需要精确地重现测试过程。</p>
-<blockquote>
-<p>测试规划应该记录<strong>测试数据</strong>、<strong>系统配置的步骤</strong>、<strong>如何测量和分析结果</strong>、<strong>以及预热的方案</strong>等。</p>
-</blockquote>
-<p>应该建立将参数和结果文档化的规范，每一轮测试都必须进行详细记录。可以使用电子表格或者记事本形式。</p>
-<h4 id="1-4-基准测试应该运行多长时间"><a href="#1-4-基准测试应该运行多长时间" class="headerlink" title="1.4 基准测试应该运行多长时间"></a>1.4 基准测试应该运行多长时间</h4><p>基准测试应该运行足够长的时间。（系统如果有大量的数据和内存，等待他到达稳定状态需要非常长的时间。）</p>
-<p>![](高性能MySQL 读书笔记二&#x2F;1.png)</p>
-<p>这是一个在已知系统上执行测试的例子，系统预热后，读I&#x2F;O活动在三四个小时后曲线趋于稳定。（一些写I&#x2F;O可能至少在八小时内变化还是很大，具体根据实际情况来考虑）</p>
-<h4 id="1-5-获取系统性能和状态"><a href="#1-5-获取系统性能和状态" class="headerlink" title="1.5 获取系统性能和状态"></a>1.5 获取系统性能和状态</h4><p>在执行基准测试的时候，要尽可能多地收集被测试系统的信息。</p>
-<p>最好为基准测试建立一个目录，并且每执行一轮测试都创建单独的子目录，将<code>测试结果、配置文件、测试指标、脚本和其他相关说明</code>都保存在其中。</p>
-<p>需要记录的数据包括<strong>系统状态</strong>和<strong>性能指标</strong>，如CPU使用率、磁盘I&#x2F;O、网络流量统计、SHOWGLOBAL STATUS 计数器。</p>
-<h4 id="1-6-获得准确的测试结果"><a href="#1-6-获得准确的测试结果" class="headerlink" title="1.6 获得准确的测试结果"></a>1.6 获得准确的测试结果</h4><p>在判断结果正确与否之前，先想一下：</p>
-<ul>
-<li><strong>是否选择了正确的基准测试？</strong></li>
-<li><strong>是否为问题收集了相关的数据？</strong></li>
-<li><strong>是否采用了错误的测试标准？</strong></li>
-</ul>
-<p>然后，<strong>确认测试结果是否可重复</strong>。每次重新测试之前要确保系统的状态是一致的。需要测试的系统是经过预热的系统，还需要确保预热的时间足够长。如果预热采用的是<strong>随机查询</strong>，那么测试结果可能就是<strong>不可重复</strong>的。如果测试的过程会修改数据或者schema，那么每次测试前，需要利用快照还原数据。</p>
-<p>影响测试结果的因素有很多，如<code>外部的压力、性能分析和监控系统、详细的日志记录、周期性作业</code>等。<strong>每次测试中，修改的参数应该尽可能少</strong>。如果必须要一次修改多个参数，那么可能会丢失一些信息。有些参数依赖其他参数，这些参数可能无法单独修改。有时候甚至都没有意识到这些依赖，这给测试带来了复杂性。</p>
-<h4 id="1-7-运行基准测试并分析结果"><a href="#1-7-运行基准测试并分析结果" class="headerlink" title="1.7 运行基准测试并分析结果"></a>1.7 运行基准测试并分析结果</h4><p>通常来说，<strong>自动化基准测试</strong>是个好主意。这样做可以获得更精准的测试结果。因为自动化的过程可以防止测试人员偶尔遗漏某些步骤，或者误操作。另外有助于归档整个测试过程。</p>
-<h3 id="二、基准测试工具"><a href="#二、基准测试工具" class="headerlink" title="二、基准测试工具"></a>二、基准测试工具</h3><h4 id="2-1-集成式测试工具"><a href="#2-1-集成式测试工具" class="headerlink" title="2.1 集成式测试工具"></a>2.1 集成式测试工具</h4><ul>
-<li><strong>ab</strong> 一个Apache HTTP 服务器基准测试工具。它可以测试HTTP服务器每秒最多可以处理多少请求。如果测试的是<strong>Web应用服务</strong>，这个结果可以转换成整个应用每秒可以满足多少请求。具体使用命令可以<a href="http://httpd.apache.org/docs/2.0/programs/ab.html">参考网址</a></li>
-<li><strong>http_load</strong> 这个工具概念上和ab类似，但是比ab更灵活，可以通过一个输入文件提供多个URL。可以随机测试、定制http_load按照时间比率进行测试。具体使用命令可以<a href="http://www.acme.com/software/http_load/">参考网址</a></li>
-<li><strong>JMeter</strong> 一个Java应用程序，可以加载其他应用并测试其性能。可以测试WEB引用，也可以测试FTP服务器、通过JDBC测试数据库查询。比ab和http_load更复杂，功能也更多，可以对测试进行记录、绘图，然后离线重演。具体使用可以<a href="https://jmeter.apache.org/">参考网址</a></li>
-</ul>
-<h4 id="2-2-单组件式测试工具"><a href="#2-2-单组件式测试工具" class="headerlink" title="2.2 单组件式测试工具"></a>2.2 单组件式测试工具</h4><ul>
-<li><strong>mysqlslap</strong> 可以模拟服务器的负载，并输出计时信息。它包含在<a href="https://dev.mysql.com/doc/refman/8.0/en/mysqlslap.html">MySQL5.1的发行包</a>中。测试时可以执行并发连接数，并指定SQL语句。</li>
-<li><strong>MySQL Benchmark Suite</strong> 在MySQL的发行包中也提供了一款自己的基准测试套件，可以用在不同数据库服务器上进行比较测试。它是单线程的，主要用于测试服务器执行查询的速度。结果会显示哪种类型的操作在服务器上执行得更快。</li>
-<li><strong>Super Smack</strong> 一款用于MySQL和PostgreSQL的基准测试工具，可以提供压力测试和负载生成。这是一个复杂而强大的工具，可以模拟多用户访问，可以加载测试数据到数据库，并支持使用随机数据填充测试表。——》<a href="http://vegan.net/tony/supersmack/">入口</a>（现在好像没有维护了，已崩）</li>
-<li><strong>sysbench</strong> 一款<strong>多线程</strong>系统压测工具。它可以根据影响数据库服务器性能的各种因素来评估系统的性能。sysbench是一款受大家喜欢的全能测试工具，支持MySQL、操作系统和硬件的硬件测试。——》<a href="https://launchpad.net/sysbench">入口</a></li>
-</ul>
-<p>这里先简单介绍一下这些工具，后面会有具体使用的案例，以及提供工具的安装包。</p>
-]]></content>
-      <categories>
-        <category>开发</category>
-        <category>笔记</category>
-      </categories>
-      <tags>
-        <tag>Mysql</tag>
-        <tag>数据库</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>高性能MySQL 读书笔记一</title>
     <url>/%E9%AB%98%E6%80%A7%E8%83%BDmysql-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B8%80/</url>
     <content><![CDATA[<h2 id="高性能MySQL-读书笔记一"><a href="#高性能MySQL-读书笔记一" class="headerlink" title="高性能MySQL 读书笔记一"></a>高性能MySQL 读书笔记一</h2><h3 id="一、MySQL的逻辑架构"><a href="#一、MySQL的逻辑架构" class="headerlink" title="一、MySQL的逻辑架构"></a>一、MySQL的逻辑架构</h3><p>![](高性能MySQL 读书笔记一&#x2F;1.png)</p>
@@ -1149,6 +1056,99 @@
 <li><p><strong>NDB集群引擎</strong>  MySQL AB公司从索尼爱立信公司收购了NDB数据库，然后开发了NDB集群引擎。</p>
 </li>
 </ul>
+]]></content>
+      <categories>
+        <category>开发</category>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>Mysql</tag>
+        <tag>数据库</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>高性能MySQL 读书笔记二</title>
+    <url>/%E9%AB%98%E6%80%A7%E8%83%BDmysql-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%BA%8C/</url>
+    <content><![CDATA[<h2 id="高性能MySQL-读书笔记二"><a href="#高性能MySQL-读书笔记二" class="headerlink" title="高性能MySQL 读书笔记二"></a>高性能MySQL 读书笔记二</h2><h3 id="一、MySQL基准测试"><a href="#一、MySQL基准测试" class="headerlink" title="一、MySQL基准测试"></a>一、MySQL基准测试</h3><p><strong>基准测试</strong>是针对系统设计的一种压力测试。通常的目标是为了掌握系统的行为。基准测试是一种测量和评估软件性能指标的活动用于建立某个时刻的<strong>性能基准</strong>，以便当系统发生软硬件变化时重新进行基准测试以评估变化对<strong>性能</strong>的影响。</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>基准测试</th>
+<th>压力测试</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>对比</td>
+<td>直接、简单、易于比较，用于评估服务器的处理能力</td>
+<td>对真实的业务数据进行测试，获得真实系统所能承受的压力</td>
+</tr>
+<tr>
+<td></td>
+<td>可能不关心<strong>业务逻辑</strong>，所使用的查询和业务的真实性可以和业务环境没关系</td>
+<td>需要针对不同主题，所使用的数据和查询也是真实用到的</td>
+</tr>
+</tbody></table>
+<p><strong>特性：</strong></p>
+<ol>
+<li><strong>可重复性</strong>  可进行重复性的测试，这样做有利于比较每次的测试结果，得到性能结果的长期变化趋势，为系统调优和上线前的容量规划做参考。</li>
+<li><strong>可观测性</strong> 通过全方位的监控（包括测试开始到结束，执行机、服务器、数据库），及时了解和分析测试过程发生了什么</li>
+<li><strong>可展示性</strong> 相关人员可以直观明了的了解测试结果</li>
+<li><strong>真实性</strong> 测试结果反映了客户体验到的真实的情况</li>
+<li><strong>可执行性</strong> 相关人员可以快速的进行测试验证修改调优</li>
+</ol>
+<h4 id="1-1-为什么需要基准测试？"><a href="#1-1-为什么需要基准测试？" class="headerlink" title="1.1 为什么需要基准测试？"></a>1.1 为什么需要基准测试？</h4><ul>
+<li>验证基于系统的一些假设，确认这些假设是否符合实际情况。</li>
+<li>重现系统中的某些异常行为，解决这些异常。</li>
+<li>测试系统当前的运行情况。</li>
+<li>模拟比当前系统更高的负载。</li>
+<li>规划未来的业务增长。</li>
+<li>测试应用适应可变环境的能力</li>
+<li>测试不同的硬件、软件和操作系统配置。</li>
+<li>证明新采购的设备是否配置正确。</li>
+<li>…..</li>
+</ul>
+<h4 id="1-2-基准测试的策略"><a href="#1-2-基准测试的策略" class="headerlink" title="1.2 基准测试的策略"></a>1.2 基准测试的策略</h4><p><strong>基准测试</strong>有两种主要的策略：集成式（对整个系统的基准测试）、单组件式（单独测试MySQL）。</p>
+<p>需要测试的<strong>测试指标</strong>：吞吐量、响应时间、并发性、可扩展性。</p>
+<p>总的来说，<strong>测试那些对用户来说最重要的指标</strong>。</p>
+<h4 id="1-3-基准测试方法"><a href="#1-3-基准测试方法" class="headerlink" title="1.3 基准测试方法"></a>1.3 基准测试方法</h4><p>基准测试的一般步骤：</p>
+<ol>
+<li>提出问题并明确目标。</li>
+<li>采用标准的基准测试&#x2F;设计专用的测试。</li>
+<li>针对数据运行查询。</li>
+</ol>
+<p>在测试过程中或完毕之后，详细地写下测试规划和测试记录。测试可能需要多次反复运行，因此需要精确地重现测试过程。</p>
+<blockquote>
+<p>测试规划应该记录<strong>测试数据</strong>、<strong>系统配置的步骤</strong>、<strong>如何测量和分析结果</strong>、<strong>以及预热的方案</strong>等。</p>
+</blockquote>
+<p>应该建立将参数和结果文档化的规范，每一轮测试都必须进行详细记录。可以使用电子表格或者记事本形式。</p>
+<h4 id="1-4-基准测试应该运行多长时间"><a href="#1-4-基准测试应该运行多长时间" class="headerlink" title="1.4 基准测试应该运行多长时间"></a>1.4 基准测试应该运行多长时间</h4><p>基准测试应该运行足够长的时间。（系统如果有大量的数据和内存，等待他到达稳定状态需要非常长的时间。）</p>
+<p>![](高性能MySQL 读书笔记二&#x2F;1.png)</p>
+<p>这是一个在已知系统上执行测试的例子，系统预热后，读I&#x2F;O活动在三四个小时后曲线趋于稳定。（一些写I&#x2F;O可能至少在八小时内变化还是很大，具体根据实际情况来考虑）</p>
+<h4 id="1-5-获取系统性能和状态"><a href="#1-5-获取系统性能和状态" class="headerlink" title="1.5 获取系统性能和状态"></a>1.5 获取系统性能和状态</h4><p>在执行基准测试的时候，要尽可能多地收集被测试系统的信息。</p>
+<p>最好为基准测试建立一个目录，并且每执行一轮测试都创建单独的子目录，将<code>测试结果、配置文件、测试指标、脚本和其他相关说明</code>都保存在其中。</p>
+<p>需要记录的数据包括<strong>系统状态</strong>和<strong>性能指标</strong>，如CPU使用率、磁盘I&#x2F;O、网络流量统计、SHOWGLOBAL STATUS 计数器。</p>
+<h4 id="1-6-获得准确的测试结果"><a href="#1-6-获得准确的测试结果" class="headerlink" title="1.6 获得准确的测试结果"></a>1.6 获得准确的测试结果</h4><p>在判断结果正确与否之前，先想一下：</p>
+<ul>
+<li><strong>是否选择了正确的基准测试？</strong></li>
+<li><strong>是否为问题收集了相关的数据？</strong></li>
+<li><strong>是否采用了错误的测试标准？</strong></li>
+</ul>
+<p>然后，<strong>确认测试结果是否可重复</strong>。每次重新测试之前要确保系统的状态是一致的。需要测试的系统是经过预热的系统，还需要确保预热的时间足够长。如果预热采用的是<strong>随机查询</strong>，那么测试结果可能就是<strong>不可重复</strong>的。如果测试的过程会修改数据或者schema，那么每次测试前，需要利用快照还原数据。</p>
+<p>影响测试结果的因素有很多，如<code>外部的压力、性能分析和监控系统、详细的日志记录、周期性作业</code>等。<strong>每次测试中，修改的参数应该尽可能少</strong>。如果必须要一次修改多个参数，那么可能会丢失一些信息。有些参数依赖其他参数，这些参数可能无法单独修改。有时候甚至都没有意识到这些依赖，这给测试带来了复杂性。</p>
+<h4 id="1-7-运行基准测试并分析结果"><a href="#1-7-运行基准测试并分析结果" class="headerlink" title="1.7 运行基准测试并分析结果"></a>1.7 运行基准测试并分析结果</h4><p>通常来说，<strong>自动化基准测试</strong>是个好主意。这样做可以获得更精准的测试结果。因为自动化的过程可以防止测试人员偶尔遗漏某些步骤，或者误操作。另外有助于归档整个测试过程。</p>
+<h3 id="二、基准测试工具"><a href="#二、基准测试工具" class="headerlink" title="二、基准测试工具"></a>二、基准测试工具</h3><h4 id="2-1-集成式测试工具"><a href="#2-1-集成式测试工具" class="headerlink" title="2.1 集成式测试工具"></a>2.1 集成式测试工具</h4><ul>
+<li><strong>ab</strong> 一个Apache HTTP 服务器基准测试工具。它可以测试HTTP服务器每秒最多可以处理多少请求。如果测试的是<strong>Web应用服务</strong>，这个结果可以转换成整个应用每秒可以满足多少请求。具体使用命令可以<a href="http://httpd.apache.org/docs/2.0/programs/ab.html">参考网址</a></li>
+<li><strong>http_load</strong> 这个工具概念上和ab类似，但是比ab更灵活，可以通过一个输入文件提供多个URL。可以随机测试、定制http_load按照时间比率进行测试。具体使用命令可以<a href="http://www.acme.com/software/http_load/">参考网址</a></li>
+<li><strong>JMeter</strong> 一个Java应用程序，可以加载其他应用并测试其性能。可以测试WEB引用，也可以测试FTP服务器、通过JDBC测试数据库查询。比ab和http_load更复杂，功能也更多，可以对测试进行记录、绘图，然后离线重演。具体使用可以<a href="https://jmeter.apache.org/">参考网址</a></li>
+</ul>
+<h4 id="2-2-单组件式测试工具"><a href="#2-2-单组件式测试工具" class="headerlink" title="2.2 单组件式测试工具"></a>2.2 单组件式测试工具</h4><ul>
+<li><strong>mysqlslap</strong> 可以模拟服务器的负载，并输出计时信息。它包含在<a href="https://dev.mysql.com/doc/refman/8.0/en/mysqlslap.html">MySQL5.1的发行包</a>中。测试时可以执行并发连接数，并指定SQL语句。</li>
+<li><strong>MySQL Benchmark Suite</strong> 在MySQL的发行包中也提供了一款自己的基准测试套件，可以用在不同数据库服务器上进行比较测试。它是单线程的，主要用于测试服务器执行查询的速度。结果会显示哪种类型的操作在服务器上执行得更快。</li>
+<li><strong>Super Smack</strong> 一款用于MySQL和PostgreSQL的基准测试工具，可以提供压力测试和负载生成。这是一个复杂而强大的工具，可以模拟多用户访问，可以加载测试数据到数据库，并支持使用随机数据填充测试表。——》<a href="http://vegan.net/tony/supersmack/">入口</a>（现在好像没有维护了，已崩）</li>
+<li><strong>sysbench</strong> 一款<strong>多线程</strong>系统压测工具。它可以根据影响数据库服务器性能的各种因素来评估系统的性能。sysbench是一款受大家喜欢的全能测试工具，支持MySQL、操作系统和硬件的硬件测试。——》<a href="https://launchpad.net/sysbench">入口</a></li>
+</ul>
+<p>这里先简单介绍一下这些工具，后面会有具体使用的案例，以及提供工具的安装包。</p>
 ]]></content>
       <categories>
         <category>开发</category>
