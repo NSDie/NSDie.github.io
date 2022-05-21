@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.yyfol.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-next/8.11.1/config.min.js"></script>
+
+    <meta name="description" content="计算机视觉概论1.   什么是计算机视觉？ 答：计算机是指机器，视觉是指人对世界的感知。所以计算机视觉是通过让摄影机和电脑代替人眼对目标进行识别、跟踪和测量等行为，从图像或者多维数据中获取信息的一门学科。 2.   计算机视觉要完成的主要任务是什么？ 答：计算机视觉的任务是用图像创建或恢复现实世界模型，然后认知现实世界。让计算机具有对周围世界的空间物体进行传感、抽象、判断的能力，从而达到识别、理解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计算机视觉笔记">
+<meta property="og:url" content="https://www.yyfol.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="不喧嚣自有声">
+<meta property="og:description" content="计算机视觉概论1.   什么是计算机视觉？ 答：计算机是指机器，视觉是指人对世界的感知。所以计算机视觉是通过让摄影机和电脑代替人眼对目标进行识别、跟踪和测量等行为，从图像或者多维数据中获取信息的一门学科。 2.   计算机视觉要完成的主要任务是什么？ 答：计算机视觉的任务是用图像创建或恢复现实世界模型，然后认知现实世界。让计算机具有对周围世界的空间物体进行传感、抽象、判断的能力，从而达到识别、理解">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.yyfol.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%AC%94%E8%AE%B0/1.png">
+<meta property="og:image" content="https://www.yyfol.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%AC%94%E8%AE%B0/2.png">
+<meta property="og:image" content="https://www.yyfol.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%AC%94%E8%AE%B0/3.png">
+<meta property="og:image" content="https://www.yyfol.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%AC%94%E8%AE%B0/4.png">
+<meta property="og:image" content="https://www.yyfol.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%AC%94%E8%AE%B0/5.png">
+<meta property="og:image" content="https://www.yyfol.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%AC%94%E8%AE%B0/6.png">
+<meta property="og:image" content="https://www.yyfol.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%AC%94%E8%AE%B0/7.png">
+<meta property="og:image" content="https://www.yyfol.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%AC%94%E8%AE%B0/8.jpg">
+<meta property="article:published_time" content="2021-01-21T06:22:34.000Z">
+<meta property="article:modified_time" content="2022-05-21T17:19:35.193Z">
+<meta property="article:author" content="Ye Yifan">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="cv">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.yyfol.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%AC%94%E8%AE%B0/1.png">
+
+
+<link rel="canonical" href="https://www.yyfol.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%AC%94%E8%AE%B0/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.yyfol.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%AC%94%E8%AE%B0/","path":"计算机视觉笔记/","title":"计算机视觉笔记"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>计算机视觉笔记 | 不喧嚣自有声</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135610801-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-135610801-1","only_pageview":false}</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-next/8.11.1/third-party/analytics/google-analytics.min.js"></script>
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">不喧嚣自有声</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">it's better to burn out than to fade away</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E6%A6%82%E8%AE%BA"><span class="nav-number">1.</span> <span class="nav-text">计算机视觉概论</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86%E7%9B%B8%E5%85%B3%E5%9F%BA%E7%A1%80"><span class="nav-number">2.</span> <span class="nav-text">图像处理相关基础</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BE%E5%83%8F%E7%89%B9%E5%BE%81"><span class="nav-number">3.</span> <span class="nav-text">图像特征</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BE%E5%83%8F%E5%AF%B9%E9%BD%90"><span class="nav-number">4.</span> <span class="nav-text">图像对齐</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E5%80%BC%E5%9B%BE%E5%83%8F%E5%88%86%E6%9E%90"><span class="nav-number">5.</span> <span class="nav-text">二值图像分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%B9%E7%90%86%E7%89%B9%E5%BE%81%E5%8F%8A%E5%88%86%E6%9E%90"><span class="nav-number">6.</span> <span class="nav-text">纹理特征及分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BE%E5%83%8F%E5%88%86%E5%89%B2"><span class="nav-number">7.</span> <span class="nav-text">图像分割</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%91%84%E5%BD%B1%E6%9C%BA%E6%A8%A1%E5%9E%8B%E5%92%8C%E5%A4%9A%E8%A7%86%E5%87%A0%E4%BD%95"><span class="nav-number">8.</span> <span class="nav-text">摄影机模型和多视几何</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E7%BB%B4%E9%87%8D%E5%BB%BA"><span class="nav-number">9.</span> <span class="nav-text">三维重建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%89%E6%B5%81%E8%AE%A1%E7%AE%97"><span class="nav-number">10.</span> <span class="nav-text">光流计算</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Ye Yifan"
+      src="/avatar/avatar.png">
+  <p class="site-author-name" itemprop="name">Ye Yifan</p>
+  <div class="site-description" itemprop="description">相信代码改变世界！</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/nside" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;nside" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.huanglexing.com/" title="https:&#x2F;&#x2F;www.huanglexing.com" rel="noopener" target="_blank">HLX</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.yyfol.com/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/avatar/avatar.png">
+      <meta itemprop="name" content="Ye Yifan">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不喧嚣自有声">
+      <meta itemprop="description" content="相信代码改变世界！">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="计算机视觉笔记 | 不喧嚣自有声">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          计算机视觉笔记
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-01-21 14:22:34" itemprop="dateCreated datePublished" datetime="2021-01-21T14:22:34+08:00">2021-01-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-05-22 01:19:35" itemprop="dateModified" datetime="2022-05-22T01:19:35+08:00">2022-05-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/MachineLearning/" itemprop="url" rel="index"><span itemprop="name">MachineLearning</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="计算机视觉概论"><a href="#计算机视觉概论" class="headerlink" title="计算机视觉概论"></a>计算机视觉概论</h3><p><strong>1.</strong>   <strong>什么是计算机视觉？</strong></p>
+<p>答：计算机是指机器，视觉是指人对世界的感知。所以计算机视觉是通过让摄影机和电脑代替人眼对目标进行识别、跟踪和测量等行为，从图像或者多维数据中获取信息的一门学科。</p>
+<p><strong>2.</strong>   <strong>计算机视觉要完成的主要任务是什么？</strong></p>
+<p>答：计算机视觉的任务是用图像创建或恢复现实世界模型，然后认知现实世界。让计算机具有对周围世界的空间物体进行传感、抽象、判断的能力，从而达到识别、理解的目的。</p>
+<p><strong>3.</strong>   <strong>请将数字图像处理的主要知识点自己回顾或整理一下，如果还没学过，自己通过网络资源初步了解一下，然后把主要的知识点加以整理，然后记录在这里。</strong></p>
+<p>答：数字图像处理主要有两个目的：改善图示信息以便人们解释理解；为存储、传输和表示而对图像数据进行处理，便于机器理解。数字图像处理常用的几种方法有：灰度变换，对图像的单个像素进行操作，目的是处理对比度和阈值；空间域滤波，对图像每个像素的邻域进行处理，锐化图像以及一些改善性能的目的；频率域滤波，通过一些傅里叶变换来进行操作图像，目的是锐化图像或者平滑图像；图像复原与重建，通过一些滤波器来进行噪声的复原和消除；彩色图像处理，最常见的图像，存在三通道，一般进行彩色到灰度的变换，再进行下一步操作。更深入的应用还有，小波和多分辨率处理；图像压缩，通过霍夫曼编码、Golomb编码以及其他一些编码计算公式来进行有损压缩和无损压缩；形态学图像处理；图像分割；图像的表示和描述；目标识别等。</p>
+<h3 id="图像处理相关基础"><a href="#图像处理相关基础" class="headerlink" title="图像处理相关基础"></a>图像处理相关基础</h3><p><strong>1.</strong>   <strong>常见的滤波器有哪几种？分别说明它们的功能。</strong></p>
+<p>答：</p>
+<p>线性(均值)滤波器：用来减少图像灰度的“尖锐”变化，减少噪声。即过滤了高频信号，因此也被称之为低通滤波器。</p>
+<p>中值滤波器：强迫滤波器区域内突出的亮点更像它周围的值，以消除孤立的亮点。用来去除噪声。</p>
+<p>最大值滤波器：用于发现图像中最亮的点，可以用来过滤“胡椒”噪声。</p>
+<p>最小值滤波器：用于发现图像中最暗的点，可以用来过滤“盐”噪声。</p>
+<p>拉普拉斯滤波器：高通滤波器，突出边缘信息，同时也要包含背景区域信息，可以用来图像增强。</p>
+<p>平滑滤波器：用于平滑处理，如图像由于量化不足产生的虚假轮廓时，同时，也可以用于去除噪声。</p>
+<p>锐化滤波器：增强边缘信息，可用于边缘提取。</p>
+<p><strong>2.</strong>   <strong>图像金字塔有哪些用途？</strong></p>
+<p>将粗糙尺度图像通过插值计算扩展为较细的尺度图像。可以用于图像分割、目标识别、图像理解、视觉感知、消除噪声、分析纹理、标记图像特征。</p>
+<p><strong>3.</strong>   <strong>在实际应用中，哪些应用需要低分辨率特征，请举出具体实例说明。</strong></p>
+<p>视频压缩：由于自身显示器的限制还有流量带宽的区别，网络上视频一般都提供多个画质分辨率，如果显示器分辨率不高以及为了节省流量，可以用低分辨率来观看视频。</p>
+<p>图片打马赛克：想要在超清图片上的某个部位变得模糊，打上马赛克，让人看不清，这里需要用到低分辨率特征。</p>
+<p>微信头像缩略图：超清图片分辨率高，内存大，存储以及传输所消耗资源也高，就采取图片压缩的方式，减小图片大小，又不能丢失图片原来的轮廓，这里需要用到低分辨率特征。</p>
+<h3 id="图像特征"><a href="#图像特征" class="headerlink" title="图像特征"></a>图像特征</h3><p><strong>1.</strong>   <strong>什么是图像的对应？图像特征点在对应中的作用是什么？</strong></p>
+<p>答：1）图像的对应是利用特征算法，找到两个图像中符合向量匹配的图像特征点。</p>
+<p> 2）图像特征点的作用：用来描述不同的图像，做图像切割、对齐等图像变换操作；利用多幅二维图像来进行三维图像的重建、复原。</p>
+<p><strong>2.</strong>   <strong>图像对齐时，常用的特征有哪些？</strong></p>
+<p>答：颜色特征、纹理特征、形状特征、空间位置特征、局部区域特征、边缘特征、点特征。</p>
+<p><strong>3.</strong>   <strong>你知道利用SIFT算子描述特征时，图像对齐的步骤吗？</strong></p>
+<p>1）生成高斯差分金字塔（DOG金字塔），尺度空间构建</p>
+<p>2）空间极值点检测（关键点的初步查探）</p>
+<p>3）稳定关键点的精确定位</p>
+<p>4）稳定关键点方向信息分配</p>
+<p>5）关键点描述</p>
+<p>6）特征点匹配</p>
+<p>7）图像对齐</p>
+<h3 id="图像对齐"><a href="#图像对齐" class="headerlink" title="图像对齐"></a>图像对齐</h3><p><strong>1.</strong>   <strong>图像对应的本质是什么？</strong> </p>
+<p>答：图像对应的本质：可以看作是参数拟合的问题，利用两个图像之间匹配的特征点，将变换模型进行拟合。</p>
+<p><strong>2.</strong>   <strong>图像对齐有哪些用途？</strong></p>
+<p>答：图像拼接、目标识别、图像变换、模板匹配。</p>
+<p><strong>3.</strong>   <strong>图像对齐的常见步骤有哪些？</strong></p>
+<ol>
+<li><p>随机抽取当前图像帧和另一幅图像间的一组特征点，计算基础矩阵</p>
+</li>
+<li><p>利用这些特征点计算组间变换矩阵</p>
+</li>
+<li><p>根据计算的矩阵，求得局内点</p>
+</li>
+<li><p>利用所有的正确匹配点重新计算基础矩阵</p>
+</li>
+<li><p>在此基础上重新搜索正确的匹配点对</p>
+</li>
+<li><p>重复4，5步骤，直至匹配点对的数目达到稳定状态。</p>
+</li>
+<li><p>找到两个图像之间的对齐关系。</p>
+</li>
+</ol>
+<h3 id="二值图像分析"><a href="#二值图像分析" class="headerlink" title="二值图像分析"></a>二值图像分析</h3><p><strong>1.</strong>    <strong>二值图像有哪些用途？（可以查阅文献说明）</strong></p>
+<p>答: </p>
+<p><strong>边界跟踪算法</strong>：利用二值图像识别中的图像轮廓，来实现的边界跟踪。</p>
+<p><strong>目标识别</strong>：基于二值图像的灰度变化，进行物体的精确识别跟定位。</p>
+<p><strong>提取图像的连通区域</strong>：利用图像二值化，找出图像变化的连通区域，再根据先值面积消除法达到去除图像中所有前景和背景噪声的效果。</p>
+<p><strong>2.</strong>    <strong>说明彩色图像二值化计算的步骤。</strong></p>
+<p>答: </p>
+<p>先进行灰度化，灰度化的操作一般是将图像RGB的值用一定的权值来计算得到。</p>
+<p>然后进行二值化，利用阈值分割，从图像中分出前景和背景，实现二值化。</p>
+<p><strong>3.</strong>    <strong>均值迭代求取阈值的二值化步骤是怎样的？</strong></p>
+<p>答：</p>
+<ol>
+<li><p>选择一个初始化的阈值T</p>
+</li>
+<li><p>使用阈值T将图像的像素分为两部分：G1包含灰度满足大于T，G2包含灰度满足小于T。</p>
+</li>
+<li><p>计算G1中所有像素的均值μ1,以及G2中所有像素的均值μ2。</p>
+</li>
+<li><p>计算新的阈值：T’&#x3D;<img src="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%AC%94%E8%AE%B0/1.png" alt="img"></p>
+</li>
+<li><p>重新迭代步骤2-4，直到计算得到新的阈值T’小于预先确定的阈值为止。</p>
+</li>
+</ol>
+<h3 id="纹理特征及分析"><a href="#纹理特征及分析" class="headerlink" title="纹理特征及分析"></a>纹理特征及分析</h3><p><strong>1.</strong>   <strong>简单说明纹理分析和研究的主要目的是什么？</strong></p>
+<p>答：纹理分析是通过一定的图像处理提取出来纹理特征参数，从而获得纹理的定量或定性描述的处理过程。</p>
+<p>目的是研究纹理的观赏特性。</p>
+<p><strong>2.</strong>   <strong>什么是纹理？</strong></p>
+<p>纹理是一种普遍存在的视觉现象，目前有两个定义：</p>
+<p>一个定义是按一定规则对元素或者基元进行排列所形成的重复模式。</p>
+<p>另一个定义是如果图像函数的一组局部属性是恒定的，或者是缓变的，或者是近似周期性的，则图像中的对应区域具有恒定的纹理。</p>
+<p><strong>3.</strong>   <strong>纹理特征提取与分析方法的主要方法有哪几种？</strong></p>
+<p>统计分析法、结构分析法、模型分析法、频谱分析法</p>
+<p><strong>假设位置算子（dx,dy）为（1,1），计算下面纹理的共生矩阵：</strong></p>
+<p><img src="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%AC%94%E8%AE%B0/2.png" alt="img"></p>
+<p>位置算子为（1,1），所以统计斜对角线上的(i,j)对子数。</p>
+<p><img src="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%AC%94%E8%AE%B0/3.png" alt="img"></p>
+<h3 id="图像分割"><a href="#图像分割" class="headerlink" title="图像分割"></a>图像分割</h3><p><strong>1.</strong>   <strong>什么是图像分割？简单说明其用途</strong></p>
+<p>答：图像分割就是把图像分成若干个特定的、具有独特性质的区域。</p>
+<p>比如常见的人脸识别，就是把人脸图像从完整的图像中分割出来。</p>
+<p><strong>2.</strong>   <strong>图像分割的目的是什么？</strong></p>
+<p>答：图像分割可以把人们感兴趣的部分从图像中提取出来，有选择地对感兴趣对象定位。</p>
+<p><strong>3.</strong>   <strong>查阅文献至少1篇，关键词：image segmentation，阅读后写出主要思想</strong></p>
+<p>答：《Rethinking Atrous Convolution for Semantic Image Segmentation》</p>
+<p>主要思想：在这篇论文里，卷积是一种强大的工具，可在语义图像分割的应用中显式调整过滤器的视场并控制由深度卷积神经网络计算的特征响应的分辨率。为了处理在多个尺度上分割对象的问题，我们设计了模块，该模块采用级联或并行的原子卷积，通过采用多个原子速率来捕获多尺度上下文。此外，这篇论文建议扩充先前提出的Atrous空间金字塔池化模块，该模块以编码全局上下文的图像级特征进一步探究多尺度的卷积特征，从而进一步提高性能。</p>
+<p><strong>4.</strong> <strong>查找代码，实现图像分割功能，给出代码和运行结果截图，传统方法，不限语言</strong><br><img src="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%AC%94%E8%AE%B0/4.png" alt="img"><br><img src="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%AC%94%E8%AE%B0/5.png" alt="img"><br>打印结果分别原图，灰度图，K取2，K取3的效果图：<br><img src="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%AC%94%E8%AE%B0/6.png" alt="img"><br><img src="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%AC%94%E8%AE%B0/7.png" alt="img"></p>
+<h3 id="摄影机模型和多视几何"><a href="#摄影机模型和多视几何" class="headerlink" title="摄影机模型和多视几何"></a>摄影机模型和多视几何</h3><p>\1.   <strong>摄像机模型中，内部参数和外部参数分别有哪些？</strong></p>
+<p>摄像机的内参数（Intrinsic)：</p>
+<p>​     由摄像机本身决定，只与摄像机本身有关。其参数有：参数矩阵（fx,fy,cx,cy)和畸变系数(三个径向k1,k2,k3;两个切向p1,p2)</p>
+<p>摄像机的外参数（Extrinsic)：<br>      摄像机在世界坐标系中的位姿，由摄像机与世界坐标系的相对位姿关系决定。其参数有：旋转向量R（大小为1x3的矢量或旋转矩阵3x3）和平移向量T(Tx,Ty,Tz)</p>
+<p><strong>2.</strong>   <strong>张正友方法的主要思想和步骤是什么？</strong></p>
+<p>张氏标定法的主要思想是使用二维方格组成的标定板进行标定，采集标定板不同位姿图片，提取图片中角点像素坐标，通过单应矩阵计算出相机的内外参数初始值，利用非线性最小二乘法估计畸变系数，最后使用极大似然估计法优化参数。</p>
+<p>步骤：</p>
+<p>A. 从不同角度拍摄若干张模板图象 </p>
+<p>B. 求出摄像机的内参数和外参数 </p>
+<p>C. 优化求精</p>
+<h3 id="三维重建"><a href="#三维重建" class="headerlink" title="三维重建"></a>三维重建</h3><p><strong>1.</strong>   <strong>什么是深度点云？</strong></p>
+<p>答：</p>
+<p>点云是某个坐标系下的点的数据集。</p>
+<p>深度相机得到的是三维点云数据，把这些点云重建到一个坐标系下，拼接成一个整体的点云。</p>
+<p><strong>2.</strong>   <strong>查阅文献，理解深度点云的重建策略。查阅最新文献<strong><strong>2</strong></strong>篇：</strong></p>
+<p><a target="_blank" rel="noopener" href="https://dblp.uni-trier.de/">https://dblp.uni-trier.de/</a></p>
+<p>关键词： depth map,reconstruction</p>
+<p>[1]–《Digging into the multi-scale structure for a more refined depth map and 3D reconstruction》</p>
+<p>[2]–《Depth-map completion for large indoor scene reconstruction》</p>
+<p>深度点云的重建策略：基于深度学习的三维重建方法大多是基于3D CNN来进行深度图的预测。但是这种方法对内存消耗达到了分辨率的三次方量级，使得生成结果的分辨率受到了很大的限制。而通过点云，可以很高效且十分精准的实现三维重建。</p>
+<p>在[1]论文中提出了MVS算法，这个算法是通过假设摄像机参数和姿势信息均已通过“运动结构”（SFM）算法计算出密集点云，从而恢复场景的3D立体表示。该技术具有许多实际应用，例如3D映射，计算机视频游戏和文化遗产保护。MVS算法的主要评估方法是重构精度和完整性，涉及图像分辨率，相机布置，场景纹理等。</p>
+<p>而[2]论文是通过CNN-SLAM的方式，来进行改进优化，用神经网络分析不用的点云数据，找出密集点云，形成3D模型。</p>
+<p>MVS算法中的点匹配方法，在图片上的一条线上进行探测，寻找两张图片上的同一点。主要方法为逐像素判断，两个照片上的点是否是同一点。从而提出了“一致性判定函数”。</p>
+<h3 id="光流计算"><a href="#光流计算" class="headerlink" title="光流计算"></a>光流计算</h3><p><strong>1.</strong>   <strong>查阅代码利用OPENCV，结合python编码，计算图像的光流，并显示结果。</strong></p>
+<p><strong>方法：</strong> </p>
+<p><a target="_blank" rel="noopener" href="https://github.com/"><strong>https://github.com/</strong></a></p>
+<p><strong>关键词，</strong> <strong>optical flow, opencv</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np  </span><br><span class="line"><span class="keyword">import</span> cv2 <span class="keyword">as</span> cv  </span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line">cap = cv.VideoCapture(<span class="string">&#x27;shibuya.mp4&#x27;</span>)  </span><br><span class="line">  </span><br><span class="line"><span class="comment">#角点检测参数  </span></span><br><span class="line">feature_params = <span class="built_in">dict</span>(maxCorners=<span class="number">100</span>, qualityLevel=<span class="number">0.2</span>, minDistance=<span class="number">7</span>, blockSize=<span class="number">7</span>)  	  </span><br><span class="line"><span class="comment">#KLT光流参数  </span></span><br><span class="line">lk_params = <span class="built_in">dict</span>(winSize=(<span class="number">15</span>, <span class="number">15</span>), maxLevel=<span class="number">2</span>, criteria=(cv.TERM_CRITERIA_EPS | cv.TERM_CRITERIA_COUNT, <span class="number">10</span>, <span class="number">0.02</span>))  </span><br><span class="line"> </span><br><span class="line">height = cap.get(cv.CAP_PROP_FRAME_HEIGHT)  </span><br><span class="line">width = cap.get(cv.CAP_PROP_FRAME_WIDTH)  </span><br><span class="line">fps = cap.get(cv.CAP_PROP_FPS)  </span><br><span class="line"><span class="comment">#out = cv.VideoWriter(&quot;reslut.avi&quot;, cv.VideoWriter_fourcc(&#x27;D&#x27;, &#x27;I&#x27;, &#x27;V&#x27;, &#x27;X&#x27;), fps,  </span></span><br><span class="line"><span class="comment">#(np.int(width), np.int(height)), True)  </span></span><br><span class="line">  </span><br><span class="line">tracks = []  </span><br><span class="line">track_len = <span class="number">20</span>  </span><br><span class="line">frame_idx = <span class="number">0</span>  </span><br><span class="line">detect_interval = <span class="number">5</span>  </span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:  </span><br><span class="line">    ret, frame = cap.read()  </span><br><span class="line">    <span class="keyword">if</span> ret:  </span><br><span class="line">        frame_gray = cv.cvtColor(frame, v.COLOR_BGR2GRAY)  </span><br><span class="line">        vis = frame.copy()  </span><br><span class="line">  </span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(tracks)&gt;<span class="number">0</span>:  </span><br><span class="line">            img0 ,img1 = prev_gray, frame_gray  </span><br><span class="line">            p0 = np.float32([tr[-<span class="number">1</span>] <span class="keyword">for</span> tr <span class="keyword">in</span> tracks]).reshape(-<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>)  </span><br><span class="line">            <span class="comment"># 上一帧的角点和当前帧的图像作为输入来得到角点在当前帧的位置  </span></span><br><span class="line">            p1, st, err = cv.calcOpticalFlowPyrLK(img0, img1, p0, <span class="literal">None</span>, **lk_params)  </span><br><span class="line">            <span class="comment"># 反向检查,当前帧跟踪到的角点及图像和前一帧的图像作为输入来找到前一帧的角点位置  </span></span><br><span class="line">            p0r, _, _ = cv.calcOpticalFlowPyrLK(img1, img0, p1, <span class="literal">None</span>, **lk_params)  </span><br><span class="line">            <span class="comment"># 得到角点回溯与前一帧实际角点的位置变化关系  </span></span><br><span class="line">            d = <span class="built_in">abs</span>(p0-p0r).reshape(-<span class="number">1</span>,<span class="number">2</span>).<span class="built_in">max</span>(-<span class="number">1</span>)  </span><br><span class="line">            <span class="comment">#判断d内的值是否小于1，大于1跟踪被认为是错误的跟踪点  </span></span><br><span class="line">            good = d &lt; <span class="number">1</span>  </span><br><span class="line">            new_tracks = []  </span><br><span class="line">            <span class="keyword">for</span> i, (tr, (x, y), flag) <span class="keyword">in</span> <span class="built_in">enumerate</span>(<span class="built_in">zip</span>(tracks, p1.reshape(-<span class="number">1</span>, <span class="number">2</span>), good)):  </span><br><span class="line">                <span class="comment"># 判断是否为正确的跟踪点  </span></span><br><span class="line">                <span class="keyword">if</span> <span class="keyword">not</span> flag:  </span><br><span class="line">                    <span class="keyword">continue</span>  </span><br><span class="line">                <span class="comment"># 存储动态的角点  </span></span><br><span class="line">                tr.append((x, y))  </span><br><span class="line">                <span class="comment"># 只保留track_len长度的数据，消除掉前面的超出的轨迹  </span></span><br><span class="line">                <span class="keyword">if</span> <span class="built_in">len</span>(tr) &gt; track_len:  </span><br><span class="line">                    <span class="keyword">del</span> tr[<span class="number">0</span>]  </span><br><span class="line">                <span class="comment"># 保存在新的list中  </span></span><br><span class="line">                new_tracks.append(tr)  </span><br><span class="line">                cv.circle(vis, (x, y), <span class="number">2</span>, (<span class="number">0</span>, <span class="number">255</span>, <span class="number">0</span>), -<span class="number">1</span>)  </span><br><span class="line">            <span class="comment"># 更新特征点  </span></span><br><span class="line">            tracks = new_tracks  </span><br><span class="line">  </span><br><span class="line">            <span class="comment"># #以上一振角点为初始点，当前帧跟踪到的点为终点,画出运动轨迹  </span></span><br><span class="line">            cv.polylines(vis, [np.int32(tr) <span class="keyword">for</span> tr <span class="keyword">in</span> tracks], <span class="literal">False</span>, (<span class="number">0</span>, <span class="number">255</span>, <span class="number">0</span>), <span class="number">1</span>)  </span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">        <span class="comment"># 每隔 detect_interval 时间检测一次特征点  </span></span><br><span class="line">        <span class="keyword">if</span> frame_idx % detect_interval==<span class="number">0</span>:  </span><br><span class="line">            mask = np.zeros_like(frame_gray)  </span><br><span class="line">            mask[:] = <span class="number">255</span>  </span><br><span class="line">  </span><br><span class="line">            <span class="keyword">if</span> frame_idx !=<span class="number">0</span>:  </span><br><span class="line">                <span class="keyword">for</span> x,y <span class="keyword">in</span> [np.int32(tr[-<span class="number">1</span>]) <span class="keyword">for</span> tr <span class="keyword">in</span> tracks]:  </span><br><span class="line">                    cv.circle(mask, (x, y), <span class="number">5</span>, <span class="number">0</span>, -<span class="number">1</span>)  </span><br><span class="line">  </span><br><span class="line">            p = cv.goodFeaturesToTrack(frame_gray, mask=mask, **feature_params)  </span><br><span class="line">            <span class="keyword">if</span> p <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:  </span><br><span class="line">                <span class="keyword">for</span> x, y <span class="keyword">in</span> np.float32(p).reshape(-<span class="number">1</span>,<span class="number">2</span>): </span><br><span class="line">                    tracks.append([(x, y)])  </span><br><span class="line">  </span><br><span class="line">        frame_idx += <span class="number">1</span>  </span><br><span class="line">        prev_gray = frame_gray  </span><br><span class="line">  </span><br><span class="line">        cv.imshow(<span class="string">&#x27;track&#x27;</span>, vis)  </span><br><span class="line">        <span class="comment">#out.write(vis)  </span></span><br><span class="line">	        ch = cv.waitKey(<span class="number">1</span>)  </span><br><span class="line">        <span class="keyword">if</span> ch ==<span class="number">27</span>:  </span><br><span class="line">            cv.imwrite(<span class="string">&#x27;track.jpg&#x27;</span>, vis)  </span><br><span class="line">            <span class="keyword">break</span>  </span><br><span class="line">    <span class="keyword">else</span>:  </span><br><span class="line">        <span class="keyword">break</span>  </span><br><span class="line">  </span><br><span class="line">cv.destroyAllWindows()  </span><br><span class="line">cap.release()  </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>实验效果:</p>
+<p><img src="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%AC%94%E8%AE%B0/8.jpg" alt="img"></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+              <a href="/tags/cv/" rel="tag"># cv</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/%E9%AB%98%E6%80%A7%E8%83%BDmysql-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%BA%8C/" rel="prev" title="高性能MySQL 读书笔记二">
+                  <i class="fa fa-chevron-left"></i> 高性能MySQL 读书笔记二
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC80Mjk5Ni8xOTU0Mg=="></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">浙ICP备18018065号-2 </a>
+      <img src="/assets%5C%E5%A4%87%E6%A1%88%E5%9B%BE%E6%A0%87.png" alt="">
+  </div>
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ye Yifan</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-next/8.11.1/comments.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-next/8.11.1/utils.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-next/8.11.1/motion.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-next/8.11.1/next-boot.min.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-next/8.11.1/third-party/search/local-search.min.js"></script>
+
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-next/8.11.1/third-party/pace.min.js"></script>
+
+  
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-next/8.11.1/third-party/comments/livere.min.js"></script>
+
+</body>
+</html>

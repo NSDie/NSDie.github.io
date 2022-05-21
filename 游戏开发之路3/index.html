@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.yyfol.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-next/8.11.1/config.min.js"></script>
+
+    <meta name="description" content="经验分享 经过十天的学习，对游戏的开发流程有了大致的了解后，就是三轮的游戏demo制作比赛。但是有点遗憾，在第一轮5天的比赛中，并没有做出什么非常完美的作品，心里也很难受。不过没关系后面还有两轮，并且在这轮中吸取了很多经验。  一、第一轮Demo简要介绍 对于项目，工程就不发了，毕竟是组队开发的，不太好意思未经他人允许公开他的代码。我会简要讲一下第一个demo的核心玩法，以及实现方式。最后顺便附上">
+<meta property="og:type" content="article">
+<meta property="og:title" content="游戏开发之路3">
+<meta property="og:url" content="https://www.yyfol.com/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF3/index.html">
+<meta property="og:site_name" content="不喧嚣自有声">
+<meta property="og:description" content="经验分享 经过十天的学习，对游戏的开发流程有了大致的了解后，就是三轮的游戏demo制作比赛。但是有点遗憾，在第一轮5天的比赛中，并没有做出什么非常完美的作品，心里也很难受。不过没关系后面还有两轮，并且在这轮中吸取了很多经验。  一、第一轮Demo简要介绍 对于项目，工程就不发了，毕竟是组队开发的，不太好意思未经他人允许公开他的代码。我会简要讲一下第一个demo的核心玩法，以及实现方式。最后顺便附上">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.yyfol.com/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF3/%E3%80%8A%E9%87%8D%E9%80%A2%E3%80%8B%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3.png">
+<meta property="article:published_time" content="2019-03-05T14:36:00.000Z">
+<meta property="article:modified_time" content="2022-05-21T17:16:50.723Z">
+<meta property="article:author" content="Ye Yifan">
+<meta property="article:tag" content="游戏开发">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.yyfol.com/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF3/%E3%80%8A%E9%87%8D%E9%80%A2%E3%80%8B%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3.png">
+
+
+<link rel="canonical" href="https://www.yyfol.com/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF3/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.yyfol.com/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF3/","path":"游戏开发之路3/","title":"游戏开发之路3"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>游戏开发之路3 | 不喧嚣自有声</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135610801-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-135610801-1","only_pageview":false}</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-next/8.11.1/third-party/analytics/google-analytics.min.js"></script>
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">不喧嚣自有声</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">it's better to burn out than to fade away</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB"><span class="nav-number">1.</span> <span class="nav-text">经验分享</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E7%AC%AC%E4%B8%80%E8%BD%AEDemo%E7%AE%80%E8%A6%81%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.</span> <span class="nav-text">一、第一轮Demo简要介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%80%BB%E7%BB%93%E4%B8%8E%E5%8F%8D%E6%80%9D"><span class="nav-number">1.2.</span> <span class="nav-text">二、总结与反思</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Ye Yifan"
+      src="/avatar/avatar.png">
+  <p class="site-author-name" itemprop="name">Ye Yifan</p>
+  <div class="site-description" itemprop="description">相信代码改变世界！</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/nside" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;nside" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.huanglexing.com/" title="https:&#x2F;&#x2F;www.huanglexing.com" rel="noopener" target="_blank">HLX</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.yyfol.com/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/avatar/avatar.png">
+      <meta itemprop="name" content="Ye Yifan">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不喧嚣自有声">
+      <meta itemprop="description" content="相信代码改变世界！">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="游戏开发之路3 | 不喧嚣自有声">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          游戏开发之路3
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-03-05 22:36:00" itemprop="dateCreated datePublished" datetime="2019-03-05T22:36:00+08:00">2019-03-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-05-22 01:16:50" itemprop="dateModified" datetime="2022-05-22T01:16:50+08:00">2022-05-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/life/" itemprop="url" rel="index"><span itemprop="name">life</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="经验分享"><a href="#经验分享" class="headerlink" title="经验分享"></a>经验分享</h3><blockquote>
+<p>经过十天的学习，对游戏的开发流程有了大致的了解后，就是三轮的游戏demo制作比赛。但是有点遗憾，在第一轮5天的比赛中，并没有做出什么非常完美的作品，心里也很难受。不过没关系后面还有两轮，并且在这轮中吸取了很多经验。</p>
+</blockquote>
+<h4 id="一、第一轮Demo简要介绍"><a href="#一、第一轮Demo简要介绍" class="headerlink" title="一、第一轮Demo简要介绍"></a>一、第一轮Demo简要介绍</h4><blockquote>
+<p>对于项目，工程就不发了，毕竟是组队开发的，不太好意思未经他人允许公开他的代码。我会简要讲一下第一个demo的核心玩法，以及实现方式。最后顺便附上我自己写的一份开发文档</p>
+</blockquote>
+<p>游戏名字叫<strong>《重逢》</strong>（策划那边起的，我也不知道有什么具体含义）。内容是：一个叫Pan的男人寻找他亡妻的故事，游戏里有一个冥界塔的设定，就是玩家们需要操作的场景。<font color="red">核心玩法</font>就是<strong>扫雷</strong>跟<strong>PopStar！</strong>的结合，点开一个方块，你点到炸弹就会扣血，点到空方块就会消除一片连通空白块。然后消除后产生的空的地方，方块会和<strong>PopStar！</strong>中的方块一样落下来，最上面一排会跟扫雷一样显示周围雷区的数量。当然长按标记这些也都有，加上锤子、加血包、计时器三种道具。获胜条件为：从上到下消直到落到最下面一层，就算通关；如果血扣完了或者计时器到零，就判定失败。对应冥界塔的下楼方式，你在冲塔的过程中为遇到一系列问题，比如怪物、宝藏、迷雾、岩浆、陨星…..每种问题对应一种新玩法，每一种玩法都会有新的得分机制，目前没有划分到获胜机制里（之后在看情况做修改），核心玩法还是不变的。</p>
+<p><strong>开发部分</strong> 的话，是采用unity做客户端，java做服务端。</p>
+<p><img src="/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF3/%E3%80%8A%E9%87%8D%E9%80%A2%E3%80%8B%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3.png"></p>
+<p>部分框架是介个样子，模块分很多，系统也分很多。（所以这次5天的开发时间，可以说完全是通宵爆肝了，然而还是没有完成）</p>
+<h4 id="二、总结与反思"><a href="#二、总结与反思" class="headerlink" title="二、总结与反思"></a>二、总结与反思</h4><p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;复盘一下这几天都做了啥把，第一天简单搭了一下服务器和研究了一下网络通信方面，第二天由于队伍内部出现了纠纷，没有解决。策划又提出了一堆新的需求，导致项目代码重构，花了大量的时间。第三天写项目文档，完善框架里面的数据架构。第四天第五天疯狂填内容，以及对接美术资源，画UI，把3D特效动画整合到逻辑层上去。可惜时间不够，出现一堆bug。</p>
+<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;所以现在回顾了一下，大概有以下几点经验：</p>
+<ol>
+<li>做游戏<strong>demo</strong>，不要过度追求精细，不要为未来考虑过多的东西，未来还很长，从demo到上线可能还要经过很长时间，不是一天两天就能直接出来的。作为demo，它所具备最核心的部分就是能跑，只要能跑无论长的好看还是长的丑，能跑就是一个游戏，是一个产品。你玩法说的再新颖，美术画的再好看，产品出不来，那就是一堆垃圾，是空谈大话。首先能体现你的玩法，其次再加一些美术资源，让它更加生动易于被理解。<strong>因此，作为一名开发者，一定要把控好开发时间，设定好deadline，分阶段开发项目，比如一个项目总共有5天，可以分成两个阶段，那就两天出一个包，然后提意见改bug，过三天再出一个包，分阶段迭代， 这样子就算你后面那个版本夭折了，你也还能回滚到前面的版本，不会一无所有。</strong> </li>
+<li>我们开发到了后期，其实项目功能已经非常庞大了，很难维护，并且接口函数都非常乱。<strong>因此，作为程序开发的小组，需要一个开发文档，并且日常去维护它。首先，你或者队伍里的一个人先去构建一个大体的框架，比如分几层。然后，根据策划的需求，或者组内讨论，按需求和实现的功能，再去细分。最后大家挑自己想要开发的部分，并且在开发过程中，要及时把自己写的接口名，更新到开发文档上，写好关键注释说明。</strong>这样子的话，即便到了后期，假设其他组员或者你自己遇到了什么bug，或者想要扩展新功能，只要翻阅一下文档，就很容易找到自己需要的接口，虽然写文档对某些人来说可能会很麻烦，觉得浪费时间，但是对开发效率上看有很大的提高。</li>
+<li><strong>队内出现意见分歧纠纷，需要及时解决。</strong>我们这次开发失利，其实有一大部分原因也来自这个，本来多一个人就能少很多工作，但是在第一天我们就损失了一名队友，他出现分歧后，我们没有选择去沟通跟他妥协。于是没办法，只好各走各的路，他在后面的几天里都处于<strong>离队状态</strong>。所以，关于队伍里的不和，一定一定一定要及时处理，越早越好，这不仅对整个项目有好处，而且对整个队伍士气氛围也有很大的帮助。如果不管不问，这个问题会在不久的未来不断被放大，后果不可估量。不过说到底，其实这个也是队长的<strong>责任义务</strong>，如果你是一名队长，那你就要跟社区大妈一样，什么事情都得插一脚，去关心队员的内心想法，为什么不想干了，哪个模块不喜欢了，还是遇到什么问题解决不了了……都要去了解，并且解决掉，这个很重要，对于团队开发来说，无论是做游戏还是做APP。</li>
+<li>程序对于策划，需要有自己的想法，需要对策划提出需求做一个风险评估。在给定的一个<strong>Deadline</strong>中你就要跟策划说好，你只能完成那些部分，其他需求可能做不到，要砍掉。不然等到了<strong>Deadline</strong>不仅是你交不上代码，而且项目可能会因为你而推迟下一阶段的开发时间。<strong>有时候<font color="red">减</font>就是<font color="red">加</font>。</strong></li>
+</ol>
+<blockquote>
+<p>总结大概就这些， 希望自己能学到一些东西，看这篇文章的小伙伴们也能学到一些，这些都未来在工作中可能会遇到的，提前打好预防针。</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/" rel="tag"># 游戏开发</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF2/" rel="prev" title="游戏开发之路2">
+                  <i class="fa fa-chevron-left"></i> 游戏开发之路2
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF4/" rel="next" title="游戏开发之路4">
+                  游戏开发之路4 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC80Mjk5Ni8xOTU0Mg=="></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">浙ICP备18018065号-2 </a>
+      <img src="/assets%5C%E5%A4%87%E6%A1%88%E5%9B%BE%E6%A0%87.png" alt="">
+  </div>
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ye Yifan</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-next/8.11.1/comments.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-next/8.11.1/utils.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-next/8.11.1/motion.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-next/8.11.1/next-boot.min.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-next/8.11.1/third-party/search/local-search.min.js"></script>
+
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-next/8.11.1/third-party/pace.min.js"></script>
+
+  
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-next/8.11.1/third-party/comments/livere.min.js"></script>
+
+</body>
+</html>

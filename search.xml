@@ -1,0 +1,1162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Spring学习笔记一</title>
+    <url>/spring%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%80/</url>
+    <content><![CDATA[<h3 id="IOC"><a href="#IOC" class="headerlink" title="IOC"></a>IOC</h3><h4 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h4><p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<code>Inversion of Control</code> ，翻译为”控制反转“，别名”依赖注入“(<code>Dependency Injection</code>)。</p>
+<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;关键在于四个问题：<strong>谁控制谁</strong>,<strong>控制什么</strong>,<strong>反转是什么</strong>,<strong>哪些方面反转了</strong>。</p>
+<blockquote>
+<p>所谓IOC，就是由Spring IOC容器来负责对象的生命周期和对象之间的关系。</p>
+</blockquote>
+<p>​	我们可以先想象一个场景：你需要一个女朋友，直接<code>new BeautifulGirl()</code>，接下来你想要的各种要求，用set来设置。但是这个过程复杂又繁琐，而且我们必须要面对每个环节，同时在使用完成之后还要负责销毁。<strong>这种情况下我们的对象和它所依赖的对象耦合在一起</strong>。</p>
+<p>​	但是我们知道，我们依赖对象并不是依赖对象本身，而是依赖对象所提供的<strong>服务</strong>，当我们需要它的时候，它能够<strong>及时提供服务即可</strong>，至于它是我们主动去创建还是别人送给我们的，并不那么重要。就像你需要一个女朋友，你可以不用自己找（new），你可以直接跟婚介公司说，你想要这样那样的妹子（<strong>需求</strong>），婚介公司就会给你一个妹子，你只需要负责接下来的工作。</p>
+<p>​	所以<strong>IoC</strong>就是相当于一个中介，当你需要什么（功能） 的时候，IoC就会送过来给你，你不用自己去创建销毁。</p>
+<p>​	现在，回答上面四个问题：</p>
+<p>​	<strong>1.谁控制谁</strong>：<code>IOC Service Provider</code>(IOC容器) 控制对象。</p>
+<p>​	<strong>2.控制什么</strong>：控制对象。</p>
+<p>​	<strong>3.反转是什么</strong>：没有IOC，都是在对象中主动去创建被依赖的对象，这是<strong>正转</strong>；有IOC，所依赖的对象直接由IoC容器创建后注入到被注入的对象中，依赖的对象由原来的主动变为被动，这是<strong>反转</strong>。</p>
+<p>​	<strong>4.哪些方面反转了</strong>：所依赖对象的获取被反转了。</p>
+<h4 id="提供的注入方式"><a href="#提供的注入方式" class="headerlink" title="提供的注入方式"></a>提供的注入方式</h4><ol>
+<li><strong>构造器注入</strong> 被注入的对象通过在其构造方法中声明依赖对象的参数列表，让外部知道它需要哪些依赖对象。</li>
+<li><strong>setter 方法注入</strong> 对于JavaBean对象而言，我们一般是通过<code>getter</code>和<code>setter</code>方法来访问和设置对象的属性。所以，当前对象只需要为其所依赖的对象提供相应的<code>setter</code>方法，就可以通过该方法将相应的依赖对象设置到被注入对象中。</li>
+<li><strong>接口方式注入</strong> 接口方式注入显得比较霸道，因为它需要被依赖的对象实现不必要的接口，带有侵入性。</li>
+</ol>
+<h3 id="IOC各部分"><a href="#IOC各部分" class="headerlink" title="IOC各部分"></a>IOC各部分</h3><p>​	五大体系：<strong>Resource体系</strong>、<strong>BeanFactory体系</strong>、<strong>Beandefinition</strong>、<strong>BeandefinitionReader体系</strong>、<strong>ApplicationContext体系</strong>。(简单介绍一下，后面再继续详细记录。)</p>
+<ul>
+<li><strong>Resource体系</strong> 对资源的抽象，它的每一个实现类都代表了一种资源的访问策略。如ClasspathResource、URLResource、FileSystemResource等。ps：资源加载——ResourceLoader。</li>
+<li><strong>BeanFactory体系</strong> BeanFactory是一个非常纯粹的bean容器，它是IOC必备的数据结构，其中<em>BeanDefinition</em>是它的基本结构，它内部维护一个map，根据<em>BeanDefinition</em>的描述进行bean的创建和管理。</li>
+<li><strong>BeanDefinition体系</strong> 用来描述Spring中的Bean对象。</li>
+<li><strong>BeanDefinitionReader体系</strong> 用来读取Spring的配置文件，并转换成IOC容器内部的数据结构-》<em>BeanDefinition</em>。</li>
+<li><strong>ApplicationContext体系</strong> Spring容器，应用上下文，继承<em>BeanFactory</em>。它与<em>BeanFactory</em>的区别有：1. 继承<em>MessageSource</em>，提供国际化的标准访问策略。 2. 继承<em>ApplicationEventPublisher</em>，提供强大的事件机制。 3. 扩展<em>ResourceLoader</em>，可以用来加载多个Resource，可以灵活访问不同的资源。 4. 对Web应用的支持。</li>
+</ul>
+<blockquote>
+<p>学习笔记，原文章出处：<a href="http://cmsblogs.com/?p=2652">http://cmsblogs.com/?p=2652</a>  </p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>开发</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Java基础问题</title>
+    <url>/java%E5%9F%BA%E7%A1%80%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h5 id="1-static关键字有哪些作用？"><a href="#1-static关键字有哪些作用？" class="headerlink" title="1. static关键字有哪些作用？"></a>1. static关键字有哪些作用？</h5><p>static修饰变量、修饰方法。</p>
+<p>static修饰静态块、静态内部类、静态导包。</p>
+<h5 id="2-volatile关键字的底层实现原理"><a href="#2-volatile关键字的底层实现原理" class="headerlink" title="2. volatile关键字的底层实现原理"></a>2. volatile关键字的底层实现原理</h5><p>变量被<code>volatile</code>关键字修饰，那么所有<strong>线程</strong>都是可见的。</p>
+<ul>
+<li>对于普通变量：普通变量的值在线程间传递均需要通过主内存来完成。</li>
+<li>对于<code>volatile</code>关键字修饰的变量：多线程下jvm会为每个线程分配一个<strong>独立的缓存</strong>来提高效率。</li>
+</ul>
+<p><code>volatile</code>变量<strong>不会被缓存在寄存器或者对其他处理器不可见</strong>的地方，保证了每次读写变量都从主内存中读，跳过CPU cache这一步。</p>
+<p>指令重排序是JVM为了<strong>优化指令</strong>、<strong>提高程序运行效率</strong>，<strong>在不影响单线程程序执行结果的前提下，尽可能地提高并行度</strong>。</p>
+<p>指令重排序包括<strong>编译器重排序</strong>和<strong>运行时重排序</strong>。</p>
+<p>volatile关键字提供<strong>内存屏障</strong>的方式来防止指令被重排，编译器在生成字节码文件时，会在指令序列中插入<strong>内存屏障</strong>来禁止特定类型的处理器重排序。</p>
+<h5 id="3-ConcurrentHashMap的锁分段技术"><a href="#3-ConcurrentHashMap的锁分段技术" class="headerlink" title="3. ConcurrentHashMap的锁分段技术"></a>3. ConcurrentHashMap的锁分段技术</h5><blockquote>
+<p>HashMap与HashTable都是哈希表，但是hashmap线程不安全；hashtable线程安全，效率非常低。</p>
+</blockquote>
+<p>ConcurrentHashMap所使用的锁分段技术，首先将数据分成一段一段的存储，然后给每一段数据配一把锁，当一个线程占用锁访问其中一个段数据的时候，其他段的数据也能被其他线程访问。</p>
+<p>ConcurrentHashMap是由Segment数组结构和HashEntry数组结构组成。Segment是一种可重入锁ReentrantLock，在ConcurrentHashMap里扮演锁的角色，HashEntry则用来存储键值对数据。（Segment数组+HashEntry数组）</p>
+<h5 id="4-ConcurrentHashMap的读是否要加锁，为什么"><a href="#4-ConcurrentHashMap的读是否要加锁，为什么" class="headerlink" title="4. ConcurrentHashMap的读是否要加锁，为什么"></a>4. ConcurrentHashMap的读是否要加锁，为什么</h5><p>不需要，ConcurrentHashMap实现技术是保证HashEntry几乎是不可变的。</p>
+<h5 id="5-ConcurrentHashMap的迭代器是强一致性的迭代器还是弱一致性的迭代器"><a href="#5-ConcurrentHashMap的迭代器是强一致性的迭代器还是弱一致性的迭代器" class="headerlink" title="5. ConcurrentHashMap的迭代器是强一致性的迭代器还是弱一致性的迭代器"></a>5. ConcurrentHashMap的迭代器是强一致性的迭代器还是弱一致性的迭代器</h5><p>弱一致迭代器。</p>
+<h5 id="6-知道常用设计模式的优缺点"><a href="#6-知道常用设计模式的优缺点" class="headerlink" title="6. 知道常用设计模式的优缺点"></a>6. 知道常用设计模式的优缺点</h5><ul>
+<li>简单工厂模式（<strong>Static Factory Method</strong>）</li>
+</ul>
+<p>优点： </p>
+<ol>
+<li>工厂类是整个模式的关键。包含了必要的逻辑判断，根据外界给定的信息，决定究竟应该创建哪个具体类的对象。</li>
+<li>通过使用工厂类，外界可以从直接创建具体产品对象的尴尬局面摆脱出来，仅仅需要负责“消费”对象就可以了，而不必管这些对象究竟如何创建及如何组织。</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>由于工厂类集中了所有实例的创建逻辑，违反了高内聚责任分配原则，将全部创建逻辑集中到了一个工厂类中，它所能创建的类只能是事先考虑到的，如果需要添加新的类，就需要改变工厂类。</li>
+<li>当系统中的具体产品类不断增多时候，可能会出现要求工厂类根据不同条件创建不同实例的需求。对<strong>系统的维护</strong>和<strong>扩展</strong>非常不利。</li>
+</ol>
+<ul>
+<li>策略模式（<strong>Strategy</strong>）</li>
+</ul>
+<p>优点：</p>
+<ol>
+<li>每个算法<strong>单独封装</strong>，<strong>减少</strong>了算法和算法调用者的耦合。</li>
+<li>合理使用继承有助于提取出算法中的公共部分。</li>
+<li>简化了单元测试。</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>策略模式只适用于客户端知道所有的算法或行为的情况。</li>
+<li>策略模式造成很多的策略类，每个具体策略类都会产生一个新类。</li>
+</ol>
+<ul>
+<li>装饰模式（<strong>Decorator</strong>）</li>
+</ul>
+<p>优点：</p>
+<ol>
+<li><code>Decorator</code>模式与继承关系的目的都是要扩展对象的功能，但是<code>Decorator</code>可以提供比继承更多的灵活性。</li>
+<li>通过使用不同的具体装饰类以及这些装饰类的排列组合，设计师可以创造出很多不同行为的组合。</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>更加<strong>复杂</strong></li>
+</ol>
+<ul>
+<li>代理模式（<strong>Proxy</strong>）</li>
+</ul>
+<p>优点：</p>
+<ol>
+<li>权责清晰，真实的角色就是实现实际的业务逻辑，不用关心其他非本职责的事务，通过后期的代理完成一件完成事务，附带的结果就是编程简洁清晰。</li>
+<li>代理对象可以在客户端和目标对象之间起到中介的作用，这样起到了中介的作用和保护了目标对象的作用。</li>
+<li>高扩展性</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>在客户端和目标对象增加一个代理对象，会造成请求处理速度变慢。</li>
+<li>增加了系统的复杂度。</li>
+</ol>
+<ul>
+<li>工厂方法模式（<strong>Factory Method</strong>）</li>
+</ul>
+<p>优点：</p>
+<ol>
+<li>良好的<strong>封装性</strong>，代码结构清晰，<strong>减少模块间的耦合</strong>。</li>
+<li>工厂方法模式的扩展性非常优秀。</li>
+<li>屏蔽产品类。</li>
+<li>工厂方法模式就是典型的解耦框架。</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>使用者必须知道相应工厂的存在。</li>
+<li>每次增加一个产品时，都需要增加一个具体类和对象实现工厂，使得系统中类的个数成倍增加，在一定程度上增加了系统的复杂度，同时也增加了系统具体类的依赖。</li>
+</ol>
+<ul>
+<li>原型模式（<strong>Prototype</strong>）</li>
+</ul>
+<p>优点：</p>
+<ol>
+<li><strong>隐藏</strong>了对象创建的细节。</li>
+<li>提高了性能。</li>
+<li>不用重新初始化，动态获得对象运行的状态。</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>适用性不是很广。</li>
+<li>每一个类必须配备一个<strong>克隆方法</strong>。</li>
+<li>配备克隆方法需要对类的功能进行通盘考虑，这对于全新的类不是很难，但对于已有的类不一定很容易，特别当一个类引用不支持串行化的间接对象或者引用含有循环结构的时候。</li>
+</ol>
+<ul>
+<li>模板方法模式（<strong>Template Method</strong>）</li>
+</ul>
+<p>优点：</p>
+<ol>
+<li>提高代码<strong>复用性</strong>。</li>
+<li>帮助子类摆脱重复的<strong>不变行为</strong>。</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>考虑不全面统一出现问题。</li>
+</ol>
+<p>（更多模式待补充……..）</p>
+<h5 id="7-构造器（constructor）是否可被重写（override）？"><a href="#7-构造器（constructor）是否可被重写（override）？" class="headerlink" title="7. 构造器（constructor）是否可被重写（override）？"></a>7. 构造器（constructor）是否可被重写（override）？</h5><p>构造器不能被继承，因此不能被重写，但可以被重载。</p>
+<h5 id="8-是否可以继承String类？"><a href="#8-是否可以继承String类？" class="headerlink" title="8. 是否可以继承String类？"></a>8. 是否可以继承String类？</h5><p>String类是final类，不可以被继承。</p>
+<blockquote>
+<p>ps：继承String本身就是一个错误的行为，对String类型最好的重用方式是关联关系和依赖关系而不是继承关系。</p>
+</blockquote>
+<h5 id="9-重载（Overload）和重写（Override）的区别。重载的方法能否根据返回类型进行区分？"><a href="#9-重载（Overload）和重写（Override）的区别。重载的方法能否根据返回类型进行区分？" class="headerlink" title="9. 重载（Overload）和重写（Override）的区别。重载的方法能否根据返回类型进行区分？"></a>9. 重载（Overload）和重写（Override）的区别。重载的方法能否根据返回类型进行区分？</h5><p>方法的重载和重写都是<strong>实现多态</strong>的方式，区别在于前者实现的是<strong>编译</strong>时的多态性，而后者实现的是<strong>运行</strong>时的多态性。</p>
+<p><strong>重载</strong>发生在一个类中，同名的方法如果有不同的参数列表（参数类型不同、参数个数不同或者二者都不同）则视为重载；<strong>重写</strong>发生在<strong>子类</strong>与<strong>父类</strong>之间，重写要求<strong>子类</strong>被重写方法与<strong>父类</strong>被重写方法有<strong>相同的返回类型</strong>，比父类被重写方法更好访问，不能比父类被重写方法声明更多的异常。<strong>重载</strong>对返回类型没有特殊的要求。</p>
+<h5 id="10-get和post请求的区别？"><a href="#10-get和post请求的区别？" class="headerlink" title="10. get和post请求的区别？"></a>10. get和post请求的区别？</h5><p>①get请求用来从服务器上获得资源，而post是用来向服务器提交数据；</p>
+<p>②get将表单中数据按照name&#x3D;value的形式，添加到action所指向的URL后面，并且两者使用“？”连接，而各个变量之间使用“&amp;”连接；post是将表单中的数据放在HTTP协议的请求头或消息体中，传递到action所指向URL；</p>
+<p>③get传输的数据要受到URL长度限制（1024字节）；而post可以传输大量的数据，上传文件通常要使用post方式；</p>
+<p>④使用get时参数会显示在地址栏上，如果这些数据不是敏感数据，那么可以使用get；对于敏感数据应使用post；</p>
+<p>⑤get使用MIME类型百分号编码文本的格式传递参数，保证被传送的参数由遵循规范的文本组成。</p>
+<h5 id="11-实现会话跟踪的技术有哪些？"><a href="#11-实现会话跟踪的技术有哪些？" class="headerlink" title="11. 实现会话跟踪的技术有哪些？"></a>11. 实现会话跟踪的技术有哪些？</h5><ul>
+<li><strong>URL重写</strong>：在URL中添加用户会话的信息作为请求的参数，或者将唯一的会话ID添加到URL结尾以标识一个会话。</li>
+<li><strong>设置表单隐藏域</strong>：将和会话跟踪相关的字段添加到隐式表单域中，这些信息不会在浏览器中显示但是提交表单时会提交到服务器。这两种方式很难处理跨越多个页面的信息传递，因为如果每次都要修改URL或在页面中添加隐式表单域来存储用户会话相关信息，事情将变得非常麻烦。</li>
+<li><strong>cookie</strong>：cookie有两种，一种是基于窗口的，浏览器窗口关闭后，cookie就没有了；另一种是将信息存储在一个临时文件中，并设置存在的时间。当用户通过浏览器和服务器建立一次会话后，会话ID就会随响应信息返回存储在基于窗口的cookie中，那就意味着只要浏览器没有关闭，会话没有超时，下一次请求时这个会话ID又会提交给服务器让服务器识别身份。</li>
+</ul>
+<blockquote>
+<p>ps: HTML5中可以用Web Storage技术通过JavaScript来保存数据，例如<strong>localStorage</strong>和<strong>sessionStorage</strong>来保存用户会话的信息，也能够实现会话跟踪。</p>
+</blockquote>
+<h5 id="12-什么是ORM？"><a href="#12-什么是ORM？" class="headerlink" title="12. 什么是ORM？"></a>12. 什么是ORM？</h5><p>对象关系映射是一种为了解决程序的面向对象模型与数据库的关系模型互不匹配问题的技术；简单的说，ORM是通过使用描述对象和数据库之间映射的元数据，将程序中的对象自动持久化到关系数据库中或者将关系数据库表中的行转换成Java对象，其本质上就是将数据从一种形式转换到另一种形式。</p>
+<h5 id="13-持久层设计要考虑的问题有哪些？持久层框架有哪些？"><a href="#13-持久层设计要考虑的问题有哪些？持久层框架有哪些？" class="headerlink" title="13. 持久层设计要考虑的问题有哪些？持久层框架有哪些？"></a>13. 持久层设计要考虑的问题有哪些？持久层框架有哪些？</h5><p>持久层设计的目标包括：</p>
+<ol>
+<li>数据存储逻辑的分离，提供抽象化的数据访问接口。</li>
+<li>数据访问底层实现的分离，可以在不修改代码的情况下切换底层实现。</li>
+<li>资源管理和调度的分离，在数据访问层实现统一的资源调度。</li>
+<li>数据抽象，提供更面向对象的数据操作。</li>
+</ol>
+<blockquote>
+<p>持久层框架有：</p>
+<ul>
+<li>Hibernate</li>
+<li>MyBatis</li>
+<li>Spring Data</li>
+<li>ActiveJDBC</li>
+<li>Guzz</li>
+<li>jOOQ</li>
+</ul>
+</blockquote>
+]]></content>
+      <categories>
+        <category>开发</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Spring核心思想IOC、DI</title>
+    <url>/spring%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3ioc%E3%80%81di/</url>
+    <content><![CDATA[<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><ol>
+<li>IOC是什么？     <strong>IOC(Inversion of Control)控制反转</strong>，IOC是一种新的Java编程模式，目前很多轻量级容器都在广泛使用的模式。</li>
+<li>IOC解决了什么问题？     在IOC出现以前，组件之间的协调关系是由程序内部代码来控制的，或者说，以前我们使用New关键字来实现两组间之间的依赖关系的。     这种方式就造成了组件之间的互相 <strong>耦合</strong>。IOC(控制反转)就是来解决这个问题的，它将实现组件间的关系从程序内部提到<strong>外部容器</strong>来管理。     也就是说，由容器在运行期将组件间的某种依赖关系动态的注入组件中。</li>
+<li>IOC的实现方式     1. **依赖查找(Dependency Lookup)**：容器中的受控对象通过容器的API来查找自己所依赖的资源和协作对象。这种方式虽然降低了对象间的依赖，但是同时也使用到了容器的API，造成了我们无法在容器外使用和测试对象。     依赖查找是一种更加传统的IOC实现方式。     2. **依赖注入(Dependency Injection)**：这就是DI，字面上理解，依赖注入就是将服务注入到使用它的地方。对象只提供普通的方法让容器去决定依赖关系，</li>
+<li>IOC与DI的<strong>区别</strong>     对于IOC来说，DI更像是一个用来控制容器的工具，之所以依赖，是根据容器里各个组件之间的关系来决定。</li>
+<li>Spring中的IOC和DI     IOC是Spring的核心，贯穿始终。对于Spring框架来说，就是由Spring来负责控制对象的<strong>生命周期</strong>和<strong>对象间的关系</strong>。     Spring中DI有两种实现方式—Setter方式(传值方式)和构造器方式(引用方式)。</li>
+</ol>
+<h3 id="IOC"><a href="#IOC" class="headerlink" title="IOC"></a>IOC</h3><p>​	假设一种情况，我们要做一个图书馆里系统，我们要定义一个书的Bean类，里面有<strong>书的id</strong>，<strong>书名</strong>，<strong>作者</strong>，<strong>出版社</strong>….等等属性，在一个对象中，如果要使用另外的对象，就必须得到它（自己new一个，或者从JNDI中查询一个），使用完之后还要将对象销毁（比如Connection等），对象始终会和其他的接口或类藕合起来。     而spring中是如何实现的呢？相当于一个图书管理员，它负责管理很多很多书籍的信息，你只需要提供你想要借哪本书、或者说哪种类型的书，那么它就会提供给你，如果不是我们想要的书，我们就抛出异常反馈给它。整个过程不再是我们自己控制的了，我们想要什么书，不用我们去找，也不用我们去造。所有的类都在<code>spring</code>这个容器内登记，我们只需要请求。所有类让<code>spring</code>创建、销毁，也就是说控制对象生存周期的不再是引用它的对象，而是<code>spring</code>。对于某个具体的对象而言，以前是它控制其他对象，现在是所有对象都被<code>spring</code>控制，所以这叫<strong>控制反转</strong>。     所以由上面看，spring的解决方案就是面向接口的编程，对<strong>对象</strong>的控制直接调用接口就可以实现了。（前提是配置好了。🙃）</p>
+<blockquote>
+<p>spring跟传统做法的区别:</p>
+</blockquote>
+<p><img src="/Spring%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3%E2%80%94IOC%E3%80%81DI/1.png" alt="spring跟传统做法的区别" title="spring跟传统做法的区别"></p>
+<blockquote>
+<p>spring的配置原理图：</p>
+</blockquote>
+<p><img src="/Spring%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3%E2%80%94IOC%E3%80%81DI/2.png" alt="spring的配置" title="spring的配置"></p>
+<h3 id="DI"><a href="#DI" class="headerlink" title="DI"></a>DI</h3><p>​	IOC的一个<strong>重点</strong>是在系统运行中，动态的向某个对象提供它所需要的其他对象。这一点是通过<strong>DI（Dependency Injection，依赖注入）</strong>来实现的。比如对象A需要操作数据库，以前我们总是要在A中自己编写代码来获得一个<strong>Connection</strong>对象，有了<strong>spring</strong>我们就只需要告诉spring，A中需要一个<strong>Connection</strong>，至于这个<strong>Connection</strong>怎么构造，何时构造，A不需要知道。在系统运行时，<strong>spring</strong>会在适当的时候制造一个<strong>Connection</strong>，然后像打针一样，注射到A当中，这样就完成了对各个对象之间关系的控制。A需要依赖<strong>Connection</strong>才能正常运行，而这个<strong>Connection</strong>是由<strong>spring</strong>注入到A中的，依赖注入的名字就这么来的。那么DI是如何实现的呢？Java 1.3之后一个重要特征是<strong>反射（reflection）</strong>，它允许程序在运行的时候动态的生成对象、执行对象的方法、改变对象的属性，spring就是通过反射来实现注入的。</p>
+<blockquote>
+<p>更多关于<strong>反射</strong>的内容，可以参考<a href="https://docs.oracle.com/javase/7/docs/api/" title="JAVA文档">JAVA文档</a></p>
+</blockquote>
+<blockquote>
+<p>引自文章<a href="https://blog.csdn.net/baple/article/details/53667767">《Spring核心思想，IoC与DI详解（如果还不明白，放弃java吧）》</a>              <a href="https://blog.csdn.net/javazejian/article/details/54561302">《关于Spring IOC (DI-依赖注入)你需要知道的一切》</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>开发</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Tensorflow做机器学习</title>
+    <url>/tensorflow%E5%81%9A%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</url>
+    <content><![CDATA[<h2 id="使用-TensorFlow-的基本步骤"><a href="#使用-TensorFlow-的基本步骤" class="headerlink" title="使用 TensorFlow 的基本步骤"></a>使用 TensorFlow 的基本步骤</h2><h3 id="学习目标："><a href="#学习目标：" class="headerlink" title="学习目标："></a>学习目标：</h3><ul>
+<li>学习基本的 TensorFlow 概念</li>
+<li>在 TensorFlow 中使用 LinearRegressor 类并基于单个输入特征预测各城市街区的房屋价值中位数</li>
+<li>使用均方根误差 (RMSE) 评估模型预测的准确率</li>
+<li>通过调整模型的超参数提高模型准确率</li>
+</ul>
+<blockquote>
+<p>数据基于_加利福尼亚州 1990 年的人口普查数据_。</p>
+</blockquote>
+<h3 id="1-设置"><a href="#1-设置" class="headerlink" title="1. 设置"></a>1. 设置</h3><p>首先我们要<code>import</code>相应的库，做一些准备工作。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> math</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> IPython</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;IPython version: &#123;&#125;&quot;</span>.<span class="built_in">format</span>(IPython.__version__))</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> matplotlib</span><br><span class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;matplotlib version: &#123;&#125;&quot;</span>.<span class="built_in">format</span>(matplotlib.__version__))</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;NumPy version: &#123;&#125;&quot;</span>.<span class="built_in">format</span>(np.__version__))</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;pandas version: &#123;&#125;&quot;</span>.<span class="built_in">format</span>(pd.__version__))</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> sklearn</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;scikit-learn version: &#123;&#125;&quot;</span>.<span class="built_in">format</span>(sklearn.__version__))</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;tensorflow version: &#123;&#125;&quot;</span>.<span class="built_in">format</span>(tf.__version__))</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> tensorflow.python.data <span class="keyword">import</span> Dataset</span><br><span class="line"><span class="comment">#设置 tf 训练过程中输出报错信息</span></span><br><span class="line"><span class="comment">#如果要设置 tf训练过程中输出loss信息，可以把ERROR改为INFO，复制粘贴一下。</span></span><br><span class="line">tf.logging.set_verbosity(tf.logging.ERROR)</span><br><span class="line"><span class="comment">#设置 pandas 的显示大小、格式</span></span><br><span class="line">pd.options.display.max_rows = <span class="number">10</span>  </span><br><span class="line">pd.options.display.float_format = <span class="string">&#x27;&#123;:.1f&#125;&#x27;</span>.<span class="built_in">format</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>这是我的配置：<br><img src="/Tensorflow%E5%81%9A%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/1.png"></p>
+<p>接下来我们就添加数据集。用到<strong>pands</strong>的<code>read_csv</code>函数。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">california_housing_dataframe = pd.read_csv(<span class="string">&quot;https://storage.googleapis.com/mledu-datasets/california_housing_train.csv&quot;</span>, sep=<span class="string">&quot;,&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>我们将对数据进行随机化处理，以确保不会出现任何病态排序结果（可能会损害随机梯度下降法的效果）。此外，我们会将 <strong>median_house_value</strong> 调整为以千为单位，这样，模型就能够以常用范围内的学习速率较为轻松地学习这些数据。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">california_housing_dataframe = california_housing_dataframe.reindex(np.random.permutation(california_housing_dataframe.index))</span><br><span class="line">california_housing_dataframe[<span class="string">&quot;median_house_value&quot;</span>] /= <span class="number">1000.0</span></span><br><span class="line">california_housing_dataframe</span><br></pre></td></tr></table></figure>
+<p><img src="/Tensorflow%E5%81%9A%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/2.png"></p>
+<h3 id="2-检查数据"><a href="#2-检查数据" class="headerlink" title="2. 检查数据"></a>2. 检查数据</h3><p>建议在使用之前，先观察一下数据，在上面那个步骤的最后一句话应该会输出数据的前几位和后几位，大概能了解数据的字段名。但是还有一个更实用的函数<code>describe()</code>可以输出数据的统计信息快速摘要：<strong>样本数</strong>、<strong>均值</strong>、<strong>标准偏差</strong>、<strong>最大值</strong>、<strong>最小值</strong>和<strong>各种分位数</strong>。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">california_housing_dataframe.describe()</span><br></pre></td></tr></table></figure>
+
+<p><img src="/Tensorflow%E5%81%9A%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/3.png"><br>显示数据的统计摘要</p>
+<h3 id="3-构建第一个模型"><a href="#3-构建第一个模型" class="headerlink" title="3. 构建第一个模型"></a>3. 构建第一个模型</h3><p>我们将尝试预测 <strong>median_house_value</strong>，它将是我们的标签（有时也称为目标）。我们将使用 <strong>total_rooms</strong> 作为输入特征。</p>
+<h4 id="第-1-步：定义特征并配置特征列"><a href="#第-1-步：定义特征并配置特征列" class="headerlink" title="第 1 步：定义特征并配置特征列"></a><strong>第 1 步：定义特征并配置特征列</strong></h4><p>为了将我们的训练数据导入 TensorFlow，我们需要指定每个特征包含的数据类型。我们主要会使用以下两类数据：</p>
+<ul>
+<li><p><strong>分类数据</strong>：一种文字数据。在本练习中，我们的住房数据集不包含任何分类特征，但您可能会看到的示例包括家居风格以及房地产广告词。</p>
+</li>
+<li><p><strong>数值数据</strong>：一种数字（整数或浮点数）数据以及您希望视为数字的数据。有时您可能会希望将数值数据（例如邮政编码）视为分类数据（我们将在稍后的部分对此进行详细说明）。</p>
+</li>
+</ul>
+<p>在 TensorFlow 中，我们使用一种称为“特征列”的结构来表示特征的数据类型。特征列仅存储对特征数据的描述；不包含特征数据本身。 一开始，我们只使用一个数值输入特征 total_rooms。以下代码会从 california_housing_dataframe 中提取 total_rooms 数据，并使用 numeric_column 定义特征列，这样会将其数据指定为数值：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Define the input feature: total_rooms.</span></span><br><span class="line">my_feature = california_housing_dataframe[[<span class="string">&quot;total_rooms&quot;</span>]]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Configure a numeric feature column for total_rooms.</span></span><br><span class="line">feature_columns = [tf.feature_column.numeric_column(<span class="string">&quot;total_rooms&quot;</span>)]</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="第-2-步：定义目标"><a href="#第-2-步：定义目标" class="headerlink" title="第 2 步：定义目标"></a><strong>第 2 步：定义目标</strong></h4><p>接下来，我们将定义目标，也就是 median_house_value。同样，我们可以从 california_housing_dataframe 中提取它：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Define the label.</span></span><br><span class="line">targets = california_housing_dataframe[<span class="string">&quot;median_house_value&quot;</span>]</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="第-3-步：配置-LinearRegressor"><a href="#第-3-步：配置-LinearRegressor" class="headerlink" title="第 3 步：配置 LinearRegressor"></a><strong>第 3 步：配置 LinearRegressor</strong></h4><p>接下来，我们将使用 LinearRegressor 配置线性回归模型，并使用 <code>GradientDescentOptimizer</code>（它会实现小批量随机梯度下降法 (SGD)）训练该模型。learning_rate 参数可控制梯度步长的大小。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Use gradient descent as the optimizer for training the model.</span></span><br><span class="line">my_optimizer=tf.train.GradientDescentOptimizer(learning_rate=<span class="number">0.0000001</span>)</span><br><span class="line">my_optimizer = tf.contrib.estimator.clip_gradients_by_norm(my_optimizer, <span class="number">5.0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Configure the linear regression model with our feature columns and optimizer.</span></span><br><span class="line"><span class="comment"># Set a learning rate of 0.0000001 for Gradient Descent.</span></span><br><span class="line">linear_regressor = tf.estimator.LinearRegressor(</span><br><span class="line">    feature_columns=feature_columns,</span><br><span class="line">    optimizer=my_optimizer</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="第-4-步：定义输入函数"><a href="#第-4-步：定义输入函数" class="headerlink" title="第 4 步：定义输入函数"></a><strong>第 4 步：定义输入函数</strong></h4><p>模型配置完，目标与特征也选完了，把数据导入到<strong>LinearRegressor</strong>去，我们需要定义一个输入函数让它告诉 TensorFlow 如何对数据进行预处理，以及在模型训练期间如何批处理、随机处理和重复数据。 首先，我们将 Pandas 特征数据转换成 NumPy 数组字典。然后，我们可以使用 <strong>TensorFlow Dataset API</strong> 根据我们的数据构建 Dataset 对象，并将数据拆分成大小为 batch_size 的多批数据，以按照指定周期数 (num_epochs) 进行重复。</p>
+<blockquote>
+<p>注意：如果将默认值 num_epochs&#x3D;None 传递到 repeat()，输入数据会无限期重复。</p>
+</blockquote>
+<p>然后，如果 shuffle 设置为 True，则我们会对数据进行随机处理，以便数据在训练期间以随机方式传递到模型。buffer_size 参数会指定 shuffle 将从中随机抽样的数据集的大小。 最后，输入函数会为该数据集构建一个迭代器，并向 LinearRegressor 返回下一批数据。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">my_input_fn</span>(<span class="params">features, targets, batch_size=<span class="number">1</span>, shuffle=<span class="literal">True</span>, num_epochs=<span class="literal">None</span></span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;用一个特征值训练一个线性回归模型</span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">      features: 特征值</span></span><br><span class="line"><span class="string">      targets: 目标值</span></span><br><span class="line"><span class="string">      batch_size: 传递给模型的batch的大小</span></span><br><span class="line"><span class="string">      shuffle: True or False. 决定是否要将数据打乱顺序</span></span><br><span class="line"><span class="string">      num_epochs: 可以重复的元组数， None 表示无重复</span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">      包含下一个数据批的特征、标签的元组（tuple）</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Convert pandas data into a dict of np arrays.</span></span><br><span class="line">    features = &#123;key:np.array(value) <span class="keyword">for</span> key,value <span class="keyword">in</span> <span class="built_in">dict</span>(features).items()&#125;                                           </span><br><span class="line"></span><br><span class="line">    <span class="comment"># Construct a dataset, and configure batching/repeating</span></span><br><span class="line">    ds = Dataset.from_tensor_slices((features,targets)) <span class="comment"># warning: 2GB limit</span></span><br><span class="line">    ds = ds.batch(batch_size).repeat(num_epochs)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Shuffle the data, if specified</span></span><br><span class="line">    <span class="keyword">if</span> shuffle:</span><br><span class="line">      ds = ds.shuffle(buffer_size=<span class="number">10000</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Return the next batch of data</span></span><br><span class="line">    features, labels = ds.make_one_shot_iterator().get_next()</span><br><span class="line">    <span class="keyword">return</span> features, labels</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="第-5-步：训练模型"><a href="#第-5-步：训练模型" class="headerlink" title="第 5 步：训练模型"></a><strong>第 5 步：训练模型</strong></h4><p>现在，我们可以在 linear_regressor 上调用 train() 来训练模型。我们会将 my_input_fn 封装在 lambda 中，以便可以将 my_feature 和 target 作为参数传入,我们可以先训练100步。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">linear_regressor.train(</span><br><span class="line">    input_fn = <span class="keyword">lambda</span>:my_input_fn(my_feature, targets),</span><br><span class="line">    steps=<span class="number">1000</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="第-6-步：评估模型"><a href="#第-6-步：评估模型" class="headerlink" title="第 6 步：评估模型"></a><strong>第 6 步：评估模型</strong></h4><p>我们基于该训练数据做一次预测，看看我们的模型在训练期间与这些数据的拟合情况。 注意：训练误差可以衡量您的模型与训练数据的拟合情况，但并不能衡量模型<strong>泛化</strong>到新数据的效果。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Create an input function for predictions.</span></span><br><span class="line"><span class="comment"># Note: Since we&#x27;re making just one prediction for each example, we don&#x27;t </span></span><br><span class="line"><span class="comment"># need to repeat or shuffle the data here.</span></span><br><span class="line">prediction_input_fn =<span class="keyword">lambda</span>: my_input_fn(my_feature, targets, num_epochs=<span class="number">1</span>, shuffle=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Call predict() on the linear_regressor to make predictions.</span></span><br><span class="line">predictions = linear_regressor.predict(input_fn=prediction_input_fn)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Format predictions as a NumPy array, so we can calculate error metrics.</span></span><br><span class="line">predictions = np.array([item[<span class="string">&#x27;predictions&#x27;</span>][<span class="number">0</span>] <span class="keyword">for</span> item <span class="keyword">in</span> predictions])</span><br><span class="line"></span><br><span class="line"><span class="comment"># Print Mean Squared Error and Root Mean Squared Error.</span></span><br><span class="line">mean_squared_error = sklearn.metrics.mean_squared_error(predictions, targets)</span><br><span class="line">root_mean_squared_error = math.sqrt(mean_squared_error)</span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;Mean Squared Error (on training data): %0.3f&quot;</span> % mean_squared_error</span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;Root Mean Squared Error (on training data): %0.3f&quot;</span> % root_mean_squared_error</span><br></pre></td></tr></table></figure>
+<p><img src="/Tensorflow%E5%81%9A%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/4.png"></p>
+<p>然后我们看一下预测跟目标函数的统计摘要：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">calibration_data = pd.DataFrame()</span><br><span class="line">calibration_data[<span class="string">&quot;predictions&quot;</span>] = pd.Series(predictions)</span><br><span class="line">calibration_data[<span class="string">&quot;targets&quot;</span>] = pd.Series(targets)</span><br><span class="line">calibration_data.describe()</span><br></pre></td></tr></table></figure>
+
+<p><img src="/Tensorflow%E5%81%9A%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/5.png"></p>
+<p>我们也可以根据模型绘制出散点图：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">sample = california_housing_dataframe.sample(n=<span class="number">300</span>)</span><br><span class="line"><span class="comment"># Get the min and max total_rooms values.</span></span><br><span class="line">x_0 = sample[<span class="string">&quot;total_rooms&quot;</span>].<span class="built_in">min</span>()</span><br><span class="line">x_1 = sample[<span class="string">&quot;total_rooms&quot;</span>].<span class="built_in">max</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Retrieve the final weight and bias generated during training.</span></span><br><span class="line">weight = linear_regressor.get_variable_value(<span class="string">&#x27;linear/linear_model/total_rooms/weights&#x27;</span>)[<span class="number">0</span>]</span><br><span class="line">bias = linear_regressor.get_variable_value(<span class="string">&#x27;linear/linear_model/bias_weights&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Get the predicted median_house_values for the min and max total_rooms values.</span></span><br><span class="line">y_0 = weight * x_0 + bias </span><br><span class="line">y_1 = weight * x_1 + bias</span><br><span class="line"></span><br><span class="line"><span class="comment"># Plot our regression line from (x_0, y_0) to (x_1, y_1).</span></span><br><span class="line">plt.plot([x_0, x_1], [y_0, y_1], c=<span class="string">&#x27;r&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Label the graph axes.</span></span><br><span class="line">plt.ylabel(<span class="string">&quot;median_house_value&quot;</span>)</span><br><span class="line">plt.xlabel(<span class="string">&quot;total_rooms&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Plot a scatter plot from our data sample.</span></span><br><span class="line">plt.scatter(sample[<span class="string">&quot;total_rooms&quot;</span>], sample[<span class="string">&quot;median_house_value&quot;</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># Display graph.</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<p><img src="/Tensorflow%E5%81%9A%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/6.png"></p>
+<p>这条初始线看起来与目标相差很大。看看您能否回想起摘要统计信息，并看到其中蕴含的相同信息。 然后重新设置之前的参数，继续训练，看能否找到更好的结果。<br>综上所述，这些初始健全性检查提示我们也许可以找到更好的线。</p>
+]]></content>
+      <categories>
+        <category>MachineLearning</category>
+      </categories>
+      <tags>
+        <tag>tensorflow</tag>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>华为Cloud&amp;Bu 软开凉经</title>
+    <url>/%E5%8D%8E%E4%B8%BAcloud-bu-%E8%BD%AF%E5%BC%80%E5%87%89%E7%BB%8F/</url>
+    <content><![CDATA[<h2 id="华为Cloud-amp-Bu-软开面经"><a href="#华为Cloud-amp-Bu-软开面经" class="headerlink" title="华为Cloud&amp;Bu 软开面经"></a>华为Cloud&amp;Bu 软开面经</h2><h3 id="一面："><a href="#一面：" class="headerlink" title="一面："></a>一面：</h3><ol>
+<li><strong>计算机网络</strong>：V-LAN、虚拟网关</li>
+<li><strong>操作系统</strong>：两个线程如何通信</li>
+<li><strong>组成原理</strong>：软中断和硬中断</li>
+<li><strong>项目（Java）</strong>：<br>多线程如何实现；<br>所有类的父类是什么；<br>SpringBoot有啥特点；<br>SpringBoot的Bean都有哪些；<br>SpringBoot中的Request跟Response是多线程的吗，在哪里生成，如何赋值。<br>SpringBoot里对象的生命周期<br>手撕 or 设计模式</li>
+<li><strong>数据结构</strong>：<br>问：速度最快且稳定的排序算法<br>答：归并吧<br>“那你实现一下吧”<br>（手撕一道水题）实现一个归并算法</li>
+</ol>
+<h3 id="二面："><a href="#二面：" class="headerlink" title="二面："></a>二面：</h3><ol>
+<li><strong>数据结构</strong>：<br>数组跟链表有什么区别？<br>平衡二叉树定义说一下、如何插入一个数、有什么应用？</li>
+<li>设计模式了解吗？说一下常用的几个设计模式。</li>
+<li>那你做过什么项目，用什么语言，答：Java<br>（感觉不会java的面试官 2333）<br>聊项目。</li>
+<li>给了一个情景，假如有很多条主机数据，他们有各自的ip跟存储的信息，我想要去重，（集合？），那你设计一下这个主机类，如何用集合来去重？ balabalabala…….</li>
+</ol>
+<p>ok 来看一道题目给你20分钟（然后共享屏幕开始敲）<br>题目是leetcode.56 合并区间 大意就是给你一堆区间的集合，然后你把重叠区间合并掉，返回全部区间的集合。</p>
+<h3 id="三面-主管面"><a href="#三面-主管面" class="headerlink" title="三面(主管面):"></a>三面(主管面):</h3><ol>
+<li>看你实习过，先说一下你实习期间做了什么吧</li>
+<li>（因为我说大三准备考研了）你学习成绩怎么样。班级里考研的多吗，现在找到工作的多吗</li>
+<li>复盘一面的知识：你说一下你一面算法题实现了什么东西。balabala….<br>计算机网络：说一下TCP&#x2F;IP协议的三次握手&#x2F;四次握手<br>数据结构：说一下冒泡排序</li>
+<li>你还做过什么项目，你在项目里的定位是什么，实现了什么功能。<br>数据库：主键和外键<br>平时会看什么书…… （聊一下Spring微服务吧 这个应该跟你看了什么书有关系）</li>
+<li>你有什么问题要问我的。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>开发</category>
+        <category>面试</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>八大排序算法</title>
+    <url>/%E5%85%AB%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<h3 id="八大排序算法"><a href="#八大排序算法" class="headerlink" title="八大排序算法"></a>八大排序算法</h3><h4 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h4><p>一、算法思想     它重复地走访要排序地数列，一次比较两个元素，如果他们的顺序有误就把他们交换一下。走访数列的工作是重复地进行直到没有再需要交换，即该数列已经排序完成。     <strong>动态效果示意图：</strong> <img src="/%E5%85%AB%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/1.gif" alt="冒泡示意图">     假设有一个大小为 N 的无序序列。以升序冒泡排序为例，冒泡排序就是要<strong>每趟排序过程中通过两两比较相邻元素，将小的数字放到前面，大的数字放在后面。</strong> 二、代码</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">bubbleSort</span><span class="params">(vector&lt;<span class="type">int</span>&gt; list)</span></span>&#123;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; result;</span><br><span class="line">    <span class="keyword">if</span> (list.<span class="built_in">empty</span>())&#123;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    result = list;</span><br><span class="line">    <span class="type">int</span> temp;</span><br><span class="line">    <span class="comment">// 要遍历的次数</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; result.<span class="built_in">size</span>() - <span class="number">1</span>; ++i)&#123;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;第&quot;</span> &lt;&lt; i + <span class="number">1</span> &lt;&lt; <span class="string">&quot;趟排序:&quot;</span> &lt;&lt; endl;;</span><br><span class="line">        <span class="comment">// 从后向前依次的比较相邻两个数的大小</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; result.<span class="built_in">size</span>() - <span class="number">1</span>; j++)&#123;</span><br><span class="line">            <span class="comment">// 如果后面的元素小，则交换它们的位置</span></span><br><span class="line">            <span class="keyword">if</span> (result[j + <span class="number">1</span>] &lt; result[j])&#123;</span><br><span class="line">                temp = result[j + <span class="number">1</span>];</span><br><span class="line">                result[j + <span class="number">1</span>] = result[j];</span><br><span class="line">                result[j] = temp;</span><br><span class="line">            &#125;</span><br><span class="line">            cout &lt;&lt; <span class="string">&quot;排序中:&quot;</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> s = <span class="number">0</span>; s &lt; result.<span class="built_in">size</span>(); s++)&#123;</span><br><span class="line">                cout &lt;&lt; result[s] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            cout &lt;&lt; endl;</span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;排序结果:&quot;</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> s = <span class="number">0</span>; s &lt; result.<span class="built_in">size</span>(); s++)&#123;</span><br><span class="line">            cout &lt;&lt; result[s] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> arr[] = &#123; <span class="number">6</span>, <span class="number">4</span>, <span class="number">8</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">9</span> &#125;;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">test</span><span class="params">(arr, arr + <span class="keyword">sizeof</span>(arr) / <span class="keyword">sizeof</span>(arr[<span class="number">0</span>]))</span></span>;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;排序前&quot;</span> &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; test.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">        cout &lt;&lt; test[i] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; result;</span><br><span class="line">    result = <span class="built_in">bubbleSort</span>(test);</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;排序后&quot;</span> &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; result.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">        cout &lt;&lt; result[i] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">    <span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p>简单的来说，代码就是用两个for嵌套循环遍历数列，然后两两比较，交换顺序。所以很明显，<strong>时间复杂度</strong>为O(n^2)。</p>
+<h4 id="直接插入排序"><a href="#直接插入排序" class="headerlink" title="直接插入排序"></a>直接插入排序</h4><p>一、算法思想     <strong>插入排序：</strong> 每一趟将一个待排序的记录，按照其关键字的大小插入到有序队列的合适位置里，直到全部插入完成。     <strong>动态效果示意图：</strong> <img src="/%E5%85%AB%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/2.gif" alt="直接插入排序示意图"> 以上的过程，就是典型的直接插入排序，每次将一个新数据插入到有序队列中的合适位置。 假设有一组无序序列 R0,R1, … ,RN-1。</p>
+<ol>
+<li>我们先将这个序列中下标为0的元素视为元素个数为1的有序序列。</li>
+<li>然后依次遍历R1,R2,…,RN-1。把他们插入到这个有序序列中。</li>
+<li>插入Ri时，前Ri-1个数肯定是有序序列了。所以只需要将Ri跟R0~Ri-1进行比较，有一个内部循环。</li>
+</ol>
+<p>二、代码 C++： </p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">insertSort</span><span class="params">(vector&lt;<span class="type">int</span>&gt; list)</span></span>&#123;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; result;</span><br><span class="line">    <span class="keyword">if</span> (list.<span class="built_in">empty</span>())&#123;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">    result = list;</span><br><span class="line">    <span class="comment">// 第1个数肯定是有序的，从第2个数开始遍历，依次插入有序序列</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt; result.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">        <span class="comment">// 取出第i个数，和前i-1个数比较后，插入合适位置</span></span><br><span class="line">        <span class="type">int</span> temp = result[i];</span><br><span class="line">        <span class="comment">// 因为前i-1个数都是从小到大的有序序列，所以只要当前比较的数(list[j])比temp大，就把这个数后移一位</span></span><br><span class="line">        <span class="type">int</span> j = i - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (j; j &gt;= <span class="number">0</span> &amp;&amp; result[j] &gt; temp; j--)&#123;</span><br><span class="line">            result[j + <span class="number">1</span>] = result[j];</span><br><span class="line">        &#125;</span><br><span class="line">        result[j + <span class="number">1</span>] = temp;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> arr[] = &#123; <span class="number">6</span>, <span class="number">4</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span> &#125;;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">test</span><span class="params">(arr, arr + <span class="keyword">sizeof</span>(arr) / <span class="keyword">sizeof</span>(arr[<span class="number">0</span>]))</span></span>;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;排序前&quot;</span> &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; test.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">        cout &lt;&lt; test[i] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; result;</span><br><span class="line">    result = <span class="built_in">insertSort</span>(test);</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;排序后&quot;</span> &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; result.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">        cout &lt;&lt; result[i] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">    <span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>然后这个时间复杂度，如果数据正序，效率最好，每一次插入都不用移动元素，那就直接遍历一次，时间复杂度为**O(N)<strong>； 如果数据反序，每一次插入都需要将前面的元素后移，时间复杂度为</strong>O(N)**。 空间复杂度为1。 由于，在插入序列过程中，序列是有序的，所以可以使用二分查找，减少元素比较次数，提高程序效率。</p>
+<h4 id="希尔排序"><a href="#希尔排序" class="headerlink" title="希尔排序"></a>希尔排序</h4><p>一、算法思想 希尔(Shell)排序又称为<strong>缩小增量排序</strong>，它是一种<strong>插入排序</strong>。它<strong>是直接插入排序算法的一种威力加强版</strong>。 假设有这样一组数 {13, 14, 94, 33, 82, 25, 59, 94, 65, 23, 45, 27, 73, 25, 39, 10}，如果我们以步长为 5 开始进行排序：</p>
+<pre><code>13 14 94 33 82
+25 59 94 65 23
+45 27 73 25 39
+10
+</code></pre>
+<p>然后我们对<strong>每列</strong>进行排序：</p>
+<pre><code>10 14 73 25 23
+13 27 94 33 39
+25 59 94 65 82
+45
+</code></pre>
+<p>将上述四行数字，依序接在一起时我们得到：{10, 14, 73, 25, 23, 13, 27, 94, 33, 39, 25, 59, 94, 65, 82, 45}，然后再以 3 为步长：</p>
+<pre><code>10 14 73
+25 23 13
+27 94 33
+39 25 59
+94 65 82
+45
+</code></pre>
+<p>排序之后变为：</p>
+<pre><code>10 14 13
+25 23 33
+27 25 59
+39 65 73
+45 94 82
+94
+</code></pre>
+<p>最后以 1 为步长进行排序（此时就是简单的插入排序了）。 简而言之，希尔排序就是每隔几个插入的插入排序。（每隔几个就是步长）。 步长更新一般是d&#x3D;d&#x2F;2 或者d&#x3D;3d+1<br>二、代码</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">    <span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">ShellSort</span><span class="params">(vector&lt;<span class="type">int</span>&gt; list)</span></span>&#123;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; result = list;</span><br><span class="line">    <span class="type">int</span> n = result.<span class="built_in">size</span>();</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> gap = n &gt;&gt; <span class="number">1</span>; gap &gt; <span class="number">0</span>; gap &gt;&gt;= <span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = gap; i &lt; n; i++)&#123;</span><br><span class="line">            <span class="type">int</span> temp = result[i];</span><br><span class="line">            <span class="type">int</span> j = i - gap;</span><br><span class="line">            <span class="keyword">while</span> (j &gt;= <span class="number">0</span> &amp;&amp; result[j] &gt; temp)&#123;</span><br><span class="line">                result[j + gap] = result[j];</span><br><span class="line">                j -= gap;</span><br><span class="line">            &#125;</span><br><span class="line">            result[j + gap] = temp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; result.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">            cout &lt;&lt; result[i] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> arr[] = &#123; <span class="number">6</span>, <span class="number">4</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span> &#125;;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">test</span><span class="params">(arr, arr + <span class="keyword">sizeof</span>(arr) / <span class="keyword">sizeof</span>(arr[<span class="number">0</span>]))</span></span>;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;排序前&quot;</span> &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; test.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">        cout &lt;&lt; test[i] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; result;</span><br><span class="line">    result = <span class="built_in">ShellSort</span>(test);</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;排序后&quot;</span> &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; result.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">        cout &lt;&lt; result[i] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">    <span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度跟步长有关，步长不同，时间复杂度也不同。 希尔排序中相等的数据可能会交换位置，所以希尔排序是<strong>不稳定</strong>的算法。 直接插入排序是<strong>稳定</strong>的；而希尔排序是<strong>不稳定</strong>的。 直接插入排序更适合于原始记录<strong>基本有序</strong>的集合。 希尔排序的比较次数和移动次数都要比直接插入排序少，当N越大时，效果越明显。 直接插入排序也<strong>适用于链式存储结构</strong>；希尔排序<strong>不适用于链式结构</strong>。</p>
+<h4 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h4><p>一、算法思想     快速排序的基本思想是：通过一趟排序将要排序的数据<strong>分割</strong>成独立的两部分：<strong>分割点左边都是比它小的数，右边都是比它大的数</strong>。     然后再按此方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，以此达到整个数据变成有序序列。 <img src="/%E5%85%AB%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/3.gif" alt="快速排序的示意图"> 二、代码 我就不手写了，直接调用库函数<code>qsort()</code>，用法的话，就是定义一个cmp比较函数，然后放进去就好了。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">QuickSort</span><span class="params">(<span class="type">int</span> A[], <span class="type">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="built_in">QSort</span>(A, <span class="number">0</span>, n<span class="number">-1</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">QSort</span><span class="params">(<span class="type">int</span> A[],<span class="type">int</span> low, <span class="type">int</span> high)</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> pivotloc;</span><br><span class="line">    <span class="keyword">if</span>(low &lt; high)&#123;</span><br><span class="line">        pivotloc = <span class="built_in">Partition</span>(A, low, high);</span><br><span class="line">        <span class="built_in">QSort</span>(A, low, pivotloc<span class="number">-1</span>);</span><br><span class="line">        <span class="built_in">QSort</span>(A, pivotloc+<span class="number">1</span>, high);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">Partition</span><span class="params">(<span class="type">int</span> A[], <span class="type">int</span> low, <span class="type">int</span> high)</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> pivot;</span><br><span class="line">    pivot = A[low];</span><br><span class="line">    <span class="keyword">while</span>(low &lt; high)&#123;</span><br><span class="line">        <span class="keyword">while</span>(low &lt; high &amp;&amp; A[high] &gt;= pivot)</span><br><span class="line">            high--;</span><br><span class="line">        A[low] = A[high];</span><br><span class="line">        <span class="keyword">while</span>(low &lt; high &amp;&amp; A[low] &lt;= pivot)</span><br><span class="line">            low++;</span><br><span class="line">        A[high] = A[low];</span><br><span class="line">    &#125;</span><br><span class="line">    A[low] = pivot;</span><br><span class="line">    <span class="keyword">return</span> low;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="简单选择排序"><a href="#简单选择排序" class="headerlink" title="简单选择排序"></a>简单选择排序</h4><p>一、算法思想 简单排序很简单，它的大致处理流程为：</p>
+<ul>
+<li>从待排序序列中，找到关键字最小的元素；</li>
+<li>如果最小元素不是待排序序列的第一个元素，将其和第一个元素互换；</li>
+<li>从余下的 N - 1 个元素中，找出关键字最小的元素，重复(1)、(2)步，直到排序结束。</li>
+</ul>
+<p><strong>动态效果示意图：</strong> <img src="/%E5%85%AB%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/4.gif" alt="简单选择排序"> 二、代码</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 简单选择排序</span></span><br><span class="line"><span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">SelectSort</span><span class="params">(vector&lt;<span class="type">int</span>&gt; list)</span></span>&#123;</span><br><span class="line">    <span class="comment">// 需要遍历获得最小值的次数</span></span><br><span class="line">    <span class="comment">// 要注意一点，当要排序 N 个数，已经经过 N-1 次遍历后，已经是有序数列</span></span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; result = list;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; result.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">        <span class="comment">// 用来保存最小值得索引</span></span><br><span class="line">        <span class="type">int</span> index = i;</span><br><span class="line">        <span class="comment">// 用来保存最小值得索引</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> j = i + <span class="number">1</span>; j &lt; result.<span class="built_in">size</span>(); j++)&#123;</span><br><span class="line">            <span class="keyword">if</span> (result[index] &gt; result[j])&#123;</span><br><span class="line">                index = j;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 将找到的第i个小的数值放在第i个位置上</span></span><br><span class="line">        <span class="built_in">swap</span>(result[i], result[index]);</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;第&quot;</span> &lt;&lt; i + <span class="number">1</span>&lt;&lt; <span class="string">&quot;趟:\t&quot;</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; result.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">            cout &lt;&lt; result[i] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> arr[] = &#123; <span class="number">6</span>, <span class="number">4</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span> &#125;;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">test</span><span class="params">(arr, arr + <span class="keyword">sizeof</span>(arr) / <span class="keyword">sizeof</span>(arr[<span class="number">0</span>]))</span></span>;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;排序前&quot;</span> &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; test.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">        cout &lt;&lt; test[i] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; result;</span><br><span class="line">    result = <span class="built_in">SelectSort</span>(test);</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;排序后&quot;</span> &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; result.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">        cout &lt;&lt; result[i] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度为**O(N^2)**。</p>
+<h4 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h4><p>一、算法思想 堆排序是一种<strong>选择排序。</strong> <strong>选择排序</strong>：每趟从待排序的记录中选出关键字最小的记录，顺序放在已排序的记录序列末尾，直到全部排序结束为止。 <strong>动态示意图：</strong> <img src="/%E5%85%AB%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/5.gif" alt="堆排序"> <strong>堆</strong>是一棵<strong>顺序存储</strong>的<strong>完全二叉树</strong>。</p>
+<ul>
+<li>其中每个结点的关键字都不大于其孩子结点的关键字，这样的堆称为<strong>小根堆</strong>。</li>
+<li>其中每个结点的关键字都不小于其孩子结点的关键字，这样的堆称为<strong>大根堆</strong>。</li>
+</ul>
+<p>堆一般<strong>满足以下规律</strong>： 设当前元素在数组中以<strong>R[i]<strong>表示，那么， (1) 它的</strong>左孩子结点</strong>是：<strong>R[2*i+1]</strong>; (2) 它的<strong>右孩子结点</strong>是：<strong>R[2*i+2]</strong>; (3) 它的<strong>父结点</strong>是：<strong>R[(i-1)&#x2F;2]</strong>; (4) R[i] &lt;&#x3D; R[2*i+1] 且 R[i] &lt;&#x3D; R[2i+2]。 还是针对前面提到的无序序列 { 1, 3, 4, 5, 2, 6, 9, 7, 8, 0 } 来加以说明。 <img src="/%E5%85%AB%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/6.png"> 二、代码</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">HeapAdjust</span><span class="params">(vector&lt;<span class="type">int</span>&gt; &amp;list, <span class="type">int</span> parent, <span class="type">int</span> length)</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> temp = list[parent];                    <span class="comment">// temp保存当前父节点</span></span><br><span class="line">    <span class="type">int</span> child = <span class="number">2</span> * parent + <span class="number">1</span>;                 <span class="comment">// 先获得左孩子</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (child &lt; length)&#123;</span><br><span class="line">        <span class="comment">// 如果有右孩子结点，并且右孩子结点的值大于左孩子结点，则选取右孩子结点</span></span><br><span class="line">        <span class="keyword">if</span> (child + <span class="number">1</span> &lt; length &amp;&amp; list[child] &lt; list[child + <span class="number">1</span>])&#123;</span><br><span class="line">            child++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 如果有右孩子结点，并且右孩子结点的值大于左孩子结点，则选取右孩子结点</span></span><br><span class="line">        <span class="keyword">if</span> (temp &gt;= list[child])&#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 把孩子结点的值赋给父结点</span></span><br><span class="line">        list[parent] = list[child];</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 选取孩子结点的左孩子结点,继续向下筛选</span></span><br><span class="line">        parent = child;</span><br><span class="line">        child = <span class="number">2</span> * parent + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    list[parent] = temp;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">HeadSort</span><span class="params">(vector&lt;<span class="type">int</span>&gt; list)</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> length = list.<span class="built_in">size</span>();</span><br><span class="line">    <span class="comment">// 循环建立初始堆</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = length / <span class="number">2</span>; i &gt;= <span class="number">0</span>; i--)&#123;</span><br><span class="line">        <span class="built_in">HeapAdjust</span>(list, i, length);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 进行n-1次循环，完成排序</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = length - <span class="number">1</span>; i &gt; <span class="number">0</span>; i--)&#123;</span><br><span class="line">        <span class="comment">// 最后一个元素和第一元素进行交换</span></span><br><span class="line">        <span class="type">int</span> temp = list[i];</span><br><span class="line">        list[i] = list[<span class="number">0</span>];</span><br><span class="line">        list[<span class="number">0</span>] = temp;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 筛选 R[0] 结点，得到i-1个结点的堆</span></span><br><span class="line">        <span class="built_in">HeapAdjust</span>(list, <span class="number">0</span>, i);</span><br><span class="line">        cout &lt;&lt; <span class="string">&quot;第&quot;</span> &lt;&lt; length - i &lt;&lt; <span class="string">&quot;趟排序:&quot;</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; list.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">            cout &lt;&lt; list[i] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        cout &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> list;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> arr[] = &#123; <span class="number">6</span>, <span class="number">4</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span> &#125;;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">test</span><span class="params">(arr, arr + <span class="keyword">sizeof</span>(arr) / <span class="keyword">sizeof</span>(arr[<span class="number">0</span>]))</span></span>;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;排序前:&quot;</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; test.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">        cout &lt;&lt; test[i] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; result;</span><br><span class="line">    result = <span class="built_in">HeadSort</span>(test);</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;排序后:&quot;</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; result.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">        cout &lt;&lt; result[i] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">    <span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度为O(nlogn)。</p>
+<h4 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h4><p>一、算法思想 该算法采用经典的<strong>分治</strong>策略。 <strong>动态效果示意图：</strong> <img src="/%E5%85%AB%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/7.gif" alt="归并排序"> 归并排序，分而治，先把一串数列分成最小的元素，然后再合成的时候排序，最后合成一串有序数列。 二、代码</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Merge</span><span class="params">(vector&lt;<span class="type">int</span>&gt; &amp;input, <span class="type">int</span> left, <span class="type">int</span> mid, <span class="type">int</span> right, vector&lt;<span class="type">int</span>&gt; temp)</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> i = left;               <span class="comment">// i是第一段序列的下标</span></span><br><span class="line">    <span class="type">int</span> j = mid + <span class="number">1</span>;            <span class="comment">// j是第二段序列的下标</span></span><br><span class="line">    <span class="type">int</span> k = <span class="number">0</span>;                  <span class="comment">// k是临时存放合并序列的下标</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 扫描第一段和第二段序列，直到有一个扫描结束</span></span><br><span class="line">    <span class="keyword">while</span> (i &lt;= mid &amp;&amp; j &lt;= right)&#123;</span><br><span class="line">        <span class="comment">// 判断第一段和第二段取出的数哪个更小，将其存入合并序列，并继续向下扫描</span></span><br><span class="line">        <span class="keyword">if</span> (input[i] &lt;= input[j])&#123;</span><br><span class="line">            temp[k++] = input[i++];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            temp[k++] = input[j++];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 若第一段序列还没扫描完，将其全部复制到合并序列</span></span><br><span class="line">    <span class="keyword">while</span> (i &lt;= mid)&#123;</span><br><span class="line">        temp[k++] = input[i++];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 若第二段序列还没扫描完，将其全部复制到合并序列</span></span><br><span class="line">    <span class="keyword">while</span> (j &lt;= right)&#123;</span><br><span class="line">        temp[k++] = input[j++];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    k = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// 将合并序列复制到原始序列中</span></span><br><span class="line">    <span class="keyword">while</span> (left &lt;= right)&#123;</span><br><span class="line">        input[left++] = temp[k++];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">MergeSort</span><span class="params">(vector&lt;<span class="type">int</span>&gt; &amp;input, <span class="type">int</span> left, <span class="type">int</span> right, vector&lt;<span class="type">int</span>&gt; temp)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (left &lt; right)&#123;</span><br><span class="line">        <span class="type">int</span> mid = (right + left) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">        <span class="built_in">MergeSort</span>(input, left, mid, temp);</span><br><span class="line">        <span class="built_in">MergeSort</span>(input, mid + <span class="number">1</span>, right, temp);</span><br><span class="line">        <span class="built_in">Merge</span>(input, left, mid, right, temp);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">mergesort</span><span class="params">(vector&lt;<span class="type">int</span>&gt; &amp;input)</span></span>&#123;</span><br><span class="line">    <span class="comment">// 在排序前，先建好一个长度等于原数组长度的临时数组，避免递归中频繁开辟空间</span></span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">temp</span><span class="params">(input.size())</span></span>;             </span><br><span class="line">    <span class="built_in">MergeSort</span>(input, <span class="number">0</span>, input.<span class="built_in">size</span>() - <span class="number">1</span>, temp);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> arr[] = &#123; <span class="number">6</span>, <span class="number">4</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span>&#125;;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">test</span><span class="params">(arr, arr + <span class="keyword">sizeof</span>(arr) / <span class="keyword">sizeof</span>(arr[<span class="number">0</span>]))</span></span>;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;排序前:&quot;</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; test.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">        cout &lt;&lt; test[i] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; result = test;</span><br><span class="line">    <span class="built_in">mergesort</span>(result);</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;排序后:&quot;</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; result.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">        cout &lt;&lt; result[i] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">    <span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度为O(nlog2n)。 <strong>归并排序和堆排序、快速排序的比较</strong></p>
+<ul>
+<li>若从空间复杂度来考虑：首选堆排序，其次是快速排序，最后是归并排序。</li>
+<li>若从稳定性来考虑，应选取归并排序，因为堆排序和快速排序都是不稳定的。</li>
+<li>若从平均情况下的排序速度考虑，应该选择快速排序。</li>
+</ul>
+<h4 id="基数排序"><a href="#基数排序" class="headerlink" title="基数排序"></a>基数排序</h4><p>一、算法思想 在讲基数排序之前，先讲一下计数排序和桶排序。 老师给全班学生成绩排名，满分100分，那么老师可以选择一种排序方式，从0分到100分分成5个档次，0<del>20分；21</del>40分；41<del>60分；61</del>80分；81~100分。然后依次把每人的成绩对应的档次填进去。最后公布排名就直接按档次顺序念。如果还要分的再细一点，可以分成<strong>10个档次</strong>、<strong>100个档次</strong>。 而基数排序就是类似这样的一种排序。 它的<strong>基本思想</strong>：将所有待比较数值（正整数）统一为同样的数位长度，数位较短的数前面补零。然后，从最低位开始，依次进行一次排序。这样从最低位排序一直到最高位排序完成以后,数列就变成一个有序序列。 只不过基数排序不用开这么大的数组，它按照个位数归类，再按照十位数归类，一直到最高最。 <strong>动态效果示意图：</strong> <img src="/%E5%85%AB%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/8.gif" alt="基数排序"><br>二、代码</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 求出数组中最大数的位数的函数</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">MaxBit</span><span class="params">(vector&lt;<span class="type">int</span>&gt; input)</span></span>&#123;</span><br><span class="line">    <span class="comment">// 数组最大值</span></span><br><span class="line">    <span class="type">int</span> max_data = input[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt; input.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">        <span class="keyword">if</span> (input[i] &gt; max_data)&#123;</span><br><span class="line">            max_data = input[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 数组最大值的位数</span></span><br><span class="line">    <span class="type">int</span> bits_num = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (max_data)&#123;</span><br><span class="line">        bits_num++;</span><br><span class="line">        max_data /= <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> bits_num;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 取数xxx上的第d位数字</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">digit</span><span class="params">(<span class="type">int</span> num, <span class="type">int</span> d)</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> pow = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (--d &gt; <span class="number">0</span>)&#123;</span><br><span class="line">        pow *= <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> num / pow % <span class="number">10</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 基数排序</span></span><br><span class="line"><span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">RadixSort</span><span class="params">(vector&lt;<span class="type">int</span>&gt; input, <span class="type">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="comment">// 临时数组，用来存放排序过程中的数据</span></span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">bucket</span><span class="params">(n)</span></span>;                  </span><br><span class="line">    <span class="comment">// 位记数器，从第0个元素到第9个元素依次用来记录当前比较位是0的有多少个...是9的有多少个数</span></span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">count</span><span class="params">(<span class="number">10</span>)</span></span>;              </span><br><span class="line">    <span class="comment">// 从低位往高位循环</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> d = <span class="number">1</span>; d &lt;= <span class="built_in">MaxBit</span>(input); d++)&#123;</span><br><span class="line">        <span class="comment">// 计数器清0</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++)&#123;</span><br><span class="line">            count[i] = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 统计各个桶中的个数</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">            count[<span class="built_in">digit</span>(input[i],d)]++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">        * 比如某次经过上面统计后结果为：[0, 2, 3, 3, 0, 0, 0, 0, 0, 0]则经过下面计算后 结果为： [0, 2,</span></span><br><span class="line"><span class="comment">        * 5, 8, 8, 8, 8, 8, 8, 8]但实质上只有如下[0, 2, 5, 8, 0, 0, 0, 0, 0, 0]中</span></span><br><span class="line"><span class="comment">        * 非零数才用到，因为其他位不存在，它们分别表示如下：2表示比较位为1的元素可以存放在索引为1、0的</span></span><br><span class="line"><span class="comment">        * 位置，5表示比较位为2的元素可以存放在4、3、2三个(5-2=3)位置，8表示比较位为3的元素可以存放在</span></span><br><span class="line"><span class="comment">        * 7、6、5三个(8-5=3)位置</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i &lt; <span class="number">10</span>; i++)&#123;</span><br><span class="line">            count[i] += count[i - <span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">        * 注，这里只能从数组后往前循环，因为排序时还需保持以前的已排序好的顺序，不应该打</span></span><br><span class="line"><span class="comment">        * 乱原来已排好的序，如果从前往后处理，则会把原来在前面会摆到后面去，因为在处理某个</span></span><br><span class="line"><span class="comment">        * 元素的位置时，位记数器是从大到到小（count[digit(arr[i], d)]--）的方式来处</span></span><br><span class="line"><span class="comment">        * 理的，即先存放索引大的元素，再存放索引小的元素，所以需从最后一个元素开始处理。</span></span><br><span class="line"><span class="comment">        * 如有这样的一个序列[212,213,312]，如果按照从第一个元素开始循环的话，经过第一轮</span></span><br><span class="line"><span class="comment">        * 后（个位）排序后，得到这样一个序列[312,212,213]，第一次好像没什么问题，但问题会</span></span><br><span class="line"><span class="comment">        * 从第二轮开始出现，第二轮排序后，会得到[213,212,312]，这样个位为3的元素本应该</span></span><br><span class="line"><span class="comment">        * 放在最后，但经过第二轮后却排在了前面了，所以出现了问题</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = n - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--)&#123;</span><br><span class="line">            <span class="type">int</span> k = <span class="built_in">digit</span>(input[i], d);</span><br><span class="line">            bucket[count[k] - <span class="number">1</span>] = input[i];</span><br><span class="line">            count[k]--;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 临时数组复制到 input 中</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">            input[i] = bucket[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> input;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> arr[] = &#123; <span class="number">50</span>, <span class="number">123</span>, <span class="number">543</span>, <span class="number">187</span>, <span class="number">49</span>, <span class="number">30</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">11</span>, <span class="number">100</span> &#125;;</span><br><span class="line">    <span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">test</span><span class="params">(arr, arr + <span class="keyword">sizeof</span>(arr) / <span class="keyword">sizeof</span>(arr[<span class="number">0</span>]))</span></span>;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;排序前:&quot;</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; test.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">        cout &lt;&lt; test[i] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; result = test;</span><br><span class="line">    result = <span class="built_in">RadixSort</span>(result, result.<span class="built_in">size</span>());</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;排序后:&quot;</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; result.<span class="built_in">size</span>(); i++)&#123;</span><br><span class="line">        cout &lt;&lt; result[i] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">    <span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>时间复杂度O(n*d) 空间复杂度O(n)。 d表示最高位位数。</p>
+]]></content>
+      <categories>
+        <category>Programming</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>c++</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>机器学习入门路线</title>
+    <url>/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%85%A5%E9%97%A8%E8%B7%AF%E7%BA%BF/</url>
+    <content><![CDATA[<h3 id="Python进阶学习——机器学习入门路线"><a href="#Python进阶学习——机器学习入门路线" class="headerlink" title="Python进阶学习——机器学习入门路线"></a>Python进阶学习——机器学习入门路线</h3><h5 id="一、引言"><a href="#一、引言" class="headerlink" title="一、引言"></a>一、引言</h5><p>套用一下大神们对机器学习的定义，机器学习研究的是计算机怎样模拟人类的学习行为，以获取新的知识或技能，并重新组织已有的知识结构使之不断改善自身。简单一点说，就是计算机从数据中学习出规律和模式，以应用在新数据上做预测的任务。近年来互联网数据大爆炸，数据的丰富度和覆盖面远远超出人工可以观察和总结的范畴，而机器学习的算法能指引计算机在海量数据中，挖掘出有用的价值，也使得无数学习者为之着迷。</p>
+<h5 id="二、解决的问题"><a href="#二、解决的问题" class="headerlink" title="二、解决的问题"></a>二、解决的问题</h5><ol>
+<li><p>分类问题（有限个类别）</p>
+<ul>
+<li>垃圾邮件分类</li>
+<li>文本情感分类</li>
+<li>图像内容识别</li>
+</ul>
+</li>
+<li><p>回归问题</p>
+<ul>
+<li>电影票房预测</li>
+<li>房价预测</li>
+</ul>
+</li>
+<li><p>聚类问题（相近\相关的样本抱团）</p>
+<ul>
+<li>用户群体划分</li>
+<li>电影划分</li>
+</ul>
+<h5 id="实际应用"><a href="#实际应用" class="headerlink" title="实际应用"></a>实际应用</h5></li>
+<li><p>计算机视觉</p>
+<ul>
+<li><strong>人脸识别</strong>、<strong>车牌识别</strong>、<strong>扫描文字</strong></li>
+</ul>
+</li>
+<li><p>自然语言处理</p>
+<ul>
+<li><strong>搜索引擎匹配</strong>、<strong>文本理解</strong>、<strong>文本情绪判断</strong></li>
+</ul>
+</li>
+<li><p>社会网络分析</p>
+<ul>
+<li><strong>用户画像</strong>、<strong>欺诈作弊发现、热点发现</strong></li>
+</ul>
+</li>
+<li><p>产品推荐</p>
+<ul>
+<li>音乐的<strong>”歌曲推荐“</strong>、某宝&#x2F;某东的<strong>“商品推荐”</strong></li>
+</ul>
+</li>
+</ol>
+<h5 id="三、学习任务"><a href="#三、学习任务" class="headerlink" title="三、学习任务"></a>三、学习任务</h5><ol>
+<li>可能会用到的工具<ul>
+<li>网页爬虫（之前学过的）主要是获取数据</li>
+<li>pandas：模拟R，进行数据浏览与预处理</li>
+<li>numpy：数组运算</li>
+<li>scipy：高效的科学计算</li>
+<li>matplotlib：非常方便的数据可视化工具（各种曲线图）</li>
+<li>sklearn：机器学习包，自带很多模型</li>
+<li>libsvm：svm模型实现</li>
+<li>TensorFlow：用于深度学习的包，很方便搭建神经网络，配上tensorboard食用更佳</li>
+<li>nltk：自然语言处理相关的功能</li>
+<li>ipython notebook：这个类似于编辑器，其实推荐安装一个Anconda，自带python2.7&#x2F;3.6，所以可能会和之前安装过的python冲突</li>
+</ul>
+</li>
+<li>可能会用到的数学知识<ul>
+<li>微积分</li>
+<li>线性代数</li>
+<li>概率与统计</li>
+</ul>
+</li>
+</ol>
+<h5 id="四、基本工作流程"><a href="#四、基本工作流程" class="headerlink" title="四、基本工作流程"></a>四、基本工作流程</h5><p>这个自己在后面学习之后就会知道，在这里我可以先总结一下（这只是个人做题的习惯）：</p>
+<ol>
+<li>分析问题，抽象成数学问题</li>
+<li>获取数据集</li>
+<li>特征预处理、特征选择</li>
+<li>模型建立、训练、调优</li>
+<li>判断准确度、诊断</li>
+</ol>
+<h5 id="五、入门资源"><a href="#五、入门资源" class="headerlink" title="五、入门资源"></a>五、入门资源</h5><p>内容可能会有点多，但是可以先一点一点的学，相关还没学到的数学知识也可以先跳过直接记住结论。</p>
+<ul>
+<li><a href="https://www.coursera.org/learn/machine-learning/">Coursera 吴恩达的机器学习</a>（这个可能需要科学上网，有条件可以看，没条件可以看B站大佬下载的）</li>
+<li><a href="https://developers.google.cn/machine-learning/crash-course/">google 机器学习速成课程</a> （这个我是在看完coursera后看的，感觉还不错，提供练习，而且内容也不多，但是节奏有些快，不过入门是够了，<strong>重点</strong>是不用科学上网就能访问）</li>
+<li>机器学习 ——周志华 （西瓜书）</li>
+<li>机器学习实战 （封面是个农民，有很多实战例子）</li>
+<li>统计学习 ——李航 （这本书我还没看过，听别人说挺不错的，用统计学的方法来描述机器学习，很容易理解）</li>
+</ul>
+<blockquote>
+<p>ps:大概就这些视频跟这些书籍，这些如果能看得完，其他的什么也没必要了，如果还有空可以去<strong>kaggle</strong>上面逛逛。</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>MachineLearning</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>游戏开发之路1</title>
+    <url>/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF1/</url>
+    <content><![CDATA[<h3 id="经验分享"><a href="#经验分享" class="headerlink" title="经验分享"></a>经验分享</h3><blockquote>
+<p><em>引言</em> ：本来作为一个Web后端开发者兼网瘾少年，以前幻想过，自己能做出一款能改变世界的游戏。没想到自己这次机缘巧合的通过了一家游戏公司的面试，并且参加了游戏开发的培训，了解到了Web后端开发也能作为游戏服务端的开发。我也尽量有空就写下随笔，记录几天培训的内容，让更多人了解到游戏开发是怎么样一个过程。</p>
+</blockquote>
+<h4 id="什么是游戏？"><a href="#什么是游戏？" class="headerlink" title="什么是游戏？"></a>什么是游戏？</h4><p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;你会给游戏的定义是什么？有规则有玩家有输赢的活动？我也去查了一下百度，给出的定义也非常多。但是看下来也可以总结成一个词：<strong>好玩</strong>。游戏就是一个<strong>好玩的东西</strong>，任何好玩的东西，都可以称之为游戏。</p>
+<h4 id="那么为什么现代人会喜欢玩游戏？你喜欢玩游戏吗？"><a href="#那么为什么现代人会喜欢玩游戏？你喜欢玩游戏吗？" class="headerlink" title="那么为什么现代人会喜欢玩游戏？你喜欢玩游戏吗？"></a>那么为什么现代人会喜欢玩游戏？你喜欢玩游戏吗？</h4><ul>
+<li>生活中压力大，无论是工作中、还是学习中，白领、学生都有来自社会家庭非常大的压力。但是，他们又无处释放，而在游戏过程中，能够让自己放松，释放掉大部分的压力。</li>
+<li>在游戏中，你可以扮演很多角色，可以做到许多现实生活中做不到的事情，体验不一样的人生。比如在<strong>《刺客信条》系列 <strong>中你可以扮演一名刺客游走在世界各个地方，体验各地不同的文化；在</strong>《坦克世界》</strong> 中你可以驾驶坦克，体验二战时期的激烈；在<strong>《GTAⅤ》</strong> 中你可以扮演一个黑帮老大为所欲为…. 这些都是在现实中无法感受到的。</li>
+</ul>
+<blockquote>
+<p>PS:所以，从小到大游戏虽然让我成瘾着迷，但也让我学到了很多。</p>
+</blockquote>
+<h4 id="跟游戏相关的技术开发-（先简单介绍，后面再详细讲）"><a href="#跟游戏相关的技术开发-（先简单介绍，后面再详细讲）" class="headerlink" title="跟游戏相关的技术开发 （先简单介绍，后面再详细讲）"></a>跟游戏相关的技术开发 （先简单介绍，后面再详细讲）</h4><ul>
+<li><strong>C++</strong>  （服务端、操作系统）<ul>
+<li>更加接近底层</li>
+<li>强大的抽象能力</li>
+<li>高性能</li>
+</ul>
+</li>
+<li><strong>Unity</strong> （客户端、电影CG）</li>
+<li><strong>Lua</strong> （脚本语言，上层接口）<ul>
+<li>方便策划、美术使用</li>
+<li>结构简洁、简单</li>
+</ul>
+</li>
+<li><strong>Python</strong>（作为动态解释语言，机器学习、AI系统、服务器）</li>
+<li><strong>Node.js js</strong> （脚本语言）</li>
+</ul>
+]]></content>
+      <categories>
+        <category>life</category>
+      </categories>
+      <tags>
+        <tag>游戏开发</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>游戏开发之路2</title>
+    <url>/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF2/</url>
+    <content><![CDATA[<h3 id="游戏开发"><a href="#游戏开发" class="headerlink" title="游戏开发"></a>游戏开发</h3><h4 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h4><p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;用来开发客户端的语言非常多，<strong>unity引擎</strong>用的是<strong>c#<strong>，</strong>cocos引擎</strong>用的是<strong>c++<strong>、</strong>js</strong>，<strong>虚幻4引擎</strong>也是用<strong>c++<strong>，还有</strong>java</strong>和<strong>python</strong>。</p>
+<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;不过主流都是用<strong>unity</strong>跟<strong>虚幻4</strong>，再者就是自家公司研发的游戏引擎。</p>
+<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;由于我本身也不是客户端开发的，所以这这部分知识不会太细，就罗列一下引擎中的基本模块以及客户端开发过程中需要注意的地方。</p>
+<p><strong>引擎：</strong></p>
+<ol>
+<li>渲染部分（2d和3d） ——<strong>渲染管线</strong></li>
+<li>物理与碰撞</li>
+<li>音乐和音效</li>
+<li>场景管理</li>
+<li>交互处理</li>
+<li>寻路  ——A星算法、Mesh网格</li>
+<li>动画</li>
+</ol>
+<p><strong>开发文档</strong>：</p>
+<ul>
+<li>制定开发规范<ol>
+<li>变量命名、空间命名规范</li>
+<li>程序逻辑架构</li>
+<li>资源制作规范</li>
+<li>模块开发步骤</li>
+</ol>
+</li>
+<li>UI框架<ol>
+<li>可扩展性</li>
+<li>可维护性</li>
+<li>易用性</li>
+</ol>
+</li>
+<li>网络模块<ol>
+<li>TCP与UDP</li>
+<li>包头、包体</li>
+<li>数据交换格式<ul>
+<li>protobuf</li>
+<li>json</li>
+<li>二进制流</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>资源模块<ol>
+<li>制定存放规则</li>
+<li>制定UI、Icon、Texutre 存放规则</li>
+<li>制定模型存放规则</li>
+<li>制定特效存放规则</li>
+<li>制定资源命名规则</li>
+</ol>
+</li>
+<li>资源工具<ol>
+<li>统一模型设置</li>
+<li>统一贴图设置</li>
+</ol>
+</li>
+<li>美术规格<ol>
+<li>协助制定模型制作规范</li>
+<li>协助统一UI资源制作规范</li>
+<li>协助制作场景制作规范</li>
+<li>协助制作纹理制作规范</li>
+</ol>
+</li>
+<li>美术检查工具</li>
+</ul>
+<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;大体上，客户端有这些事情要做。除了这些，如果要开发联机游戏，开发者要考虑选择帧同步还是状态同步的方式来完成客户端服务端数据同步，这个是一个难点。</p>
+<h4 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h4><p>用于服务端开发的语言有<strong>C++</strong> 、<strong>Java</strong>、<strong>C#<strong>、</strong>Go</strong>、python、nodejs…</p>
+<p>主流的语言是<strong>C++</strong> 。为什么呢？C++最接近低层，可以直接对内存分配进行操作，而且它本身也非常稳定，兼容多个平台。但是这个好处导致它开发非常困难，开发起来效率低，内存管理复杂。</p>
+<p>服务端除了业务逻辑外还有数据库优化维护，这些后续有空再讲，现在就简单介绍几个服务端架构，以及服务端跟客户端之间的通信。</p>
+<p><strong>第一代游戏服务器架构</strong></p>
+<p>数据库——游戏服务器——客户端         <strong>最原始</strong>也是<strong>最基本</strong>的结构，适合简单的游戏框架。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">st=&gt;start: DB</span><br><span class="line">op=&gt;operation: GameServe</span><br><span class="line">e=&gt;end: Client</span><br><span class="line"></span><br><span class="line">st-&gt;op-&gt;e</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><strong>后续更加完善的游戏服务器架构</strong> </p>
+<p>DB1、DB2  —— GS1、GS2、公共服务器——客户端——登陆服——调度服——GS1…. 这种比较成熟的框架就适合大部分网络游戏了，也是很多厂家的首选。</p>
+<p>这个就当了解一下，详细之后再写，有学习意愿可以评论留言一起探讨！</p>
+<p>服务器架构之后，就是服务端跟客户端之间的通信了。这部分一般是通过<strong>TCP协议</strong>或者<strong>UDP协议</strong>，然后自己定义报文格式以及数据格式，可以选用<strong>protobuf</strong>或者<strong>protostuff</strong>（protobuf升级版据说比快很多），虽然json格式也有，传输过程中也非常方便查看数据内容，但是json占的内存太大传输时间太慢，并且明文传输或者说字符串传输，被人拦截下来容易被人得知传输信息，不太安全。</p>
+<p>那么传输数据知道了，业务逻辑处理在哪里呢？这里就出现这个问题了，假设数据都传输到服务端统一计算过后，然后分发给各个客户端，那么可能会有某个客户端太卡丢包了，其他人就要等他重新连接了；那数据都在客户端处理，最终结果上报到服务端，服务端然后再广播到其他客户端，这样可能会遇到一个问题，我的数据是浮点数，发送给服务端可能会失真，就不准确了。这两种处理方式，前者叫<strong>状态同步</strong>，后者叫<strong>帧同步</strong>。</p>
+<p>由于时间问题，这两个讲起来可能也会很多，之后再详细写一篇关于它们的文章。</p>
+]]></content>
+      <categories>
+        <category>life</category>
+      </categories>
+      <tags>
+        <tag>游戏开发</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>模板匹配（matlab实现）</title>
+    <url>/%E6%A8%A1%E6%9D%BF%E5%8C%B9%E9%85%8D%EF%BC%88matlab%E5%AE%9E%E7%8E%B0%EF%BC%89/</url>
+    <content><![CDATA[<h3 id="基于像素匹配算法"><a href="#基于像素匹配算法" class="headerlink" title="基于像素匹配算法"></a>基于像素匹配算法</h3><p>模板匹配算法一般是通过滑窗的方式在待匹配的图像上滑动，通过比较模板与子图的相似度，找到相似度最大的子图。这种算法最核心部分在于如何设计一个相似性函数。   </p>
+<p>最容易想到的一个相似性函数便是欧式距离：<br><img src="/%E6%A8%A1%E6%9D%BF%E5%8C%B9%E9%85%8D%EF%BC%88matlab%E5%AE%9E%E7%8E%B0%EF%BC%89/%E6%AC%A7%E6%B0%8F%E8%B7%9D%E7%A6%BB.png" alt="欧式距离公式"></p>
+<p>将这个相似性函数展开，可以得:<br><img src="/%E6%A8%A1%E6%9D%BF%E5%8C%B9%E9%85%8D%EF%BC%88matlab%E5%AE%9E%E7%8E%B0%EF%BC%89/%E6%AC%A7%E6%B0%8F%E8%B7%9D%E7%A6%BB%E5%B1%95%E5%BC%80%E5%BC%8F.png" alt="欧氏距离展开式"><br>可以看出，只有第二项是有意义的，因为第一项和第三项的值在选定模板后是固定的。对于欧式距离相似函数，值越大表示越不相似，也就是说，第二项的值越小则越不相似。     再将第二项归一化:<br><img src="/%E6%A8%A1%E6%9D%BF%E5%8C%B9%E9%85%8D%EF%BC%88matlab%E5%AE%9E%E7%8E%B0%EF%BC%89/%E6%AC%A7%E6%B0%8F%E8%B7%9D%E7%A6%BB%E5%BD%92%E4%B8%80%E5%8C%96.png" alt="欧氏距离归一化"></p>
+<blockquote>
+<p>如果就仅仅匹配大小不变角度不变的模板，到此为止就够了。</p>
+</blockquote>
+<p>为了解决旋转不变性，我用很简单的很丑陋的方法————旋转模板再重新匹配。</p>
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><p>化简后的欧氏距离matlab实现方法。</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> <span class="built_in">i</span>=<span class="number">1</span>:m-m0+<span class="number">1</span>  </span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">j</span>=<span class="number">1</span>:n-n0+<span class="number">1</span>  </span><br><span class="line">        subMatr=test(<span class="built_in">i</span>:<span class="built_in">i</span>+m0<span class="number">-1</span>,<span class="built_in">j</span>:<span class="built_in">j</span>+n0<span class="number">-1</span>);  </span><br><span class="line">        vec=double( subMatr(:) );  </span><br><span class="line">        result(<span class="built_in">i</span>,<span class="built_in">j</span>)=vec&#x27;*vec_sub / (norm(vec)*norm_sub+<span class="built_in">eps</span>);  </span><br><span class="line">    <span class="keyword">end</span> </span><br><span class="line"> <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>结果图：</p>
+<p><img src="/%E6%A8%A1%E6%9D%BF%E5%8C%B9%E9%85%8D%EF%BC%88matlab%E5%AE%9E%E7%8E%B0%EF%BC%89/1.png"><br><img src="/%E6%A8%A1%E6%9D%BF%E5%8C%B9%E9%85%8D%EF%BC%88matlab%E5%AE%9E%E7%8E%B0%EF%BC%89/2.png"></p>
+<blockquote>
+<p>具体源码 可以见<a href="https://github.com/NSDie/templet">github</a>.</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>MachineLearning</category>
+      </categories>
+      <tags>
+        <tag>matlab</tag>
+        <tag>图像处理</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>游戏开发之路3</title>
+    <url>/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF3/</url>
+    <content><![CDATA[<h3 id="经验分享"><a href="#经验分享" class="headerlink" title="经验分享"></a>经验分享</h3><blockquote>
+<p>经过十天的学习，对游戏的开发流程有了大致的了解后，就是三轮的游戏demo制作比赛。但是有点遗憾，在第一轮5天的比赛中，并没有做出什么非常完美的作品，心里也很难受。不过没关系后面还有两轮，并且在这轮中吸取了很多经验。</p>
+</blockquote>
+<h4 id="一、第一轮Demo简要介绍"><a href="#一、第一轮Demo简要介绍" class="headerlink" title="一、第一轮Demo简要介绍"></a>一、第一轮Demo简要介绍</h4><blockquote>
+<p>对于项目，工程就不发了，毕竟是组队开发的，不太好意思未经他人允许公开他的代码。我会简要讲一下第一个demo的核心玩法，以及实现方式。最后顺便附上我自己写的一份开发文档</p>
+</blockquote>
+<p>游戏名字叫<strong>《重逢》</strong>（策划那边起的，我也不知道有什么具体含义）。内容是：一个叫Pan的男人寻找他亡妻的故事，游戏里有一个冥界塔的设定，就是玩家们需要操作的场景。<font color="red">核心玩法</font>就是<strong>扫雷</strong>跟<strong>PopStar！</strong>的结合，点开一个方块，你点到炸弹就会扣血，点到空方块就会消除一片连通空白块。然后消除后产生的空的地方，方块会和<strong>PopStar！</strong>中的方块一样落下来，最上面一排会跟扫雷一样显示周围雷区的数量。当然长按标记这些也都有，加上锤子、加血包、计时器三种道具。获胜条件为：从上到下消直到落到最下面一层，就算通关；如果血扣完了或者计时器到零，就判定失败。对应冥界塔的下楼方式，你在冲塔的过程中为遇到一系列问题，比如怪物、宝藏、迷雾、岩浆、陨星…..每种问题对应一种新玩法，每一种玩法都会有新的得分机制，目前没有划分到获胜机制里（之后在看情况做修改），核心玩法还是不变的。</p>
+<p><strong>开发部分</strong> 的话，是采用unity做客户端，java做服务端。</p>
+<p><img src="/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF3/%E3%80%8A%E9%87%8D%E9%80%A2%E3%80%8B%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3.png"></p>
+<p>部分框架是介个样子，模块分很多，系统也分很多。（所以这次5天的开发时间，可以说完全是通宵爆肝了，然而还是没有完成）</p>
+<h4 id="二、总结与反思"><a href="#二、总结与反思" class="headerlink" title="二、总结与反思"></a>二、总结与反思</h4><p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;复盘一下这几天都做了啥把，第一天简单搭了一下服务器和研究了一下网络通信方面，第二天由于队伍内部出现了纠纷，没有解决。策划又提出了一堆新的需求，导致项目代码重构，花了大量的时间。第三天写项目文档，完善框架里面的数据架构。第四天第五天疯狂填内容，以及对接美术资源，画UI，把3D特效动画整合到逻辑层上去。可惜时间不够，出现一堆bug。</p>
+<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;所以现在回顾了一下，大概有以下几点经验：</p>
+<ol>
+<li>做游戏<strong>demo</strong>，不要过度追求精细，不要为未来考虑过多的东西，未来还很长，从demo到上线可能还要经过很长时间，不是一天两天就能直接出来的。作为demo，它所具备最核心的部分就是能跑，只要能跑无论长的好看还是长的丑，能跑就是一个游戏，是一个产品。你玩法说的再新颖，美术画的再好看，产品出不来，那就是一堆垃圾，是空谈大话。首先能体现你的玩法，其次再加一些美术资源，让它更加生动易于被理解。<strong>因此，作为一名开发者，一定要把控好开发时间，设定好deadline，分阶段开发项目，比如一个项目总共有5天，可以分成两个阶段，那就两天出一个包，然后提意见改bug，过三天再出一个包，分阶段迭代， 这样子就算你后面那个版本夭折了，你也还能回滚到前面的版本，不会一无所有。</strong> </li>
+<li>我们开发到了后期，其实项目功能已经非常庞大了，很难维护，并且接口函数都非常乱。<strong>因此，作为程序开发的小组，需要一个开发文档，并且日常去维护它。首先，你或者队伍里的一个人先去构建一个大体的框架，比如分几层。然后，根据策划的需求，或者组内讨论，按需求和实现的功能，再去细分。最后大家挑自己想要开发的部分，并且在开发过程中，要及时把自己写的接口名，更新到开发文档上，写好关键注释说明。</strong>这样子的话，即便到了后期，假设其他组员或者你自己遇到了什么bug，或者想要扩展新功能，只要翻阅一下文档，就很容易找到自己需要的接口，虽然写文档对某些人来说可能会很麻烦，觉得浪费时间，但是对开发效率上看有很大的提高。</li>
+<li><strong>队内出现意见分歧纠纷，需要及时解决。</strong>我们这次开发失利，其实有一大部分原因也来自这个，本来多一个人就能少很多工作，但是在第一天我们就损失了一名队友，他出现分歧后，我们没有选择去沟通跟他妥协。于是没办法，只好各走各的路，他在后面的几天里都处于<strong>离队状态</strong>。所以，关于队伍里的不和，一定一定一定要及时处理，越早越好，这不仅对整个项目有好处，而且对整个队伍士气氛围也有很大的帮助。如果不管不问，这个问题会在不久的未来不断被放大，后果不可估量。不过说到底，其实这个也是队长的<strong>责任义务</strong>，如果你是一名队长，那你就要跟社区大妈一样，什么事情都得插一脚，去关心队员的内心想法，为什么不想干了，哪个模块不喜欢了，还是遇到什么问题解决不了了……都要去了解，并且解决掉，这个很重要，对于团队开发来说，无论是做游戏还是做APP。</li>
+<li>程序对于策划，需要有自己的想法，需要对策划提出需求做一个风险评估。在给定的一个<strong>Deadline</strong>中你就要跟策划说好，你只能完成那些部分，其他需求可能做不到，要砍掉。不然等到了<strong>Deadline</strong>不仅是你交不上代码，而且项目可能会因为你而推迟下一阶段的开发时间。<strong>有时候<font color="red">减</font>就是<font color="red">加</font>。</strong></li>
+</ol>
+<blockquote>
+<p>总结大概就这些， 希望自己能学到一些东西，看这篇文章的小伙伴们也能学到一些，这些都未来在工作中可能会遇到的，提前打好预防针。</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>life</category>
+      </categories>
+      <tags>
+        <tag>游戏开发</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>游戏开发之路4</title>
+    <url>/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF4/</url>
+    <content><![CDATA[<h3 id="经验分享"><a href="#经验分享" class="headerlink" title="经验分享"></a>经验分享</h3><h4 id="第二轮demo比赛总结"><a href="#第二轮demo比赛总结" class="headerlink" title="第二轮demo比赛总结"></a>第二轮demo比赛总结</h4><blockquote>
+<p> &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;经过第一轮的教训，在第二轮10天的游戏制作中，可以说比第一轮好非常多。无论是项目管理，还是协作开发，都有非常大的改善，当然也有挺多美中不足的地方需要提高。</p>
+</blockquote>
+<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;这轮的题目是三选一的形式：<strong>a.跑酷\b.三消\c.回合制RPG</strong>。吸取第一轮的教训，坚决不做三消（其实三消做简单了，会被喷的很惨；做难了，也很难有新的创新，而且逻辑可能就很复杂了），所以最后综合考虑下，在RPG跟跑酷中，选择了跑酷。</p>
+<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;跑酷我们参考了传统的跑酷玩法，有<strong>天天酷跑</strong> 、<strong>Super Mario Run</strong> 等各种横板闯关类型的跑酷游戏。最终确定下来核心玩法是，<strong>二段跳跃+冲刺</strong> 。核心玩法定下来以后，就马上开工，程序这边是由我来设计了一下开发文档，大概导图如下：</p>
+<p><img src="/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF4/%E7%AC%AC%E4%BA%8C%E8%BD%AE%E8%B7%91%E9%85%B7%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91.png"></p>
+<blockquote>
+<p>部分具体实现可能有改动。</p>
+</blockquote>
+<p>然后游戏主逻辑这部分，大概在比赛第1天晚上就写完了吧，能跑能跳能冲刺，当然可能也有bug，然后在第2天出了第一个包，没有接入美术资源的包。然后在接下来的3、4、5天中，就疯狂的去迭代版本，加入一些策划想要的关卡设定，以及陆续接入一些已经画出来的美术资源。在第5天可能是一个分水岭吧，我们在那天发现了一个严重问题，我们的包没有优化，游戏运行内存大概可以跑几个G吧，当时都把我们吓到了。于是从第5天开始，我们对游戏开始进行优化，同时接入一些服务器的功能，不停的压缩美术的资源，删掉很多没用的图片。在后面几天里多亏了队友们，肝出了无尽模式跟关卡编辑器，让游戏又上了一个档次，完成度非常高。可惜最后有一些小遗憾，因为一两个小bug没修复，我们只拿到了第二名的成绩。</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;这次比赛主要原因受<strong>对接资源</strong>影响，导致最后测试时间不足，还有一些相应的功能没实现。我们主要做了三个关卡，但是第三个关卡在最后第9天策划才给我们，原因呢，就是他们前一天做完忘保存还是咋滴，文件丢失了（இ௰இ）。然后他们给我关卡之后，美术这边又需要调整，总之最后调调完，程序这边拿到已经第九天晚上了，这个跟计划时间差挺大的（原计划第九天白天就接入，下午晚上还能测试或者做一些其他功能优化）。于是乎第九天到第十天就不用睡觉了，通宵对接 _ (:з)∠) _ 。然后就草草接完，都没时间QA。</p>
+<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;除此之外，还有一个很大的问题，我作为一个服务端开发，我学了2D骨骼动画帮美术们做动画特效，然后还要整理一堆资源，策划摆完关卡，压根没分类，我拿到手还要花时间去整理归类，真的很浪费时间QAQ。不是我吐槽，我觉得我们如果美术跟策划再协同一点，策划设计关卡跟美术对接上，而不是交由程序对接，我觉得程序这边能留出更多时间，做很多事情，<strong>Debug</strong>、<strong>新功能的开发</strong> 、<strong>项目的优化</strong> 。所以这也算一次教训吧，这次比赛的一个遗憾之处，我服务器做了一堆功能，接入的也就排行榜模块。</p>
+<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;所以以后做项目，<strong>沟通</strong>真的非常重要，无论是哪边，只要需要<strong>对接的部分</strong>，都要<strong>统一好要求</strong>，不要各自做项目，最后做出来A跟B，还要把A调整B或者把B调整成A，这部分时间真的<strong>消耗</strong>很大，<strong>效率</strong>大大降低了。</p>
+]]></content>
+      <categories>
+        <category>life</category>
+      </categories>
+      <tags>
+        <tag>游戏开发</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>游戏开发之路5</title>
+    <url>/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF5/</url>
+    <content><![CDATA[<h3 id="经验分享"><a href="#经验分享" class="headerlink" title="经验分享"></a>经验分享</h3><h4 id="第三轮demo比赛总结"><a href="#第三轮demo比赛总结" class="headerlink" title="第三轮demo比赛总结"></a>第三轮demo比赛总结</h4><p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;这轮题目自拟，然后我们定了一个<strong>冒险+动作</strong>的游戏，参考了<strong>彩虹岛W</strong> 、<strong>冒险岛M</strong> 、星之骑士等动作冒险手游。这轮时间大概有13天半（去掉第一天的定方向，其实也不是很多，自拟的题目还是难抉择啊。），然后我们就想做一个比较大一点的游戏，策划也想的非常大，冒险+动作都要。既要<strong>设计关卡</strong> ，又要设计<strong>人物动作</strong>。</p>
+<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;由于这次主要逻辑不是我写的，所以我也不能说的很详细，整体框架是，人物动作由<strong>3DMax</strong> 完成，并且绑好骨骼做好动作。然后直接丢Unity里使用，但是场景是2D的，就人物是3D的，所以调整了很久。人物大概用了24个动作，然后Unity用状态机来管理，写了一个接口供逻辑调用。逻辑里面写了人物数值属性、输入控制、攻击受击死亡等状态；怪物属性、状态、AI行为树（用了Behavior插件）；还有BOSS专门写了AI。这次我负责的是2D怪物的动画，我用的<strong>2Danima</strong>插件绑的2D骨骼然后录制动画，总共2只Boss和6只小怪。Boss有8套动作、每种小怪有5套动作。</p>
+<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<strong>转折点</strong>：中间有导师探班的时候，说我们的游戏应该最好偏向于某一方面：<strong>动作</strong> OR <strong>冒险</strong> 。最后我们选择了动作（偏复杂一点的路，虽然最后也没有成功）。既然选择了动作，我们就要把很多关卡设计方面的东西都砍掉，专注打击感的提升，我们为此做了：<strong>刀光</strong>、<strong>爆点</strong>、屏幕抖动、击退和挑飞等<strong>控制效果</strong>、还有一些蓄力快斩之类的节奏感<strong>技能</strong>。到了Deadline的前一天，我们整合出现了问题，导致提交作品的时候，没能交上一个比较完善的作品，UI部分还有一堆BUG，不然我有信心一定能拿第一。（算是一点遗憾把，没能把自己最好的一面展现出来）</p>
+<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;比赛过程中，我在前五天，研究unity的一个联网引擎——PhotonServer，想要吃透它，结果也是学了个半吊子把，最后也没用上联网模式，由于当初定的是单人模式逻辑写的都死死的，后期想要转联网，还需要重构代码，比较耗时间。于是就干脆把联网部分砍掉。（这次我用的联网部分跟2D动画，以后若是有时间，再写专门的一篇文章介绍。）</p>
+<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<strong>总结</strong>： 唉，失败也是难免的。整理整理失败的原因，还是可以学到挺多东西的。感觉这轮比赛程序可能要背很大程度的锅，美术在最后三天前结束了他们的任务，而且我们程序还是没能完成任务，说明还是有很大的问题的。我来复盘一下程序这边13天做了啥把。<strong>前五天</strong>，我做了一个小型的联机Demo，未接入。其他部分做了单人模式的主逻辑、UI未开工、基本程序团队处于养老划水状态、很闲。<strong>第六天</strong>开始，我做一些2D动画方面的东西，并且继续研究联机，3D角色建模完成，导入Unity开始调整动作。<strong>第七、八天</strong>，继续调角色动作、并且整合美术关卡资源做成预制体，交由策划进行关卡摆放。<strong>第九、十天</strong>，各种特效的选取调整、策划摆完关卡不满意美术摆。<strong>第十一天</strong>开始做UI，开始了连续三天的通宵做UI，但是没想到UI是这么复杂，导致最后一天才做完UI准备接入，忘了说我联网在第十天开始就砍掉，准备帮助一起做主逻辑部分。最后接入的时候出了很多问题，Unity2018也经常卡死崩溃_ (:з)∠) _。如果UI能早点开始做，我们也不会落到这种地步。</p>
+<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<strong>总的来说</strong> ，还是没有规划好，每天的任务清单，全凭感觉，但偏偏这轮感觉出了差错，本以为打包一次就几分钟，然后Unity打包一次大概30分钟，这次浪费了很多时间。</p>
+<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<strong>除此之外</strong> ，我想说一句：一个项目的成功与否，在立项初期就已经决定好了。策划在这一步起<strong>关键性作用</strong>，一个好策划，提出了一个好想法，那这个项目已经成功了一半了，后面就看程序怎么实现它、美术如何打扮它。而且一个好策划最好能说出这个项目的卖点，并且能讲的非常详细不是很笼统，我相信很多人都会愿意配合，不然就说一句我们来做一个动作类游戏吧。这。。。怎么讲，动作类游戏，谁TM知道你想要做啥啊，跟没讲一样，而且这么一说士气就弱了三分，60分及格，顶多就一半30分了。<strong>开头很重要。</strong>这决定了这个项目能达到的最高高度。其次才是程序美术如何让它达到这个高度。</p>
+<p>最后放一张这轮游戏的海报：</p>
+<p><img src="/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF5/%E6%B5%B7%E6%8A%A5.jpg"></p>
+]]></content>
+      <categories>
+        <category>life</category>
+      </categories>
+      <tags>
+        <tag>游戏开发</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>计算机视觉笔记</title>
+    <url>/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h3 id="计算机视觉概论"><a href="#计算机视觉概论" class="headerlink" title="计算机视觉概论"></a>计算机视觉概论</h3><p><strong>1.</strong>   <strong>什么是计算机视觉？</strong></p>
+<p>答：计算机是指机器，视觉是指人对世界的感知。所以计算机视觉是通过让摄影机和电脑代替人眼对目标进行识别、跟踪和测量等行为，从图像或者多维数据中获取信息的一门学科。</p>
+<p><strong>2.</strong>   <strong>计算机视觉要完成的主要任务是什么？</strong></p>
+<p>答：计算机视觉的任务是用图像创建或恢复现实世界模型，然后认知现实世界。让计算机具有对周围世界的空间物体进行传感、抽象、判断的能力，从而达到识别、理解的目的。</p>
+<p><strong>3.</strong>   <strong>请将数字图像处理的主要知识点自己回顾或整理一下，如果还没学过，自己通过网络资源初步了解一下，然后把主要的知识点加以整理，然后记录在这里。</strong></p>
+<p>答：数字图像处理主要有两个目的：改善图示信息以便人们解释理解；为存储、传输和表示而对图像数据进行处理，便于机器理解。数字图像处理常用的几种方法有：灰度变换，对图像的单个像素进行操作，目的是处理对比度和阈值；空间域滤波，对图像每个像素的邻域进行处理，锐化图像以及一些改善性能的目的；频率域滤波，通过一些傅里叶变换来进行操作图像，目的是锐化图像或者平滑图像；图像复原与重建，通过一些滤波器来进行噪声的复原和消除；彩色图像处理，最常见的图像，存在三通道，一般进行彩色到灰度的变换，再进行下一步操作。更深入的应用还有，小波和多分辨率处理；图像压缩，通过霍夫曼编码、Golomb编码以及其他一些编码计算公式来进行有损压缩和无损压缩；形态学图像处理；图像分割；图像的表示和描述；目标识别等。</p>
+<h3 id="图像处理相关基础"><a href="#图像处理相关基础" class="headerlink" title="图像处理相关基础"></a>图像处理相关基础</h3><p><strong>1.</strong>   <strong>常见的滤波器有哪几种？分别说明它们的功能。</strong></p>
+<p>答：</p>
+<p>线性(均值)滤波器：用来减少图像灰度的“尖锐”变化，减少噪声。即过滤了高频信号，因此也被称之为低通滤波器。</p>
+<p>中值滤波器：强迫滤波器区域内突出的亮点更像它周围的值，以消除孤立的亮点。用来去除噪声。</p>
+<p>最大值滤波器：用于发现图像中最亮的点，可以用来过滤“胡椒”噪声。</p>
+<p>最小值滤波器：用于发现图像中最暗的点，可以用来过滤“盐”噪声。</p>
+<p>拉普拉斯滤波器：高通滤波器，突出边缘信息，同时也要包含背景区域信息，可以用来图像增强。</p>
+<p>平滑滤波器：用于平滑处理，如图像由于量化不足产生的虚假轮廓时，同时，也可以用于去除噪声。</p>
+<p>锐化滤波器：增强边缘信息，可用于边缘提取。</p>
+<p><strong>2.</strong>   <strong>图像金字塔有哪些用途？</strong></p>
+<p>将粗糙尺度图像通过插值计算扩展为较细的尺度图像。可以用于图像分割、目标识别、图像理解、视觉感知、消除噪声、分析纹理、标记图像特征。</p>
+<p><strong>3.</strong>   <strong>在实际应用中，哪些应用需要低分辨率特征，请举出具体实例说明。</strong></p>
+<p>视频压缩：由于自身显示器的限制还有流量带宽的区别，网络上视频一般都提供多个画质分辨率，如果显示器分辨率不高以及为了节省流量，可以用低分辨率来观看视频。</p>
+<p>图片打马赛克：想要在超清图片上的某个部位变得模糊，打上马赛克，让人看不清，这里需要用到低分辨率特征。</p>
+<p>微信头像缩略图：超清图片分辨率高，内存大，存储以及传输所消耗资源也高，就采取图片压缩的方式，减小图片大小，又不能丢失图片原来的轮廓，这里需要用到低分辨率特征。</p>
+<h3 id="图像特征"><a href="#图像特征" class="headerlink" title="图像特征"></a>图像特征</h3><p><strong>1.</strong>   <strong>什么是图像的对应？图像特征点在对应中的作用是什么？</strong></p>
+<p>答：1）图像的对应是利用特征算法，找到两个图像中符合向量匹配的图像特征点。</p>
+<p> 2）图像特征点的作用：用来描述不同的图像，做图像切割、对齐等图像变换操作；利用多幅二维图像来进行三维图像的重建、复原。</p>
+<p><strong>2.</strong>   <strong>图像对齐时，常用的特征有哪些？</strong></p>
+<p>答：颜色特征、纹理特征、形状特征、空间位置特征、局部区域特征、边缘特征、点特征。</p>
+<p><strong>3.</strong>   <strong>你知道利用SIFT算子描述特征时，图像对齐的步骤吗？</strong></p>
+<p>1）生成高斯差分金字塔（DOG金字塔），尺度空间构建</p>
+<p>2）空间极值点检测（关键点的初步查探）</p>
+<p>3）稳定关键点的精确定位</p>
+<p>4）稳定关键点方向信息分配</p>
+<p>5）关键点描述</p>
+<p>6）特征点匹配</p>
+<p>7）图像对齐</p>
+<h3 id="图像对齐"><a href="#图像对齐" class="headerlink" title="图像对齐"></a>图像对齐</h3><p><strong>1.</strong>   <strong>图像对应的本质是什么？</strong> </p>
+<p>答：图像对应的本质：可以看作是参数拟合的问题，利用两个图像之间匹配的特征点，将变换模型进行拟合。</p>
+<p><strong>2.</strong>   <strong>图像对齐有哪些用途？</strong></p>
+<p>答：图像拼接、目标识别、图像变换、模板匹配。</p>
+<p><strong>3.</strong>   <strong>图像对齐的常见步骤有哪些？</strong></p>
+<ol>
+<li><p>随机抽取当前图像帧和另一幅图像间的一组特征点，计算基础矩阵</p>
+</li>
+<li><p>利用这些特征点计算组间变换矩阵</p>
+</li>
+<li><p>根据计算的矩阵，求得局内点</p>
+</li>
+<li><p>利用所有的正确匹配点重新计算基础矩阵</p>
+</li>
+<li><p>在此基础上重新搜索正确的匹配点对</p>
+</li>
+<li><p>重复4，5步骤，直至匹配点对的数目达到稳定状态。</p>
+</li>
+<li><p>找到两个图像之间的对齐关系。</p>
+</li>
+</ol>
+<h3 id="二值图像分析"><a href="#二值图像分析" class="headerlink" title="二值图像分析"></a>二值图像分析</h3><p><strong>1.</strong>    <strong>二值图像有哪些用途？（可以查阅文献说明）</strong></p>
+<p>答: </p>
+<p><strong>边界跟踪算法</strong>：利用二值图像识别中的图像轮廓，来实现的边界跟踪。</p>
+<p><strong>目标识别</strong>：基于二值图像的灰度变化，进行物体的精确识别跟定位。</p>
+<p><strong>提取图像的连通区域</strong>：利用图像二值化，找出图像变化的连通区域，再根据先值面积消除法达到去除图像中所有前景和背景噪声的效果。</p>
+<p><strong>2.</strong>    <strong>说明彩色图像二值化计算的步骤。</strong></p>
+<p>答: </p>
+<p>先进行灰度化，灰度化的操作一般是将图像RGB的值用一定的权值来计算得到。</p>
+<p>然后进行二值化，利用阈值分割，从图像中分出前景和背景，实现二值化。</p>
+<p><strong>3.</strong>    <strong>均值迭代求取阈值的二值化步骤是怎样的？</strong></p>
+<p>答：</p>
+<ol>
+<li><p>选择一个初始化的阈值T</p>
+</li>
+<li><p>使用阈值T将图像的像素分为两部分：G1包含灰度满足大于T，G2包含灰度满足小于T。</p>
+</li>
+<li><p>计算G1中所有像素的均值μ1,以及G2中所有像素的均值μ2。</p>
+</li>
+<li><p>计算新的阈值：T’&#x3D;<img src="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%AC%94%E8%AE%B0/1.png" alt="img"></p>
+</li>
+<li><p>重新迭代步骤2-4，直到计算得到新的阈值T’小于预先确定的阈值为止。</p>
+</li>
+</ol>
+<h3 id="纹理特征及分析"><a href="#纹理特征及分析" class="headerlink" title="纹理特征及分析"></a>纹理特征及分析</h3><p><strong>1.</strong>   <strong>简单说明纹理分析和研究的主要目的是什么？</strong></p>
+<p>答：纹理分析是通过一定的图像处理提取出来纹理特征参数，从而获得纹理的定量或定性描述的处理过程。</p>
+<p>目的是研究纹理的观赏特性。</p>
+<p><strong>2.</strong>   <strong>什么是纹理？</strong></p>
+<p>纹理是一种普遍存在的视觉现象，目前有两个定义：</p>
+<p>一个定义是按一定规则对元素或者基元进行排列所形成的重复模式。</p>
+<p>另一个定义是如果图像函数的一组局部属性是恒定的，或者是缓变的，或者是近似周期性的，则图像中的对应区域具有恒定的纹理。</p>
+<p><strong>3.</strong>   <strong>纹理特征提取与分析方法的主要方法有哪几种？</strong></p>
+<p>统计分析法、结构分析法、模型分析法、频谱分析法</p>
+<p><strong>假设位置算子（dx,dy）为（1,1），计算下面纹理的共生矩阵：</strong></p>
+<p><img src="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%AC%94%E8%AE%B0/2.png" alt="img"></p>
+<p>位置算子为（1,1），所以统计斜对角线上的(i,j)对子数。</p>
+<p><img src="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%AC%94%E8%AE%B0/3.png" alt="img"></p>
+<h3 id="图像分割"><a href="#图像分割" class="headerlink" title="图像分割"></a>图像分割</h3><p><strong>1.</strong>   <strong>什么是图像分割？简单说明其用途</strong></p>
+<p>答：图像分割就是把图像分成若干个特定的、具有独特性质的区域。</p>
+<p>比如常见的人脸识别，就是把人脸图像从完整的图像中分割出来。</p>
+<p><strong>2.</strong>   <strong>图像分割的目的是什么？</strong></p>
+<p>答：图像分割可以把人们感兴趣的部分从图像中提取出来，有选择地对感兴趣对象定位。</p>
+<p><strong>3.</strong>   <strong>查阅文献至少1篇，关键词：image segmentation，阅读后写出主要思想</strong></p>
+<p>答：《Rethinking Atrous Convolution for Semantic Image Segmentation》</p>
+<p>主要思想：在这篇论文里，卷积是一种强大的工具，可在语义图像分割的应用中显式调整过滤器的视场并控制由深度卷积神经网络计算的特征响应的分辨率。为了处理在多个尺度上分割对象的问题，我们设计了模块，该模块采用级联或并行的原子卷积，通过采用多个原子速率来捕获多尺度上下文。此外，这篇论文建议扩充先前提出的Atrous空间金字塔池化模块，该模块以编码全局上下文的图像级特征进一步探究多尺度的卷积特征，从而进一步提高性能。</p>
+<p><strong>4.</strong> <strong>查找代码，实现图像分割功能，给出代码和运行结果截图，传统方法，不限语言</strong><br><img src="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%AC%94%E8%AE%B0/4.png" alt="img"><br><img src="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%AC%94%E8%AE%B0/5.png" alt="img"><br>打印结果分别原图，灰度图，K取2，K取3的效果图：<br><img src="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%AC%94%E8%AE%B0/6.png" alt="img"><br><img src="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%AC%94%E8%AE%B0/7.png" alt="img"></p>
+<h3 id="摄影机模型和多视几何"><a href="#摄影机模型和多视几何" class="headerlink" title="摄影机模型和多视几何"></a>摄影机模型和多视几何</h3><p>\1.   <strong>摄像机模型中，内部参数和外部参数分别有哪些？</strong></p>
+<p>摄像机的内参数（Intrinsic)：</p>
+<p>​     由摄像机本身决定，只与摄像机本身有关。其参数有：参数矩阵（fx,fy,cx,cy)和畸变系数(三个径向k1,k2,k3;两个切向p1,p2)</p>
+<p>摄像机的外参数（Extrinsic)：<br>      摄像机在世界坐标系中的位姿，由摄像机与世界坐标系的相对位姿关系决定。其参数有：旋转向量R（大小为1x3的矢量或旋转矩阵3x3）和平移向量T(Tx,Ty,Tz)</p>
+<p><strong>2.</strong>   <strong>张正友方法的主要思想和步骤是什么？</strong></p>
+<p>张氏标定法的主要思想是使用二维方格组成的标定板进行标定，采集标定板不同位姿图片，提取图片中角点像素坐标，通过单应矩阵计算出相机的内外参数初始值，利用非线性最小二乘法估计畸变系数，最后使用极大似然估计法优化参数。</p>
+<p>步骤：</p>
+<p>A. 从不同角度拍摄若干张模板图象 </p>
+<p>B. 求出摄像机的内参数和外参数 </p>
+<p>C. 优化求精</p>
+<h3 id="三维重建"><a href="#三维重建" class="headerlink" title="三维重建"></a>三维重建</h3><p><strong>1.</strong>   <strong>什么是深度点云？</strong></p>
+<p>答：</p>
+<p>点云是某个坐标系下的点的数据集。</p>
+<p>深度相机得到的是三维点云数据，把这些点云重建到一个坐标系下，拼接成一个整体的点云。</p>
+<p><strong>2.</strong>   <strong>查阅文献，理解深度点云的重建策略。查阅最新文献<strong><strong>2</strong></strong>篇：</strong></p>
+<p><a href="https://dblp.uni-trier.de/">https://dblp.uni-trier.de/</a></p>
+<p>关键词： depth map,reconstruction</p>
+<p>[1]–《Digging into the multi-scale structure for a more refined depth map and 3D reconstruction》</p>
+<p>[2]–《Depth-map completion for large indoor scene reconstruction》</p>
+<p>深度点云的重建策略：基于深度学习的三维重建方法大多是基于3D CNN来进行深度图的预测。但是这种方法对内存消耗达到了分辨率的三次方量级，使得生成结果的分辨率受到了很大的限制。而通过点云，可以很高效且十分精准的实现三维重建。</p>
+<p>在[1]论文中提出了MVS算法，这个算法是通过假设摄像机参数和姿势信息均已通过“运动结构”（SFM）算法计算出密集点云，从而恢复场景的3D立体表示。该技术具有许多实际应用，例如3D映射，计算机视频游戏和文化遗产保护。MVS算法的主要评估方法是重构精度和完整性，涉及图像分辨率，相机布置，场景纹理等。</p>
+<p>而[2]论文是通过CNN-SLAM的方式，来进行改进优化，用神经网络分析不用的点云数据，找出密集点云，形成3D模型。</p>
+<p>MVS算法中的点匹配方法，在图片上的一条线上进行探测，寻找两张图片上的同一点。主要方法为逐像素判断，两个照片上的点是否是同一点。从而提出了“一致性判定函数”。</p>
+<h3 id="光流计算"><a href="#光流计算" class="headerlink" title="光流计算"></a>光流计算</h3><p><strong>1.</strong>   <strong>查阅代码利用OPENCV，结合python编码，计算图像的光流，并显示结果。</strong></p>
+<p><strong>方法：</strong> </p>
+<p><a href="https://github.com/"><strong>https://github.com/</strong></a></p>
+<p><strong>关键词，</strong> <strong>optical flow, opencv</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np  </span><br><span class="line"><span class="keyword">import</span> cv2 <span class="keyword">as</span> cv  </span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line">cap = cv.VideoCapture(<span class="string">&#x27;shibuya.mp4&#x27;</span>)  </span><br><span class="line">  </span><br><span class="line"><span class="comment">#角点检测参数  </span></span><br><span class="line">feature_params = <span class="built_in">dict</span>(maxCorners=<span class="number">100</span>, qualityLevel=<span class="number">0.2</span>, minDistance=<span class="number">7</span>, blockSize=<span class="number">7</span>)  	  </span><br><span class="line"><span class="comment">#KLT光流参数  </span></span><br><span class="line">lk_params = <span class="built_in">dict</span>(winSize=(<span class="number">15</span>, <span class="number">15</span>), maxLevel=<span class="number">2</span>, criteria=(cv.TERM_CRITERIA_EPS | cv.TERM_CRITERIA_COUNT, <span class="number">10</span>, <span class="number">0.02</span>))  </span><br><span class="line"> </span><br><span class="line">height = cap.get(cv.CAP_PROP_FRAME_HEIGHT)  </span><br><span class="line">width = cap.get(cv.CAP_PROP_FRAME_WIDTH)  </span><br><span class="line">fps = cap.get(cv.CAP_PROP_FPS)  </span><br><span class="line"><span class="comment">#out = cv.VideoWriter(&quot;reslut.avi&quot;, cv.VideoWriter_fourcc(&#x27;D&#x27;, &#x27;I&#x27;, &#x27;V&#x27;, &#x27;X&#x27;), fps,  </span></span><br><span class="line"><span class="comment">#(np.int(width), np.int(height)), True)  </span></span><br><span class="line">  </span><br><span class="line">tracks = []  </span><br><span class="line">track_len = <span class="number">20</span>  </span><br><span class="line">frame_idx = <span class="number">0</span>  </span><br><span class="line">detect_interval = <span class="number">5</span>  </span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:  </span><br><span class="line">    ret, frame = cap.read()  </span><br><span class="line">    <span class="keyword">if</span> ret:  </span><br><span class="line">        frame_gray = cv.cvtColor(frame, v.COLOR_BGR2GRAY)  </span><br><span class="line">        vis = frame.copy()  </span><br><span class="line">  </span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(tracks)&gt;<span class="number">0</span>:  </span><br><span class="line">            img0 ,img1 = prev_gray, frame_gray  </span><br><span class="line">            p0 = np.float32([tr[-<span class="number">1</span>] <span class="keyword">for</span> tr <span class="keyword">in</span> tracks]).reshape(-<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>)  </span><br><span class="line">            <span class="comment"># 上一帧的角点和当前帧的图像作为输入来得到角点在当前帧的位置  </span></span><br><span class="line">            p1, st, err = cv.calcOpticalFlowPyrLK(img0, img1, p0, <span class="literal">None</span>, **lk_params)  </span><br><span class="line">            <span class="comment"># 反向检查,当前帧跟踪到的角点及图像和前一帧的图像作为输入来找到前一帧的角点位置  </span></span><br><span class="line">            p0r, _, _ = cv.calcOpticalFlowPyrLK(img1, img0, p1, <span class="literal">None</span>, **lk_params)  </span><br><span class="line">            <span class="comment"># 得到角点回溯与前一帧实际角点的位置变化关系  </span></span><br><span class="line">            d = <span class="built_in">abs</span>(p0-p0r).reshape(-<span class="number">1</span>,<span class="number">2</span>).<span class="built_in">max</span>(-<span class="number">1</span>)  </span><br><span class="line">            <span class="comment">#判断d内的值是否小于1，大于1跟踪被认为是错误的跟踪点  </span></span><br><span class="line">            good = d &lt; <span class="number">1</span>  </span><br><span class="line">            new_tracks = []  </span><br><span class="line">            <span class="keyword">for</span> i, (tr, (x, y), flag) <span class="keyword">in</span> <span class="built_in">enumerate</span>(<span class="built_in">zip</span>(tracks, p1.reshape(-<span class="number">1</span>, <span class="number">2</span>), good)):  </span><br><span class="line">                <span class="comment"># 判断是否为正确的跟踪点  </span></span><br><span class="line">                <span class="keyword">if</span> <span class="keyword">not</span> flag:  </span><br><span class="line">                    <span class="keyword">continue</span>  </span><br><span class="line">                <span class="comment"># 存储动态的角点  </span></span><br><span class="line">                tr.append((x, y))  </span><br><span class="line">                <span class="comment"># 只保留track_len长度的数据，消除掉前面的超出的轨迹  </span></span><br><span class="line">                <span class="keyword">if</span> <span class="built_in">len</span>(tr) &gt; track_len:  </span><br><span class="line">                    <span class="keyword">del</span> tr[<span class="number">0</span>]  </span><br><span class="line">                <span class="comment"># 保存在新的list中  </span></span><br><span class="line">                new_tracks.append(tr)  </span><br><span class="line">                cv.circle(vis, (x, y), <span class="number">2</span>, (<span class="number">0</span>, <span class="number">255</span>, <span class="number">0</span>), -<span class="number">1</span>)  </span><br><span class="line">            <span class="comment"># 更新特征点  </span></span><br><span class="line">            tracks = new_tracks  </span><br><span class="line">  </span><br><span class="line">            <span class="comment"># #以上一振角点为初始点，当前帧跟踪到的点为终点,画出运动轨迹  </span></span><br><span class="line">            cv.polylines(vis, [np.int32(tr) <span class="keyword">for</span> tr <span class="keyword">in</span> tracks], <span class="literal">False</span>, (<span class="number">0</span>, <span class="number">255</span>, <span class="number">0</span>), <span class="number">1</span>)  </span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">        <span class="comment"># 每隔 detect_interval 时间检测一次特征点  </span></span><br><span class="line">        <span class="keyword">if</span> frame_idx % detect_interval==<span class="number">0</span>:  </span><br><span class="line">            mask = np.zeros_like(frame_gray)  </span><br><span class="line">            mask[:] = <span class="number">255</span>  </span><br><span class="line">  </span><br><span class="line">            <span class="keyword">if</span> frame_idx !=<span class="number">0</span>:  </span><br><span class="line">                <span class="keyword">for</span> x,y <span class="keyword">in</span> [np.int32(tr[-<span class="number">1</span>]) <span class="keyword">for</span> tr <span class="keyword">in</span> tracks]:  </span><br><span class="line">                    cv.circle(mask, (x, y), <span class="number">5</span>, <span class="number">0</span>, -<span class="number">1</span>)  </span><br><span class="line">  </span><br><span class="line">            p = cv.goodFeaturesToTrack(frame_gray, mask=mask, **feature_params)  </span><br><span class="line">            <span class="keyword">if</span> p <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:  </span><br><span class="line">                <span class="keyword">for</span> x, y <span class="keyword">in</span> np.float32(p).reshape(-<span class="number">1</span>,<span class="number">2</span>): </span><br><span class="line">                    tracks.append([(x, y)])  </span><br><span class="line">  </span><br><span class="line">        frame_idx += <span class="number">1</span>  </span><br><span class="line">        prev_gray = frame_gray  </span><br><span class="line">  </span><br><span class="line">        cv.imshow(<span class="string">&#x27;track&#x27;</span>, vis)  </span><br><span class="line">        <span class="comment">#out.write(vis)  </span></span><br><span class="line">	        ch = cv.waitKey(<span class="number">1</span>)  </span><br><span class="line">        <span class="keyword">if</span> ch ==<span class="number">27</span>:  </span><br><span class="line">            cv.imwrite(<span class="string">&#x27;track.jpg&#x27;</span>, vis)  </span><br><span class="line">            <span class="keyword">break</span>  </span><br><span class="line">    <span class="keyword">else</span>:  </span><br><span class="line">        <span class="keyword">break</span>  </span><br><span class="line">  </span><br><span class="line">cv.destroyAllWindows()  </span><br><span class="line">cap.release()  </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>实验效果:</p>
+<p><img src="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%AC%94%E8%AE%B0/8.jpg" alt="img"></p>
+]]></content>
+      <categories>
+        <category>MachineLearning</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>cv</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>高性能MySQL 读书笔记二</title>
+    <url>/%E9%AB%98%E6%80%A7%E8%83%BDmysql-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%BA%8C/</url>
+    <content><![CDATA[<h2 id="高性能MySQL-读书笔记二"><a href="#高性能MySQL-读书笔记二" class="headerlink" title="高性能MySQL 读书笔记二"></a>高性能MySQL 读书笔记二</h2><h3 id="一、MySQL基准测试"><a href="#一、MySQL基准测试" class="headerlink" title="一、MySQL基准测试"></a>一、MySQL基准测试</h3><p><strong>基准测试</strong>是针对系统设计的一种压力测试。通常的目标是为了掌握系统的行为。基准测试是一种测量和评估软件性能指标的活动用于建立某个时刻的<strong>性能基准</strong>，以便当系统发生软硬件变化时重新进行基准测试以评估变化对<strong>性能</strong>的影响。</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>基准测试</th>
+<th>压力测试</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>对比</td>
+<td>直接、简单、易于比较，用于评估服务器的处理能力</td>
+<td>对真实的业务数据进行测试，获得真实系统所能承受的压力</td>
+</tr>
+<tr>
+<td></td>
+<td>可能不关心<strong>业务逻辑</strong>，所使用的查询和业务的真实性可以和业务环境没关系</td>
+<td>需要针对不同主题，所使用的数据和查询也是真实用到的</td>
+</tr>
+</tbody></table>
+<p><strong>特性：</strong></p>
+<ol>
+<li><strong>可重复性</strong>  可进行重复性的测试，这样做有利于比较每次的测试结果，得到性能结果的长期变化趋势，为系统调优和上线前的容量规划做参考。</li>
+<li><strong>可观测性</strong> 通过全方位的监控（包括测试开始到结束，执行机、服务器、数据库），及时了解和分析测试过程发生了什么</li>
+<li><strong>可展示性</strong> 相关人员可以直观明了的了解测试结果</li>
+<li><strong>真实性</strong> 测试结果反映了客户体验到的真实的情况</li>
+<li><strong>可执行性</strong> 相关人员可以快速的进行测试验证修改调优</li>
+</ol>
+<h4 id="1-1-为什么需要基准测试？"><a href="#1-1-为什么需要基准测试？" class="headerlink" title="1.1 为什么需要基准测试？"></a>1.1 为什么需要基准测试？</h4><ul>
+<li>验证基于系统的一些假设，确认这些假设是否符合实际情况。</li>
+<li>重现系统中的某些异常行为，解决这些异常。</li>
+<li>测试系统当前的运行情况。</li>
+<li>模拟比当前系统更高的负载。</li>
+<li>规划未来的业务增长。</li>
+<li>测试应用适应可变环境的能力</li>
+<li>测试不同的硬件、软件和操作系统配置。</li>
+<li>证明新采购的设备是否配置正确。</li>
+<li>…..</li>
+</ul>
+<h4 id="1-2-基准测试的策略"><a href="#1-2-基准测试的策略" class="headerlink" title="1.2 基准测试的策略"></a>1.2 基准测试的策略</h4><p><strong>基准测试</strong>有两种主要的策略：集成式（对整个系统的基准测试）、单组件式（单独测试MySQL）。</p>
+<p>需要测试的<strong>测试指标</strong>：吞吐量、响应时间、并发性、可扩展性。</p>
+<p>总的来说，<strong>测试那些对用户来说最重要的指标</strong>。</p>
+<h4 id="1-3-基准测试方法"><a href="#1-3-基准测试方法" class="headerlink" title="1.3 基准测试方法"></a>1.3 基准测试方法</h4><p>基准测试的一般步骤：</p>
+<ol>
+<li>提出问题并明确目标。</li>
+<li>采用标准的基准测试&#x2F;设计专用的测试。</li>
+<li>针对数据运行查询。</li>
+</ol>
+<p>在测试过程中或完毕之后，详细地写下测试规划和测试记录。测试可能需要多次反复运行，因此需要精确地重现测试过程。</p>
+<blockquote>
+<p>测试规划应该记录<strong>测试数据</strong>、<strong>系统配置的步骤</strong>、<strong>如何测量和分析结果</strong>、<strong>以及预热的方案</strong>等。</p>
+</blockquote>
+<p>应该建立将参数和结果文档化的规范，每一轮测试都必须进行详细记录。可以使用电子表格或者记事本形式。</p>
+<h4 id="1-4-基准测试应该运行多长时间"><a href="#1-4-基准测试应该运行多长时间" class="headerlink" title="1.4 基准测试应该运行多长时间"></a>1.4 基准测试应该运行多长时间</h4><p>基准测试应该运行足够长的时间。（系统如果有大量的数据和内存，等待他到达稳定状态需要非常长的时间。）</p>
+<p>![](高性能MySQL 读书笔记二&#x2F;1.png)</p>
+<p>这是一个在已知系统上执行测试的例子，系统预热后，读I&#x2F;O活动在三四个小时后曲线趋于稳定。（一些写I&#x2F;O可能至少在八小时内变化还是很大，具体根据实际情况来考虑）</p>
+<h4 id="1-5-获取系统性能和状态"><a href="#1-5-获取系统性能和状态" class="headerlink" title="1.5 获取系统性能和状态"></a>1.5 获取系统性能和状态</h4><p>在执行基准测试的时候，要尽可能多地收集被测试系统的信息。</p>
+<p>最好为基准测试建立一个目录，并且每执行一轮测试都创建单独的子目录，将<code>测试结果、配置文件、测试指标、脚本和其他相关说明</code>都保存在其中。</p>
+<p>需要记录的数据包括<strong>系统状态</strong>和<strong>性能指标</strong>，如CPU使用率、磁盘I&#x2F;O、网络流量统计、SHOWGLOBAL STATUS 计数器。</p>
+<h4 id="1-6-获得准确的测试结果"><a href="#1-6-获得准确的测试结果" class="headerlink" title="1.6 获得准确的测试结果"></a>1.6 获得准确的测试结果</h4><p>在判断结果正确与否之前，先想一下：</p>
+<ul>
+<li><strong>是否选择了正确的基准测试？</strong></li>
+<li><strong>是否为问题收集了相关的数据？</strong></li>
+<li><strong>是否采用了错误的测试标准？</strong></li>
+</ul>
+<p>然后，<strong>确认测试结果是否可重复</strong>。每次重新测试之前要确保系统的状态是一致的。需要测试的系统是经过预热的系统，还需要确保预热的时间足够长。如果预热采用的是<strong>随机查询</strong>，那么测试结果可能就是<strong>不可重复</strong>的。如果测试的过程会修改数据或者schema，那么每次测试前，需要利用快照还原数据。</p>
+<p>影响测试结果的因素有很多，如<code>外部的压力、性能分析和监控系统、详细的日志记录、周期性作业</code>等。<strong>每次测试中，修改的参数应该尽可能少</strong>。如果必须要一次修改多个参数，那么可能会丢失一些信息。有些参数依赖其他参数，这些参数可能无法单独修改。有时候甚至都没有意识到这些依赖，这给测试带来了复杂性。</p>
+<h4 id="1-7-运行基准测试并分析结果"><a href="#1-7-运行基准测试并分析结果" class="headerlink" title="1.7 运行基准测试并分析结果"></a>1.7 运行基准测试并分析结果</h4><p>通常来说，<strong>自动化基准测试</strong>是个好主意。这样做可以获得更精准的测试结果。因为自动化的过程可以防止测试人员偶尔遗漏某些步骤，或者误操作。另外有助于归档整个测试过程。</p>
+<h3 id="二、基准测试工具"><a href="#二、基准测试工具" class="headerlink" title="二、基准测试工具"></a>二、基准测试工具</h3><h4 id="2-1-集成式测试工具"><a href="#2-1-集成式测试工具" class="headerlink" title="2.1 集成式测试工具"></a>2.1 集成式测试工具</h4><ul>
+<li><strong>ab</strong> 一个Apache HTTP 服务器基准测试工具。它可以测试HTTP服务器每秒最多可以处理多少请求。如果测试的是<strong>Web应用服务</strong>，这个结果可以转换成整个应用每秒可以满足多少请求。具体使用命令可以<a href="http://httpd.apache.org/docs/2.0/programs/ab.html">参考网址</a></li>
+<li><strong>http_load</strong> 这个工具概念上和ab类似，但是比ab更灵活，可以通过一个输入文件提供多个URL。可以随机测试、定制http_load按照时间比率进行测试。具体使用命令可以<a href="http://www.acme.com/software/http_load/">参考网址</a></li>
+<li><strong>JMeter</strong> 一个Java应用程序，可以加载其他应用并测试其性能。可以测试WEB引用，也可以测试FTP服务器、通过JDBC测试数据库查询。比ab和http_load更复杂，功能也更多，可以对测试进行记录、绘图，然后离线重演。具体使用可以<a href="https://jmeter.apache.org/">参考网址</a></li>
+</ul>
+<h4 id="2-2-单组件式测试工具"><a href="#2-2-单组件式测试工具" class="headerlink" title="2.2 单组件式测试工具"></a>2.2 单组件式测试工具</h4><ul>
+<li><strong>mysqlslap</strong> 可以模拟服务器的负载，并输出计时信息。它包含在<a href="https://dev.mysql.com/doc/refman/8.0/en/mysqlslap.html">MySQL5.1的发行包</a>中。测试时可以执行并发连接数，并指定SQL语句。</li>
+<li><strong>MySQL Benchmark Suite</strong> 在MySQL的发行包中也提供了一款自己的基准测试套件，可以用在不同数据库服务器上进行比较测试。它是单线程的，主要用于测试服务器执行查询的速度。结果会显示哪种类型的操作在服务器上执行得更快。</li>
+<li><strong>Super Smack</strong> 一款用于MySQL和PostgreSQL的基准测试工具，可以提供压力测试和负载生成。这是一个复杂而强大的工具，可以模拟多用户访问，可以加载测试数据到数据库，并支持使用随机数据填充测试表。——》<a href="http://vegan.net/tony/supersmack/">入口</a>（现在好像没有维护了，已崩）</li>
+<li><strong>sysbench</strong> 一款<strong>多线程</strong>系统压测工具。它可以根据影响数据库服务器性能的各种因素来评估系统的性能。sysbench是一款受大家喜欢的全能测试工具，支持MySQL、操作系统和硬件的硬件测试。——》<a href="https://launchpad.net/sysbench">入口</a></li>
+</ul>
+<p>这里先简单介绍一下这些工具，后面会有具体使用的案例，以及提供工具的安装包。</p>
+]]></content>
+      <categories>
+        <category>开发</category>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>Mysql</tag>
+        <tag>数据库</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>高性能MySQL 读书笔记一</title>
+    <url>/%E9%AB%98%E6%80%A7%E8%83%BDmysql-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B8%80/</url>
+    <content><![CDATA[<h2 id="高性能MySQL-读书笔记一"><a href="#高性能MySQL-读书笔记一" class="headerlink" title="高性能MySQL 读书笔记一"></a>高性能MySQL 读书笔记一</h2><h3 id="一、MySQL的逻辑架构"><a href="#一、MySQL的逻辑架构" class="headerlink" title="一、MySQL的逻辑架构"></a>一、MySQL的逻辑架构</h3><p>![](高性能MySQL 读书笔记一&#x2F;1.png)</p>
+<p>​		最上面一层的服务是基于<strong>网络</strong>的客户端&#x2F;服务器的工具。提供连接处理、授权认证、安全等等功能。</p>
+<p>​		第二层架构是MySQL比较有意思的部分。包含了MySQL大多数的核心服务功能，<strong>查询解析、分析、优化、缓存以及所有内置函数（日期、时间、数字和加密函数）</strong>。所有跨存储引擎的功能都在这一层实现：<strong>存储过程、触发器、视图</strong>等。</p>
+<p>​		第三层包含了存储引擎。存储引擎负责MySQL中数据的存储和提取。服务器通过<strong>API</strong>与存储引擎进行通信。这些<strong>接口</strong>屏蔽了不同存储引擎之间的差异，使得这些差异对上层的<strong>查询过程</strong>透明。存储引擎API包含了<strong>几十个底层函数</strong>，用于执行诸如”<strong>开始一个事务</strong>“或者”<strong>根据主键提取一行记录</strong>“等操作。不同存储引擎之间不会相互通信，而只是简单地响应上层服务器的请求。</p>
+<h4 id="1-1-连接管理与安全性"><a href="#1-1-连接管理与安全性" class="headerlink" title="1.1 连接管理与安全性"></a>1.1 连接管理与安全性</h4><p>​		每个客户端连接都会在服务器<strong>进程</strong>中拥有一个<strong>线程</strong>，这个连接的查询只会在这个单独的线程中执行，该线程只能轮流在某个CPU核心或者CPU中运行。<strong>服务器会负责缓存线程</strong>，因此不需要为每个新建的连接<strong>创建</strong>或者<strong>销毁线程</strong>。</p>
+<blockquote>
+<p>MySQL 5.5以上的更新提供了一个API，支持线程池，可以使用池中少量的线程来服务大量的连接。</p>
+</blockquote>
+<p>​		客户端连接MySQL服务器时，需要对其进行认证。认证基于用户名、密码、主机信息。<strong>可以使用安全套接字（SSL）的方式连接，也可以使用X.509证书认证</strong>。连接成功后，服务器会继续<strong>验证</strong>该客户端是否具有执行某个特定查询的<strong>权限</strong>。</p>
+<h4 id="1-2-优化与执行"><a href="#1-2-优化与执行" class="headerlink" title="1.2 优化与执行"></a>1.2 优化与执行</h4><p>​		MySQL会<strong>解析查询</strong>，并创建内部数据结构（解析树），然后对其进行各种优化，包括<strong>重写查询</strong>、<strong>决定表的读取顺序</strong>，以及<strong>选择合适的索引</strong>等。</p>
+<p>​		优化器并不关心表使用的存储引擎，但存储引擎对优化查询是<strong>有影响</strong>的。优化器会<strong>请求存储引擎提供容量</strong>或<strong>某个具体操作的开销信息</strong>，以及<strong>表数据的统计信息</strong>等。</p>
+<p>​		举个栗子。<strong>SELECT语句</strong>，在解析查询之前，服务器会先检查查询缓存，如果能直接找到对应查询，服务器就不必再执行查询解析、优化和执行整个过程，而是直接返回查询缓存中的结果集。</p>
+<h3 id="二、并发控制"><a href="#二、并发控制" class="headerlink" title="二、并发控制"></a>二、并发控制</h3><p>本节讨论的是<strong>服务器层与存储引擎层</strong>的并发控制。而解决多个<strong>进程</strong>之间的并发冲突问题，用的是<strong>锁（LOCK）</strong>。</p>
+<h4 id="2-1-读写锁"><a href="#2-1-读写锁" class="headerlink" title="2.1 读写锁"></a>2.1 读写锁</h4><p>​		<strong>读写锁</strong>分为**共享锁(shared lock)&#x2F;读锁(read lock)<strong>和</strong>排他锁(exclusive lock)&#x2F;写锁(write lock)**。</p>
+<p>​		<strong>共享锁</strong>是<strong>共享</strong>的，或者说互相不阻塞。多个客户在同一时刻可以同时读取同一个资源，而互不干扰。</p>
+<p>​		<strong>排他锁</strong>是<strong>排他</strong>的，即一个写锁能够阻塞其他的写锁和读锁，这是处于安全策略的考虑，只有这样，才能保证，同一时间内，只有一个用户写入且防止其他用户读取。</p>
+<p>​		大多数时候，MySQL锁的内部管理都是<strong>透明</strong>的。</p>
+<p>​		</p>
+<h4 id="2-2-锁粒度"><a href="#2-2-锁粒度" class="headerlink" title="2.2 锁粒度"></a>2.2 锁粒度</h4><p>​		一种提高共享资源并发性的方式就是让锁定对象更有<strong>选择性</strong>。最理想的方式是只会对修改的<strong>数据片</strong>进行精密的<strong>锁定</strong>。</p>
+<blockquote>
+<p>任何时候，在给定资源上，锁定的数据量越少，则系统的并发程度越高，只要相互之间不发生冲突即可。</p>
+</blockquote>
+<p>​		问题来了，<strong>加锁也需要消耗资源</strong>。锁的各种操作，获得锁、检查锁是否已经解除、释放锁等，都会增加系统的开销。如果系统花费大量时间来管理锁而不是存储数据，那么系统的性能可能会因此受到影响。</p>
+<p>​		MySQL提供了多种选择，每种MySQL存储引擎都可以实现自己的锁策略和锁粒度。在存储引擎的设计中，锁管理是个非常重要的决定。将锁粒度固定在某个级别，可以为某些特定的应用场景提供更好的性能，<strong>但同时会失去对另外一些应用场景的良好支持</strong>。好在MySQL支持多个存储引擎的架构，不需要单一的通用解决方案。下面介绍两种最重要的锁策略：</p>
+<ul>
+<li><strong>表锁（table lock）</strong></li>
+</ul>
+<p><strong>表锁</strong>是MySQL中最基本的锁策略，并且是开销最小的策略。表锁的加锁机制：会锁定整张表。一个用户在对表进行写操作前，需要先获得写锁，这回阻塞其他用户对该表的所有读写操作。只有没有写锁时，其他读取的用户才能获得读锁，读锁之间是不相互阻塞的。</p>
+<ul>
+<li><strong>行级锁（row lock）</strong></li>
+</ul>
+<p><strong>行级锁</strong>可以最大程度地支持并发处理。众所周知，在<strong>InnoDB</strong>和<strong>XtraDB</strong>，以及其他一些存储引擎中实现了行级锁。行级锁只在存储引擎层实现，而MySQL服务器层没有实现。<strong>服务器层完全不了解存储引擎中的锁实现</strong>。</p>
+<h3 id="三、事务"><a href="#三、事务" class="headerlink" title="三、事务"></a>三、事务</h3><p>事务：一组<strong>原子性</strong>的SQL查询。</p>
+<p>事务的<strong>ACID</strong>特性：</p>
+<ol>
+<li>原子性：一个事务必须被视为一个不可分割的最小工作单位。</li>
+<li>一致性：数据库总是从一个<strong>一致性</strong>的状态转换到另外一个<strong>一致性</strong>的状态。</li>
+<li>隔离性：一个事务所做修改在提交之前，对其他事务是不可见的。</li>
+<li>持久性：一旦事务提交，事务所做的修改就会<strong>永久</strong>地保存到数据库中。</li>
+</ol>
+<p>举个例子，假设一个银行有两张表：**支票表(checking)<strong>和</strong>储蓄表(saving)**。用户从支票账户中转移200RMB到储蓄账户，那么至少需要三步：</p>
+<ol>
+<li>检查支票账户的余额<strong>高于</strong>200元；</li>
+<li>从支票账户余额中<strong>减去</strong>200元；</li>
+<li>在储蓄账户余额中<strong>增加</strong>200元。</li>
+</ol>
+<p>我们来实现一下这个事务：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">START TRANSACTION;</span><br><span class="line">SELECT blance FROM checking WHERE customer_id = 1000000;</span><br><span class="line">UPDATE checking SET blance = blance - 200 WHERE customer_id = 1000000;</span><br><span class="line">UPDATE saving SET blance = blance + 200 WHERE customer_id = 1000000;</span><br><span class="line">COMMIT;</span><br></pre></td></tr></table></figure>
+
+<p>就像锁粒度的升级会增加系统开销一样，这种事务处理过程中额外的安全性，也会需要数据库系统做更多的额外工作。</p>
+<h4 id="3-1-隔离级别"><a href="#3-1-隔离级别" class="headerlink" title="3.1 隔离级别"></a>3.1 隔离级别</h4><p>SQL标准中定义了四种隔离级别。</p>
+<table>
+<thead>
+<tr>
+<th>隔离级别</th>
+<th>脏读可能性</th>
+<th>不可重复读可能性</th>
+<th>幻读可能性</th>
+<th>加锁读</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>READ UNCOMMITTED</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>READ COMMITTED</td>
+<td>No</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>REPEATABLE READ</td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>SERIALIZABLE</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+</tbody></table>
+<h4 id="3-2-死锁"><a href="#3-2-死锁" class="headerlink" title="3.2 死锁"></a>3.2 死锁</h4><p>死锁是指两个或者多个事务在同一资源上相互占用，并请求锁定对方占用的资源，从而导致恶性循环的现象。当多个事务试图以不同的顺序锁定资源时，就可能会产生<strong>死锁</strong>。</p>
+<p>例如，两个事务同时处理checking表，就会出现死锁问题。</p>
+<p>为了解决这种问题，数据库系统实现了各种<strong>死锁检测</strong>和<strong>死锁超时</strong>机制。<em>InnoDB存储引擎能检测到死锁的循环依赖，并立即返回一个错误。</em>还有就是，<strong>当查询的时间达到锁等待超时的设定后放弃锁请求，这种方式通常来说不太友好</strong>。目前InnoDB引擎处理死锁的方法是，<strong>将持有最少行级排他锁的事务进行回滚</strong>。</p>
+<p>死锁的产生有双重原因：有些是<strong>因为真正的数据冲突</strong>，这种情况通常很难避免，但有些则完全是<strong>由于存储引擎的实现方式导致</strong>的。</p>
+<h4 id="3-3-事务日志"><a href="#3-3-事务日志" class="headerlink" title="3.3 事务日志"></a>3.3 事务日志</h4><p>事务日志可以帮助提高事务的效率。</p>
+<p>使用事务日志，<strong>存储引擎</strong>在修改表的数据时只需要修改其内存拷贝，再把修改行为记录到持久在硬盘上的事务日记中，而不用每次都将修改的数据本身持久到磁盘。</p>
+<p>事务日志采用的是<strong>追加</strong>的方式。因此写日志的操作是磁盘上一小块区域内的顺序I&#x2F;O，而不像随机I&#x2F;O需要在磁盘的多个地方移动磁头，所以采用事务日志的方式相对来说要快的多。事务日志<strong>持久</strong>以后，内存中修改的数据在后台可以慢慢地刷回到磁盘。目前大多数存储引擎都是这样实现地，我们通常称之为<strong>预写式日志（Write-Ahead Logging）</strong>，修改数据需要写两次磁盘。</p>
+<h4 id="3-4-MySQL中的事务"><a href="#3-4-MySQL中的事务" class="headerlink" title="3.4 MySQL中的事务"></a>3.4 MySQL中的事务</h4><p>MySQL提供两种事务型的存储引擎：<strong>InnoDB</strong>和<strong>NDB Cluster</strong>。另外还有一些第三方</p>
+<p>存储引擎也支持事务，比较知名的包括<strong>XtraDB</strong>和<strong>PBXT</strong>。</p>
+<ul>
+<li><strong>自动提交</strong>  MySQL默认采用自动提交(AUTOCOMMIT)模式。另外还有一些命令，在执行之前会强制执行COMMIT提交当前的活动事务。MySQL可以通过执行<code>SET TRANSACTION ISOLATION LEVEL</code>命令来设置隔离级别。</li>
+<li><strong>在事务中混合使用存储引擎</strong>  MySQL服务层不管理事务，事务是由下层的存储引擎实现的。所以在同一个事务中，使用多种存储引擎是不可靠的。<em>如果在事务中混合使用了事务型和非事务型的表，在正常提交的情况下不会有什么问题。但如果该事务需要回滚，非事务型的表上的变更就无法撤销，这会导致数据库处于不一致的状态，这种情况很难修复，事务的最终结果将无法确定。所以，为每张表选择合适的存储引擎非常重要。</em></li>
+<li><strong>隐式和显式锁定</strong>  InnoDB采用的是<strong>两阶段锁定协议</strong>。在事务执行过程中，随时都可以执行锁定，锁只有在执行COMMIT或者ROLLBACK的时候才会释放，并且所有的锁是在同一时刻倍释放。前面描述的锁定都是隐式锁定，InnoDB会根据隔离级别在需要的时候自动加锁。</li>
+</ul>
+<h3 id="四、MySQL的存储引擎"><a href="#四、MySQL的存储引擎" class="headerlink" title="四、MySQL的存储引擎"></a>四、MySQL的存储引擎</h3><ul>
+<li><p><strong>InnoDB存储引擎</strong> MySQL的默认<strong>事务型</strong>引擎，也是最重要、使用最广泛的存储引擎。它被设计用来处理大量的短期事务，短期事务大部分情况是正常提交的，很少会被回滚。</p>
+<p>InnoDB的数据存储在表空间中，表空间是由InnoDB管理的一个黑盒子，由一系列的数据文件组成。</p>
+<p>InnoDB采用<strong>MVCC</strong>来支持高并发，并且实现了四个标准的隔离级别。(其默认级别是<strong>REPEATABLE READ</strong>，通过<strong>间隙锁</strong>策略防止<strong>幻读</strong>的出现。)</p>
+<p>InnoDB表是<strong>基于聚簇索引</strong>建立的。</p>
+<p>InnoDB内部做了很多优化，包括可预测性预读、hash索引、自适应哈希索引、能够加速插入操作的插入缓冲区。</p>
+</li>
+<li><p><strong>MyISAM存储引擎</strong>  在MySQL5.1及之前的版本，MyISAM是默认的存储引擎，是非事务型引擎。</p>
+<p>MyISAM会将表存储在两个文件中：数据文件和索引文件。</p>
+<p>MyISAM的特性：</p>
+<pre><code>1. 加锁与并发
+ 2. 修复
+ 3. 索引特性
+ 4. 延迟更新索引键
+</code></pre>
+<blockquote>
+<p>MyISAM最典型的性能问题还是表锁问题，如果你发现所有的查询都长期处于“Locked”状态，那么毫无疑问表锁就是罪魁祸首。</p>
+</blockquote>
+</li>
+<li><p><strong>Archive引擎</strong> Archive存储引擎支持INSERT和SELECT操作。可以实现高并发的插入。（快速插入处理的场景下使用）</p>
+</li>
+<li><p><strong>Blackhole引擎</strong> 没有实现任何存储己机制，会丢弃所有插入的数据，不做任何保存，但是服务器会记录Blackhole的日志。所以可以用于复制数据到备份库，或者记录日志。（一般不使用）</p>
+</li>
+<li><p><strong>CSV引擎</strong>  CSV引擎可以将普通的CSV文件作为MySQL的表来处理，但<strong>这种表不支持索引</strong>。（一般用来处理csv文件）</p>
+</li>
+<li><p><strong>Federated引擎</strong> Federated引擎是访问其他MySQL服务器的一个代理，它会创建一个到远程MySQL服务器的客户端连接，并将查询传输到远程服务器执行，然后提取或发送需要的数据。（一般不使用）</p>
+</li>
+<li><p><strong>Memory引擎</strong>  如果需要快速访问数据，并且这些数据不会被修改，重启以后丢失也没关系，那么使用Memory表非常有用。因为所有数据保存在内存，查询速度比MyISAM快一个数量级，表结构在重启后还在，但是数据会丢失。（适合场景：用于查找表、映射表、周期性聚合数据的结果、保存数据分析中产生的中间数据。</p>
+<blockquote>
+<p>Memory表和临时表的区别：临时表是使用<code>CREATE TEMPORARY TABLE</code>命令创建的表，可以用于任何存储引擎，而且临时表只在单个连接中可见，连接断开，临时表将不复存在。</p>
+</blockquote>
+</li>
+<li><p><strong>Merge引擎</strong> Merge引擎是MyISAM引擎的一个变种。Merge表是由多个MyISAM表合并而来的虚拟表。</p>
+</li>
+<li><p><strong>NDB集群引擎</strong>  MySQL AB公司从索尼爱立信公司收购了NDB数据库，然后开发了NDB集群引擎。</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>开发</category>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>Mysql</tag>
+        <tag>数据库</tag>
+      </tags>
+  </entry>
+</search>

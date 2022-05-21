@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"www.yyfol.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-next/8.11.1/config.min.js"></script>
+
+    <meta name="description" content="1. static关键字有哪些作用？static修饰变量、修饰方法。 static修饰静态块、静态内部类、静态导包。 2. volatile关键字的底层实现原理变量被volatile关键字修饰，那么所有线程都是可见的。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java基础问题">
+<meta property="og:url" content="https://www.yyfol.com/java%E5%9F%BA%E7%A1%80%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:site_name" content="不喧嚣自有声">
+<meta property="og:description" content="1. static关键字有哪些作用？static修饰变量、修饰方法。 static修饰静态块、静态内部类、静态导包。 2. volatile关键字的底层实现原理变量被volatile关键字修饰，那么所有线程都是可见的。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-01-09T12:21:00.000Z">
+<meta property="article:modified_time" content="2020-01-09T12:21:34.000Z">
+<meta property="article:author" content="Ye Yifan">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="Spring">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://www.yyfol.com/java%E5%9F%BA%E7%A1%80%E9%97%AE%E9%A2%98/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://www.yyfol.com/java%E5%9F%BA%E7%A1%80%E9%97%AE%E9%A2%98/","path":"java基础问题/","title":"Java基础问题"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Java基础问题 | 不喧嚣自有声</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135610801-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-135610801-1","only_pageview":false}</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-next/8.11.1/third-party/analytics/google-analytics.min.js"></script>
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">不喧嚣自有声</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">it's better to burn out than to fade away</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-static%E5%85%B3%E9%94%AE%E5%AD%97%E6%9C%89%E5%93%AA%E4%BA%9B%E4%BD%9C%E7%94%A8%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">1. static关键字有哪些作用？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-volatile%E5%85%B3%E9%94%AE%E5%AD%97%E7%9A%84%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">2. volatile关键字的底层实现原理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-ConcurrentHashMap%E7%9A%84%E9%94%81%E5%88%86%E6%AE%B5%E6%8A%80%E6%9C%AF"><span class="nav-number">3.</span> <span class="nav-text">3. ConcurrentHashMap的锁分段技术</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-ConcurrentHashMap%E7%9A%84%E8%AF%BB%E6%98%AF%E5%90%A6%E8%A6%81%E5%8A%A0%E9%94%81%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88"><span class="nav-number">4.</span> <span class="nav-text">4. ConcurrentHashMap的读是否要加锁，为什么</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-ConcurrentHashMap%E7%9A%84%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%98%AF%E5%BC%BA%E4%B8%80%E8%87%B4%E6%80%A7%E7%9A%84%E8%BF%AD%E4%BB%A3%E5%99%A8%E8%BF%98%E6%98%AF%E5%BC%B1%E4%B8%80%E8%87%B4%E6%80%A7%E7%9A%84%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="nav-number">5.</span> <span class="nav-text">5. ConcurrentHashMap的迭代器是强一致性的迭代器还是弱一致性的迭代器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-%E7%9F%A5%E9%81%93%E5%B8%B8%E7%94%A8%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="nav-number">6.</span> <span class="nav-text">6. 知道常用设计模式的优缺点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-%E6%9E%84%E9%80%A0%E5%99%A8%EF%BC%88constructor%EF%BC%89%E6%98%AF%E5%90%A6%E5%8F%AF%E8%A2%AB%E9%87%8D%E5%86%99%EF%BC%88override%EF%BC%89%EF%BC%9F"><span class="nav-number">7.</span> <span class="nav-text">7. 构造器（constructor）是否可被重写（override）？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#8-%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E7%BB%A7%E6%89%BFString%E7%B1%BB%EF%BC%9F"><span class="nav-number">8.</span> <span class="nav-text">8. 是否可以继承String类？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#9-%E9%87%8D%E8%BD%BD%EF%BC%88Overload%EF%BC%89%E5%92%8C%E9%87%8D%E5%86%99%EF%BC%88Override%EF%BC%89%E7%9A%84%E5%8C%BA%E5%88%AB%E3%80%82%E9%87%8D%E8%BD%BD%E7%9A%84%E6%96%B9%E6%B3%95%E8%83%BD%E5%90%A6%E6%A0%B9%E6%8D%AE%E8%BF%94%E5%9B%9E%E7%B1%BB%E5%9E%8B%E8%BF%9B%E8%A1%8C%E5%8C%BA%E5%88%86%EF%BC%9F"><span class="nav-number">9.</span> <span class="nav-text">9. 重载（Overload）和重写（Override）的区别。重载的方法能否根据返回类型进行区分？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#10-get%E5%92%8Cpost%E8%AF%B7%E6%B1%82%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="nav-number">10.</span> <span class="nav-text">10. get和post请求的区别？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#11-%E5%AE%9E%E7%8E%B0%E4%BC%9A%E8%AF%9D%E8%B7%9F%E8%B8%AA%E7%9A%84%E6%8A%80%E6%9C%AF%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="nav-number">11.</span> <span class="nav-text">11. 实现会话跟踪的技术有哪些？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#12-%E4%BB%80%E4%B9%88%E6%98%AFORM%EF%BC%9F"><span class="nav-number">12.</span> <span class="nav-text">12. 什么是ORM？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#13-%E6%8C%81%E4%B9%85%E5%B1%82%E8%AE%BE%E8%AE%A1%E8%A6%81%E8%80%83%E8%99%91%E7%9A%84%E9%97%AE%E9%A2%98%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F%E6%8C%81%E4%B9%85%E5%B1%82%E6%A1%86%E6%9E%B6%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="nav-number">13.</span> <span class="nav-text">13. 持久层设计要考虑的问题有哪些？持久层框架有哪些？</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Ye Yifan"
+      src="/avatar/avatar.png">
+  <p class="site-author-name" itemprop="name">Ye Yifan</p>
+  <div class="site-description" itemprop="description">相信代码改变世界！</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/nside" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;nside" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.huanglexing.com/" title="https:&#x2F;&#x2F;www.huanglexing.com" rel="noopener" target="_blank">HLX</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.yyfol.com/java%E5%9F%BA%E7%A1%80%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/avatar/avatar.png">
+      <meta itemprop="name" content="Ye Yifan">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不喧嚣自有声">
+      <meta itemprop="description" content="相信代码改变世界！">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Java基础问题 | 不喧嚣自有声">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java基础问题
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2020-01-09 20:21:00 / 修改时间：20:21:34" itemprop="dateCreated datePublished" datetime="2020-01-09T20:21:00+08:00">2020-01-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%BC%80%E5%8F%91/" itemprop="url" rel="index"><span itemprop="name">开发</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h5 id="1-static关键字有哪些作用？"><a href="#1-static关键字有哪些作用？" class="headerlink" title="1. static关键字有哪些作用？"></a>1. static关键字有哪些作用？</h5><p>static修饰变量、修饰方法。</p>
+<p>static修饰静态块、静态内部类、静态导包。</p>
+<h5 id="2-volatile关键字的底层实现原理"><a href="#2-volatile关键字的底层实现原理" class="headerlink" title="2. volatile关键字的底层实现原理"></a>2. volatile关键字的底层实现原理</h5><p>变量被<code>volatile</code>关键字修饰，那么所有<strong>线程</strong>都是可见的。</p>
+<ul>
+<li>对于普通变量：普通变量的值在线程间传递均需要通过主内存来完成。</li>
+<li>对于<code>volatile</code>关键字修饰的变量：多线程下jvm会为每个线程分配一个<strong>独立的缓存</strong>来提高效率。</li>
+</ul>
+<p><code>volatile</code>变量<strong>不会被缓存在寄存器或者对其他处理器不可见</strong>的地方，保证了每次读写变量都从主内存中读，跳过CPU cache这一步。</p>
+<p>指令重排序是JVM为了<strong>优化指令</strong>、<strong>提高程序运行效率</strong>，<strong>在不影响单线程程序执行结果的前提下，尽可能地提高并行度</strong>。</p>
+<p>指令重排序包括<strong>编译器重排序</strong>和<strong>运行时重排序</strong>。</p>
+<p>volatile关键字提供<strong>内存屏障</strong>的方式来防止指令被重排，编译器在生成字节码文件时，会在指令序列中插入<strong>内存屏障</strong>来禁止特定类型的处理器重排序。</p>
+<h5 id="3-ConcurrentHashMap的锁分段技术"><a href="#3-ConcurrentHashMap的锁分段技术" class="headerlink" title="3. ConcurrentHashMap的锁分段技术"></a>3. ConcurrentHashMap的锁分段技术</h5><blockquote>
+<p>HashMap与HashTable都是哈希表，但是hashmap线程不安全；hashtable线程安全，效率非常低。</p>
+</blockquote>
+<p>ConcurrentHashMap所使用的锁分段技术，首先将数据分成一段一段的存储，然后给每一段数据配一把锁，当一个线程占用锁访问其中一个段数据的时候，其他段的数据也能被其他线程访问。</p>
+<p>ConcurrentHashMap是由Segment数组结构和HashEntry数组结构组成。Segment是一种可重入锁ReentrantLock，在ConcurrentHashMap里扮演锁的角色，HashEntry则用来存储键值对数据。（Segment数组+HashEntry数组）</p>
+<h5 id="4-ConcurrentHashMap的读是否要加锁，为什么"><a href="#4-ConcurrentHashMap的读是否要加锁，为什么" class="headerlink" title="4. ConcurrentHashMap的读是否要加锁，为什么"></a>4. ConcurrentHashMap的读是否要加锁，为什么</h5><p>不需要，ConcurrentHashMap实现技术是保证HashEntry几乎是不可变的。</p>
+<h5 id="5-ConcurrentHashMap的迭代器是强一致性的迭代器还是弱一致性的迭代器"><a href="#5-ConcurrentHashMap的迭代器是强一致性的迭代器还是弱一致性的迭代器" class="headerlink" title="5. ConcurrentHashMap的迭代器是强一致性的迭代器还是弱一致性的迭代器"></a>5. ConcurrentHashMap的迭代器是强一致性的迭代器还是弱一致性的迭代器</h5><p>弱一致迭代器。</p>
+<h5 id="6-知道常用设计模式的优缺点"><a href="#6-知道常用设计模式的优缺点" class="headerlink" title="6. 知道常用设计模式的优缺点"></a>6. 知道常用设计模式的优缺点</h5><ul>
+<li>简单工厂模式（<strong>Static Factory Method</strong>）</li>
+</ul>
+<p>优点： </p>
+<ol>
+<li>工厂类是整个模式的关键。包含了必要的逻辑判断，根据外界给定的信息，决定究竟应该创建哪个具体类的对象。</li>
+<li>通过使用工厂类，外界可以从直接创建具体产品对象的尴尬局面摆脱出来，仅仅需要负责“消费”对象就可以了，而不必管这些对象究竟如何创建及如何组织。</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>由于工厂类集中了所有实例的创建逻辑，违反了高内聚责任分配原则，将全部创建逻辑集中到了一个工厂类中，它所能创建的类只能是事先考虑到的，如果需要添加新的类，就需要改变工厂类。</li>
+<li>当系统中的具体产品类不断增多时候，可能会出现要求工厂类根据不同条件创建不同实例的需求。对<strong>系统的维护</strong>和<strong>扩展</strong>非常不利。</li>
+</ol>
+<ul>
+<li>策略模式（<strong>Strategy</strong>）</li>
+</ul>
+<p>优点：</p>
+<ol>
+<li>每个算法<strong>单独封装</strong>，<strong>减少</strong>了算法和算法调用者的耦合。</li>
+<li>合理使用继承有助于提取出算法中的公共部分。</li>
+<li>简化了单元测试。</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>策略模式只适用于客户端知道所有的算法或行为的情况。</li>
+<li>策略模式造成很多的策略类，每个具体策略类都会产生一个新类。</li>
+</ol>
+<ul>
+<li>装饰模式（<strong>Decorator</strong>）</li>
+</ul>
+<p>优点：</p>
+<ol>
+<li><code>Decorator</code>模式与继承关系的目的都是要扩展对象的功能，但是<code>Decorator</code>可以提供比继承更多的灵活性。</li>
+<li>通过使用不同的具体装饰类以及这些装饰类的排列组合，设计师可以创造出很多不同行为的组合。</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>更加<strong>复杂</strong></li>
+</ol>
+<ul>
+<li>代理模式（<strong>Proxy</strong>）</li>
+</ul>
+<p>优点：</p>
+<ol>
+<li>权责清晰，真实的角色就是实现实际的业务逻辑，不用关心其他非本职责的事务，通过后期的代理完成一件完成事务，附带的结果就是编程简洁清晰。</li>
+<li>代理对象可以在客户端和目标对象之间起到中介的作用，这样起到了中介的作用和保护了目标对象的作用。</li>
+<li>高扩展性</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>在客户端和目标对象增加一个代理对象，会造成请求处理速度变慢。</li>
+<li>增加了系统的复杂度。</li>
+</ol>
+<ul>
+<li>工厂方法模式（<strong>Factory Method</strong>）</li>
+</ul>
+<p>优点：</p>
+<ol>
+<li>良好的<strong>封装性</strong>，代码结构清晰，<strong>减少模块间的耦合</strong>。</li>
+<li>工厂方法模式的扩展性非常优秀。</li>
+<li>屏蔽产品类。</li>
+<li>工厂方法模式就是典型的解耦框架。</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>使用者必须知道相应工厂的存在。</li>
+<li>每次增加一个产品时，都需要增加一个具体类和对象实现工厂，使得系统中类的个数成倍增加，在一定程度上增加了系统的复杂度，同时也增加了系统具体类的依赖。</li>
+</ol>
+<ul>
+<li>原型模式（<strong>Prototype</strong>）</li>
+</ul>
+<p>优点：</p>
+<ol>
+<li><strong>隐藏</strong>了对象创建的细节。</li>
+<li>提高了性能。</li>
+<li>不用重新初始化，动态获得对象运行的状态。</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>适用性不是很广。</li>
+<li>每一个类必须配备一个<strong>克隆方法</strong>。</li>
+<li>配备克隆方法需要对类的功能进行通盘考虑，这对于全新的类不是很难，但对于已有的类不一定很容易，特别当一个类引用不支持串行化的间接对象或者引用含有循环结构的时候。</li>
+</ol>
+<ul>
+<li>模板方法模式（<strong>Template Method</strong>）</li>
+</ul>
+<p>优点：</p>
+<ol>
+<li>提高代码<strong>复用性</strong>。</li>
+<li>帮助子类摆脱重复的<strong>不变行为</strong>。</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>考虑不全面统一出现问题。</li>
+</ol>
+<p>（更多模式待补充……..）</p>
+<h5 id="7-构造器（constructor）是否可被重写（override）？"><a href="#7-构造器（constructor）是否可被重写（override）？" class="headerlink" title="7. 构造器（constructor）是否可被重写（override）？"></a>7. 构造器（constructor）是否可被重写（override）？</h5><p>构造器不能被继承，因此不能被重写，但可以被重载。</p>
+<h5 id="8-是否可以继承String类？"><a href="#8-是否可以继承String类？" class="headerlink" title="8. 是否可以继承String类？"></a>8. 是否可以继承String类？</h5><p>String类是final类，不可以被继承。</p>
+<blockquote>
+<p>ps：继承String本身就是一个错误的行为，对String类型最好的重用方式是关联关系和依赖关系而不是继承关系。</p>
+</blockquote>
+<h5 id="9-重载（Overload）和重写（Override）的区别。重载的方法能否根据返回类型进行区分？"><a href="#9-重载（Overload）和重写（Override）的区别。重载的方法能否根据返回类型进行区分？" class="headerlink" title="9. 重载（Overload）和重写（Override）的区别。重载的方法能否根据返回类型进行区分？"></a>9. 重载（Overload）和重写（Override）的区别。重载的方法能否根据返回类型进行区分？</h5><p>方法的重载和重写都是<strong>实现多态</strong>的方式，区别在于前者实现的是<strong>编译</strong>时的多态性，而后者实现的是<strong>运行</strong>时的多态性。</p>
+<p><strong>重载</strong>发生在一个类中，同名的方法如果有不同的参数列表（参数类型不同、参数个数不同或者二者都不同）则视为重载；<strong>重写</strong>发生在<strong>子类</strong>与<strong>父类</strong>之间，重写要求<strong>子类</strong>被重写方法与<strong>父类</strong>被重写方法有<strong>相同的返回类型</strong>，比父类被重写方法更好访问，不能比父类被重写方法声明更多的异常。<strong>重载</strong>对返回类型没有特殊的要求。</p>
+<h5 id="10-get和post请求的区别？"><a href="#10-get和post请求的区别？" class="headerlink" title="10. get和post请求的区别？"></a>10. get和post请求的区别？</h5><p>①get请求用来从服务器上获得资源，而post是用来向服务器提交数据；</p>
+<p>②get将表单中数据按照name&#x3D;value的形式，添加到action所指向的URL后面，并且两者使用“？”连接，而各个变量之间使用“&amp;”连接；post是将表单中的数据放在HTTP协议的请求头或消息体中，传递到action所指向URL；</p>
+<p>③get传输的数据要受到URL长度限制（1024字节）；而post可以传输大量的数据，上传文件通常要使用post方式；</p>
+<p>④使用get时参数会显示在地址栏上，如果这些数据不是敏感数据，那么可以使用get；对于敏感数据应使用post；</p>
+<p>⑤get使用MIME类型百分号编码文本的格式传递参数，保证被传送的参数由遵循规范的文本组成。</p>
+<h5 id="11-实现会话跟踪的技术有哪些？"><a href="#11-实现会话跟踪的技术有哪些？" class="headerlink" title="11. 实现会话跟踪的技术有哪些？"></a>11. 实现会话跟踪的技术有哪些？</h5><ul>
+<li><strong>URL重写</strong>：在URL中添加用户会话的信息作为请求的参数，或者将唯一的会话ID添加到URL结尾以标识一个会话。</li>
+<li><strong>设置表单隐藏域</strong>：将和会话跟踪相关的字段添加到隐式表单域中，这些信息不会在浏览器中显示但是提交表单时会提交到服务器。这两种方式很难处理跨越多个页面的信息传递，因为如果每次都要修改URL或在页面中添加隐式表单域来存储用户会话相关信息，事情将变得非常麻烦。</li>
+<li><strong>cookie</strong>：cookie有两种，一种是基于窗口的，浏览器窗口关闭后，cookie就没有了；另一种是将信息存储在一个临时文件中，并设置存在的时间。当用户通过浏览器和服务器建立一次会话后，会话ID就会随响应信息返回存储在基于窗口的cookie中，那就意味着只要浏览器没有关闭，会话没有超时，下一次请求时这个会话ID又会提交给服务器让服务器识别身份。</li>
+</ul>
+<blockquote>
+<p>ps: HTML5中可以用Web Storage技术通过JavaScript来保存数据，例如<strong>localStorage</strong>和<strong>sessionStorage</strong>来保存用户会话的信息，也能够实现会话跟踪。</p>
+</blockquote>
+<h5 id="12-什么是ORM？"><a href="#12-什么是ORM？" class="headerlink" title="12. 什么是ORM？"></a>12. 什么是ORM？</h5><p>对象关系映射是一种为了解决程序的面向对象模型与数据库的关系模型互不匹配问题的技术；简单的说，ORM是通过使用描述对象和数据库之间映射的元数据，将程序中的对象自动持久化到关系数据库中或者将关系数据库表中的行转换成Java对象，其本质上就是将数据从一种形式转换到另一种形式。</p>
+<h5 id="13-持久层设计要考虑的问题有哪些？持久层框架有哪些？"><a href="#13-持久层设计要考虑的问题有哪些？持久层框架有哪些？" class="headerlink" title="13. 持久层设计要考虑的问题有哪些？持久层框架有哪些？"></a>13. 持久层设计要考虑的问题有哪些？持久层框架有哪些？</h5><p>持久层设计的目标包括：</p>
+<ol>
+<li>数据存储逻辑的分离，提供抽象化的数据访问接口。</li>
+<li>数据访问底层实现的分离，可以在不修改代码的情况下切换底层实现。</li>
+<li>资源管理和调度的分离，在数据访问层实现统一的资源调度。</li>
+<li>数据抽象，提供更面向对象的数据操作。</li>
+</ol>
+<blockquote>
+<p>持久层框架有：</p>
+<ul>
+<li>Hibernate</li>
+<li>MyBatis</li>
+<li>Spring Data</li>
+<li>ActiveJDBC</li>
+<li>Guzz</li>
+<li>jOOQ</li>
+</ul>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
+              <a href="/tags/Spring/" rel="tag"># Spring</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/spring%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3ioc%E3%80%81di/" rel="prev" title="Spring核心思想IOC、DI">
+                  <i class="fa fa-chevron-left"></i> Spring核心思想IOC、DI
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/%E5%8D%8E%E4%B8%BAcloud-bu-%E8%BD%AF%E5%BC%80%E5%87%89%E7%BB%8F/" rel="next" title="华为Cloud&Bu 软开凉经">
+                  华为Cloud&Bu 软开凉经 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC80Mjk5Ni8xOTU0Mg=="></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">浙ICP备18018065号-2 </a>
+      <img src="/assets%5C%E5%A4%87%E6%A1%88%E5%9B%BE%E6%A0%87.png" alt="">
+  </div>
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Ye Yifan</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-next/8.11.1/comments.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-next/8.11.1/utils.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-next/8.11.1/motion.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-next/8.11.1/next-boot.min.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-next/8.11.1/third-party/search/local-search.min.js"></script>
+
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-next/8.11.1/third-party/pace.min.js"></script>
+
+  
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-theme-next/8.11.1/third-party/comments/livere.min.js"></script>
+
+</body>
+</html>
