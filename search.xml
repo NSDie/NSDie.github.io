@@ -1,47 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Spring学习笔记一</title>
-    <url>/spring%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%80/</url>
-    <content><![CDATA[<h3 id="IOC"><a href="#IOC" class="headerlink" title="IOC"></a>IOC</h3><h4 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h4><p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<code>Inversion of Control</code> ，翻译为”控制反转“，别名”依赖注入“(<code>Dependency Injection</code>)。</p>
-<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;关键在于四个问题：<strong>谁控制谁</strong>,<strong>控制什么</strong>,<strong>反转是什么</strong>,<strong>哪些方面反转了</strong>。</p>
-<blockquote>
-<p>所谓IOC，就是由Spring IOC容器来负责对象的生命周期和对象之间的关系。</p>
-</blockquote>
-<p>​	我们可以先想象一个场景：你需要一个女朋友，直接<code>new BeautifulGirl()</code>，接下来你想要的各种要求，用set来设置。但是这个过程复杂又繁琐，而且我们必须要面对每个环节，同时在使用完成之后还要负责销毁。<strong>这种情况下我们的对象和它所依赖的对象耦合在一起</strong>。</p>
-<p>​	但是我们知道，我们依赖对象并不是依赖对象本身，而是依赖对象所提供的<strong>服务</strong>，当我们需要它的时候，它能够<strong>及时提供服务即可</strong>，至于它是我们主动去创建还是别人送给我们的，并不那么重要。就像你需要一个女朋友，你可以不用自己找（new），你可以直接跟婚介公司说，你想要这样那样的妹子（<strong>需求</strong>），婚介公司就会给你一个妹子，你只需要负责接下来的工作。</p>
-<p>​	所以<strong>IoC</strong>就是相当于一个中介，当你需要什么（功能） 的时候，IoC就会送过来给你，你不用自己去创建销毁。</p>
-<p>​	现在，回答上面四个问题：</p>
-<p>​	<strong>1.谁控制谁</strong>：<code>IOC Service Provider</code>(IOC容器) 控制对象。</p>
-<p>​	<strong>2.控制什么</strong>：控制对象。</p>
-<p>​	<strong>3.反转是什么</strong>：没有IOC，都是在对象中主动去创建被依赖的对象，这是<strong>正转</strong>；有IOC，所依赖的对象直接由IoC容器创建后注入到被注入的对象中，依赖的对象由原来的主动变为被动，这是<strong>反转</strong>。</p>
-<p>​	<strong>4.哪些方面反转了</strong>：所依赖对象的获取被反转了。</p>
-<h4 id="提供的注入方式"><a href="#提供的注入方式" class="headerlink" title="提供的注入方式"></a>提供的注入方式</h4><ol>
-<li><strong>构造器注入</strong> 被注入的对象通过在其构造方法中声明依赖对象的参数列表，让外部知道它需要哪些依赖对象。</li>
-<li><strong>setter 方法注入</strong> 对于JavaBean对象而言，我们一般是通过<code>getter</code>和<code>setter</code>方法来访问和设置对象的属性。所以，当前对象只需要为其所依赖的对象提供相应的<code>setter</code>方法，就可以通过该方法将相应的依赖对象设置到被注入对象中。</li>
-<li><strong>接口方式注入</strong> 接口方式注入显得比较霸道，因为它需要被依赖的对象实现不必要的接口，带有侵入性。</li>
-</ol>
-<h3 id="IOC各部分"><a href="#IOC各部分" class="headerlink" title="IOC各部分"></a>IOC各部分</h3><p>​	五大体系：<strong>Resource体系</strong>、<strong>BeanFactory体系</strong>、<strong>Beandefinition</strong>、<strong>BeandefinitionReader体系</strong>、<strong>ApplicationContext体系</strong>。(简单介绍一下，后面再继续详细记录。)</p>
-<ul>
-<li><strong>Resource体系</strong> 对资源的抽象，它的每一个实现类都代表了一种资源的访问策略。如ClasspathResource、URLResource、FileSystemResource等。ps：资源加载——ResourceLoader。</li>
-<li><strong>BeanFactory体系</strong> BeanFactory是一个非常纯粹的bean容器，它是IOC必备的数据结构，其中<em>BeanDefinition</em>是它的基本结构，它内部维护一个map，根据<em>BeanDefinition</em>的描述进行bean的创建和管理。</li>
-<li><strong>BeanDefinition体系</strong> 用来描述Spring中的Bean对象。</li>
-<li><strong>BeanDefinitionReader体系</strong> 用来读取Spring的配置文件，并转换成IOC容器内部的数据结构-》<em>BeanDefinition</em>。</li>
-<li><strong>ApplicationContext体系</strong> Spring容器，应用上下文，继承<em>BeanFactory</em>。它与<em>BeanFactory</em>的区别有：1. 继承<em>MessageSource</em>，提供国际化的标准访问策略。 2. 继承<em>ApplicationEventPublisher</em>，提供强大的事件机制。 3. 扩展<em>ResourceLoader</em>，可以用来加载多个Resource，可以灵活访问不同的资源。 4. 对Web应用的支持。</li>
-</ul>
-<blockquote>
-<p>学习笔记，原文章出处：<a href="http://cmsblogs.com/?p=2652">http://cmsblogs.com/?p=2652</a>  </p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>开发</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-        <tag>Spring</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Java基础问题</title>
     <url>/java%E5%9F%BA%E7%A1%80%E9%97%AE%E9%A2%98/</url>
     <content><![CDATA[<h5 id="1-static关键字有哪些作用？"><a href="#1-static关键字有哪些作用？" class="headerlink" title="1. static关键字有哪些作用？"></a>1. static关键字有哪些作用？</h5><p>static修饰变量、修饰方法。</p>
@@ -207,41 +166,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Spring核心思想IOC、DI</title>
-    <url>/spring%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3ioc%E3%80%81di/</url>
-    <content><![CDATA[<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><ol>
-<li>IOC是什么？     <strong>IOC(Inversion of Control)控制反转</strong>，IOC是一种新的Java编程模式，目前很多轻量级容器都在广泛使用的模式。</li>
-<li>IOC解决了什么问题？     在IOC出现以前，组件之间的协调关系是由程序内部代码来控制的，或者说，以前我们使用New关键字来实现两组间之间的依赖关系的。     这种方式就造成了组件之间的互相 <strong>耦合</strong>。IOC(控制反转)就是来解决这个问题的，它将实现组件间的关系从程序内部提到<strong>外部容器</strong>来管理。     也就是说，由容器在运行期将组件间的某种依赖关系动态的注入组件中。</li>
-<li>IOC的实现方式     1. **依赖查找(Dependency Lookup)**：容器中的受控对象通过容器的API来查找自己所依赖的资源和协作对象。这种方式虽然降低了对象间的依赖，但是同时也使用到了容器的API，造成了我们无法在容器外使用和测试对象。     依赖查找是一种更加传统的IOC实现方式。     2. **依赖注入(Dependency Injection)**：这就是DI，字面上理解，依赖注入就是将服务注入到使用它的地方。对象只提供普通的方法让容器去决定依赖关系，</li>
-<li>IOC与DI的<strong>区别</strong>     对于IOC来说，DI更像是一个用来控制容器的工具，之所以依赖，是根据容器里各个组件之间的关系来决定。</li>
-<li>Spring中的IOC和DI     IOC是Spring的核心，贯穿始终。对于Spring框架来说，就是由Spring来负责控制对象的<strong>生命周期</strong>和<strong>对象间的关系</strong>。     Spring中DI有两种实现方式—Setter方式(传值方式)和构造器方式(引用方式)。</li>
-</ol>
-<h3 id="IOC"><a href="#IOC" class="headerlink" title="IOC"></a>IOC</h3><p>​	假设一种情况，我们要做一个图书馆里系统，我们要定义一个书的Bean类，里面有<strong>书的id</strong>，<strong>书名</strong>，<strong>作者</strong>，<strong>出版社</strong>….等等属性，在一个对象中，如果要使用另外的对象，就必须得到它（自己new一个，或者从JNDI中查询一个），使用完之后还要将对象销毁（比如Connection等），对象始终会和其他的接口或类藕合起来。     而spring中是如何实现的呢？相当于一个图书管理员，它负责管理很多很多书籍的信息，你只需要提供你想要借哪本书、或者说哪种类型的书，那么它就会提供给你，如果不是我们想要的书，我们就抛出异常反馈给它。整个过程不再是我们自己控制的了，我们想要什么书，不用我们去找，也不用我们去造。所有的类都在<code>spring</code>这个容器内登记，我们只需要请求。所有类让<code>spring</code>创建、销毁，也就是说控制对象生存周期的不再是引用它的对象，而是<code>spring</code>。对于某个具体的对象而言，以前是它控制其他对象，现在是所有对象都被<code>spring</code>控制，所以这叫<strong>控制反转</strong>。     所以由上面看，spring的解决方案就是面向接口的编程，对<strong>对象</strong>的控制直接调用接口就可以实现了。（前提是配置好了。🙃）</p>
-<blockquote>
-<p>spring跟传统做法的区别:</p>
-</blockquote>
-<p><img src="/Spring%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3%E2%80%94IOC%E3%80%81DI/1.png" alt="spring跟传统做法的区别" title="spring跟传统做法的区别"></p>
-<blockquote>
-<p>spring的配置原理图：</p>
-</blockquote>
-<p><img src="/Spring%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3%E2%80%94IOC%E3%80%81DI/2.png" alt="spring的配置" title="spring的配置"></p>
-<h3 id="DI"><a href="#DI" class="headerlink" title="DI"></a>DI</h3><p>​	IOC的一个<strong>重点</strong>是在系统运行中，动态的向某个对象提供它所需要的其他对象。这一点是通过<strong>DI（Dependency Injection，依赖注入）</strong>来实现的。比如对象A需要操作数据库，以前我们总是要在A中自己编写代码来获得一个<strong>Connection</strong>对象，有了<strong>spring</strong>我们就只需要告诉spring，A中需要一个<strong>Connection</strong>，至于这个<strong>Connection</strong>怎么构造，何时构造，A不需要知道。在系统运行时，<strong>spring</strong>会在适当的时候制造一个<strong>Connection</strong>，然后像打针一样，注射到A当中，这样就完成了对各个对象之间关系的控制。A需要依赖<strong>Connection</strong>才能正常运行，而这个<strong>Connection</strong>是由<strong>spring</strong>注入到A中的，依赖注入的名字就这么来的。那么DI是如何实现的呢？Java 1.3之后一个重要特征是<strong>反射（reflection）</strong>，它允许程序在运行的时候动态的生成对象、执行对象的方法、改变对象的属性，spring就是通过反射来实现注入的。</p>
-<blockquote>
-<p>更多关于<strong>反射</strong>的内容，可以参考<a href="https://docs.oracle.com/javase/7/docs/api/" title="JAVA文档">JAVA文档</a></p>
-</blockquote>
-<blockquote>
-<p>引自文章<a href="https://blog.csdn.net/baple/article/details/53667767">《Spring核心思想，IoC与DI详解（如果还不明白，放弃java吧）》</a>              <a href="https://blog.csdn.net/javazejian/article/details/54561302">《关于Spring IOC (DI-依赖注入)你需要知道的一切》</a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>开发</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-        <tag>Spring</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Tensorflow做机器学习</title>
     <url>/tensorflow%E5%81%9A%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</url>
     <content><![CDATA[<h2 id="使用-TensorFlow-的基本步骤"><a href="#使用-TensorFlow-的基本步骤" class="headerlink" title="使用 TensorFlow 的基本步骤"></a>使用 TensorFlow 的基本步骤</h2><h3 id="学习目标："><a href="#学习目标：" class="headerlink" title="学习目标："></a>学习目标：</h3><ul>
@@ -321,33 +245,75 @@
       </tags>
   </entry>
   <entry>
-    <title>华为Cloud&amp;Bu 软开凉经</title>
-    <url>/%E5%8D%8E%E4%B8%BAcloud-bu-%E8%BD%AF%E5%BC%80%E5%87%89%E7%BB%8F/</url>
-    <content><![CDATA[<h2 id="华为Cloud-amp-Bu-软开面经"><a href="#华为Cloud-amp-Bu-软开面经" class="headerlink" title="华为Cloud&amp;Bu 软开面经"></a>华为Cloud&amp;Bu 软开面经</h2><h3 id="一面："><a href="#一面：" class="headerlink" title="一面："></a>一面：</h3><ol>
-<li><strong>计算机网络</strong>：V-LAN、虚拟网关</li>
-<li><strong>操作系统</strong>：两个线程如何通信</li>
-<li><strong>组成原理</strong>：软中断和硬中断</li>
-<li><strong>项目（Java）</strong>：<br>多线程如何实现；<br>所有类的父类是什么；<br>SpringBoot有啥特点；<br>SpringBoot的Bean都有哪些；<br>SpringBoot中的Request跟Response是多线程的吗，在哪里生成，如何赋值。<br>SpringBoot里对象的生命周期<br>手撕 or 设计模式</li>
-<li><strong>数据结构</strong>：<br>问：速度最快且稳定的排序算法<br>答：归并吧<br>“那你实现一下吧”<br>（手撕一道水题）实现一个归并算法</li>
+    <title>Spring学习笔记一</title>
+    <url>/spring%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%80/</url>
+    <content><![CDATA[<h3 id="IOC"><a href="#IOC" class="headerlink" title="IOC"></a>IOC</h3><h4 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h4><p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<code>Inversion of Control</code> ，翻译为”控制反转“，别名”依赖注入“(<code>Dependency Injection</code>)。</p>
+<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;关键在于四个问题：<strong>谁控制谁</strong>,<strong>控制什么</strong>,<strong>反转是什么</strong>,<strong>哪些方面反转了</strong>。</p>
+<blockquote>
+<p>所谓IOC，就是由Spring IOC容器来负责对象的生命周期和对象之间的关系。</p>
+</blockquote>
+<p>​	我们可以先想象一个场景：你需要一个女朋友，直接<code>new BeautifulGirl()</code>，接下来你想要的各种要求，用set来设置。但是这个过程复杂又繁琐，而且我们必须要面对每个环节，同时在使用完成之后还要负责销毁。<strong>这种情况下我们的对象和它所依赖的对象耦合在一起</strong>。</p>
+<p>​	但是我们知道，我们依赖对象并不是依赖对象本身，而是依赖对象所提供的<strong>服务</strong>，当我们需要它的时候，它能够<strong>及时提供服务即可</strong>，至于它是我们主动去创建还是别人送给我们的，并不那么重要。就像你需要一个女朋友，你可以不用自己找（new），你可以直接跟婚介公司说，你想要这样那样的妹子（<strong>需求</strong>），婚介公司就会给你一个妹子，你只需要负责接下来的工作。</p>
+<p>​	所以<strong>IoC</strong>就是相当于一个中介，当你需要什么（功能） 的时候，IoC就会送过来给你，你不用自己去创建销毁。</p>
+<p>​	现在，回答上面四个问题：</p>
+<p>​	<strong>1.谁控制谁</strong>：<code>IOC Service Provider</code>(IOC容器) 控制对象。</p>
+<p>​	<strong>2.控制什么</strong>：控制对象。</p>
+<p>​	<strong>3.反转是什么</strong>：没有IOC，都是在对象中主动去创建被依赖的对象，这是<strong>正转</strong>；有IOC，所依赖的对象直接由IoC容器创建后注入到被注入的对象中，依赖的对象由原来的主动变为被动，这是<strong>反转</strong>。</p>
+<p>​	<strong>4.哪些方面反转了</strong>：所依赖对象的获取被反转了。</p>
+<h4 id="提供的注入方式"><a href="#提供的注入方式" class="headerlink" title="提供的注入方式"></a>提供的注入方式</h4><ol>
+<li><strong>构造器注入</strong> 被注入的对象通过在其构造方法中声明依赖对象的参数列表，让外部知道它需要哪些依赖对象。</li>
+<li><strong>setter 方法注入</strong> 对于JavaBean对象而言，我们一般是通过<code>getter</code>和<code>setter</code>方法来访问和设置对象的属性。所以，当前对象只需要为其所依赖的对象提供相应的<code>setter</code>方法，就可以通过该方法将相应的依赖对象设置到被注入对象中。</li>
+<li><strong>接口方式注入</strong> 接口方式注入显得比较霸道，因为它需要被依赖的对象实现不必要的接口，带有侵入性。</li>
 </ol>
-<h3 id="二面："><a href="#二面：" class="headerlink" title="二面："></a>二面：</h3><ol>
-<li><strong>数据结构</strong>：<br>数组跟链表有什么区别？<br>平衡二叉树定义说一下、如何插入一个数、有什么应用？</li>
-<li>设计模式了解吗？说一下常用的几个设计模式。</li>
-<li>那你做过什么项目，用什么语言，答：Java<br>（感觉不会java的面试官 2333）<br>聊项目。</li>
-<li>给了一个情景，假如有很多条主机数据，他们有各自的ip跟存储的信息，我想要去重，（集合？），那你设计一下这个主机类，如何用集合来去重？ balabalabala…….</li>
-</ol>
-<p>ok 来看一道题目给你20分钟（然后共享屏幕开始敲）<br>题目是leetcode.56 合并区间 大意就是给你一堆区间的集合，然后你把重叠区间合并掉，返回全部区间的集合。</p>
-<h3 id="三面-主管面"><a href="#三面-主管面" class="headerlink" title="三面(主管面):"></a>三面(主管面):</h3><ol>
-<li>看你实习过，先说一下你实习期间做了什么吧</li>
-<li>（因为我说大三准备考研了）你学习成绩怎么样。班级里考研的多吗，现在找到工作的多吗</li>
-<li>复盘一面的知识：你说一下你一面算法题实现了什么东西。balabala….<br>计算机网络：说一下TCP&#x2F;IP协议的三次握手&#x2F;四次握手<br>数据结构：说一下冒泡排序</li>
-<li>你还做过什么项目，你在项目里的定位是什么，实现了什么功能。<br>数据库：主键和外键<br>平时会看什么书…… （聊一下Spring微服务吧 这个应该跟你看了什么书有关系）</li>
-<li>你有什么问题要问我的。</li>
-</ol>
+<h3 id="IOC各部分"><a href="#IOC各部分" class="headerlink" title="IOC各部分"></a>IOC各部分</h3><p>​	五大体系：<strong>Resource体系</strong>、<strong>BeanFactory体系</strong>、<strong>Beandefinition</strong>、<strong>BeandefinitionReader体系</strong>、<strong>ApplicationContext体系</strong>。(简单介绍一下，后面再继续详细记录。)</p>
+<ul>
+<li><strong>Resource体系</strong> 对资源的抽象，它的每一个实现类都代表了一种资源的访问策略。如ClasspathResource、URLResource、FileSystemResource等。ps：资源加载——ResourceLoader。</li>
+<li><strong>BeanFactory体系</strong> BeanFactory是一个非常纯粹的bean容器，它是IOC必备的数据结构，其中<em>BeanDefinition</em>是它的基本结构，它内部维护一个map，根据<em>BeanDefinition</em>的描述进行bean的创建和管理。</li>
+<li><strong>BeanDefinition体系</strong> 用来描述Spring中的Bean对象。</li>
+<li><strong>BeanDefinitionReader体系</strong> 用来读取Spring的配置文件，并转换成IOC容器内部的数据结构-》<em>BeanDefinition</em>。</li>
+<li><strong>ApplicationContext体系</strong> Spring容器，应用上下文，继承<em>BeanFactory</em>。它与<em>BeanFactory</em>的区别有：1. 继承<em>MessageSource</em>，提供国际化的标准访问策略。 2. 继承<em>ApplicationEventPublisher</em>，提供强大的事件机制。 3. 扩展<em>ResourceLoader</em>，可以用来加载多个Resource，可以灵活访问不同的资源。 4. 对Web应用的支持。</li>
+</ul>
+<blockquote>
+<p>学习笔记，原文章出处：<a href="http://cmsblogs.com/?p=2652">http://cmsblogs.com/?p=2652</a>  </p>
+</blockquote>
 ]]></content>
       <categories>
         <category>开发</category>
-        <category>面试</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Spring核心思想IOC、DI</title>
+    <url>/spring%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3ioc%E3%80%81di/</url>
+    <content><![CDATA[<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><ol>
+<li>IOC是什么？     <strong>IOC(Inversion of Control)控制反转</strong>，IOC是一种新的Java编程模式，目前很多轻量级容器都在广泛使用的模式。</li>
+<li>IOC解决了什么问题？     在IOC出现以前，组件之间的协调关系是由程序内部代码来控制的，或者说，以前我们使用New关键字来实现两组间之间的依赖关系的。     这种方式就造成了组件之间的互相 <strong>耦合</strong>。IOC(控制反转)就是来解决这个问题的，它将实现组件间的关系从程序内部提到<strong>外部容器</strong>来管理。     也就是说，由容器在运行期将组件间的某种依赖关系动态的注入组件中。</li>
+<li>IOC的实现方式     1. **依赖查找(Dependency Lookup)**：容器中的受控对象通过容器的API来查找自己所依赖的资源和协作对象。这种方式虽然降低了对象间的依赖，但是同时也使用到了容器的API，造成了我们无法在容器外使用和测试对象。     依赖查找是一种更加传统的IOC实现方式。     2. **依赖注入(Dependency Injection)**：这就是DI，字面上理解，依赖注入就是将服务注入到使用它的地方。对象只提供普通的方法让容器去决定依赖关系，</li>
+<li>IOC与DI的<strong>区别</strong>     对于IOC来说，DI更像是一个用来控制容器的工具，之所以依赖，是根据容器里各个组件之间的关系来决定。</li>
+<li>Spring中的IOC和DI     IOC是Spring的核心，贯穿始终。对于Spring框架来说，就是由Spring来负责控制对象的<strong>生命周期</strong>和<strong>对象间的关系</strong>。     Spring中DI有两种实现方式—Setter方式(传值方式)和构造器方式(引用方式)。</li>
+</ol>
+<h3 id="IOC"><a href="#IOC" class="headerlink" title="IOC"></a>IOC</h3><p>​	假设一种情况，我们要做一个图书馆里系统，我们要定义一个书的Bean类，里面有<strong>书的id</strong>，<strong>书名</strong>，<strong>作者</strong>，<strong>出版社</strong>….等等属性，在一个对象中，如果要使用另外的对象，就必须得到它（自己new一个，或者从JNDI中查询一个），使用完之后还要将对象销毁（比如Connection等），对象始终会和其他的接口或类藕合起来。     而spring中是如何实现的呢？相当于一个图书管理员，它负责管理很多很多书籍的信息，你只需要提供你想要借哪本书、或者说哪种类型的书，那么它就会提供给你，如果不是我们想要的书，我们就抛出异常反馈给它。整个过程不再是我们自己控制的了，我们想要什么书，不用我们去找，也不用我们去造。所有的类都在<code>spring</code>这个容器内登记，我们只需要请求。所有类让<code>spring</code>创建、销毁，也就是说控制对象生存周期的不再是引用它的对象，而是<code>spring</code>。对于某个具体的对象而言，以前是它控制其他对象，现在是所有对象都被<code>spring</code>控制，所以这叫<strong>控制反转</strong>。     所以由上面看，spring的解决方案就是面向接口的编程，对<strong>对象</strong>的控制直接调用接口就可以实现了。（前提是配置好了。🙃）</p>
+<blockquote>
+<p>spring跟传统做法的区别:</p>
+</blockquote>
+<p><img src="/Spring%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3%E2%80%94IOC%E3%80%81DI/1.png" alt="spring跟传统做法的区别" title="spring跟传统做法的区别"></p>
+<blockquote>
+<p>spring的配置原理图：</p>
+</blockquote>
+<p><img src="/Spring%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3%E2%80%94IOC%E3%80%81DI/2.png" alt="spring的配置" title="spring的配置"></p>
+<h3 id="DI"><a href="#DI" class="headerlink" title="DI"></a>DI</h3><p>​	IOC的一个<strong>重点</strong>是在系统运行中，动态的向某个对象提供它所需要的其他对象。这一点是通过<strong>DI（Dependency Injection，依赖注入）</strong>来实现的。比如对象A需要操作数据库，以前我们总是要在A中自己编写代码来获得一个<strong>Connection</strong>对象，有了<strong>spring</strong>我们就只需要告诉spring，A中需要一个<strong>Connection</strong>，至于这个<strong>Connection</strong>怎么构造，何时构造，A不需要知道。在系统运行时，<strong>spring</strong>会在适当的时候制造一个<strong>Connection</strong>，然后像打针一样，注射到A当中，这样就完成了对各个对象之间关系的控制。A需要依赖<strong>Connection</strong>才能正常运行，而这个<strong>Connection</strong>是由<strong>spring</strong>注入到A中的，依赖注入的名字就这么来的。那么DI是如何实现的呢？Java 1.3之后一个重要特征是<strong>反射（reflection）</strong>，它允许程序在运行的时候动态的生成对象、执行对象的方法、改变对象的属性，spring就是通过反射来实现注入的。</p>
+<blockquote>
+<p>更多关于<strong>反射</strong>的内容，可以参考<a href="https://docs.oracle.com/javase/7/docs/api/" title="JAVA文档">JAVA文档</a></p>
+</blockquote>
+<blockquote>
+<p>引自文章<a href="https://blog.csdn.net/baple/article/details/53667767">《Spring核心思想，IoC与DI详解（如果还不明白，放弃java吧）》</a>              <a href="https://blog.csdn.net/javazejian/article/details/54561302">《关于Spring IOC (DI-依赖注入)你需要知道的一切》</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>开发</category>
       </categories>
       <tags>
         <tag>Java</tag>
@@ -544,6 +510,67 @@
       </tags>
   </entry>
   <entry>
+    <title>华为Cloud&amp;Bu 软开凉经</title>
+    <url>/%E5%8D%8E%E4%B8%BAcloud-bu-%E8%BD%AF%E5%BC%80%E5%87%89%E7%BB%8F/</url>
+    <content><![CDATA[<h2 id="华为Cloud-amp-Bu-软开面经"><a href="#华为Cloud-amp-Bu-软开面经" class="headerlink" title="华为Cloud&amp;Bu 软开面经"></a>华为Cloud&amp;Bu 软开面经</h2><h3 id="一面："><a href="#一面：" class="headerlink" title="一面："></a>一面：</h3><ol>
+<li><strong>计算机网络</strong>：V-LAN、虚拟网关</li>
+<li><strong>操作系统</strong>：两个线程如何通信</li>
+<li><strong>组成原理</strong>：软中断和硬中断</li>
+<li><strong>项目（Java）</strong>：<br>多线程如何实现；<br>所有类的父类是什么；<br>SpringBoot有啥特点；<br>SpringBoot的Bean都有哪些；<br>SpringBoot中的Request跟Response是多线程的吗，在哪里生成，如何赋值。<br>SpringBoot里对象的生命周期<br>手撕 or 设计模式</li>
+<li><strong>数据结构</strong>：<br>问：速度最快且稳定的排序算法<br>答：归并吧<br>“那你实现一下吧”<br>（手撕一道水题）实现一个归并算法</li>
+</ol>
+<h3 id="二面："><a href="#二面：" class="headerlink" title="二面："></a>二面：</h3><ol>
+<li><strong>数据结构</strong>：<br>数组跟链表有什么区别？<br>平衡二叉树定义说一下、如何插入一个数、有什么应用？</li>
+<li>设计模式了解吗？说一下常用的几个设计模式。</li>
+<li>那你做过什么项目，用什么语言，答：Java<br>（感觉不会java的面试官 2333）<br>聊项目。</li>
+<li>给了一个情景，假如有很多条主机数据，他们有各自的ip跟存储的信息，我想要去重，（集合？），那你设计一下这个主机类，如何用集合来去重？ balabalabala…….</li>
+</ol>
+<p>ok 来看一道题目给你20分钟（然后共享屏幕开始敲）<br>题目是leetcode.56 合并区间 大意就是给你一堆区间的集合，然后你把重叠区间合并掉，返回全部区间的集合。</p>
+<h3 id="三面-主管面"><a href="#三面-主管面" class="headerlink" title="三面(主管面):"></a>三面(主管面):</h3><ol>
+<li>看你实习过，先说一下你实习期间做了什么吧</li>
+<li>（因为我说大三准备考研了）你学习成绩怎么样。班级里考研的多吗，现在找到工作的多吗</li>
+<li>复盘一面的知识：你说一下你一面算法题实现了什么东西。balabala….<br>计算机网络：说一下TCP&#x2F;IP协议的三次握手&#x2F;四次握手<br>数据结构：说一下冒泡排序</li>
+<li>你还做过什么项目，你在项目里的定位是什么，实现了什么功能。<br>数据库：主键和外键<br>平时会看什么书…… （聊一下Spring微服务吧 这个应该跟你看了什么书有关系）</li>
+<li>你有什么问题要问我的。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>开发</category>
+        <category>面试</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>模板匹配（matlab实现）</title>
+    <url>/%E6%A8%A1%E6%9D%BF%E5%8C%B9%E9%85%8D%EF%BC%88matlab%E5%AE%9E%E7%8E%B0%EF%BC%89/</url>
+    <content><![CDATA[<h3 id="基于像素匹配算法"><a href="#基于像素匹配算法" class="headerlink" title="基于像素匹配算法"></a>基于像素匹配算法</h3><p>模板匹配算法一般是通过滑窗的方式在待匹配的图像上滑动，通过比较模板与子图的相似度，找到相似度最大的子图。这种算法最核心部分在于如何设计一个相似性函数。   </p>
+<p>最容易想到的一个相似性函数便是欧式距离：<br><img src="/%E6%A8%A1%E6%9D%BF%E5%8C%B9%E9%85%8D%EF%BC%88matlab%E5%AE%9E%E7%8E%B0%EF%BC%89/%E6%AC%A7%E6%B0%8F%E8%B7%9D%E7%A6%BB.png" alt="欧式距离公式"></p>
+<p>将这个相似性函数展开，可以得:<br><img src="/%E6%A8%A1%E6%9D%BF%E5%8C%B9%E9%85%8D%EF%BC%88matlab%E5%AE%9E%E7%8E%B0%EF%BC%89/%E6%AC%A7%E6%B0%8F%E8%B7%9D%E7%A6%BB%E5%B1%95%E5%BC%80%E5%BC%8F.png" alt="欧氏距离展开式"><br>可以看出，只有第二项是有意义的，因为第一项和第三项的值在选定模板后是固定的。对于欧式距离相似函数，值越大表示越不相似，也就是说，第二项的值越小则越不相似。     再将第二项归一化:<br><img src="/%E6%A8%A1%E6%9D%BF%E5%8C%B9%E9%85%8D%EF%BC%88matlab%E5%AE%9E%E7%8E%B0%EF%BC%89/%E6%AC%A7%E6%B0%8F%E8%B7%9D%E7%A6%BB%E5%BD%92%E4%B8%80%E5%8C%96.png" alt="欧氏距离归一化"></p>
+<blockquote>
+<p>如果就仅仅匹配大小不变角度不变的模板，到此为止就够了。</p>
+</blockquote>
+<p>为了解决旋转不变性，我用很简单的很丑陋的方法————旋转模板再重新匹配。</p>
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><p>化简后的欧氏距离matlab实现方法。</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> <span class="built_in">i</span>=<span class="number">1</span>:m-m0+<span class="number">1</span>  </span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">j</span>=<span class="number">1</span>:n-n0+<span class="number">1</span>  </span><br><span class="line">        subMatr=test(<span class="built_in">i</span>:<span class="built_in">i</span>+m0<span class="number">-1</span>,<span class="built_in">j</span>:<span class="built_in">j</span>+n0<span class="number">-1</span>);  </span><br><span class="line">        vec=double( subMatr(:) );  </span><br><span class="line">        result(<span class="built_in">i</span>,<span class="built_in">j</span>)=vec&#x27;*vec_sub / (norm(vec)*norm_sub+<span class="built_in">eps</span>);  </span><br><span class="line">    <span class="keyword">end</span> </span><br><span class="line"> <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>结果图：</p>
+<p><img src="/%E6%A8%A1%E6%9D%BF%E5%8C%B9%E9%85%8D%EF%BC%88matlab%E5%AE%9E%E7%8E%B0%EF%BC%89/1.png"><br><img src="/%E6%A8%A1%E6%9D%BF%E5%8C%B9%E9%85%8D%EF%BC%88matlab%E5%AE%9E%E7%8E%B0%EF%BC%89/2.png"></p>
+<blockquote>
+<p>具体源码 可以见<a href="https://github.com/NSDie/templet">github</a>.</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>MachineLearning</category>
+      </categories>
+      <tags>
+        <tag>matlab</tag>
+        <tag>图像处理</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>游戏开发之路1</title>
     <url>/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF1/</url>
     <content><![CDATA[<h3 id="经验分享"><a href="#经验分享" class="headerlink" title="经验分享"></a>经验分享</h3><blockquote>
@@ -579,33 +606,6 @@
       </categories>
       <tags>
         <tag>游戏开发</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>模板匹配（matlab实现）</title>
-    <url>/%E6%A8%A1%E6%9D%BF%E5%8C%B9%E9%85%8D%EF%BC%88matlab%E5%AE%9E%E7%8E%B0%EF%BC%89/</url>
-    <content><![CDATA[<h3 id="基于像素匹配算法"><a href="#基于像素匹配算法" class="headerlink" title="基于像素匹配算法"></a>基于像素匹配算法</h3><p>模板匹配算法一般是通过滑窗的方式在待匹配的图像上滑动，通过比较模板与子图的相似度，找到相似度最大的子图。这种算法最核心部分在于如何设计一个相似性函数。   </p>
-<p>最容易想到的一个相似性函数便是欧式距离：<br><img src="/%E6%A8%A1%E6%9D%BF%E5%8C%B9%E9%85%8D%EF%BC%88matlab%E5%AE%9E%E7%8E%B0%EF%BC%89/%E6%AC%A7%E6%B0%8F%E8%B7%9D%E7%A6%BB.png" alt="欧式距离公式"></p>
-<p>将这个相似性函数展开，可以得:<br><img src="/%E6%A8%A1%E6%9D%BF%E5%8C%B9%E9%85%8D%EF%BC%88matlab%E5%AE%9E%E7%8E%B0%EF%BC%89/%E6%AC%A7%E6%B0%8F%E8%B7%9D%E7%A6%BB%E5%B1%95%E5%BC%80%E5%BC%8F.png" alt="欧氏距离展开式"><br>可以看出，只有第二项是有意义的，因为第一项和第三项的值在选定模板后是固定的。对于欧式距离相似函数，值越大表示越不相似，也就是说，第二项的值越小则越不相似。     再将第二项归一化:<br><img src="/%E6%A8%A1%E6%9D%BF%E5%8C%B9%E9%85%8D%EF%BC%88matlab%E5%AE%9E%E7%8E%B0%EF%BC%89/%E6%AC%A7%E6%B0%8F%E8%B7%9D%E7%A6%BB%E5%BD%92%E4%B8%80%E5%8C%96.png" alt="欧氏距离归一化"></p>
-<blockquote>
-<p>如果就仅仅匹配大小不变角度不变的模板，到此为止就够了。</p>
-</blockquote>
-<p>为了解决旋转不变性，我用很简单的很丑陋的方法————旋转模板再重新匹配。</p>
-<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><p>化简后的欧氏距离matlab实现方法。</p>
-<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> <span class="built_in">i</span>=<span class="number">1</span>:m-m0+<span class="number">1</span>  </span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">j</span>=<span class="number">1</span>:n-n0+<span class="number">1</span>  </span><br><span class="line">        subMatr=test(<span class="built_in">i</span>:<span class="built_in">i</span>+m0<span class="number">-1</span>,<span class="built_in">j</span>:<span class="built_in">j</span>+n0<span class="number">-1</span>);  </span><br><span class="line">        vec=double( subMatr(:) );  </span><br><span class="line">        result(<span class="built_in">i</span>,<span class="built_in">j</span>)=vec&#x27;*vec_sub / (norm(vec)*norm_sub+<span class="built_in">eps</span>);  </span><br><span class="line">    <span class="keyword">end</span> </span><br><span class="line"> <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
-<p>结果图：</p>
-<p><img src="/%E6%A8%A1%E6%9D%BF%E5%8C%B9%E9%85%8D%EF%BC%88matlab%E5%AE%9E%E7%8E%B0%EF%BC%89/1.png"><br><img src="/%E6%A8%A1%E6%9D%BF%E5%8C%B9%E9%85%8D%EF%BC%88matlab%E5%AE%9E%E7%8E%B0%EF%BC%89/2.png"></p>
-<blockquote>
-<p>具体源码 可以见<a href="https://github.com/NSDie/templet">github</a>.</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>MachineLearning</category>
-      </categories>
-      <tags>
-        <tag>matlab</tag>
-        <tag>图像处理</tag>
       </tags>
   </entry>
   <entry>
@@ -726,26 +726,6 @@
       </tags>
   </entry>
   <entry>
-    <title>游戏开发之路5</title>
-    <url>/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF5/</url>
-    <content><![CDATA[<h3 id="经验分享"><a href="#经验分享" class="headerlink" title="经验分享"></a>经验分享</h3><h4 id="第三轮demo比赛总结"><a href="#第三轮demo比赛总结" class="headerlink" title="第三轮demo比赛总结"></a>第三轮demo比赛总结</h4><p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;这轮题目自拟，然后我们定了一个<strong>冒险+动作</strong>的游戏，参考了<strong>彩虹岛W</strong> 、<strong>冒险岛M</strong> 、星之骑士等动作冒险手游。这轮时间大概有13天半（去掉第一天的定方向，其实也不是很多，自拟的题目还是难抉择啊。），然后我们就想做一个比较大一点的游戏，策划也想的非常大，冒险+动作都要。既要<strong>设计关卡</strong> ，又要设计<strong>人物动作</strong>。</p>
-<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;由于这次主要逻辑不是我写的，所以我也不能说的很详细，整体框架是，人物动作由<strong>3DMax</strong> 完成，并且绑好骨骼做好动作。然后直接丢Unity里使用，但是场景是2D的，就人物是3D的，所以调整了很久。人物大概用了24个动作，然后Unity用状态机来管理，写了一个接口供逻辑调用。逻辑里面写了人物数值属性、输入控制、攻击受击死亡等状态；怪物属性、状态、AI行为树（用了Behavior插件）；还有BOSS专门写了AI。这次我负责的是2D怪物的动画，我用的<strong>2Danima</strong>插件绑的2D骨骼然后录制动画，总共2只Boss和6只小怪。Boss有8套动作、每种小怪有5套动作。</p>
-<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<strong>转折点</strong>：中间有导师探班的时候，说我们的游戏应该最好偏向于某一方面：<strong>动作</strong> OR <strong>冒险</strong> 。最后我们选择了动作（偏复杂一点的路，虽然最后也没有成功）。既然选择了动作，我们就要把很多关卡设计方面的东西都砍掉，专注打击感的提升，我们为此做了：<strong>刀光</strong>、<strong>爆点</strong>、屏幕抖动、击退和挑飞等<strong>控制效果</strong>、还有一些蓄力快斩之类的节奏感<strong>技能</strong>。到了Deadline的前一天，我们整合出现了问题，导致提交作品的时候，没能交上一个比较完善的作品，UI部分还有一堆BUG，不然我有信心一定能拿第一。（算是一点遗憾把，没能把自己最好的一面展现出来）</p>
-<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;比赛过程中，我在前五天，研究unity的一个联网引擎——PhotonServer，想要吃透它，结果也是学了个半吊子把，最后也没用上联网模式，由于当初定的是单人模式逻辑写的都死死的，后期想要转联网，还需要重构代码，比较耗时间。于是就干脆把联网部分砍掉。（这次我用的联网部分跟2D动画，以后若是有时间，再写专门的一篇文章介绍。）</p>
-<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<strong>总结</strong>： 唉，失败也是难免的。整理整理失败的原因，还是可以学到挺多东西的。感觉这轮比赛程序可能要背很大程度的锅，美术在最后三天前结束了他们的任务，而且我们程序还是没能完成任务，说明还是有很大的问题的。我来复盘一下程序这边13天做了啥把。<strong>前五天</strong>，我做了一个小型的联机Demo，未接入。其他部分做了单人模式的主逻辑、UI未开工、基本程序团队处于养老划水状态、很闲。<strong>第六天</strong>开始，我做一些2D动画方面的东西，并且继续研究联机，3D角色建模完成，导入Unity开始调整动作。<strong>第七、八天</strong>，继续调角色动作、并且整合美术关卡资源做成预制体，交由策划进行关卡摆放。<strong>第九、十天</strong>，各种特效的选取调整、策划摆完关卡不满意美术摆。<strong>第十一天</strong>开始做UI，开始了连续三天的通宵做UI，但是没想到UI是这么复杂，导致最后一天才做完UI准备接入，忘了说我联网在第十天开始就砍掉，准备帮助一起做主逻辑部分。最后接入的时候出了很多问题，Unity2018也经常卡死崩溃_ (:з)∠) _。如果UI能早点开始做，我们也不会落到这种地步。</p>
-<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<strong>总的来说</strong> ，还是没有规划好，每天的任务清单，全凭感觉，但偏偏这轮感觉出了差错，本以为打包一次就几分钟，然后Unity打包一次大概30分钟，这次浪费了很多时间。</p>
-<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<strong>除此之外</strong> ，我想说一句：一个项目的成功与否，在立项初期就已经决定好了。策划在这一步起<strong>关键性作用</strong>，一个好策划，提出了一个好想法，那这个项目已经成功了一半了，后面就看程序怎么实现它、美术如何打扮它。而且一个好策划最好能说出这个项目的卖点，并且能讲的非常详细不是很笼统，我相信很多人都会愿意配合，不然就说一句我们来做一个动作类游戏吧。这。。。怎么讲，动作类游戏，谁TM知道你想要做啥啊，跟没讲一样，而且这么一说士气就弱了三分，60分及格，顶多就一半30分了。<strong>开头很重要。</strong>这决定了这个项目能达到的最高高度。其次才是程序美术如何让它达到这个高度。</p>
-<p>最后放一张这轮游戏的海报：</p>
-<p><img src="/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF5/%E6%B5%B7%E6%8A%A5.jpg"></p>
-]]></content>
-      <categories>
-        <category>life</category>
-      </categories>
-      <tags>
-        <tag>游戏开发</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>游戏开发之路4</title>
     <url>/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF4/</url>
     <content><![CDATA[<h3 id="经验分享"><a href="#经验分享" class="headerlink" title="经验分享"></a>经验分享</h3><h4 id="第二轮demo比赛总结"><a href="#第二轮demo比赛总结" class="headerlink" title="第二轮demo比赛总结"></a>第二轮demo比赛总结</h4><blockquote>
@@ -761,6 +741,26 @@
 <h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;这次比赛主要原因受<strong>对接资源</strong>影响，导致最后测试时间不足，还有一些相应的功能没实现。我们主要做了三个关卡，但是第三个关卡在最后第9天策划才给我们，原因呢，就是他们前一天做完忘保存还是咋滴，文件丢失了（இ௰இ）。然后他们给我关卡之后，美术这边又需要调整，总之最后调调完，程序这边拿到已经第九天晚上了，这个跟计划时间差挺大的（原计划第九天白天就接入，下午晚上还能测试或者做一些其他功能优化）。于是乎第九天到第十天就不用睡觉了，通宵对接 _ (:з)∠) _ 。然后就草草接完，都没时间QA。</p>
 <p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;除此之外，还有一个很大的问题，我作为一个服务端开发，我学了2D骨骼动画帮美术们做动画特效，然后还要整理一堆资源，策划摆完关卡，压根没分类，我拿到手还要花时间去整理归类，真的很浪费时间QAQ。不是我吐槽，我觉得我们如果美术跟策划再协同一点，策划设计关卡跟美术对接上，而不是交由程序对接，我觉得程序这边能留出更多时间，做很多事情，<strong>Debug</strong>、<strong>新功能的开发</strong> 、<strong>项目的优化</strong> 。所以这也算一次教训吧，这次比赛的一个遗憾之处，我服务器做了一堆功能，接入的也就排行榜模块。</p>
 <p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;所以以后做项目，<strong>沟通</strong>真的非常重要，无论是哪边，只要需要<strong>对接的部分</strong>，都要<strong>统一好要求</strong>，不要各自做项目，最后做出来A跟B，还要把A调整B或者把B调整成A，这部分时间真的<strong>消耗</strong>很大，<strong>效率</strong>大大降低了。</p>
+]]></content>
+      <categories>
+        <category>life</category>
+      </categories>
+      <tags>
+        <tag>游戏开发</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>游戏开发之路5</title>
+    <url>/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF5/</url>
+    <content><![CDATA[<h3 id="经验分享"><a href="#经验分享" class="headerlink" title="经验分享"></a>经验分享</h3><h4 id="第三轮demo比赛总结"><a href="#第三轮demo比赛总结" class="headerlink" title="第三轮demo比赛总结"></a>第三轮demo比赛总结</h4><p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;这轮题目自拟，然后我们定了一个<strong>冒险+动作</strong>的游戏，参考了<strong>彩虹岛W</strong> 、<strong>冒险岛M</strong> 、星之骑士等动作冒险手游。这轮时间大概有13天半（去掉第一天的定方向，其实也不是很多，自拟的题目还是难抉择啊。），然后我们就想做一个比较大一点的游戏，策划也想的非常大，冒险+动作都要。既要<strong>设计关卡</strong> ，又要设计<strong>人物动作</strong>。</p>
+<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;由于这次主要逻辑不是我写的，所以我也不能说的很详细，整体框架是，人物动作由<strong>3DMax</strong> 完成，并且绑好骨骼做好动作。然后直接丢Unity里使用，但是场景是2D的，就人物是3D的，所以调整了很久。人物大概用了24个动作，然后Unity用状态机来管理，写了一个接口供逻辑调用。逻辑里面写了人物数值属性、输入控制、攻击受击死亡等状态；怪物属性、状态、AI行为树（用了Behavior插件）；还有BOSS专门写了AI。这次我负责的是2D怪物的动画，我用的<strong>2Danima</strong>插件绑的2D骨骼然后录制动画，总共2只Boss和6只小怪。Boss有8套动作、每种小怪有5套动作。</p>
+<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<strong>转折点</strong>：中间有导师探班的时候，说我们的游戏应该最好偏向于某一方面：<strong>动作</strong> OR <strong>冒险</strong> 。最后我们选择了动作（偏复杂一点的路，虽然最后也没有成功）。既然选择了动作，我们就要把很多关卡设计方面的东西都砍掉，专注打击感的提升，我们为此做了：<strong>刀光</strong>、<strong>爆点</strong>、屏幕抖动、击退和挑飞等<strong>控制效果</strong>、还有一些蓄力快斩之类的节奏感<strong>技能</strong>。到了Deadline的前一天，我们整合出现了问题，导致提交作品的时候，没能交上一个比较完善的作品，UI部分还有一堆BUG，不然我有信心一定能拿第一。（算是一点遗憾把，没能把自己最好的一面展现出来）</p>
+<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;比赛过程中，我在前五天，研究unity的一个联网引擎——PhotonServer，想要吃透它，结果也是学了个半吊子把，最后也没用上联网模式，由于当初定的是单人模式逻辑写的都死死的，后期想要转联网，还需要重构代码，比较耗时间。于是就干脆把联网部分砍掉。（这次我用的联网部分跟2D动画，以后若是有时间，再写专门的一篇文章介绍。）</p>
+<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<strong>总结</strong>： 唉，失败也是难免的。整理整理失败的原因，还是可以学到挺多东西的。感觉这轮比赛程序可能要背很大程度的锅，美术在最后三天前结束了他们的任务，而且我们程序还是没能完成任务，说明还是有很大的问题的。我来复盘一下程序这边13天做了啥把。<strong>前五天</strong>，我做了一个小型的联机Demo，未接入。其他部分做了单人模式的主逻辑、UI未开工、基本程序团队处于养老划水状态、很闲。<strong>第六天</strong>开始，我做一些2D动画方面的东西，并且继续研究联机，3D角色建模完成，导入Unity开始调整动作。<strong>第七、八天</strong>，继续调角色动作、并且整合美术关卡资源做成预制体，交由策划进行关卡摆放。<strong>第九、十天</strong>，各种特效的选取调整、策划摆完关卡不满意美术摆。<strong>第十一天</strong>开始做UI，开始了连续三天的通宵做UI，但是没想到UI是这么复杂，导致最后一天才做完UI准备接入，忘了说我联网在第十天开始就砍掉，准备帮助一起做主逻辑部分。最后接入的时候出了很多问题，Unity2018也经常卡死崩溃_ (:з)∠) _。如果UI能早点开始做，我们也不会落到这种地步。</p>
+<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<strong>总的来说</strong> ，还是没有规划好，每天的任务清单，全凭感觉，但偏偏这轮感觉出了差错，本以为打包一次就几分钟，然后Unity打包一次大概30分钟，这次浪费了很多时间。</p>
+<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<strong>除此之外</strong> ，我想说一句：一个项目的成功与否，在立项初期就已经决定好了。策划在这一步起<strong>关键性作用</strong>，一个好策划，提出了一个好想法，那这个项目已经成功了一半了，后面就看程序怎么实现它、美术如何打扮它。而且一个好策划最好能说出这个项目的卖点，并且能讲的非常详细不是很笼统，我相信很多人都会愿意配合，不然就说一句我们来做一个动作类游戏吧。这。。。怎么讲，动作类游戏，谁TM知道你想要做啥啊，跟没讲一样，而且这么一说士气就弱了三分，60分及格，顶多就一半30分了。<strong>开头很重要。</strong>这决定了这个项目能达到的最高高度。其次才是程序美术如何让它达到这个高度。</p>
+<p>最后放一张这轮游戏的海报：</p>
+<p><img src="/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF5/%E6%B5%B7%E6%8A%A5.jpg"></p>
 ]]></content>
       <categories>
         <category>life</category>
@@ -915,7 +915,7 @@
   <entry>
     <title>高性能MySQL 读书笔记一</title>
     <url>/%E9%AB%98%E6%80%A7%E8%83%BDmysql-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B8%80/</url>
-    <content><![CDATA[<h2 id="高性能MySQL-读书笔记一"><a href="#高性能MySQL-读书笔记一" class="headerlink" title="高性能MySQL 读书笔记一"></a>高性能MySQL 读书笔记一</h2><h3 id="一、MySQL的逻辑架构"><a href="#一、MySQL的逻辑架构" class="headerlink" title="一、MySQL的逻辑架构"></a>一、MySQL的逻辑架构</h3><p><img src="/%E9%AB%98%E6%80%A7%E8%83%BDMySQL-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B8%80/1.png"></p>
+    <content><![CDATA[<h2 id="高性能MySQL-读书笔记一"><a href="#高性能MySQL-读书笔记一" class="headerlink" title="高性能MySQL 读书笔记一"></a>高性能MySQL 读书笔记一</h2><h3 id="一、MySQL的逻辑架构"><a href="#一、MySQL的逻辑架构" class="headerlink" title="一、MySQL的逻辑架构"></a>一、MySQL的逻辑架构</h3><p><img src="/%E9%AB%98%E6%80%A7%E8%83%BDmysql-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B8%80/1.png"></p>
 <p>​		最上面一层的服务是基于<strong>网络</strong>的客户端&#x2F;服务器的工具。提供连接处理、授权认证、安全等等功能。</p>
 <p>​		第二层架构是MySQL比较有意思的部分。包含了MySQL大多数的核心服务功能，<strong>查询解析、分析、优化、缓存以及所有内置函数（日期、时间、数字和加密函数）</strong>。所有跨存储引擎的功能都在这一层实现：<strong>存储过程、触发器、视图</strong>等。</p>
 <p>​		第三层包含了存储引擎。存储引擎负责MySQL中数据的存储和提取。服务器通过<strong>API</strong>与存储引擎进行通信。这些<strong>接口</strong>屏蔽了不同存储引擎之间的差异，使得这些差异对上层的<strong>查询过程</strong>透明。存储引擎API包含了<strong>几十个底层函数</strong>，用于执行诸如”<strong>开始一个事务</strong>“或者”<strong>根据主键提取一行记录</strong>“等操作。不同存储引擎之间不会相互通信，而只是简单地响应上层服务器的请求。</p>
