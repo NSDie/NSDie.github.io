@@ -1,6 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Spring学习笔记一</title>
+    <url>/spring%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%80/</url>
+    <content><![CDATA[<h3 id="IOC"><a href="#IOC" class="headerlink" title="IOC"></a>IOC</h3><h4 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h4><p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<code>Inversion of Control</code> ，翻译为”控制反转“，别名”依赖注入“(<code>Dependency Injection</code>)。</p>
+<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;关键在于四个问题：<strong>谁控制谁</strong>,<strong>控制什么</strong>,<strong>反转是什么</strong>,<strong>哪些方面反转了</strong>。</p>
+<blockquote>
+<p>所谓IOC，就是由Spring IOC容器来负责对象的生命周期和对象之间的关系。</p>
+</blockquote>
+<p>​	我们可以先想象一个场景：你需要一个女朋友，直接<code>new BeautifulGirl()</code>，接下来你想要的各种要求，用set来设置。但是这个过程复杂又繁琐，而且我们必须要面对每个环节，同时在使用完成之后还要负责销毁。<strong>这种情况下我们的对象和它所依赖的对象耦合在一起</strong>。</p>
+<p>​	但是我们知道，我们依赖对象并不是依赖对象本身，而是依赖对象所提供的<strong>服务</strong>，当我们需要它的时候，它能够<strong>及时提供服务即可</strong>，至于它是我们主动去创建还是别人送给我们的，并不那么重要。就像你需要一个女朋友，你可以不用自己找（new），你可以直接跟婚介公司说，你想要这样那样的妹子（<strong>需求</strong>），婚介公司就会给你一个妹子，你只需要负责接下来的工作。</p>
+<p>​	所以<strong>IoC</strong>就是相当于一个中介，当你需要什么（功能） 的时候，IoC就会送过来给你，你不用自己去创建销毁。</p>
+<p>​	现在，回答上面四个问题：</p>
+<p>​	<strong>1.谁控制谁</strong>：<code>IOC Service Provider</code>(IOC容器) 控制对象。</p>
+<p>​	<strong>2.控制什么</strong>：控制对象。</p>
+<p>​	<strong>3.反转是什么</strong>：没有IOC，都是在对象中主动去创建被依赖的对象，这是<strong>正转</strong>；有IOC，所依赖的对象直接由IoC容器创建后注入到被注入的对象中，依赖的对象由原来的主动变为被动，这是<strong>反转</strong>。</p>
+<p>​	<strong>4.哪些方面反转了</strong>：所依赖对象的获取被反转了。</p>
+<h4 id="提供的注入方式"><a href="#提供的注入方式" class="headerlink" title="提供的注入方式"></a>提供的注入方式</h4><ol>
+<li><strong>构造器注入</strong> 被注入的对象通过在其构造方法中声明依赖对象的参数列表，让外部知道它需要哪些依赖对象。</li>
+<li><strong>setter 方法注入</strong> 对于JavaBean对象而言，我们一般是通过<code>getter</code>和<code>setter</code>方法来访问和设置对象的属性。所以，当前对象只需要为其所依赖的对象提供相应的<code>setter</code>方法，就可以通过该方法将相应的依赖对象设置到被注入对象中。</li>
+<li><strong>接口方式注入</strong> 接口方式注入显得比较霸道，因为它需要被依赖的对象实现不必要的接口，带有侵入性。</li>
+</ol>
+<h3 id="IOC各部分"><a href="#IOC各部分" class="headerlink" title="IOC各部分"></a>IOC各部分</h3><p>​	五大体系：<strong>Resource体系</strong>、<strong>BeanFactory体系</strong>、<strong>Beandefinition</strong>、<strong>BeandefinitionReader体系</strong>、<strong>ApplicationContext体系</strong>。(简单介绍一下，后面再继续详细记录。)</p>
+<ul>
+<li><strong>Resource体系</strong> 对资源的抽象，它的每一个实现类都代表了一种资源的访问策略。如ClasspathResource、URLResource、FileSystemResource等。ps：资源加载——ResourceLoader。</li>
+<li><strong>BeanFactory体系</strong> BeanFactory是一个非常纯粹的bean容器，它是IOC必备的数据结构，其中<em>BeanDefinition</em>是它的基本结构，它内部维护一个map，根据<em>BeanDefinition</em>的描述进行bean的创建和管理。</li>
+<li><strong>BeanDefinition体系</strong> 用来描述Spring中的Bean对象。</li>
+<li><strong>BeanDefinitionReader体系</strong> 用来读取Spring的配置文件，并转换成IOC容器内部的数据结构-》<em>BeanDefinition</em>。</li>
+<li><strong>ApplicationContext体系</strong> Spring容器，应用上下文，继承<em>BeanFactory</em>。它与<em>BeanFactory</em>的区别有：1. 继承<em>MessageSource</em>，提供国际化的标准访问策略。 2. 继承<em>ApplicationEventPublisher</em>，提供强大的事件机制。 3. 扩展<em>ResourceLoader</em>，可以用来加载多个Resource，可以灵活访问不同的资源。 4. 对Web应用的支持。</li>
+</ul>
+<blockquote>
+<p>学习笔记，原文章出处：<a href="http://cmsblogs.com/?p=2652">http://cmsblogs.com/?p=2652</a>  </p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>开发</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Spring核心思想IOC、DI</title>
+    <url>/spring%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3ioc%E3%80%81di/</url>
+    <content><![CDATA[<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><ol>
+<li>IOC是什么？     <strong>IOC(Inversion of Control)控制反转</strong>，IOC是一种新的Java编程模式，目前很多轻量级容器都在广泛使用的模式。</li>
+<li>IOC解决了什么问题？     在IOC出现以前，组件之间的协调关系是由程序内部代码来控制的，或者说，以前我们使用New关键字来实现两组间之间的依赖关系的。     这种方式就造成了组件之间的互相 <strong>耦合</strong>。IOC(控制反转)就是来解决这个问题的，它将实现组件间的关系从程序内部提到<strong>外部容器</strong>来管理。     也就是说，由容器在运行期将组件间的某种依赖关系动态的注入组件中。</li>
+<li>IOC的实现方式     1. **依赖查找(Dependency Lookup)**：容器中的受控对象通过容器的API来查找自己所依赖的资源和协作对象。这种方式虽然降低了对象间的依赖，但是同时也使用到了容器的API，造成了我们无法在容器外使用和测试对象。     依赖查找是一种更加传统的IOC实现方式。     2. **依赖注入(Dependency Injection)**：这就是DI，字面上理解，依赖注入就是将服务注入到使用它的地方。对象只提供普通的方法让容器去决定依赖关系，</li>
+<li>IOC与DI的<strong>区别</strong>     对于IOC来说，DI更像是一个用来控制容器的工具，之所以依赖，是根据容器里各个组件之间的关系来决定。</li>
+<li>Spring中的IOC和DI     IOC是Spring的核心，贯穿始终。对于Spring框架来说，就是由Spring来负责控制对象的<strong>生命周期</strong>和<strong>对象间的关系</strong>。     Spring中DI有两种实现方式—Setter方式(传值方式)和构造器方式(引用方式)。</li>
+</ol>
+<h3 id="IOC"><a href="#IOC" class="headerlink" title="IOC"></a>IOC</h3><p>​	假设一种情况，我们要做一个图书馆里系统，我们要定义一个书的Bean类，里面有<strong>书的id</strong>，<strong>书名</strong>，<strong>作者</strong>，<strong>出版社</strong>….等等属性，在一个对象中，如果要使用另外的对象，就必须得到它（自己new一个，或者从JNDI中查询一个），使用完之后还要将对象销毁（比如Connection等），对象始终会和其他的接口或类藕合起来。     而spring中是如何实现的呢？相当于一个图书管理员，它负责管理很多很多书籍的信息，你只需要提供你想要借哪本书、或者说哪种类型的书，那么它就会提供给你，如果不是我们想要的书，我们就抛出异常反馈给它。整个过程不再是我们自己控制的了，我们想要什么书，不用我们去找，也不用我们去造。所有的类都在<code>spring</code>这个容器内登记，我们只需要请求。所有类让<code>spring</code>创建、销毁，也就是说控制对象生存周期的不再是引用它的对象，而是<code>spring</code>。对于某个具体的对象而言，以前是它控制其他对象，现在是所有对象都被<code>spring</code>控制，所以这叫<strong>控制反转</strong>。     所以由上面看，spring的解决方案就是面向接口的编程，对<strong>对象</strong>的控制直接调用接口就可以实现了。（前提是配置好了。🙃）</p>
+<blockquote>
+<p>spring跟传统做法的区别:</p>
+</blockquote>
+<p><img src="/Spring%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3%E2%80%94IOC%E3%80%81DI/1.png" alt="spring跟传统做法的区别" title="spring跟传统做法的区别"></p>
+<blockquote>
+<p>spring的配置原理图：</p>
+</blockquote>
+<p><img src="/Spring%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3%E2%80%94IOC%E3%80%81DI/2.png" alt="spring的配置" title="spring的配置"></p>
+<h3 id="DI"><a href="#DI" class="headerlink" title="DI"></a>DI</h3><p>​	IOC的一个<strong>重点</strong>是在系统运行中，动态的向某个对象提供它所需要的其他对象。这一点是通过<strong>DI（Dependency Injection，依赖注入）</strong>来实现的。比如对象A需要操作数据库，以前我们总是要在A中自己编写代码来获得一个<strong>Connection</strong>对象，有了<strong>spring</strong>我们就只需要告诉spring，A中需要一个<strong>Connection</strong>，至于这个<strong>Connection</strong>怎么构造，何时构造，A不需要知道。在系统运行时，<strong>spring</strong>会在适当的时候制造一个<strong>Connection</strong>，然后像打针一样，注射到A当中，这样就完成了对各个对象之间关系的控制。A需要依赖<strong>Connection</strong>才能正常运行，而这个<strong>Connection</strong>是由<strong>spring</strong>注入到A中的，依赖注入的名字就这么来的。那么DI是如何实现的呢？Java 1.3之后一个重要特征是<strong>反射（reflection）</strong>，它允许程序在运行的时候动态的生成对象、执行对象的方法、改变对象的属性，spring就是通过反射来实现注入的。</p>
+<blockquote>
+<p>更多关于<strong>反射</strong>的内容，可以参考<a href="https://docs.oracle.com/javase/7/docs/api/" title="JAVA文档">JAVA文档</a></p>
+</blockquote>
+<blockquote>
+<p>引自文章<a href="https://blog.csdn.net/baple/article/details/53667767">《Spring核心思想，IoC与DI详解（如果还不明白，放弃java吧）》</a>              <a href="https://blog.csdn.net/javazejian/article/details/54561302">《关于Spring IOC (DI-依赖注入)你需要知道的一切》</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>开发</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Java基础问题</title>
     <url>/java%E5%9F%BA%E7%A1%80%E9%97%AE%E9%A2%98/</url>
     <content><![CDATA[<h5 id="1-static关键字有哪些作用？"><a href="#1-static关键字有哪些作用？" class="headerlink" title="1. static关键字有哪些作用？"></a>1. static关键字有哪些作用？</h5><p>static修饰变量、修饰方法。</p>
@@ -245,75 +321,33 @@
       </tags>
   </entry>
   <entry>
-    <title>Spring学习笔记一</title>
-    <url>/spring%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%80/</url>
-    <content><![CDATA[<h3 id="IOC"><a href="#IOC" class="headerlink" title="IOC"></a>IOC</h3><h4 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h4><p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<code>Inversion of Control</code> ，翻译为”控制反转“，别名”依赖注入“(<code>Dependency Injection</code>)。</p>
-<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;关键在于四个问题：<strong>谁控制谁</strong>,<strong>控制什么</strong>,<strong>反转是什么</strong>,<strong>哪些方面反转了</strong>。</p>
-<blockquote>
-<p>所谓IOC，就是由Spring IOC容器来负责对象的生命周期和对象之间的关系。</p>
-</blockquote>
-<p>​	我们可以先想象一个场景：你需要一个女朋友，直接<code>new BeautifulGirl()</code>，接下来你想要的各种要求，用set来设置。但是这个过程复杂又繁琐，而且我们必须要面对每个环节，同时在使用完成之后还要负责销毁。<strong>这种情况下我们的对象和它所依赖的对象耦合在一起</strong>。</p>
-<p>​	但是我们知道，我们依赖对象并不是依赖对象本身，而是依赖对象所提供的<strong>服务</strong>，当我们需要它的时候，它能够<strong>及时提供服务即可</strong>，至于它是我们主动去创建还是别人送给我们的，并不那么重要。就像你需要一个女朋友，你可以不用自己找（new），你可以直接跟婚介公司说，你想要这样那样的妹子（<strong>需求</strong>），婚介公司就会给你一个妹子，你只需要负责接下来的工作。</p>
-<p>​	所以<strong>IoC</strong>就是相当于一个中介，当你需要什么（功能） 的时候，IoC就会送过来给你，你不用自己去创建销毁。</p>
-<p>​	现在，回答上面四个问题：</p>
-<p>​	<strong>1.谁控制谁</strong>：<code>IOC Service Provider</code>(IOC容器) 控制对象。</p>
-<p>​	<strong>2.控制什么</strong>：控制对象。</p>
-<p>​	<strong>3.反转是什么</strong>：没有IOC，都是在对象中主动去创建被依赖的对象，这是<strong>正转</strong>；有IOC，所依赖的对象直接由IoC容器创建后注入到被注入的对象中，依赖的对象由原来的主动变为被动，这是<strong>反转</strong>。</p>
-<p>​	<strong>4.哪些方面反转了</strong>：所依赖对象的获取被反转了。</p>
-<h4 id="提供的注入方式"><a href="#提供的注入方式" class="headerlink" title="提供的注入方式"></a>提供的注入方式</h4><ol>
-<li><strong>构造器注入</strong> 被注入的对象通过在其构造方法中声明依赖对象的参数列表，让外部知道它需要哪些依赖对象。</li>
-<li><strong>setter 方法注入</strong> 对于JavaBean对象而言，我们一般是通过<code>getter</code>和<code>setter</code>方法来访问和设置对象的属性。所以，当前对象只需要为其所依赖的对象提供相应的<code>setter</code>方法，就可以通过该方法将相应的依赖对象设置到被注入对象中。</li>
-<li><strong>接口方式注入</strong> 接口方式注入显得比较霸道，因为它需要被依赖的对象实现不必要的接口，带有侵入性。</li>
+    <title>华为Cloud&amp;Bu 软开凉经</title>
+    <url>/%E5%8D%8E%E4%B8%BAcloud-bu-%E8%BD%AF%E5%BC%80%E5%87%89%E7%BB%8F/</url>
+    <content><![CDATA[<h2 id="华为Cloud-amp-Bu-软开面经"><a href="#华为Cloud-amp-Bu-软开面经" class="headerlink" title="华为Cloud&amp;Bu 软开面经"></a>华为Cloud&amp;Bu 软开面经</h2><h3 id="一面："><a href="#一面：" class="headerlink" title="一面："></a>一面：</h3><ol>
+<li><strong>计算机网络</strong>：V-LAN、虚拟网关</li>
+<li><strong>操作系统</strong>：两个线程如何通信</li>
+<li><strong>组成原理</strong>：软中断和硬中断</li>
+<li><strong>项目（Java）</strong>：<br>多线程如何实现；<br>所有类的父类是什么；<br>SpringBoot有啥特点；<br>SpringBoot的Bean都有哪些；<br>SpringBoot中的Request跟Response是多线程的吗，在哪里生成，如何赋值。<br>SpringBoot里对象的生命周期<br>手撕 or 设计模式</li>
+<li><strong>数据结构</strong>：<br>问：速度最快且稳定的排序算法<br>答：归并吧<br>“那你实现一下吧”<br>（手撕一道水题）实现一个归并算法</li>
 </ol>
-<h3 id="IOC各部分"><a href="#IOC各部分" class="headerlink" title="IOC各部分"></a>IOC各部分</h3><p>​	五大体系：<strong>Resource体系</strong>、<strong>BeanFactory体系</strong>、<strong>Beandefinition</strong>、<strong>BeandefinitionReader体系</strong>、<strong>ApplicationContext体系</strong>。(简单介绍一下，后面再继续详细记录。)</p>
-<ul>
-<li><strong>Resource体系</strong> 对资源的抽象，它的每一个实现类都代表了一种资源的访问策略。如ClasspathResource、URLResource、FileSystemResource等。ps：资源加载——ResourceLoader。</li>
-<li><strong>BeanFactory体系</strong> BeanFactory是一个非常纯粹的bean容器，它是IOC必备的数据结构，其中<em>BeanDefinition</em>是它的基本结构，它内部维护一个map，根据<em>BeanDefinition</em>的描述进行bean的创建和管理。</li>
-<li><strong>BeanDefinition体系</strong> 用来描述Spring中的Bean对象。</li>
-<li><strong>BeanDefinitionReader体系</strong> 用来读取Spring的配置文件，并转换成IOC容器内部的数据结构-》<em>BeanDefinition</em>。</li>
-<li><strong>ApplicationContext体系</strong> Spring容器，应用上下文，继承<em>BeanFactory</em>。它与<em>BeanFactory</em>的区别有：1. 继承<em>MessageSource</em>，提供国际化的标准访问策略。 2. 继承<em>ApplicationEventPublisher</em>，提供强大的事件机制。 3. 扩展<em>ResourceLoader</em>，可以用来加载多个Resource，可以灵活访问不同的资源。 4. 对Web应用的支持。</li>
-</ul>
-<blockquote>
-<p>学习笔记，原文章出处：<a href="http://cmsblogs.com/?p=2652">http://cmsblogs.com/?p=2652</a>  </p>
-</blockquote>
+<h3 id="二面："><a href="#二面：" class="headerlink" title="二面："></a>二面：</h3><ol>
+<li><strong>数据结构</strong>：<br>数组跟链表有什么区别？<br>平衡二叉树定义说一下、如何插入一个数、有什么应用？</li>
+<li>设计模式了解吗？说一下常用的几个设计模式。</li>
+<li>那你做过什么项目，用什么语言，答：Java<br>（感觉不会java的面试官 2333）<br>聊项目。</li>
+<li>给了一个情景，假如有很多条主机数据，他们有各自的ip跟存储的信息，我想要去重，（集合？），那你设计一下这个主机类，如何用集合来去重？ balabalabala…….</li>
+</ol>
+<p>ok 来看一道题目给你20分钟（然后共享屏幕开始敲）<br>题目是leetcode.56 合并区间 大意就是给你一堆区间的集合，然后你把重叠区间合并掉，返回全部区间的集合。</p>
+<h3 id="三面-主管面"><a href="#三面-主管面" class="headerlink" title="三面(主管面):"></a>三面(主管面):</h3><ol>
+<li>看你实习过，先说一下你实习期间做了什么吧</li>
+<li>（因为我说大三准备考研了）你学习成绩怎么样。班级里考研的多吗，现在找到工作的多吗</li>
+<li>复盘一面的知识：你说一下你一面算法题实现了什么东西。balabala….<br>计算机网络：说一下TCP&#x2F;IP协议的三次握手&#x2F;四次握手<br>数据结构：说一下冒泡排序</li>
+<li>你还做过什么项目，你在项目里的定位是什么，实现了什么功能。<br>数据库：主键和外键<br>平时会看什么书…… （聊一下Spring微服务吧 这个应该跟你看了什么书有关系）</li>
+<li>你有什么问题要问我的。</li>
+</ol>
 ]]></content>
       <categories>
         <category>开发</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-        <tag>Spring</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Spring核心思想IOC、DI</title>
-    <url>/spring%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3ioc%E3%80%81di/</url>
-    <content><![CDATA[<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><ol>
-<li>IOC是什么？     <strong>IOC(Inversion of Control)控制反转</strong>，IOC是一种新的Java编程模式，目前很多轻量级容器都在广泛使用的模式。</li>
-<li>IOC解决了什么问题？     在IOC出现以前，组件之间的协调关系是由程序内部代码来控制的，或者说，以前我们使用New关键字来实现两组间之间的依赖关系的。     这种方式就造成了组件之间的互相 <strong>耦合</strong>。IOC(控制反转)就是来解决这个问题的，它将实现组件间的关系从程序内部提到<strong>外部容器</strong>来管理。     也就是说，由容器在运行期将组件间的某种依赖关系动态的注入组件中。</li>
-<li>IOC的实现方式     1. **依赖查找(Dependency Lookup)**：容器中的受控对象通过容器的API来查找自己所依赖的资源和协作对象。这种方式虽然降低了对象间的依赖，但是同时也使用到了容器的API，造成了我们无法在容器外使用和测试对象。     依赖查找是一种更加传统的IOC实现方式。     2. **依赖注入(Dependency Injection)**：这就是DI，字面上理解，依赖注入就是将服务注入到使用它的地方。对象只提供普通的方法让容器去决定依赖关系，</li>
-<li>IOC与DI的<strong>区别</strong>     对于IOC来说，DI更像是一个用来控制容器的工具，之所以依赖，是根据容器里各个组件之间的关系来决定。</li>
-<li>Spring中的IOC和DI     IOC是Spring的核心，贯穿始终。对于Spring框架来说，就是由Spring来负责控制对象的<strong>生命周期</strong>和<strong>对象间的关系</strong>。     Spring中DI有两种实现方式—Setter方式(传值方式)和构造器方式(引用方式)。</li>
-</ol>
-<h3 id="IOC"><a href="#IOC" class="headerlink" title="IOC"></a>IOC</h3><p>​	假设一种情况，我们要做一个图书馆里系统，我们要定义一个书的Bean类，里面有<strong>书的id</strong>，<strong>书名</strong>，<strong>作者</strong>，<strong>出版社</strong>….等等属性，在一个对象中，如果要使用另外的对象，就必须得到它（自己new一个，或者从JNDI中查询一个），使用完之后还要将对象销毁（比如Connection等），对象始终会和其他的接口或类藕合起来。     而spring中是如何实现的呢？相当于一个图书管理员，它负责管理很多很多书籍的信息，你只需要提供你想要借哪本书、或者说哪种类型的书，那么它就会提供给你，如果不是我们想要的书，我们就抛出异常反馈给它。整个过程不再是我们自己控制的了，我们想要什么书，不用我们去找，也不用我们去造。所有的类都在<code>spring</code>这个容器内登记，我们只需要请求。所有类让<code>spring</code>创建、销毁，也就是说控制对象生存周期的不再是引用它的对象，而是<code>spring</code>。对于某个具体的对象而言，以前是它控制其他对象，现在是所有对象都被<code>spring</code>控制，所以这叫<strong>控制反转</strong>。     所以由上面看，spring的解决方案就是面向接口的编程，对<strong>对象</strong>的控制直接调用接口就可以实现了。（前提是配置好了。🙃）</p>
-<blockquote>
-<p>spring跟传统做法的区别:</p>
-</blockquote>
-<p><img src="/Spring%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3%E2%80%94IOC%E3%80%81DI/1.png" alt="spring跟传统做法的区别" title="spring跟传统做法的区别"></p>
-<blockquote>
-<p>spring的配置原理图：</p>
-</blockquote>
-<p><img src="/Spring%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3%E2%80%94IOC%E3%80%81DI/2.png" alt="spring的配置" title="spring的配置"></p>
-<h3 id="DI"><a href="#DI" class="headerlink" title="DI"></a>DI</h3><p>​	IOC的一个<strong>重点</strong>是在系统运行中，动态的向某个对象提供它所需要的其他对象。这一点是通过<strong>DI（Dependency Injection，依赖注入）</strong>来实现的。比如对象A需要操作数据库，以前我们总是要在A中自己编写代码来获得一个<strong>Connection</strong>对象，有了<strong>spring</strong>我们就只需要告诉spring，A中需要一个<strong>Connection</strong>，至于这个<strong>Connection</strong>怎么构造，何时构造，A不需要知道。在系统运行时，<strong>spring</strong>会在适当的时候制造一个<strong>Connection</strong>，然后像打针一样，注射到A当中，这样就完成了对各个对象之间关系的控制。A需要依赖<strong>Connection</strong>才能正常运行，而这个<strong>Connection</strong>是由<strong>spring</strong>注入到A中的，依赖注入的名字就这么来的。那么DI是如何实现的呢？Java 1.3之后一个重要特征是<strong>反射（reflection）</strong>，它允许程序在运行的时候动态的生成对象、执行对象的方法、改变对象的属性，spring就是通过反射来实现注入的。</p>
-<blockquote>
-<p>更多关于<strong>反射</strong>的内容，可以参考<a href="https://docs.oracle.com/javase/7/docs/api/" title="JAVA文档">JAVA文档</a></p>
-</blockquote>
-<blockquote>
-<p>引自文章<a href="https://blog.csdn.net/baple/article/details/53667767">《Spring核心思想，IoC与DI详解（如果还不明白，放弃java吧）》</a>              <a href="https://blog.csdn.net/javazejian/article/details/54561302">《关于Spring IOC (DI-依赖注入)你需要知道的一切》</a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>开发</category>
+        <category>面试</category>
       </categories>
       <tags>
         <tag>Java</tag>
@@ -510,37 +544,88 @@
       </tags>
   </entry>
   <entry>
-    <title>华为Cloud&amp;Bu 软开凉经</title>
-    <url>/%E5%8D%8E%E4%B8%BAcloud-bu-%E8%BD%AF%E5%BC%80%E5%87%89%E7%BB%8F/</url>
-    <content><![CDATA[<h2 id="华为Cloud-amp-Bu-软开面经"><a href="#华为Cloud-amp-Bu-软开面经" class="headerlink" title="华为Cloud&amp;Bu 软开面经"></a>华为Cloud&amp;Bu 软开面经</h2><h3 id="一面："><a href="#一面：" class="headerlink" title="一面："></a>一面：</h3><ol>
-<li><strong>计算机网络</strong>：V-LAN、虚拟网关</li>
-<li><strong>操作系统</strong>：两个线程如何通信</li>
-<li><strong>组成原理</strong>：软中断和硬中断</li>
-<li><strong>项目（Java）</strong>：<br>多线程如何实现；<br>所有类的父类是什么；<br>SpringBoot有啥特点；<br>SpringBoot的Bean都有哪些；<br>SpringBoot中的Request跟Response是多线程的吗，在哪里生成，如何赋值。<br>SpringBoot里对象的生命周期<br>手撕 or 设计模式</li>
-<li><strong>数据结构</strong>：<br>问：速度最快且稳定的排序算法<br>答：归并吧<br>“那你实现一下吧”<br>（手撕一道水题）实现一个归并算法</li>
+    <title>游戏开发之路2</title>
+    <url>/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF2/</url>
+    <content><![CDATA[<h3 id="游戏开发"><a href="#游戏开发" class="headerlink" title="游戏开发"></a>游戏开发</h3><h4 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h4><p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;用来开发客户端的语言非常多，<strong>unity引擎</strong>用的是<strong>c#<strong>，</strong>cocos引擎</strong>用的是<strong>c++<strong>、</strong>js</strong>，<strong>虚幻4引擎</strong>也是用<strong>c++<strong>，还有</strong>java</strong>和<strong>python</strong>。</p>
+<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;不过主流都是用<strong>unity</strong>跟<strong>虚幻4</strong>，再者就是自家公司研发的游戏引擎。</p>
+<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;由于我本身也不是客户端开发的，所以这这部分知识不会太细，就罗列一下引擎中的基本模块以及客户端开发过程中需要注意的地方。</p>
+<p><strong>引擎：</strong></p>
+<ol>
+<li>渲染部分（2d和3d） ——<strong>渲染管线</strong></li>
+<li>物理与碰撞</li>
+<li>音乐和音效</li>
+<li>场景管理</li>
+<li>交互处理</li>
+<li>寻路  ——A星算法、Mesh网格</li>
+<li>动画</li>
 </ol>
-<h3 id="二面："><a href="#二面：" class="headerlink" title="二面："></a>二面：</h3><ol>
-<li><strong>数据结构</strong>：<br>数组跟链表有什么区别？<br>平衡二叉树定义说一下、如何插入一个数、有什么应用？</li>
-<li>设计模式了解吗？说一下常用的几个设计模式。</li>
-<li>那你做过什么项目，用什么语言，答：Java<br>（感觉不会java的面试官 2333）<br>聊项目。</li>
-<li>给了一个情景，假如有很多条主机数据，他们有各自的ip跟存储的信息，我想要去重，（集合？），那你设计一下这个主机类，如何用集合来去重？ balabalabala…….</li>
+<p><strong>开发文档</strong>：</p>
+<ul>
+<li>制定开发规范<ol>
+<li>变量命名、空间命名规范</li>
+<li>程序逻辑架构</li>
+<li>资源制作规范</li>
+<li>模块开发步骤</li>
 </ol>
-<p>ok 来看一道题目给你20分钟（然后共享屏幕开始敲）<br>题目是leetcode.56 合并区间 大意就是给你一堆区间的集合，然后你把重叠区间合并掉，返回全部区间的集合。</p>
-<h3 id="三面-主管面"><a href="#三面-主管面" class="headerlink" title="三面(主管面):"></a>三面(主管面):</h3><ol>
-<li>看你实习过，先说一下你实习期间做了什么吧</li>
-<li>（因为我说大三准备考研了）你学习成绩怎么样。班级里考研的多吗，现在找到工作的多吗</li>
-<li>复盘一面的知识：你说一下你一面算法题实现了什么东西。balabala….<br>计算机网络：说一下TCP&#x2F;IP协议的三次握手&#x2F;四次握手<br>数据结构：说一下冒泡排序</li>
-<li>你还做过什么项目，你在项目里的定位是什么，实现了什么功能。<br>数据库：主键和外键<br>平时会看什么书…… （聊一下Spring微服务吧 这个应该跟你看了什么书有关系）</li>
-<li>你有什么问题要问我的。</li>
+</li>
+<li>UI框架<ol>
+<li>可扩展性</li>
+<li>可维护性</li>
+<li>易用性</li>
 </ol>
+</li>
+<li>网络模块<ol>
+<li>TCP与UDP</li>
+<li>包头、包体</li>
+<li>数据交换格式<ul>
+<li>protobuf</li>
+<li>json</li>
+<li>二进制流</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>资源模块<ol>
+<li>制定存放规则</li>
+<li>制定UI、Icon、Texutre 存放规则</li>
+<li>制定模型存放规则</li>
+<li>制定特效存放规则</li>
+<li>制定资源命名规则</li>
+</ol>
+</li>
+<li>资源工具<ol>
+<li>统一模型设置</li>
+<li>统一贴图设置</li>
+</ol>
+</li>
+<li>美术规格<ol>
+<li>协助制定模型制作规范</li>
+<li>协助统一UI资源制作规范</li>
+<li>协助制作场景制作规范</li>
+<li>协助制作纹理制作规范</li>
+</ol>
+</li>
+<li>美术检查工具</li>
+</ul>
+<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;大体上，客户端有这些事情要做。除了这些，如果要开发联机游戏，开发者要考虑选择帧同步还是状态同步的方式来完成客户端服务端数据同步，这个是一个难点。</p>
+<h4 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h4><p>用于服务端开发的语言有<strong>C++</strong> 、<strong>Java</strong>、<strong>C#<strong>、</strong>Go</strong>、python、nodejs…</p>
+<p>主流的语言是<strong>C++</strong> 。为什么呢？C++最接近低层，可以直接对内存分配进行操作，而且它本身也非常稳定，兼容多个平台。但是这个好处导致它开发非常困难，开发起来效率低，内存管理复杂。</p>
+<p>服务端除了业务逻辑外还有数据库优化维护，这些后续有空再讲，现在就简单介绍几个服务端架构，以及服务端跟客户端之间的通信。</p>
+<p><strong>第一代游戏服务器架构</strong></p>
+<p>数据库——游戏服务器——客户端         <strong>最原始</strong>也是<strong>最基本</strong>的结构，适合简单的游戏框架。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">st=&gt;start: DB</span><br><span class="line">op=&gt;operation: GameServe</span><br><span class="line">e=&gt;end: Client</span><br><span class="line"></span><br><span class="line">st-&gt;op-&gt;e</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><strong>后续更加完善的游戏服务器架构</strong> </p>
+<p>DB1、DB2  —— GS1、GS2、公共服务器——客户端——登陆服——调度服——GS1…. 这种比较成熟的框架就适合大部分网络游戏了，也是很多厂家的首选。</p>
+<p>这个就当了解一下，详细之后再写，有学习意愿可以评论留言一起探讨！</p>
+<p>服务器架构之后，就是服务端跟客户端之间的通信了。这部分一般是通过<strong>TCP协议</strong>或者<strong>UDP协议</strong>，然后自己定义报文格式以及数据格式，可以选用<strong>protobuf</strong>或者<strong>protostuff</strong>（protobuf升级版据说比快很多），虽然json格式也有，传输过程中也非常方便查看数据内容，但是json占的内存太大传输时间太慢，并且明文传输或者说字符串传输，被人拦截下来容易被人得知传输信息，不太安全。</p>
+<p>那么传输数据知道了，业务逻辑处理在哪里呢？这里就出现这个问题了，假设数据都传输到服务端统一计算过后，然后分发给各个客户端，那么可能会有某个客户端太卡丢包了，其他人就要等他重新连接了；那数据都在客户端处理，最终结果上报到服务端，服务端然后再广播到其他客户端，这样可能会遇到一个问题，我的数据是浮点数，发送给服务端可能会失真，就不准确了。这两种处理方式，前者叫<strong>状态同步</strong>，后者叫<strong>帧同步</strong>。</p>
+<p>由于时间问题，这两个讲起来可能也会很多，之后再详细写一篇关于它们的文章。</p>
 ]]></content>
       <categories>
-        <category>开发</category>
-        <category>面试</category>
+        <category>life</category>
       </categories>
       <tags>
-        <tag>Java</tag>
-        <tag>Spring</tag>
+        <tag>游戏开发</tag>
       </tags>
   </entry>
   <entry>
@@ -641,91 +726,6 @@
       </tags>
   </entry>
   <entry>
-    <title>游戏开发之路2</title>
-    <url>/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF2/</url>
-    <content><![CDATA[<h3 id="游戏开发"><a href="#游戏开发" class="headerlink" title="游戏开发"></a>游戏开发</h3><h4 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h4><p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;用来开发客户端的语言非常多，<strong>unity引擎</strong>用的是<strong>c#<strong>，</strong>cocos引擎</strong>用的是<strong>c++<strong>、</strong>js</strong>，<strong>虚幻4引擎</strong>也是用<strong>c++<strong>，还有</strong>java</strong>和<strong>python</strong>。</p>
-<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;不过主流都是用<strong>unity</strong>跟<strong>虚幻4</strong>，再者就是自家公司研发的游戏引擎。</p>
-<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;由于我本身也不是客户端开发的，所以这这部分知识不会太细，就罗列一下引擎中的基本模块以及客户端开发过程中需要注意的地方。</p>
-<p><strong>引擎：</strong></p>
-<ol>
-<li>渲染部分（2d和3d） ——<strong>渲染管线</strong></li>
-<li>物理与碰撞</li>
-<li>音乐和音效</li>
-<li>场景管理</li>
-<li>交互处理</li>
-<li>寻路  ——A星算法、Mesh网格</li>
-<li>动画</li>
-</ol>
-<p><strong>开发文档</strong>：</p>
-<ul>
-<li>制定开发规范<ol>
-<li>变量命名、空间命名规范</li>
-<li>程序逻辑架构</li>
-<li>资源制作规范</li>
-<li>模块开发步骤</li>
-</ol>
-</li>
-<li>UI框架<ol>
-<li>可扩展性</li>
-<li>可维护性</li>
-<li>易用性</li>
-</ol>
-</li>
-<li>网络模块<ol>
-<li>TCP与UDP</li>
-<li>包头、包体</li>
-<li>数据交换格式<ul>
-<li>protobuf</li>
-<li>json</li>
-<li>二进制流</li>
-</ul>
-</li>
-</ol>
-</li>
-<li>资源模块<ol>
-<li>制定存放规则</li>
-<li>制定UI、Icon、Texutre 存放规则</li>
-<li>制定模型存放规则</li>
-<li>制定特效存放规则</li>
-<li>制定资源命名规则</li>
-</ol>
-</li>
-<li>资源工具<ol>
-<li>统一模型设置</li>
-<li>统一贴图设置</li>
-</ol>
-</li>
-<li>美术规格<ol>
-<li>协助制定模型制作规范</li>
-<li>协助统一UI资源制作规范</li>
-<li>协助制作场景制作规范</li>
-<li>协助制作纹理制作规范</li>
-</ol>
-</li>
-<li>美术检查工具</li>
-</ul>
-<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;大体上，客户端有这些事情要做。除了这些，如果要开发联机游戏，开发者要考虑选择帧同步还是状态同步的方式来完成客户端服务端数据同步，这个是一个难点。</p>
-<h4 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h4><p>用于服务端开发的语言有<strong>C++</strong> 、<strong>Java</strong>、<strong>C#<strong>、</strong>Go</strong>、python、nodejs…</p>
-<p>主流的语言是<strong>C++</strong> 。为什么呢？C++最接近低层，可以直接对内存分配进行操作，而且它本身也非常稳定，兼容多个平台。但是这个好处导致它开发非常困难，开发起来效率低，内存管理复杂。</p>
-<p>服务端除了业务逻辑外还有数据库优化维护，这些后续有空再讲，现在就简单介绍几个服务端架构，以及服务端跟客户端之间的通信。</p>
-<p><strong>第一代游戏服务器架构</strong></p>
-<p>数据库——游戏服务器——客户端         <strong>最原始</strong>也是<strong>最基本</strong>的结构，适合简单的游戏框架。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">st=&gt;start: DB</span><br><span class="line">op=&gt;operation: GameServe</span><br><span class="line">e=&gt;end: Client</span><br><span class="line"></span><br><span class="line">st-&gt;op-&gt;e</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p><strong>后续更加完善的游戏服务器架构</strong> </p>
-<p>DB1、DB2  —— GS1、GS2、公共服务器——客户端——登陆服——调度服——GS1…. 这种比较成熟的框架就适合大部分网络游戏了，也是很多厂家的首选。</p>
-<p>这个就当了解一下，详细之后再写，有学习意愿可以评论留言一起探讨！</p>
-<p>服务器架构之后，就是服务端跟客户端之间的通信了。这部分一般是通过<strong>TCP协议</strong>或者<strong>UDP协议</strong>，然后自己定义报文格式以及数据格式，可以选用<strong>protobuf</strong>或者<strong>protostuff</strong>（protobuf升级版据说比快很多），虽然json格式也有，传输过程中也非常方便查看数据内容，但是json占的内存太大传输时间太慢，并且明文传输或者说字符串传输，被人拦截下来容易被人得知传输信息，不太安全。</p>
-<p>那么传输数据知道了，业务逻辑处理在哪里呢？这里就出现这个问题了，假设数据都传输到服务端统一计算过后，然后分发给各个客户端，那么可能会有某个客户端太卡丢包了，其他人就要等他重新连接了；那数据都在客户端处理，最终结果上报到服务端，服务端然后再广播到其他客户端，这样可能会遇到一个问题，我的数据是浮点数，发送给服务端可能会失真，就不准确了。这两种处理方式，前者叫<strong>状态同步</strong>，后者叫<strong>帧同步</strong>。</p>
-<p>由于时间问题，这两个讲起来可能也会很多，之后再详细写一篇关于它们的文章。</p>
-]]></content>
-      <categories>
-        <category>life</category>
-      </categories>
-      <tags>
-        <tag>游戏开发</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>游戏开发之路4</title>
     <url>/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF4/</url>
     <content><![CDATA[<h3 id="经验分享"><a href="#经验分享" class="headerlink" title="经验分享"></a>经验分享</h3><h4 id="第二轮demo比赛总结"><a href="#第二轮demo比赛总结" class="headerlink" title="第二轮demo比赛总结"></a>第二轮demo比赛总结</h4><blockquote>
@@ -767,149 +767,6 @@
       </categories>
       <tags>
         <tag>游戏开发</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>计算机视觉笔记</title>
-    <url>/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%AC%94%E8%AE%B0/</url>
-    <content><![CDATA[<h3 id="计算机视觉概论"><a href="#计算机视觉概论" class="headerlink" title="计算机视觉概论"></a>计算机视觉概论</h3><p><strong>1.</strong>   <strong>什么是计算机视觉？</strong></p>
-<p>答：计算机是指机器，视觉是指人对世界的感知。所以计算机视觉是通过让摄影机和电脑代替人眼对目标进行识别、跟踪和测量等行为，从图像或者多维数据中获取信息的一门学科。</p>
-<p><strong>2.</strong>   <strong>计算机视觉要完成的主要任务是什么？</strong></p>
-<p>答：计算机视觉的任务是用图像创建或恢复现实世界模型，然后认知现实世界。让计算机具有对周围世界的空间物体进行传感、抽象、判断的能力，从而达到识别、理解的目的。</p>
-<p><strong>3.</strong>   <strong>请将数字图像处理的主要知识点自己回顾或整理一下，如果还没学过，自己通过网络资源初步了解一下，然后把主要的知识点加以整理，然后记录在这里。</strong></p>
-<p>答：数字图像处理主要有两个目的：改善图示信息以便人们解释理解；为存储、传输和表示而对图像数据进行处理，便于机器理解。数字图像处理常用的几种方法有：灰度变换，对图像的单个像素进行操作，目的是处理对比度和阈值；空间域滤波，对图像每个像素的邻域进行处理，锐化图像以及一些改善性能的目的；频率域滤波，通过一些傅里叶变换来进行操作图像，目的是锐化图像或者平滑图像；图像复原与重建，通过一些滤波器来进行噪声的复原和消除；彩色图像处理，最常见的图像，存在三通道，一般进行彩色到灰度的变换，再进行下一步操作。更深入的应用还有，小波和多分辨率处理；图像压缩，通过霍夫曼编码、Golomb编码以及其他一些编码计算公式来进行有损压缩和无损压缩；形态学图像处理；图像分割；图像的表示和描述；目标识别等。</p>
-<h3 id="图像处理相关基础"><a href="#图像处理相关基础" class="headerlink" title="图像处理相关基础"></a>图像处理相关基础</h3><p><strong>1.</strong>   <strong>常见的滤波器有哪几种？分别说明它们的功能。</strong></p>
-<p>答：</p>
-<p>线性(均值)滤波器：用来减少图像灰度的“尖锐”变化，减少噪声。即过滤了高频信号，因此也被称之为低通滤波器。</p>
-<p>中值滤波器：强迫滤波器区域内突出的亮点更像它周围的值，以消除孤立的亮点。用来去除噪声。</p>
-<p>最大值滤波器：用于发现图像中最亮的点，可以用来过滤“胡椒”噪声。</p>
-<p>最小值滤波器：用于发现图像中最暗的点，可以用来过滤“盐”噪声。</p>
-<p>拉普拉斯滤波器：高通滤波器，突出边缘信息，同时也要包含背景区域信息，可以用来图像增强。</p>
-<p>平滑滤波器：用于平滑处理，如图像由于量化不足产生的虚假轮廓时，同时，也可以用于去除噪声。</p>
-<p>锐化滤波器：增强边缘信息，可用于边缘提取。</p>
-<p><strong>2.</strong>   <strong>图像金字塔有哪些用途？</strong></p>
-<p>将粗糙尺度图像通过插值计算扩展为较细的尺度图像。可以用于图像分割、目标识别、图像理解、视觉感知、消除噪声、分析纹理、标记图像特征。</p>
-<p><strong>3.</strong>   <strong>在实际应用中，哪些应用需要低分辨率特征，请举出具体实例说明。</strong></p>
-<p>视频压缩：由于自身显示器的限制还有流量带宽的区别，网络上视频一般都提供多个画质分辨率，如果显示器分辨率不高以及为了节省流量，可以用低分辨率来观看视频。</p>
-<p>图片打马赛克：想要在超清图片上的某个部位变得模糊，打上马赛克，让人看不清，这里需要用到低分辨率特征。</p>
-<p>微信头像缩略图：超清图片分辨率高，内存大，存储以及传输所消耗资源也高，就采取图片压缩的方式，减小图片大小，又不能丢失图片原来的轮廓，这里需要用到低分辨率特征。</p>
-<h3 id="图像特征"><a href="#图像特征" class="headerlink" title="图像特征"></a>图像特征</h3><p><strong>1.</strong>   <strong>什么是图像的对应？图像特征点在对应中的作用是什么？</strong></p>
-<p>答：1）图像的对应是利用特征算法，找到两个图像中符合向量匹配的图像特征点。</p>
-<p> 2）图像特征点的作用：用来描述不同的图像，做图像切割、对齐等图像变换操作；利用多幅二维图像来进行三维图像的重建、复原。</p>
-<p><strong>2.</strong>   <strong>图像对齐时，常用的特征有哪些？</strong></p>
-<p>答：颜色特征、纹理特征、形状特征、空间位置特征、局部区域特征、边缘特征、点特征。</p>
-<p><strong>3.</strong>   <strong>你知道利用SIFT算子描述特征时，图像对齐的步骤吗？</strong></p>
-<p>1）生成高斯差分金字塔（DOG金字塔），尺度空间构建</p>
-<p>2）空间极值点检测（关键点的初步查探）</p>
-<p>3）稳定关键点的精确定位</p>
-<p>4）稳定关键点方向信息分配</p>
-<p>5）关键点描述</p>
-<p>6）特征点匹配</p>
-<p>7）图像对齐</p>
-<h3 id="图像对齐"><a href="#图像对齐" class="headerlink" title="图像对齐"></a>图像对齐</h3><p><strong>1.</strong>   <strong>图像对应的本质是什么？</strong> </p>
-<p>答：图像对应的本质：可以看作是参数拟合的问题，利用两个图像之间匹配的特征点，将变换模型进行拟合。</p>
-<p><strong>2.</strong>   <strong>图像对齐有哪些用途？</strong></p>
-<p>答：图像拼接、目标识别、图像变换、模板匹配。</p>
-<p><strong>3.</strong>   <strong>图像对齐的常见步骤有哪些？</strong></p>
-<ol>
-<li><p>随机抽取当前图像帧和另一幅图像间的一组特征点，计算基础矩阵</p>
-</li>
-<li><p>利用这些特征点计算组间变换矩阵</p>
-</li>
-<li><p>根据计算的矩阵，求得局内点</p>
-</li>
-<li><p>利用所有的正确匹配点重新计算基础矩阵</p>
-</li>
-<li><p>在此基础上重新搜索正确的匹配点对</p>
-</li>
-<li><p>重复4，5步骤，直至匹配点对的数目达到稳定状态。</p>
-</li>
-<li><p>找到两个图像之间的对齐关系。</p>
-</li>
-</ol>
-<h3 id="二值图像分析"><a href="#二值图像分析" class="headerlink" title="二值图像分析"></a>二值图像分析</h3><p><strong>1.</strong>    <strong>二值图像有哪些用途？（可以查阅文献说明）</strong></p>
-<p>答: </p>
-<p><strong>边界跟踪算法</strong>：利用二值图像识别中的图像轮廓，来实现的边界跟踪。</p>
-<p><strong>目标识别</strong>：基于二值图像的灰度变化，进行物体的精确识别跟定位。</p>
-<p><strong>提取图像的连通区域</strong>：利用图像二值化，找出图像变化的连通区域，再根据先值面积消除法达到去除图像中所有前景和背景噪声的效果。</p>
-<p><strong>2.</strong>    <strong>说明彩色图像二值化计算的步骤。</strong></p>
-<p>答: </p>
-<p>先进行灰度化，灰度化的操作一般是将图像RGB的值用一定的权值来计算得到。</p>
-<p>然后进行二值化，利用阈值分割，从图像中分出前景和背景，实现二值化。</p>
-<p><strong>3.</strong>    <strong>均值迭代求取阈值的二值化步骤是怎样的？</strong></p>
-<p>答：</p>
-<ol>
-<li><p>选择一个初始化的阈值T</p>
-</li>
-<li><p>使用阈值T将图像的像素分为两部分：G1包含灰度满足大于T，G2包含灰度满足小于T。</p>
-</li>
-<li><p>计算G1中所有像素的均值μ1,以及G2中所有像素的均值μ2。</p>
-</li>
-<li><p>计算新的阈值：T’&#x3D;<img src="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%AC%94%E8%AE%B0/1.png" alt="img"></p>
-</li>
-<li><p>重新迭代步骤2-4，直到计算得到新的阈值T’小于预先确定的阈值为止。</p>
-</li>
-</ol>
-<h3 id="纹理特征及分析"><a href="#纹理特征及分析" class="headerlink" title="纹理特征及分析"></a>纹理特征及分析</h3><p><strong>1.</strong>   <strong>简单说明纹理分析和研究的主要目的是什么？</strong></p>
-<p>答：纹理分析是通过一定的图像处理提取出来纹理特征参数，从而获得纹理的定量或定性描述的处理过程。</p>
-<p>目的是研究纹理的观赏特性。</p>
-<p><strong>2.</strong>   <strong>什么是纹理？</strong></p>
-<p>纹理是一种普遍存在的视觉现象，目前有两个定义：</p>
-<p>一个定义是按一定规则对元素或者基元进行排列所形成的重复模式。</p>
-<p>另一个定义是如果图像函数的一组局部属性是恒定的，或者是缓变的，或者是近似周期性的，则图像中的对应区域具有恒定的纹理。</p>
-<p><strong>3.</strong>   <strong>纹理特征提取与分析方法的主要方法有哪几种？</strong></p>
-<p>统计分析法、结构分析法、模型分析法、频谱分析法</p>
-<p><strong>假设位置算子（dx,dy）为（1,1），计算下面纹理的共生矩阵：</strong></p>
-<p><img src="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%AC%94%E8%AE%B0/2.png" alt="img"></p>
-<p>位置算子为（1,1），所以统计斜对角线上的(i,j)对子数。</p>
-<p><img src="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%AC%94%E8%AE%B0/3.png" alt="img"></p>
-<h3 id="图像分割"><a href="#图像分割" class="headerlink" title="图像分割"></a>图像分割</h3><p><strong>1.</strong>   <strong>什么是图像分割？简单说明其用途</strong></p>
-<p>答：图像分割就是把图像分成若干个特定的、具有独特性质的区域。</p>
-<p>比如常见的人脸识别，就是把人脸图像从完整的图像中分割出来。</p>
-<p><strong>2.</strong>   <strong>图像分割的目的是什么？</strong></p>
-<p>答：图像分割可以把人们感兴趣的部分从图像中提取出来，有选择地对感兴趣对象定位。</p>
-<p><strong>3.</strong>   <strong>查阅文献至少1篇，关键词：image segmentation，阅读后写出主要思想</strong></p>
-<p>答：《Rethinking Atrous Convolution for Semantic Image Segmentation》</p>
-<p>主要思想：在这篇论文里，卷积是一种强大的工具，可在语义图像分割的应用中显式调整过滤器的视场并控制由深度卷积神经网络计算的特征响应的分辨率。为了处理在多个尺度上分割对象的问题，我们设计了模块，该模块采用级联或并行的原子卷积，通过采用多个原子速率来捕获多尺度上下文。此外，这篇论文建议扩充先前提出的Atrous空间金字塔池化模块，该模块以编码全局上下文的图像级特征进一步探究多尺度的卷积特征，从而进一步提高性能。</p>
-<p><strong>4.</strong> <strong>查找代码，实现图像分割功能，给出代码和运行结果截图，传统方法，不限语言</strong><br><img src="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%AC%94%E8%AE%B0/4.png" alt="img"><br><img src="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%AC%94%E8%AE%B0/5.png" alt="img"><br>打印结果分别原图，灰度图，K取2，K取3的效果图：<br><img src="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%AC%94%E8%AE%B0/6.png" alt="img"><br><img src="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%AC%94%E8%AE%B0/7.png" alt="img"></p>
-<h3 id="摄影机模型和多视几何"><a href="#摄影机模型和多视几何" class="headerlink" title="摄影机模型和多视几何"></a>摄影机模型和多视几何</h3><p>\1.   <strong>摄像机模型中，内部参数和外部参数分别有哪些？</strong></p>
-<p>摄像机的内参数（Intrinsic)：</p>
-<p>​     由摄像机本身决定，只与摄像机本身有关。其参数有：参数矩阵（fx,fy,cx,cy)和畸变系数(三个径向k1,k2,k3;两个切向p1,p2)</p>
-<p>摄像机的外参数（Extrinsic)：<br>      摄像机在世界坐标系中的位姿，由摄像机与世界坐标系的相对位姿关系决定。其参数有：旋转向量R（大小为1x3的矢量或旋转矩阵3x3）和平移向量T(Tx,Ty,Tz)</p>
-<p><strong>2.</strong>   <strong>张正友方法的主要思想和步骤是什么？</strong></p>
-<p>张氏标定法的主要思想是使用二维方格组成的标定板进行标定，采集标定板不同位姿图片，提取图片中角点像素坐标，通过单应矩阵计算出相机的内外参数初始值，利用非线性最小二乘法估计畸变系数，最后使用极大似然估计法优化参数。</p>
-<p>步骤：</p>
-<p>A. 从不同角度拍摄若干张模板图象 </p>
-<p>B. 求出摄像机的内参数和外参数 </p>
-<p>C. 优化求精</p>
-<h3 id="三维重建"><a href="#三维重建" class="headerlink" title="三维重建"></a>三维重建</h3><p><strong>1.</strong>   <strong>什么是深度点云？</strong></p>
-<p>答：</p>
-<p>点云是某个坐标系下的点的数据集。</p>
-<p>深度相机得到的是三维点云数据，把这些点云重建到一个坐标系下，拼接成一个整体的点云。</p>
-<p><strong>2.</strong>   <strong>查阅文献，理解深度点云的重建策略。查阅最新文献<strong><strong>2</strong></strong>篇：</strong></p>
-<p><a href="https://dblp.uni-trier.de/">https://dblp.uni-trier.de/</a></p>
-<p>关键词： depth map,reconstruction</p>
-<p>[1]–《Digging into the multi-scale structure for a more refined depth map and 3D reconstruction》</p>
-<p>[2]–《Depth-map completion for large indoor scene reconstruction》</p>
-<p>深度点云的重建策略：基于深度学习的三维重建方法大多是基于3D CNN来进行深度图的预测。但是这种方法对内存消耗达到了分辨率的三次方量级，使得生成结果的分辨率受到了很大的限制。而通过点云，可以很高效且十分精准的实现三维重建。</p>
-<p>在[1]论文中提出了MVS算法，这个算法是通过假设摄像机参数和姿势信息均已通过“运动结构”（SFM）算法计算出密集点云，从而恢复场景的3D立体表示。该技术具有许多实际应用，例如3D映射，计算机视频游戏和文化遗产保护。MVS算法的主要评估方法是重构精度和完整性，涉及图像分辨率，相机布置，场景纹理等。</p>
-<p>而[2]论文是通过CNN-SLAM的方式，来进行改进优化，用神经网络分析不用的点云数据，找出密集点云，形成3D模型。</p>
-<p>MVS算法中的点匹配方法，在图片上的一条线上进行探测，寻找两张图片上的同一点。主要方法为逐像素判断，两个照片上的点是否是同一点。从而提出了“一致性判定函数”。</p>
-<h3 id="光流计算"><a href="#光流计算" class="headerlink" title="光流计算"></a>光流计算</h3><p><strong>1.</strong>   <strong>查阅代码利用OPENCV，结合python编码，计算图像的光流，并显示结果。</strong></p>
-<p><strong>方法：</strong> </p>
-<p><a href="https://github.com/"><strong>https://github.com/</strong></a></p>
-<p><strong>关键词，</strong> <strong>optical flow, opencv</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np  </span><br><span class="line"><span class="keyword">import</span> cv2 <span class="keyword">as</span> cv  </span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line">cap = cv.VideoCapture(<span class="string">&#x27;shibuya.mp4&#x27;</span>)  </span><br><span class="line">  </span><br><span class="line"><span class="comment">#角点检测参数  </span></span><br><span class="line">feature_params = <span class="built_in">dict</span>(maxCorners=<span class="number">100</span>, qualityLevel=<span class="number">0.2</span>, minDistance=<span class="number">7</span>, blockSize=<span class="number">7</span>)  	  </span><br><span class="line"><span class="comment">#KLT光流参数  </span></span><br><span class="line">lk_params = <span class="built_in">dict</span>(winSize=(<span class="number">15</span>, <span class="number">15</span>), maxLevel=<span class="number">2</span>, criteria=(cv.TERM_CRITERIA_EPS | cv.TERM_CRITERIA_COUNT, <span class="number">10</span>, <span class="number">0.02</span>))  </span><br><span class="line"> </span><br><span class="line">height = cap.get(cv.CAP_PROP_FRAME_HEIGHT)  </span><br><span class="line">width = cap.get(cv.CAP_PROP_FRAME_WIDTH)  </span><br><span class="line">fps = cap.get(cv.CAP_PROP_FPS)  </span><br><span class="line"><span class="comment">#out = cv.VideoWriter(&quot;reslut.avi&quot;, cv.VideoWriter_fourcc(&#x27;D&#x27;, &#x27;I&#x27;, &#x27;V&#x27;, &#x27;X&#x27;), fps,  </span></span><br><span class="line"><span class="comment">#(np.int(width), np.int(height)), True)  </span></span><br><span class="line">  </span><br><span class="line">tracks = []  </span><br><span class="line">track_len = <span class="number">20</span>  </span><br><span class="line">frame_idx = <span class="number">0</span>  </span><br><span class="line">detect_interval = <span class="number">5</span>  </span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:  </span><br><span class="line">    ret, frame = cap.read()  </span><br><span class="line">    <span class="keyword">if</span> ret:  </span><br><span class="line">        frame_gray = cv.cvtColor(frame, v.COLOR_BGR2GRAY)  </span><br><span class="line">        vis = frame.copy()  </span><br><span class="line">  </span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(tracks)&gt;<span class="number">0</span>:  </span><br><span class="line">            img0 ,img1 = prev_gray, frame_gray  </span><br><span class="line">            p0 = np.float32([tr[-<span class="number">1</span>] <span class="keyword">for</span> tr <span class="keyword">in</span> tracks]).reshape(-<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>)  </span><br><span class="line">            <span class="comment"># 上一帧的角点和当前帧的图像作为输入来得到角点在当前帧的位置  </span></span><br><span class="line">            p1, st, err = cv.calcOpticalFlowPyrLK(img0, img1, p0, <span class="literal">None</span>, **lk_params)  </span><br><span class="line">            <span class="comment"># 反向检查,当前帧跟踪到的角点及图像和前一帧的图像作为输入来找到前一帧的角点位置  </span></span><br><span class="line">            p0r, _, _ = cv.calcOpticalFlowPyrLK(img1, img0, p1, <span class="literal">None</span>, **lk_params)  </span><br><span class="line">            <span class="comment"># 得到角点回溯与前一帧实际角点的位置变化关系  </span></span><br><span class="line">            d = <span class="built_in">abs</span>(p0-p0r).reshape(-<span class="number">1</span>,<span class="number">2</span>).<span class="built_in">max</span>(-<span class="number">1</span>)  </span><br><span class="line">            <span class="comment">#判断d内的值是否小于1，大于1跟踪被认为是错误的跟踪点  </span></span><br><span class="line">            good = d &lt; <span class="number">1</span>  </span><br><span class="line">            new_tracks = []  </span><br><span class="line">            <span class="keyword">for</span> i, (tr, (x, y), flag) <span class="keyword">in</span> <span class="built_in">enumerate</span>(<span class="built_in">zip</span>(tracks, p1.reshape(-<span class="number">1</span>, <span class="number">2</span>), good)):  </span><br><span class="line">                <span class="comment"># 判断是否为正确的跟踪点  </span></span><br><span class="line">                <span class="keyword">if</span> <span class="keyword">not</span> flag:  </span><br><span class="line">                    <span class="keyword">continue</span>  </span><br><span class="line">                <span class="comment"># 存储动态的角点  </span></span><br><span class="line">                tr.append((x, y))  </span><br><span class="line">                <span class="comment"># 只保留track_len长度的数据，消除掉前面的超出的轨迹  </span></span><br><span class="line">                <span class="keyword">if</span> <span class="built_in">len</span>(tr) &gt; track_len:  </span><br><span class="line">                    <span class="keyword">del</span> tr[<span class="number">0</span>]  </span><br><span class="line">                <span class="comment"># 保存在新的list中  </span></span><br><span class="line">                new_tracks.append(tr)  </span><br><span class="line">                cv.circle(vis, (x, y), <span class="number">2</span>, (<span class="number">0</span>, <span class="number">255</span>, <span class="number">0</span>), -<span class="number">1</span>)  </span><br><span class="line">            <span class="comment"># 更新特征点  </span></span><br><span class="line">            tracks = new_tracks  </span><br><span class="line">  </span><br><span class="line">            <span class="comment"># #以上一振角点为初始点，当前帧跟踪到的点为终点,画出运动轨迹  </span></span><br><span class="line">            cv.polylines(vis, [np.int32(tr) <span class="keyword">for</span> tr <span class="keyword">in</span> tracks], <span class="literal">False</span>, (<span class="number">0</span>, <span class="number">255</span>, <span class="number">0</span>), <span class="number">1</span>)  </span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">        <span class="comment"># 每隔 detect_interval 时间检测一次特征点  </span></span><br><span class="line">        <span class="keyword">if</span> frame_idx % detect_interval==<span class="number">0</span>:  </span><br><span class="line">            mask = np.zeros_like(frame_gray)  </span><br><span class="line">            mask[:] = <span class="number">255</span>  </span><br><span class="line">  </span><br><span class="line">            <span class="keyword">if</span> frame_idx !=<span class="number">0</span>:  </span><br><span class="line">                <span class="keyword">for</span> x,y <span class="keyword">in</span> [np.int32(tr[-<span class="number">1</span>]) <span class="keyword">for</span> tr <span class="keyword">in</span> tracks]:  </span><br><span class="line">                    cv.circle(mask, (x, y), <span class="number">5</span>, <span class="number">0</span>, -<span class="number">1</span>)  </span><br><span class="line">  </span><br><span class="line">            p = cv.goodFeaturesToTrack(frame_gray, mask=mask, **feature_params)  </span><br><span class="line">            <span class="keyword">if</span> p <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:  </span><br><span class="line">                <span class="keyword">for</span> x, y <span class="keyword">in</span> np.float32(p).reshape(-<span class="number">1</span>,<span class="number">2</span>): </span><br><span class="line">                    tracks.append([(x, y)])  </span><br><span class="line">  </span><br><span class="line">        frame_idx += <span class="number">1</span>  </span><br><span class="line">        prev_gray = frame_gray  </span><br><span class="line">  </span><br><span class="line">        cv.imshow(<span class="string">&#x27;track&#x27;</span>, vis)  </span><br><span class="line">        <span class="comment">#out.write(vis)  </span></span><br><span class="line">	        ch = cv.waitKey(<span class="number">1</span>)  </span><br><span class="line">        <span class="keyword">if</span> ch ==<span class="number">27</span>:  </span><br><span class="line">            cv.imwrite(<span class="string">&#x27;track.jpg&#x27;</span>, vis)  </span><br><span class="line">            <span class="keyword">break</span>  </span><br><span class="line">    <span class="keyword">else</span>:  </span><br><span class="line">        <span class="keyword">break</span>  </span><br><span class="line">  </span><br><span class="line">cv.destroyAllWindows()  </span><br><span class="line">cap.release()  </span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>实验效果:</p>
-<p><img src="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%AC%94%E8%AE%B0/8.jpg" alt="img"></p>
-]]></content>
-      <categories>
-        <category>MachineLearning</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-        <tag>cv</tag>
       </tags>
   </entry>
   <entry>
@@ -1064,6 +921,149 @@
       <tags>
         <tag>Mysql</tag>
         <tag>数据库</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>计算机视觉笔记</title>
+    <url>/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%AC%94%E8%AE%B0/</url>
+    <content><![CDATA[<h3 id="计算机视觉概论"><a href="#计算机视觉概论" class="headerlink" title="计算机视觉概论"></a>计算机视觉概论</h3><p><strong>1.</strong>   <strong>什么是计算机视觉？</strong></p>
+<p>答：计算机是指机器，视觉是指人对世界的感知。所以计算机视觉是通过让摄影机和电脑代替人眼对目标进行识别、跟踪和测量等行为，从图像或者多维数据中获取信息的一门学科。</p>
+<p><strong>2.</strong>   <strong>计算机视觉要完成的主要任务是什么？</strong></p>
+<p>答：计算机视觉的任务是用图像创建或恢复现实世界模型，然后认知现实世界。让计算机具有对周围世界的空间物体进行传感、抽象、判断的能力，从而达到识别、理解的目的。</p>
+<p><strong>3.</strong>   <strong>请将数字图像处理的主要知识点自己回顾或整理一下，如果还没学过，自己通过网络资源初步了解一下，然后把主要的知识点加以整理，然后记录在这里。</strong></p>
+<p>答：数字图像处理主要有两个目的：改善图示信息以便人们解释理解；为存储、传输和表示而对图像数据进行处理，便于机器理解。数字图像处理常用的几种方法有：灰度变换，对图像的单个像素进行操作，目的是处理对比度和阈值；空间域滤波，对图像每个像素的邻域进行处理，锐化图像以及一些改善性能的目的；频率域滤波，通过一些傅里叶变换来进行操作图像，目的是锐化图像或者平滑图像；图像复原与重建，通过一些滤波器来进行噪声的复原和消除；彩色图像处理，最常见的图像，存在三通道，一般进行彩色到灰度的变换，再进行下一步操作。更深入的应用还有，小波和多分辨率处理；图像压缩，通过霍夫曼编码、Golomb编码以及其他一些编码计算公式来进行有损压缩和无损压缩；形态学图像处理；图像分割；图像的表示和描述；目标识别等。</p>
+<h3 id="图像处理相关基础"><a href="#图像处理相关基础" class="headerlink" title="图像处理相关基础"></a>图像处理相关基础</h3><p><strong>1.</strong>   <strong>常见的滤波器有哪几种？分别说明它们的功能。</strong></p>
+<p>答：</p>
+<p>线性(均值)滤波器：用来减少图像灰度的“尖锐”变化，减少噪声。即过滤了高频信号，因此也被称之为低通滤波器。</p>
+<p>中值滤波器：强迫滤波器区域内突出的亮点更像它周围的值，以消除孤立的亮点。用来去除噪声。</p>
+<p>最大值滤波器：用于发现图像中最亮的点，可以用来过滤“胡椒”噪声。</p>
+<p>最小值滤波器：用于发现图像中最暗的点，可以用来过滤“盐”噪声。</p>
+<p>拉普拉斯滤波器：高通滤波器，突出边缘信息，同时也要包含背景区域信息，可以用来图像增强。</p>
+<p>平滑滤波器：用于平滑处理，如图像由于量化不足产生的虚假轮廓时，同时，也可以用于去除噪声。</p>
+<p>锐化滤波器：增强边缘信息，可用于边缘提取。</p>
+<p><strong>2.</strong>   <strong>图像金字塔有哪些用途？</strong></p>
+<p>将粗糙尺度图像通过插值计算扩展为较细的尺度图像。可以用于图像分割、目标识别、图像理解、视觉感知、消除噪声、分析纹理、标记图像特征。</p>
+<p><strong>3.</strong>   <strong>在实际应用中，哪些应用需要低分辨率特征，请举出具体实例说明。</strong></p>
+<p>视频压缩：由于自身显示器的限制还有流量带宽的区别，网络上视频一般都提供多个画质分辨率，如果显示器分辨率不高以及为了节省流量，可以用低分辨率来观看视频。</p>
+<p>图片打马赛克：想要在超清图片上的某个部位变得模糊，打上马赛克，让人看不清，这里需要用到低分辨率特征。</p>
+<p>微信头像缩略图：超清图片分辨率高，内存大，存储以及传输所消耗资源也高，就采取图片压缩的方式，减小图片大小，又不能丢失图片原来的轮廓，这里需要用到低分辨率特征。</p>
+<h3 id="图像特征"><a href="#图像特征" class="headerlink" title="图像特征"></a>图像特征</h3><p><strong>1.</strong>   <strong>什么是图像的对应？图像特征点在对应中的作用是什么？</strong></p>
+<p>答：1）图像的对应是利用特征算法，找到两个图像中符合向量匹配的图像特征点。</p>
+<p> 2）图像特征点的作用：用来描述不同的图像，做图像切割、对齐等图像变换操作；利用多幅二维图像来进行三维图像的重建、复原。</p>
+<p><strong>2.</strong>   <strong>图像对齐时，常用的特征有哪些？</strong></p>
+<p>答：颜色特征、纹理特征、形状特征、空间位置特征、局部区域特征、边缘特征、点特征。</p>
+<p><strong>3.</strong>   <strong>你知道利用SIFT算子描述特征时，图像对齐的步骤吗？</strong></p>
+<p>1）生成高斯差分金字塔（DOG金字塔），尺度空间构建</p>
+<p>2）空间极值点检测（关键点的初步查探）</p>
+<p>3）稳定关键点的精确定位</p>
+<p>4）稳定关键点方向信息分配</p>
+<p>5）关键点描述</p>
+<p>6）特征点匹配</p>
+<p>7）图像对齐</p>
+<h3 id="图像对齐"><a href="#图像对齐" class="headerlink" title="图像对齐"></a>图像对齐</h3><p><strong>1.</strong>   <strong>图像对应的本质是什么？</strong> </p>
+<p>答：图像对应的本质：可以看作是参数拟合的问题，利用两个图像之间匹配的特征点，将变换模型进行拟合。</p>
+<p><strong>2.</strong>   <strong>图像对齐有哪些用途？</strong></p>
+<p>答：图像拼接、目标识别、图像变换、模板匹配。</p>
+<p><strong>3.</strong>   <strong>图像对齐的常见步骤有哪些？</strong></p>
+<ol>
+<li><p>随机抽取当前图像帧和另一幅图像间的一组特征点，计算基础矩阵</p>
+</li>
+<li><p>利用这些特征点计算组间变换矩阵</p>
+</li>
+<li><p>根据计算的矩阵，求得局内点</p>
+</li>
+<li><p>利用所有的正确匹配点重新计算基础矩阵</p>
+</li>
+<li><p>在此基础上重新搜索正确的匹配点对</p>
+</li>
+<li><p>重复4，5步骤，直至匹配点对的数目达到稳定状态。</p>
+</li>
+<li><p>找到两个图像之间的对齐关系。</p>
+</li>
+</ol>
+<h3 id="二值图像分析"><a href="#二值图像分析" class="headerlink" title="二值图像分析"></a>二值图像分析</h3><p><strong>1.</strong>    <strong>二值图像有哪些用途？（可以查阅文献说明）</strong></p>
+<p>答: </p>
+<p><strong>边界跟踪算法</strong>：利用二值图像识别中的图像轮廓，来实现的边界跟踪。</p>
+<p><strong>目标识别</strong>：基于二值图像的灰度变化，进行物体的精确识别跟定位。</p>
+<p><strong>提取图像的连通区域</strong>：利用图像二值化，找出图像变化的连通区域，再根据先值面积消除法达到去除图像中所有前景和背景噪声的效果。</p>
+<p><strong>2.</strong>    <strong>说明彩色图像二值化计算的步骤。</strong></p>
+<p>答: </p>
+<p>先进行灰度化，灰度化的操作一般是将图像RGB的值用一定的权值来计算得到。</p>
+<p>然后进行二值化，利用阈值分割，从图像中分出前景和背景，实现二值化。</p>
+<p><strong>3.</strong>    <strong>均值迭代求取阈值的二值化步骤是怎样的？</strong></p>
+<p>答：</p>
+<ol>
+<li><p>选择一个初始化的阈值T</p>
+</li>
+<li><p>使用阈值T将图像的像素分为两部分：G1包含灰度满足大于T，G2包含灰度满足小于T。</p>
+</li>
+<li><p>计算G1中所有像素的均值μ1,以及G2中所有像素的均值μ2。</p>
+</li>
+<li><p>计算新的阈值：T’&#x3D;<img src="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%AC%94%E8%AE%B0/1.png" alt="img"></p>
+</li>
+<li><p>重新迭代步骤2-4，直到计算得到新的阈值T’小于预先确定的阈值为止。</p>
+</li>
+</ol>
+<h3 id="纹理特征及分析"><a href="#纹理特征及分析" class="headerlink" title="纹理特征及分析"></a>纹理特征及分析</h3><p><strong>1.</strong>   <strong>简单说明纹理分析和研究的主要目的是什么？</strong></p>
+<p>答：纹理分析是通过一定的图像处理提取出来纹理特征参数，从而获得纹理的定量或定性描述的处理过程。</p>
+<p>目的是研究纹理的观赏特性。</p>
+<p><strong>2.</strong>   <strong>什么是纹理？</strong></p>
+<p>纹理是一种普遍存在的视觉现象，目前有两个定义：</p>
+<p>一个定义是按一定规则对元素或者基元进行排列所形成的重复模式。</p>
+<p>另一个定义是如果图像函数的一组局部属性是恒定的，或者是缓变的，或者是近似周期性的，则图像中的对应区域具有恒定的纹理。</p>
+<p><strong>3.</strong>   <strong>纹理特征提取与分析方法的主要方法有哪几种？</strong></p>
+<p>统计分析法、结构分析法、模型分析法、频谱分析法</p>
+<p><strong>假设位置算子（dx,dy）为（1,1），计算下面纹理的共生矩阵：</strong></p>
+<p><img src="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%AC%94%E8%AE%B0/2.png" alt="img"></p>
+<p>位置算子为（1,1），所以统计斜对角线上的(i,j)对子数。</p>
+<p><img src="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%AC%94%E8%AE%B0/3.png" alt="img"></p>
+<h3 id="图像分割"><a href="#图像分割" class="headerlink" title="图像分割"></a>图像分割</h3><p><strong>1.</strong>   <strong>什么是图像分割？简单说明其用途</strong></p>
+<p>答：图像分割就是把图像分成若干个特定的、具有独特性质的区域。</p>
+<p>比如常见的人脸识别，就是把人脸图像从完整的图像中分割出来。</p>
+<p><strong>2.</strong>   <strong>图像分割的目的是什么？</strong></p>
+<p>答：图像分割可以把人们感兴趣的部分从图像中提取出来，有选择地对感兴趣对象定位。</p>
+<p><strong>3.</strong>   <strong>查阅文献至少1篇，关键词：image segmentation，阅读后写出主要思想</strong></p>
+<p>答：《Rethinking Atrous Convolution for Semantic Image Segmentation》</p>
+<p>主要思想：在这篇论文里，卷积是一种强大的工具，可在语义图像分割的应用中显式调整过滤器的视场并控制由深度卷积神经网络计算的特征响应的分辨率。为了处理在多个尺度上分割对象的问题，我们设计了模块，该模块采用级联或并行的原子卷积，通过采用多个原子速率来捕获多尺度上下文。此外，这篇论文建议扩充先前提出的Atrous空间金字塔池化模块，该模块以编码全局上下文的图像级特征进一步探究多尺度的卷积特征，从而进一步提高性能。</p>
+<p><strong>4.</strong> <strong>查找代码，实现图像分割功能，给出代码和运行结果截图，传统方法，不限语言</strong><br><img src="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%AC%94%E8%AE%B0/4.png" alt="img"><br><img src="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%AC%94%E8%AE%B0/5.png" alt="img"><br>打印结果分别原图，灰度图，K取2，K取3的效果图：<br><img src="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%AC%94%E8%AE%B0/6.png" alt="img"><br><img src="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%AC%94%E8%AE%B0/7.png" alt="img"></p>
+<h3 id="摄影机模型和多视几何"><a href="#摄影机模型和多视几何" class="headerlink" title="摄影机模型和多视几何"></a>摄影机模型和多视几何</h3><p>\1.   <strong>摄像机模型中，内部参数和外部参数分别有哪些？</strong></p>
+<p>摄像机的内参数（Intrinsic)：</p>
+<p>​     由摄像机本身决定，只与摄像机本身有关。其参数有：参数矩阵（fx,fy,cx,cy)和畸变系数(三个径向k1,k2,k3;两个切向p1,p2)</p>
+<p>摄像机的外参数（Extrinsic)：<br>      摄像机在世界坐标系中的位姿，由摄像机与世界坐标系的相对位姿关系决定。其参数有：旋转向量R（大小为1x3的矢量或旋转矩阵3x3）和平移向量T(Tx,Ty,Tz)</p>
+<p><strong>2.</strong>   <strong>张正友方法的主要思想和步骤是什么？</strong></p>
+<p>张氏标定法的主要思想是使用二维方格组成的标定板进行标定，采集标定板不同位姿图片，提取图片中角点像素坐标，通过单应矩阵计算出相机的内外参数初始值，利用非线性最小二乘法估计畸变系数，最后使用极大似然估计法优化参数。</p>
+<p>步骤：</p>
+<p>A. 从不同角度拍摄若干张模板图象 </p>
+<p>B. 求出摄像机的内参数和外参数 </p>
+<p>C. 优化求精</p>
+<h3 id="三维重建"><a href="#三维重建" class="headerlink" title="三维重建"></a>三维重建</h3><p><strong>1.</strong>   <strong>什么是深度点云？</strong></p>
+<p>答：</p>
+<p>点云是某个坐标系下的点的数据集。</p>
+<p>深度相机得到的是三维点云数据，把这些点云重建到一个坐标系下，拼接成一个整体的点云。</p>
+<p><strong>2.</strong>   <strong>查阅文献，理解深度点云的重建策略。查阅最新文献<strong><strong>2</strong></strong>篇：</strong></p>
+<p><a href="https://dblp.uni-trier.de/">https://dblp.uni-trier.de/</a></p>
+<p>关键词： depth map,reconstruction</p>
+<p>[1]–《Digging into the multi-scale structure for a more refined depth map and 3D reconstruction》</p>
+<p>[2]–《Depth-map completion for large indoor scene reconstruction》</p>
+<p>深度点云的重建策略：基于深度学习的三维重建方法大多是基于3D CNN来进行深度图的预测。但是这种方法对内存消耗达到了分辨率的三次方量级，使得生成结果的分辨率受到了很大的限制。而通过点云，可以很高效且十分精准的实现三维重建。</p>
+<p>在[1]论文中提出了MVS算法，这个算法是通过假设摄像机参数和姿势信息均已通过“运动结构”（SFM）算法计算出密集点云，从而恢复场景的3D立体表示。该技术具有许多实际应用，例如3D映射，计算机视频游戏和文化遗产保护。MVS算法的主要评估方法是重构精度和完整性，涉及图像分辨率，相机布置，场景纹理等。</p>
+<p>而[2]论文是通过CNN-SLAM的方式，来进行改进优化，用神经网络分析不用的点云数据，找出密集点云，形成3D模型。</p>
+<p>MVS算法中的点匹配方法，在图片上的一条线上进行探测，寻找两张图片上的同一点。主要方法为逐像素判断，两个照片上的点是否是同一点。从而提出了“一致性判定函数”。</p>
+<h3 id="光流计算"><a href="#光流计算" class="headerlink" title="光流计算"></a>光流计算</h3><p><strong>1.</strong>   <strong>查阅代码利用OPENCV，结合python编码，计算图像的光流，并显示结果。</strong></p>
+<p><strong>方法：</strong> </p>
+<p><a href="https://github.com/"><strong>https://github.com/</strong></a></p>
+<p><strong>关键词，</strong> <strong>optical flow, opencv</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np  </span><br><span class="line"><span class="keyword">import</span> cv2 <span class="keyword">as</span> cv  </span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line">cap = cv.VideoCapture(<span class="string">&#x27;shibuya.mp4&#x27;</span>)  </span><br><span class="line">  </span><br><span class="line"><span class="comment">#角点检测参数  </span></span><br><span class="line">feature_params = <span class="built_in">dict</span>(maxCorners=<span class="number">100</span>, qualityLevel=<span class="number">0.2</span>, minDistance=<span class="number">7</span>, blockSize=<span class="number">7</span>)  	  </span><br><span class="line"><span class="comment">#KLT光流参数  </span></span><br><span class="line">lk_params = <span class="built_in">dict</span>(winSize=(<span class="number">15</span>, <span class="number">15</span>), maxLevel=<span class="number">2</span>, criteria=(cv.TERM_CRITERIA_EPS | cv.TERM_CRITERIA_COUNT, <span class="number">10</span>, <span class="number">0.02</span>))  </span><br><span class="line"> </span><br><span class="line">height = cap.get(cv.CAP_PROP_FRAME_HEIGHT)  </span><br><span class="line">width = cap.get(cv.CAP_PROP_FRAME_WIDTH)  </span><br><span class="line">fps = cap.get(cv.CAP_PROP_FPS)  </span><br><span class="line"><span class="comment">#out = cv.VideoWriter(&quot;reslut.avi&quot;, cv.VideoWriter_fourcc(&#x27;D&#x27;, &#x27;I&#x27;, &#x27;V&#x27;, &#x27;X&#x27;), fps,  </span></span><br><span class="line"><span class="comment">#(np.int(width), np.int(height)), True)  </span></span><br><span class="line">  </span><br><span class="line">tracks = []  </span><br><span class="line">track_len = <span class="number">20</span>  </span><br><span class="line">frame_idx = <span class="number">0</span>  </span><br><span class="line">detect_interval = <span class="number">5</span>  </span><br><span class="line"><span class="keyword">while</span> <span class="literal">True</span>:  </span><br><span class="line">    ret, frame = cap.read()  </span><br><span class="line">    <span class="keyword">if</span> ret:  </span><br><span class="line">        frame_gray = cv.cvtColor(frame, v.COLOR_BGR2GRAY)  </span><br><span class="line">        vis = frame.copy()  </span><br><span class="line">  </span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(tracks)&gt;<span class="number">0</span>:  </span><br><span class="line">            img0 ,img1 = prev_gray, frame_gray  </span><br><span class="line">            p0 = np.float32([tr[-<span class="number">1</span>] <span class="keyword">for</span> tr <span class="keyword">in</span> tracks]).reshape(-<span class="number">1</span>,<span class="number">1</span>,<span class="number">2</span>)  </span><br><span class="line">            <span class="comment"># 上一帧的角点和当前帧的图像作为输入来得到角点在当前帧的位置  </span></span><br><span class="line">            p1, st, err = cv.calcOpticalFlowPyrLK(img0, img1, p0, <span class="literal">None</span>, **lk_params)  </span><br><span class="line">            <span class="comment"># 反向检查,当前帧跟踪到的角点及图像和前一帧的图像作为输入来找到前一帧的角点位置  </span></span><br><span class="line">            p0r, _, _ = cv.calcOpticalFlowPyrLK(img1, img0, p1, <span class="literal">None</span>, **lk_params)  </span><br><span class="line">            <span class="comment"># 得到角点回溯与前一帧实际角点的位置变化关系  </span></span><br><span class="line">            d = <span class="built_in">abs</span>(p0-p0r).reshape(-<span class="number">1</span>,<span class="number">2</span>).<span class="built_in">max</span>(-<span class="number">1</span>)  </span><br><span class="line">            <span class="comment">#判断d内的值是否小于1，大于1跟踪被认为是错误的跟踪点  </span></span><br><span class="line">            good = d &lt; <span class="number">1</span>  </span><br><span class="line">            new_tracks = []  </span><br><span class="line">            <span class="keyword">for</span> i, (tr, (x, y), flag) <span class="keyword">in</span> <span class="built_in">enumerate</span>(<span class="built_in">zip</span>(tracks, p1.reshape(-<span class="number">1</span>, <span class="number">2</span>), good)):  </span><br><span class="line">                <span class="comment"># 判断是否为正确的跟踪点  </span></span><br><span class="line">                <span class="keyword">if</span> <span class="keyword">not</span> flag:  </span><br><span class="line">                    <span class="keyword">continue</span>  </span><br><span class="line">                <span class="comment"># 存储动态的角点  </span></span><br><span class="line">                tr.append((x, y))  </span><br><span class="line">                <span class="comment"># 只保留track_len长度的数据，消除掉前面的超出的轨迹  </span></span><br><span class="line">                <span class="keyword">if</span> <span class="built_in">len</span>(tr) &gt; track_len:  </span><br><span class="line">                    <span class="keyword">del</span> tr[<span class="number">0</span>]  </span><br><span class="line">                <span class="comment"># 保存在新的list中  </span></span><br><span class="line">                new_tracks.append(tr)  </span><br><span class="line">                cv.circle(vis, (x, y), <span class="number">2</span>, (<span class="number">0</span>, <span class="number">255</span>, <span class="number">0</span>), -<span class="number">1</span>)  </span><br><span class="line">            <span class="comment"># 更新特征点  </span></span><br><span class="line">            tracks = new_tracks  </span><br><span class="line">  </span><br><span class="line">            <span class="comment"># #以上一振角点为初始点，当前帧跟踪到的点为终点,画出运动轨迹  </span></span><br><span class="line">            cv.polylines(vis, [np.int32(tr) <span class="keyword">for</span> tr <span class="keyword">in</span> tracks], <span class="literal">False</span>, (<span class="number">0</span>, <span class="number">255</span>, <span class="number">0</span>), <span class="number">1</span>)  </span><br><span class="line">  </span><br><span class="line">  </span><br><span class="line">        <span class="comment"># 每隔 detect_interval 时间检测一次特征点  </span></span><br><span class="line">        <span class="keyword">if</span> frame_idx % detect_interval==<span class="number">0</span>:  </span><br><span class="line">            mask = np.zeros_like(frame_gray)  </span><br><span class="line">            mask[:] = <span class="number">255</span>  </span><br><span class="line">  </span><br><span class="line">            <span class="keyword">if</span> frame_idx !=<span class="number">0</span>:  </span><br><span class="line">                <span class="keyword">for</span> x,y <span class="keyword">in</span> [np.int32(tr[-<span class="number">1</span>]) <span class="keyword">for</span> tr <span class="keyword">in</span> tracks]:  </span><br><span class="line">                    cv.circle(mask, (x, y), <span class="number">5</span>, <span class="number">0</span>, -<span class="number">1</span>)  </span><br><span class="line">  </span><br><span class="line">            p = cv.goodFeaturesToTrack(frame_gray, mask=mask, **feature_params)  </span><br><span class="line">            <span class="keyword">if</span> p <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:  </span><br><span class="line">                <span class="keyword">for</span> x, y <span class="keyword">in</span> np.float32(p).reshape(-<span class="number">1</span>,<span class="number">2</span>): </span><br><span class="line">                    tracks.append([(x, y)])  </span><br><span class="line">  </span><br><span class="line">        frame_idx += <span class="number">1</span>  </span><br><span class="line">        prev_gray = frame_gray  </span><br><span class="line">  </span><br><span class="line">        cv.imshow(<span class="string">&#x27;track&#x27;</span>, vis)  </span><br><span class="line">        <span class="comment">#out.write(vis)  </span></span><br><span class="line">	        ch = cv.waitKey(<span class="number">1</span>)  </span><br><span class="line">        <span class="keyword">if</span> ch ==<span class="number">27</span>:  </span><br><span class="line">            cv.imwrite(<span class="string">&#x27;track.jpg&#x27;</span>, vis)  </span><br><span class="line">            <span class="keyword">break</span>  </span><br><span class="line">    <span class="keyword">else</span>:  </span><br><span class="line">        <span class="keyword">break</span>  </span><br><span class="line">  </span><br><span class="line">cv.destroyAllWindows()  </span><br><span class="line">cap.release()  </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>实验效果:</p>
+<p><img src="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E7%AC%94%E8%AE%B0/8.jpg" alt="img"></p>
+]]></content>
+      <categories>
+        <category>MachineLearning</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>cv</tag>
       </tags>
   </entry>
   <entry>
