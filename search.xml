@@ -1,6 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Spring学习笔记一</title>
+    <url>/spring%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%80/</url>
+    <content><![CDATA[<h3 id="IOC"><a href="#IOC" class="headerlink" title="IOC"></a>IOC</h3><h4 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h4><p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<code>Inversion of Control</code> ，翻译为”控制反转“，别名”依赖注入“(<code>Dependency Injection</code>)。</p>
+<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;关键在于四个问题：<strong>谁控制谁</strong>,<strong>控制什么</strong>,<strong>反转是什么</strong>,<strong>哪些方面反转了</strong>。</p>
+<blockquote>
+<p>所谓IOC，就是由Spring IOC容器来负责对象的生命周期和对象之间的关系。</p>
+</blockquote>
+<p>​	我们可以先想象一个场景：你需要一个女朋友，直接<code>new BeautifulGirl()</code>，接下来你想要的各种要求，用set来设置。但是这个过程复杂又繁琐，而且我们必须要面对每个环节，同时在使用完成之后还要负责销毁。<strong>这种情况下我们的对象和它所依赖的对象耦合在一起</strong>。</p>
+<p>​	但是我们知道，我们依赖对象并不是依赖对象本身，而是依赖对象所提供的<strong>服务</strong>，当我们需要它的时候，它能够<strong>及时提供服务即可</strong>，至于它是我们主动去创建还是别人送给我们的，并不那么重要。就像你需要一个女朋友，你可以不用自己找（new），你可以直接跟婚介公司说，你想要这样那样的妹子（<strong>需求</strong>），婚介公司就会给你一个妹子，你只需要负责接下来的工作。</p>
+<p>​	所以<strong>IoC</strong>就是相当于一个中介，当你需要什么（功能） 的时候，IoC就会送过来给你，你不用自己去创建销毁。</p>
+<p>​	现在，回答上面四个问题：</p>
+<p>​	<strong>1.谁控制谁</strong>：<code>IOC Service Provider</code>(IOC容器) 控制对象。</p>
+<p>​	<strong>2.控制什么</strong>：控制对象。</p>
+<p>​	<strong>3.反转是什么</strong>：没有IOC，都是在对象中主动去创建被依赖的对象，这是<strong>正转</strong>；有IOC，所依赖的对象直接由IoC容器创建后注入到被注入的对象中，依赖的对象由原来的主动变为被动，这是<strong>反转</strong>。</p>
+<p>​	<strong>4.哪些方面反转了</strong>：所依赖对象的获取被反转了。</p>
+<h4 id="提供的注入方式"><a href="#提供的注入方式" class="headerlink" title="提供的注入方式"></a>提供的注入方式</h4><ol>
+<li><strong>构造器注入</strong> 被注入的对象通过在其构造方法中声明依赖对象的参数列表，让外部知道它需要哪些依赖对象。</li>
+<li><strong>setter 方法注入</strong> 对于JavaBean对象而言，我们一般是通过<code>getter</code>和<code>setter</code>方法来访问和设置对象的属性。所以，当前对象只需要为其所依赖的对象提供相应的<code>setter</code>方法，就可以通过该方法将相应的依赖对象设置到被注入对象中。</li>
+<li><strong>接口方式注入</strong> 接口方式注入显得比较霸道，因为它需要被依赖的对象实现不必要的接口，带有侵入性。</li>
+</ol>
+<h3 id="IOC各部分"><a href="#IOC各部分" class="headerlink" title="IOC各部分"></a>IOC各部分</h3><p>​	五大体系：<strong>Resource体系</strong>、<strong>BeanFactory体系</strong>、<strong>Beandefinition</strong>、<strong>BeandefinitionReader体系</strong>、<strong>ApplicationContext体系</strong>。(简单介绍一下，后面再继续详细记录。)</p>
+<ul>
+<li><strong>Resource体系</strong> 对资源的抽象，它的每一个实现类都代表了一种资源的访问策略。如ClasspathResource、URLResource、FileSystemResource等。ps：资源加载——ResourceLoader。</li>
+<li><strong>BeanFactory体系</strong> BeanFactory是一个非常纯粹的bean容器，它是IOC必备的数据结构，其中<em>BeanDefinition</em>是它的基本结构，它内部维护一个map，根据<em>BeanDefinition</em>的描述进行bean的创建和管理。</li>
+<li><strong>BeanDefinition体系</strong> 用来描述Spring中的Bean对象。</li>
+<li><strong>BeanDefinitionReader体系</strong> 用来读取Spring的配置文件，并转换成IOC容器内部的数据结构-》<em>BeanDefinition</em>。</li>
+<li><strong>ApplicationContext体系</strong> Spring容器，应用上下文，继承<em>BeanFactory</em>。它与<em>BeanFactory</em>的区别有：1. 继承<em>MessageSource</em>，提供国际化的标准访问策略。 2. 继承<em>ApplicationEventPublisher</em>，提供强大的事件机制。 3. 扩展<em>ResourceLoader</em>，可以用来加载多个Resource，可以灵活访问不同的资源。 4. 对Web应用的支持。</li>
+</ul>
+<blockquote>
+<p>学习笔记，原文章出处：<a href="http://cmsblogs.com/?p=2652">http://cmsblogs.com/?p=2652</a>  </p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>开发</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Spring</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Java基础问题</title>
     <url>/java%E5%9F%BA%E7%A1%80%E9%97%AE%E9%A2%98/</url>
     <content><![CDATA[<h5 id="1-static关键字有哪些作用？"><a href="#1-static关键字有哪些作用？" class="headerlink" title="1. static关键字有哪些作用？"></a>1. static关键字有哪些作用？</h5><p>static修饰变量、修饰方法。</p>
@@ -166,47 +207,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Spring学习笔记一</title>
-    <url>/spring%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%80/</url>
-    <content><![CDATA[<h3 id="IOC"><a href="#IOC" class="headerlink" title="IOC"></a>IOC</h3><h4 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h4><p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<code>Inversion of Control</code> ，翻译为”控制反转“，别名”依赖注入“(<code>Dependency Injection</code>)。</p>
-<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;关键在于四个问题：<strong>谁控制谁</strong>,<strong>控制什么</strong>,<strong>反转是什么</strong>,<strong>哪些方面反转了</strong>。</p>
-<blockquote>
-<p>所谓IOC，就是由Spring IOC容器来负责对象的生命周期和对象之间的关系。</p>
-</blockquote>
-<p>​	我们可以先想象一个场景：你需要一个女朋友，直接<code>new BeautifulGirl()</code>，接下来你想要的各种要求，用set来设置。但是这个过程复杂又繁琐，而且我们必须要面对每个环节，同时在使用完成之后还要负责销毁。<strong>这种情况下我们的对象和它所依赖的对象耦合在一起</strong>。</p>
-<p>​	但是我们知道，我们依赖对象并不是依赖对象本身，而是依赖对象所提供的<strong>服务</strong>，当我们需要它的时候，它能够<strong>及时提供服务即可</strong>，至于它是我们主动去创建还是别人送给我们的，并不那么重要。就像你需要一个女朋友，你可以不用自己找（new），你可以直接跟婚介公司说，你想要这样那样的妹子（<strong>需求</strong>），婚介公司就会给你一个妹子，你只需要负责接下来的工作。</p>
-<p>​	所以<strong>IoC</strong>就是相当于一个中介，当你需要什么（功能） 的时候，IoC就会送过来给你，你不用自己去创建销毁。</p>
-<p>​	现在，回答上面四个问题：</p>
-<p>​	<strong>1.谁控制谁</strong>：<code>IOC Service Provider</code>(IOC容器) 控制对象。</p>
-<p>​	<strong>2.控制什么</strong>：控制对象。</p>
-<p>​	<strong>3.反转是什么</strong>：没有IOC，都是在对象中主动去创建被依赖的对象，这是<strong>正转</strong>；有IOC，所依赖的对象直接由IoC容器创建后注入到被注入的对象中，依赖的对象由原来的主动变为被动，这是<strong>反转</strong>。</p>
-<p>​	<strong>4.哪些方面反转了</strong>：所依赖对象的获取被反转了。</p>
-<h4 id="提供的注入方式"><a href="#提供的注入方式" class="headerlink" title="提供的注入方式"></a>提供的注入方式</h4><ol>
-<li><strong>构造器注入</strong> 被注入的对象通过在其构造方法中声明依赖对象的参数列表，让外部知道它需要哪些依赖对象。</li>
-<li><strong>setter 方法注入</strong> 对于JavaBean对象而言，我们一般是通过<code>getter</code>和<code>setter</code>方法来访问和设置对象的属性。所以，当前对象只需要为其所依赖的对象提供相应的<code>setter</code>方法，就可以通过该方法将相应的依赖对象设置到被注入对象中。</li>
-<li><strong>接口方式注入</strong> 接口方式注入显得比较霸道，因为它需要被依赖的对象实现不必要的接口，带有侵入性。</li>
-</ol>
-<h3 id="IOC各部分"><a href="#IOC各部分" class="headerlink" title="IOC各部分"></a>IOC各部分</h3><p>​	五大体系：<strong>Resource体系</strong>、<strong>BeanFactory体系</strong>、<strong>Beandefinition</strong>、<strong>BeandefinitionReader体系</strong>、<strong>ApplicationContext体系</strong>。(简单介绍一下，后面再继续详细记录。)</p>
-<ul>
-<li><strong>Resource体系</strong> 对资源的抽象，它的每一个实现类都代表了一种资源的访问策略。如ClasspathResource、URLResource、FileSystemResource等。ps：资源加载——ResourceLoader。</li>
-<li><strong>BeanFactory体系</strong> BeanFactory是一个非常纯粹的bean容器，它是IOC必备的数据结构，其中<em>BeanDefinition</em>是它的基本结构，它内部维护一个map，根据<em>BeanDefinition</em>的描述进行bean的创建和管理。</li>
-<li><strong>BeanDefinition体系</strong> 用来描述Spring中的Bean对象。</li>
-<li><strong>BeanDefinitionReader体系</strong> 用来读取Spring的配置文件，并转换成IOC容器内部的数据结构-》<em>BeanDefinition</em>。</li>
-<li><strong>ApplicationContext体系</strong> Spring容器，应用上下文，继承<em>BeanFactory</em>。它与<em>BeanFactory</em>的区别有：1. 继承<em>MessageSource</em>，提供国际化的标准访问策略。 2. 继承<em>ApplicationEventPublisher</em>，提供强大的事件机制。 3. 扩展<em>ResourceLoader</em>，可以用来加载多个Resource，可以灵活访问不同的资源。 4. 对Web应用的支持。</li>
-</ul>
-<blockquote>
-<p>学习笔记，原文章出处：<a href="http://cmsblogs.com/?p=2652">http://cmsblogs.com/?p=2652</a>  </p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>开发</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-        <tag>Spring</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Spring核心思想IOC、DI</title>
     <url>/spring%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3ioc%E3%80%81di/</url>
     <content><![CDATA[<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><ol>
@@ -235,40 +235,6 @@
 ]]></content>
       <categories>
         <category>开发</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-        <tag>Spring</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>华为Cloud&amp;Bu 软开凉经</title>
-    <url>/%E5%8D%8E%E4%B8%BAcloud-bu-%E8%BD%AF%E5%BC%80%E5%87%89%E7%BB%8F/</url>
-    <content><![CDATA[<h2 id="华为Cloud-amp-Bu-软开面经"><a href="#华为Cloud-amp-Bu-软开面经" class="headerlink" title="华为Cloud&amp;Bu 软开面经"></a>华为Cloud&amp;Bu 软开面经</h2><h3 id="一面："><a href="#一面：" class="headerlink" title="一面："></a>一面：</h3><ol>
-<li><strong>计算机网络</strong>：V-LAN、虚拟网关</li>
-<li><strong>操作系统</strong>：两个线程如何通信</li>
-<li><strong>组成原理</strong>：软中断和硬中断</li>
-<li><strong>项目（Java）</strong>：<br>多线程如何实现；<br>所有类的父类是什么；<br>SpringBoot有啥特点；<br>SpringBoot的Bean都有哪些；<br>SpringBoot中的Request跟Response是多线程的吗，在哪里生成，如何赋值。<br>SpringBoot里对象的生命周期<br>手撕 or 设计模式</li>
-<li><strong>数据结构</strong>：<br>问：速度最快且稳定的排序算法<br>答：归并吧<br>“那你实现一下吧”<br>（手撕一道水题）实现一个归并算法</li>
-</ol>
-<h3 id="二面："><a href="#二面：" class="headerlink" title="二面："></a>二面：</h3><ol>
-<li><strong>数据结构</strong>：<br>数组跟链表有什么区别？<br>平衡二叉树定义说一下、如何插入一个数、有什么应用？</li>
-<li>设计模式了解吗？说一下常用的几个设计模式。</li>
-<li>那你做过什么项目，用什么语言，答：Java<br>（感觉不会java的面试官 2333）<br>聊项目。</li>
-<li>给了一个情景，假如有很多条主机数据，他们有各自的ip跟存储的信息，我想要去重，（集合？），那你设计一下这个主机类，如何用集合来去重？ balabalabala…….</li>
-</ol>
-<p>ok 来看一道题目给你20分钟（然后共享屏幕开始敲）<br>题目是leetcode.56 合并区间 大意就是给你一堆区间的集合，然后你把重叠区间合并掉，返回全部区间的集合。</p>
-<h3 id="三面-主管面"><a href="#三面-主管面" class="headerlink" title="三面(主管面):"></a>三面(主管面):</h3><ol>
-<li>看你实习过，先说一下你实习期间做了什么吧</li>
-<li>（因为我说大三准备考研了）你学习成绩怎么样。班级里考研的多吗，现在找到工作的多吗</li>
-<li>复盘一面的知识：你说一下你一面算法题实现了什么东西。balabala….<br>计算机网络：说一下TCP&#x2F;IP协议的三次握手&#x2F;四次握手<br>数据结构：说一下冒泡排序</li>
-<li>你还做过什么项目，你在项目里的定位是什么，实现了什么功能。<br>数据库：主键和外键<br>平时会看什么书…… （聊一下Spring微服务吧 这个应该跟你看了什么书有关系）</li>
-<li>你有什么问题要问我的。</li>
-</ol>
-]]></content>
-      <categories>
-        <category>开发</category>
-        <category>面试</category>
       </categories>
       <tags>
         <tag>Java</tag>
@@ -352,6 +318,40 @@
       <tags>
         <tag>tensorflow</tag>
         <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>华为Cloud&amp;Bu 软开凉经</title>
+    <url>/%E5%8D%8E%E4%B8%BAcloud-bu-%E8%BD%AF%E5%BC%80%E5%87%89%E7%BB%8F/</url>
+    <content><![CDATA[<h2 id="华为Cloud-amp-Bu-软开面经"><a href="#华为Cloud-amp-Bu-软开面经" class="headerlink" title="华为Cloud&amp;Bu 软开面经"></a>华为Cloud&amp;Bu 软开面经</h2><h3 id="一面："><a href="#一面：" class="headerlink" title="一面："></a>一面：</h3><ol>
+<li><strong>计算机网络</strong>：V-LAN、虚拟网关</li>
+<li><strong>操作系统</strong>：两个线程如何通信</li>
+<li><strong>组成原理</strong>：软中断和硬中断</li>
+<li><strong>项目（Java）</strong>：<br>多线程如何实现；<br>所有类的父类是什么；<br>SpringBoot有啥特点；<br>SpringBoot的Bean都有哪些；<br>SpringBoot中的Request跟Response是多线程的吗，在哪里生成，如何赋值。<br>SpringBoot里对象的生命周期<br>手撕 or 设计模式</li>
+<li><strong>数据结构</strong>：<br>问：速度最快且稳定的排序算法<br>答：归并吧<br>“那你实现一下吧”<br>（手撕一道水题）实现一个归并算法</li>
+</ol>
+<h3 id="二面："><a href="#二面：" class="headerlink" title="二面："></a>二面：</h3><ol>
+<li><strong>数据结构</strong>：<br>数组跟链表有什么区别？<br>平衡二叉树定义说一下、如何插入一个数、有什么应用？</li>
+<li>设计模式了解吗？说一下常用的几个设计模式。</li>
+<li>那你做过什么项目，用什么语言，答：Java<br>（感觉不会java的面试官 2333）<br>聊项目。</li>
+<li>给了一个情景，假如有很多条主机数据，他们有各自的ip跟存储的信息，我想要去重，（集合？），那你设计一下这个主机类，如何用集合来去重？ balabalabala…….</li>
+</ol>
+<p>ok 来看一道题目给你20分钟（然后共享屏幕开始敲）<br>题目是leetcode.56 合并区间 大意就是给你一堆区间的集合，然后你把重叠区间合并掉，返回全部区间的集合。</p>
+<h3 id="三面-主管面"><a href="#三面-主管面" class="headerlink" title="三面(主管面):"></a>三面(主管面):</h3><ol>
+<li>看你实习过，先说一下你实习期间做了什么吧</li>
+<li>（因为我说大三准备考研了）你学习成绩怎么样。班级里考研的多吗，现在找到工作的多吗</li>
+<li>复盘一面的知识：你说一下你一面算法题实现了什么东西。balabala….<br>计算机网络：说一下TCP&#x2F;IP协议的三次握手&#x2F;四次握手<br>数据结构：说一下冒泡排序</li>
+<li>你还做过什么项目，你在项目里的定位是什么，实现了什么功能。<br>数据库：主键和外键<br>平时会看什么书…… （聊一下Spring微服务吧 这个应该跟你看了什么书有关系）</li>
+<li>你有什么问题要问我的。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>开发</category>
+        <category>面试</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Spring</tag>
       </tags>
   </entry>
   <entry>
@@ -544,33 +544,6 @@
       </tags>
   </entry>
   <entry>
-    <title>模板匹配（matlab实现）</title>
-    <url>/%E6%A8%A1%E6%9D%BF%E5%8C%B9%E9%85%8D%EF%BC%88matlab%E5%AE%9E%E7%8E%B0%EF%BC%89/</url>
-    <content><![CDATA[<h3 id="基于像素匹配算法"><a href="#基于像素匹配算法" class="headerlink" title="基于像素匹配算法"></a>基于像素匹配算法</h3><p>模板匹配算法一般是通过滑窗的方式在待匹配的图像上滑动，通过比较模板与子图的相似度，找到相似度最大的子图。这种算法最核心部分在于如何设计一个相似性函数。   </p>
-<p>最容易想到的一个相似性函数便是欧式距离：<br><img src="/%E6%A8%A1%E6%9D%BF%E5%8C%B9%E9%85%8D%EF%BC%88matlab%E5%AE%9E%E7%8E%B0%EF%BC%89/%E6%AC%A7%E6%B0%8F%E8%B7%9D%E7%A6%BB.png" alt="欧式距离公式"></p>
-<p>将这个相似性函数展开，可以得:<br><img src="/%E6%A8%A1%E6%9D%BF%E5%8C%B9%E9%85%8D%EF%BC%88matlab%E5%AE%9E%E7%8E%B0%EF%BC%89/%E6%AC%A7%E6%B0%8F%E8%B7%9D%E7%A6%BB%E5%B1%95%E5%BC%80%E5%BC%8F.png" alt="欧氏距离展开式"><br>可以看出，只有第二项是有意义的，因为第一项和第三项的值在选定模板后是固定的。对于欧式距离相似函数，值越大表示越不相似，也就是说，第二项的值越小则越不相似。     再将第二项归一化:<br><img src="/%E6%A8%A1%E6%9D%BF%E5%8C%B9%E9%85%8D%EF%BC%88matlab%E5%AE%9E%E7%8E%B0%EF%BC%89/%E6%AC%A7%E6%B0%8F%E8%B7%9D%E7%A6%BB%E5%BD%92%E4%B8%80%E5%8C%96.png" alt="欧氏距离归一化"></p>
-<blockquote>
-<p>如果就仅仅匹配大小不变角度不变的模板，到此为止就够了。</p>
-</blockquote>
-<p>为了解决旋转不变性，我用很简单的很丑陋的方法————旋转模板再重新匹配。</p>
-<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><p>化简后的欧氏距离matlab实现方法。</p>
-<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> <span class="built_in">i</span>=<span class="number">1</span>:m-m0+<span class="number">1</span>  </span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">j</span>=<span class="number">1</span>:n-n0+<span class="number">1</span>  </span><br><span class="line">        subMatr=test(<span class="built_in">i</span>:<span class="built_in">i</span>+m0<span class="number">-1</span>,<span class="built_in">j</span>:<span class="built_in">j</span>+n0<span class="number">-1</span>);  </span><br><span class="line">        vec=double( subMatr(:) );  </span><br><span class="line">        result(<span class="built_in">i</span>,<span class="built_in">j</span>)=vec&#x27;*vec_sub / (norm(vec)*norm_sub+<span class="built_in">eps</span>);  </span><br><span class="line">    <span class="keyword">end</span> </span><br><span class="line"> <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
-
-<p>结果图：</p>
-<p><img src="/%E6%A8%A1%E6%9D%BF%E5%8C%B9%E9%85%8D%EF%BC%88matlab%E5%AE%9E%E7%8E%B0%EF%BC%89/1.png"><br><img src="/%E6%A8%A1%E6%9D%BF%E5%8C%B9%E9%85%8D%EF%BC%88matlab%E5%AE%9E%E7%8E%B0%EF%BC%89/2.png"></p>
-<blockquote>
-<p>具体源码 可以见<a href="https://github.com/NSDie/templet">github</a>.</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>MachineLearning</category>
-      </categories>
-      <tags>
-        <tag>matlab</tag>
-        <tag>图像处理</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>游戏开发之路1</title>
     <url>/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF1/</url>
     <content><![CDATA[<h3 id="经验分享"><a href="#经验分享" class="headerlink" title="经验分享"></a>经验分享</h3><blockquote>
@@ -600,6 +573,65 @@
 <li><strong>Python</strong>（作为动态解释语言，机器学习、AI系统、服务器）</li>
 <li><strong>Node.js js</strong> （脚本语言）</li>
 </ul>
+]]></content>
+      <categories>
+        <category>life</category>
+      </categories>
+      <tags>
+        <tag>游戏开发</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>模板匹配（matlab实现）</title>
+    <url>/%E6%A8%A1%E6%9D%BF%E5%8C%B9%E9%85%8D%EF%BC%88matlab%E5%AE%9E%E7%8E%B0%EF%BC%89/</url>
+    <content><![CDATA[<h3 id="基于像素匹配算法"><a href="#基于像素匹配算法" class="headerlink" title="基于像素匹配算法"></a>基于像素匹配算法</h3><p>模板匹配算法一般是通过滑窗的方式在待匹配的图像上滑动，通过比较模板与子图的相似度，找到相似度最大的子图。这种算法最核心部分在于如何设计一个相似性函数。   </p>
+<p>最容易想到的一个相似性函数便是欧式距离：<br><img src="/%E6%A8%A1%E6%9D%BF%E5%8C%B9%E9%85%8D%EF%BC%88matlab%E5%AE%9E%E7%8E%B0%EF%BC%89/%E6%AC%A7%E6%B0%8F%E8%B7%9D%E7%A6%BB.png" alt="欧式距离公式"></p>
+<p>将这个相似性函数展开，可以得:<br><img src="/%E6%A8%A1%E6%9D%BF%E5%8C%B9%E9%85%8D%EF%BC%88matlab%E5%AE%9E%E7%8E%B0%EF%BC%89/%E6%AC%A7%E6%B0%8F%E8%B7%9D%E7%A6%BB%E5%B1%95%E5%BC%80%E5%BC%8F.png" alt="欧氏距离展开式"><br>可以看出，只有第二项是有意义的，因为第一项和第三项的值在选定模板后是固定的。对于欧式距离相似函数，值越大表示越不相似，也就是说，第二项的值越小则越不相似。     再将第二项归一化:<br><img src="/%E6%A8%A1%E6%9D%BF%E5%8C%B9%E9%85%8D%EF%BC%88matlab%E5%AE%9E%E7%8E%B0%EF%BC%89/%E6%AC%A7%E6%B0%8F%E8%B7%9D%E7%A6%BB%E5%BD%92%E4%B8%80%E5%8C%96.png" alt="欧氏距离归一化"></p>
+<blockquote>
+<p>如果就仅仅匹配大小不变角度不变的模板，到此为止就够了。</p>
+</blockquote>
+<p>为了解决旋转不变性，我用很简单的很丑陋的方法————旋转模板再重新匹配。</p>
+<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><p>化简后的欧氏距离matlab实现方法。</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> <span class="built_in">i</span>=<span class="number">1</span>:m-m0+<span class="number">1</span>  </span><br><span class="line">    <span class="keyword">for</span> <span class="built_in">j</span>=<span class="number">1</span>:n-n0+<span class="number">1</span>  </span><br><span class="line">        subMatr=test(<span class="built_in">i</span>:<span class="built_in">i</span>+m0<span class="number">-1</span>,<span class="built_in">j</span>:<span class="built_in">j</span>+n0<span class="number">-1</span>);  </span><br><span class="line">        vec=double( subMatr(:) );  </span><br><span class="line">        result(<span class="built_in">i</span>,<span class="built_in">j</span>)=vec&#x27;*vec_sub / (norm(vec)*norm_sub+<span class="built_in">eps</span>);  </span><br><span class="line">    <span class="keyword">end</span> </span><br><span class="line"> <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>结果图：</p>
+<p><img src="/%E6%A8%A1%E6%9D%BF%E5%8C%B9%E9%85%8D%EF%BC%88matlab%E5%AE%9E%E7%8E%B0%EF%BC%89/1.png"><br><img src="/%E6%A8%A1%E6%9D%BF%E5%8C%B9%E9%85%8D%EF%BC%88matlab%E5%AE%9E%E7%8E%B0%EF%BC%89/2.png"></p>
+<blockquote>
+<p>具体源码 可以见<a href="https://github.com/NSDie/templet">github</a>.</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>MachineLearning</category>
+      </categories>
+      <tags>
+        <tag>matlab</tag>
+        <tag>图像处理</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>游戏开发之路3</title>
+    <url>/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF3/</url>
+    <content><![CDATA[<h3 id="经验分享"><a href="#经验分享" class="headerlink" title="经验分享"></a>经验分享</h3><blockquote>
+<p>经过十天的学习，对游戏的开发流程有了大致的了解后，就是三轮的游戏demo制作比赛。但是有点遗憾，在第一轮5天的比赛中，并没有做出什么非常完美的作品，心里也很难受。不过没关系后面还有两轮，并且在这轮中吸取了很多经验。</p>
+</blockquote>
+<h4 id="一、第一轮Demo简要介绍"><a href="#一、第一轮Demo简要介绍" class="headerlink" title="一、第一轮Demo简要介绍"></a>一、第一轮Demo简要介绍</h4><blockquote>
+<p>对于项目，工程就不发了，毕竟是组队开发的，不太好意思未经他人允许公开他的代码。我会简要讲一下第一个demo的核心玩法，以及实现方式。最后顺便附上我自己写的一份开发文档</p>
+</blockquote>
+<p>游戏名字叫<strong>《重逢》</strong>（策划那边起的，我也不知道有什么具体含义）。内容是：一个叫Pan的男人寻找他亡妻的故事，游戏里有一个冥界塔的设定，就是玩家们需要操作的场景。<font color="red">核心玩法</font>就是<strong>扫雷</strong>跟<strong>PopStar！</strong>的结合，点开一个方块，你点到炸弹就会扣血，点到空方块就会消除一片连通空白块。然后消除后产生的空的地方，方块会和<strong>PopStar！</strong>中的方块一样落下来，最上面一排会跟扫雷一样显示周围雷区的数量。当然长按标记这些也都有，加上锤子、加血包、计时器三种道具。获胜条件为：从上到下消直到落到最下面一层，就算通关；如果血扣完了或者计时器到零，就判定失败。对应冥界塔的下楼方式，你在冲塔的过程中为遇到一系列问题，比如怪物、宝藏、迷雾、岩浆、陨星…..每种问题对应一种新玩法，每一种玩法都会有新的得分机制，目前没有划分到获胜机制里（之后在看情况做修改），核心玩法还是不变的。</p>
+<p><strong>开发部分</strong> 的话，是采用unity做客户端，java做服务端。</p>
+<p><img src="/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF3/%E3%80%8A%E9%87%8D%E9%80%A2%E3%80%8B%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3.png"></p>
+<p>部分框架是介个样子，模块分很多，系统也分很多。（所以这次5天的开发时间，可以说完全是通宵爆肝了，然而还是没有完成）</p>
+<h4 id="二、总结与反思"><a href="#二、总结与反思" class="headerlink" title="二、总结与反思"></a>二、总结与反思</h4><p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;复盘一下这几天都做了啥把，第一天简单搭了一下服务器和研究了一下网络通信方面，第二天由于队伍内部出现了纠纷，没有解决。策划又提出了一堆新的需求，导致项目代码重构，花了大量的时间。第三天写项目文档，完善框架里面的数据架构。第四天第五天疯狂填内容，以及对接美术资源，画UI，把3D特效动画整合到逻辑层上去。可惜时间不够，出现一堆bug。</p>
+<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;所以现在回顾了一下，大概有以下几点经验：</p>
+<ol>
+<li>做游戏<strong>demo</strong>，不要过度追求精细，不要为未来考虑过多的东西，未来还很长，从demo到上线可能还要经过很长时间，不是一天两天就能直接出来的。作为demo，它所具备最核心的部分就是能跑，只要能跑无论长的好看还是长的丑，能跑就是一个游戏，是一个产品。你玩法说的再新颖，美术画的再好看，产品出不来，那就是一堆垃圾，是空谈大话。首先能体现你的玩法，其次再加一些美术资源，让它更加生动易于被理解。<strong>因此，作为一名开发者，一定要把控好开发时间，设定好deadline，分阶段开发项目，比如一个项目总共有5天，可以分成两个阶段，那就两天出一个包，然后提意见改bug，过三天再出一个包，分阶段迭代， 这样子就算你后面那个版本夭折了，你也还能回滚到前面的版本，不会一无所有。</strong> </li>
+<li>我们开发到了后期，其实项目功能已经非常庞大了，很难维护，并且接口函数都非常乱。<strong>因此，作为程序开发的小组，需要一个开发文档，并且日常去维护它。首先，你或者队伍里的一个人先去构建一个大体的框架，比如分几层。然后，根据策划的需求，或者组内讨论，按需求和实现的功能，再去细分。最后大家挑自己想要开发的部分，并且在开发过程中，要及时把自己写的接口名，更新到开发文档上，写好关键注释说明。</strong>这样子的话，即便到了后期，假设其他组员或者你自己遇到了什么bug，或者想要扩展新功能，只要翻阅一下文档，就很容易找到自己需要的接口，虽然写文档对某些人来说可能会很麻烦，觉得浪费时间，但是对开发效率上看有很大的提高。</li>
+<li><strong>队内出现意见分歧纠纷，需要及时解决。</strong>我们这次开发失利，其实有一大部分原因也来自这个，本来多一个人就能少很多工作，但是在第一天我们就损失了一名队友，他出现分歧后，我们没有选择去沟通跟他妥协。于是没办法，只好各走各的路，他在后面的几天里都处于<strong>离队状态</strong>。所以，关于队伍里的不和，一定一定一定要及时处理，越早越好，这不仅对整个项目有好处，而且对整个队伍士气氛围也有很大的帮助。如果不管不问，这个问题会在不久的未来不断被放大，后果不可估量。不过说到底，其实这个也是队长的<strong>责任义务</strong>，如果你是一名队长，那你就要跟社区大妈一样，什么事情都得插一脚，去关心队员的内心想法，为什么不想干了，哪个模块不喜欢了，还是遇到什么问题解决不了了……都要去了解，并且解决掉，这个很重要，对于团队开发来说，无论是做游戏还是做APP。</li>
+<li>程序对于策划，需要有自己的想法，需要对策划提出需求做一个风险评估。在给定的一个<strong>Deadline</strong>中你就要跟策划说好，你只能完成那些部分，其他需求可能做不到，要砍掉。不然等到了<strong>Deadline</strong>不仅是你交不上代码，而且项目可能会因为你而推迟下一阶段的开发时间。<strong>有时候<font color="red">减</font>就是<font color="red">加</font>。</strong></li>
+</ol>
+<blockquote>
+<p>总结大概就这些， 希望自己能学到一些东西，看这篇文章的小伙伴们也能学到一些，这些都未来在工作中可能会遇到的，提前打好预防针。</p>
+</blockquote>
 ]]></content>
       <categories>
         <category>life</category>
@@ -694,29 +726,17 @@
       </tags>
   </entry>
   <entry>
-    <title>游戏开发之路3</title>
-    <url>/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF3/</url>
-    <content><![CDATA[<h3 id="经验分享"><a href="#经验分享" class="headerlink" title="经验分享"></a>经验分享</h3><blockquote>
-<p>经过十天的学习，对游戏的开发流程有了大致的了解后，就是三轮的游戏demo制作比赛。但是有点遗憾，在第一轮5天的比赛中，并没有做出什么非常完美的作品，心里也很难受。不过没关系后面还有两轮，并且在这轮中吸取了很多经验。</p>
-</blockquote>
-<h4 id="一、第一轮Demo简要介绍"><a href="#一、第一轮Demo简要介绍" class="headerlink" title="一、第一轮Demo简要介绍"></a>一、第一轮Demo简要介绍</h4><blockquote>
-<p>对于项目，工程就不发了，毕竟是组队开发的，不太好意思未经他人允许公开他的代码。我会简要讲一下第一个demo的核心玩法，以及实现方式。最后顺便附上我自己写的一份开发文档</p>
-</blockquote>
-<p>游戏名字叫<strong>《重逢》</strong>（策划那边起的，我也不知道有什么具体含义）。内容是：一个叫Pan的男人寻找他亡妻的故事，游戏里有一个冥界塔的设定，就是玩家们需要操作的场景。<font color="red">核心玩法</font>就是<strong>扫雷</strong>跟<strong>PopStar！</strong>的结合，点开一个方块，你点到炸弹就会扣血，点到空方块就会消除一片连通空白块。然后消除后产生的空的地方，方块会和<strong>PopStar！</strong>中的方块一样落下来，最上面一排会跟扫雷一样显示周围雷区的数量。当然长按标记这些也都有，加上锤子、加血包、计时器三种道具。获胜条件为：从上到下消直到落到最下面一层，就算通关；如果血扣完了或者计时器到零，就判定失败。对应冥界塔的下楼方式，你在冲塔的过程中为遇到一系列问题，比如怪物、宝藏、迷雾、岩浆、陨星…..每种问题对应一种新玩法，每一种玩法都会有新的得分机制，目前没有划分到获胜机制里（之后在看情况做修改），核心玩法还是不变的。</p>
-<p><strong>开发部分</strong> 的话，是采用unity做客户端，java做服务端。</p>
-<p><img src="/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF3/%E3%80%8A%E9%87%8D%E9%80%A2%E3%80%8B%E5%BC%80%E5%8F%91%E6%96%87%E6%A1%A3.png"></p>
-<p>部分框架是介个样子，模块分很多，系统也分很多。（所以这次5天的开发时间，可以说完全是通宵爆肝了，然而还是没有完成）</p>
-<h4 id="二、总结与反思"><a href="#二、总结与反思" class="headerlink" title="二、总结与反思"></a>二、总结与反思</h4><p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;复盘一下这几天都做了啥把，第一天简单搭了一下服务器和研究了一下网络通信方面，第二天由于队伍内部出现了纠纷，没有解决。策划又提出了一堆新的需求，导致项目代码重构，花了大量的时间。第三天写项目文档，完善框架里面的数据架构。第四天第五天疯狂填内容，以及对接美术资源，画UI，把3D特效动画整合到逻辑层上去。可惜时间不够，出现一堆bug。</p>
-<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;所以现在回顾了一下，大概有以下几点经验：</p>
-<ol>
-<li>做游戏<strong>demo</strong>，不要过度追求精细，不要为未来考虑过多的东西，未来还很长，从demo到上线可能还要经过很长时间，不是一天两天就能直接出来的。作为demo，它所具备最核心的部分就是能跑，只要能跑无论长的好看还是长的丑，能跑就是一个游戏，是一个产品。你玩法说的再新颖，美术画的再好看，产品出不来，那就是一堆垃圾，是空谈大话。首先能体现你的玩法，其次再加一些美术资源，让它更加生动易于被理解。<strong>因此，作为一名开发者，一定要把控好开发时间，设定好deadline，分阶段开发项目，比如一个项目总共有5天，可以分成两个阶段，那就两天出一个包，然后提意见改bug，过三天再出一个包，分阶段迭代， 这样子就算你后面那个版本夭折了，你也还能回滚到前面的版本，不会一无所有。</strong> </li>
-<li>我们开发到了后期，其实项目功能已经非常庞大了，很难维护，并且接口函数都非常乱。<strong>因此，作为程序开发的小组，需要一个开发文档，并且日常去维护它。首先，你或者队伍里的一个人先去构建一个大体的框架，比如分几层。然后，根据策划的需求，或者组内讨论，按需求和实现的功能，再去细分。最后大家挑自己想要开发的部分，并且在开发过程中，要及时把自己写的接口名，更新到开发文档上，写好关键注释说明。</strong>这样子的话，即便到了后期，假设其他组员或者你自己遇到了什么bug，或者想要扩展新功能，只要翻阅一下文档，就很容易找到自己需要的接口，虽然写文档对某些人来说可能会很麻烦，觉得浪费时间，但是对开发效率上看有很大的提高。</li>
-<li><strong>队内出现意见分歧纠纷，需要及时解决。</strong>我们这次开发失利，其实有一大部分原因也来自这个，本来多一个人就能少很多工作，但是在第一天我们就损失了一名队友，他出现分歧后，我们没有选择去沟通跟他妥协。于是没办法，只好各走各的路，他在后面的几天里都处于<strong>离队状态</strong>。所以，关于队伍里的不和，一定一定一定要及时处理，越早越好，这不仅对整个项目有好处，而且对整个队伍士气氛围也有很大的帮助。如果不管不问，这个问题会在不久的未来不断被放大，后果不可估量。不过说到底，其实这个也是队长的<strong>责任义务</strong>，如果你是一名队长，那你就要跟社区大妈一样，什么事情都得插一脚，去关心队员的内心想法，为什么不想干了，哪个模块不喜欢了，还是遇到什么问题解决不了了……都要去了解，并且解决掉，这个很重要，对于团队开发来说，无论是做游戏还是做APP。</li>
-<li>程序对于策划，需要有自己的想法，需要对策划提出需求做一个风险评估。在给定的一个<strong>Deadline</strong>中你就要跟策划说好，你只能完成那些部分，其他需求可能做不到，要砍掉。不然等到了<strong>Deadline</strong>不仅是你交不上代码，而且项目可能会因为你而推迟下一阶段的开发时间。<strong>有时候<font color="red">减</font>就是<font color="red">加</font>。</strong></li>
-</ol>
-<blockquote>
-<p>总结大概就这些， 希望自己能学到一些东西，看这篇文章的小伙伴们也能学到一些，这些都未来在工作中可能会遇到的，提前打好预防针。</p>
-</blockquote>
+    <title>游戏开发之路5</title>
+    <url>/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF5/</url>
+    <content><![CDATA[<h3 id="经验分享"><a href="#经验分享" class="headerlink" title="经验分享"></a>经验分享</h3><h4 id="第三轮demo比赛总结"><a href="#第三轮demo比赛总结" class="headerlink" title="第三轮demo比赛总结"></a>第三轮demo比赛总结</h4><p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;这轮题目自拟，然后我们定了一个<strong>冒险+动作</strong>的游戏，参考了<strong>彩虹岛W</strong> 、<strong>冒险岛M</strong> 、星之骑士等动作冒险手游。这轮时间大概有13天半（去掉第一天的定方向，其实也不是很多，自拟的题目还是难抉择啊。），然后我们就想做一个比较大一点的游戏，策划也想的非常大，冒险+动作都要。既要<strong>设计关卡</strong> ，又要设计<strong>人物动作</strong>。</p>
+<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;由于这次主要逻辑不是我写的，所以我也不能说的很详细，整体框架是，人物动作由<strong>3DMax</strong> 完成，并且绑好骨骼做好动作。然后直接丢Unity里使用，但是场景是2D的，就人物是3D的，所以调整了很久。人物大概用了24个动作，然后Unity用状态机来管理，写了一个接口供逻辑调用。逻辑里面写了人物数值属性、输入控制、攻击受击死亡等状态；怪物属性、状态、AI行为树（用了Behavior插件）；还有BOSS专门写了AI。这次我负责的是2D怪物的动画，我用的<strong>2Danima</strong>插件绑的2D骨骼然后录制动画，总共2只Boss和6只小怪。Boss有8套动作、每种小怪有5套动作。</p>
+<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<strong>转折点</strong>：中间有导师探班的时候，说我们的游戏应该最好偏向于某一方面：<strong>动作</strong> OR <strong>冒险</strong> 。最后我们选择了动作（偏复杂一点的路，虽然最后也没有成功）。既然选择了动作，我们就要把很多关卡设计方面的东西都砍掉，专注打击感的提升，我们为此做了：<strong>刀光</strong>、<strong>爆点</strong>、屏幕抖动、击退和挑飞等<strong>控制效果</strong>、还有一些蓄力快斩之类的节奏感<strong>技能</strong>。到了Deadline的前一天，我们整合出现了问题，导致提交作品的时候，没能交上一个比较完善的作品，UI部分还有一堆BUG，不然我有信心一定能拿第一。（算是一点遗憾把，没能把自己最好的一面展现出来）</p>
+<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;比赛过程中，我在前五天，研究unity的一个联网引擎——PhotonServer，想要吃透它，结果也是学了个半吊子把，最后也没用上联网模式，由于当初定的是单人模式逻辑写的都死死的，后期想要转联网，还需要重构代码，比较耗时间。于是就干脆把联网部分砍掉。（这次我用的联网部分跟2D动画，以后若是有时间，再写专门的一篇文章介绍。）</p>
+<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<strong>总结</strong>： 唉，失败也是难免的。整理整理失败的原因，还是可以学到挺多东西的。感觉这轮比赛程序可能要背很大程度的锅，美术在最后三天前结束了他们的任务，而且我们程序还是没能完成任务，说明还是有很大的问题的。我来复盘一下程序这边13天做了啥把。<strong>前五天</strong>，我做了一个小型的联机Demo，未接入。其他部分做了单人模式的主逻辑、UI未开工、基本程序团队处于养老划水状态、很闲。<strong>第六天</strong>开始，我做一些2D动画方面的东西，并且继续研究联机，3D角色建模完成，导入Unity开始调整动作。<strong>第七、八天</strong>，继续调角色动作、并且整合美术关卡资源做成预制体，交由策划进行关卡摆放。<strong>第九、十天</strong>，各种特效的选取调整、策划摆完关卡不满意美术摆。<strong>第十一天</strong>开始做UI，开始了连续三天的通宵做UI，但是没想到UI是这么复杂，导致最后一天才做完UI准备接入，忘了说我联网在第十天开始就砍掉，准备帮助一起做主逻辑部分。最后接入的时候出了很多问题，Unity2018也经常卡死崩溃_ (:з)∠) _。如果UI能早点开始做，我们也不会落到这种地步。</p>
+<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<strong>总的来说</strong> ，还是没有规划好，每天的任务清单，全凭感觉，但偏偏这轮感觉出了差错，本以为打包一次就几分钟，然后Unity打包一次大概30分钟，这次浪费了很多时间。</p>
+<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<strong>除此之外</strong> ，我想说一句：一个项目的成功与否，在立项初期就已经决定好了。策划在这一步起<strong>关键性作用</strong>，一个好策划，提出了一个好想法，那这个项目已经成功了一半了，后面就看程序怎么实现它、美术如何打扮它。而且一个好策划最好能说出这个项目的卖点，并且能讲的非常详细不是很笼统，我相信很多人都会愿意配合，不然就说一句我们来做一个动作类游戏吧。这。。。怎么讲，动作类游戏，谁TM知道你想要做啥啊，跟没讲一样，而且这么一说士气就弱了三分，60分及格，顶多就一半30分了。<strong>开头很重要。</strong>这决定了这个项目能达到的最高高度。其次才是程序美术如何让它达到这个高度。</p>
+<p>最后放一张这轮游戏的海报：</p>
+<p><img src="/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF5/%E6%B5%B7%E6%8A%A5.jpg"></p>
 ]]></content>
       <categories>
         <category>life</category>
@@ -893,119 +913,6 @@
       </tags>
   </entry>
   <entry>
-    <title>高性能MySQL 读书笔记二</title>
-    <url>/%E9%AB%98%E6%80%A7%E8%83%BDmysql-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%BA%8C/</url>
-    <content><![CDATA[<h2 id="高性能MySQL-读书笔记二"><a href="#高性能MySQL-读书笔记二" class="headerlink" title="高性能MySQL 读书笔记二"></a>高性能MySQL 读书笔记二</h2><h3 id="一、MySQL基准测试"><a href="#一、MySQL基准测试" class="headerlink" title="一、MySQL基准测试"></a>一、MySQL基准测试</h3><p><strong>基准测试</strong>是针对系统设计的一种压力测试。通常的目标是为了掌握系统的行为。基准测试是一种测量和评估软件性能指标的活动用于建立某个时刻的<strong>性能基准</strong>，以便当系统发生软硬件变化时重新进行基准测试以评估变化对<strong>性能</strong>的影响。</p>
-<table>
-<thead>
-<tr>
-<th>名称</th>
-<th>基准测试</th>
-<th>压力测试</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>对比</td>
-<td>直接、简单、易于比较，用于评估服务器的处理能力</td>
-<td>对真实的业务数据进行测试，获得真实系统所能承受的压力</td>
-</tr>
-<tr>
-<td></td>
-<td>可能不关心<strong>业务逻辑</strong>，所使用的查询和业务的真实性可以和业务环境没关系</td>
-<td>需要针对不同主题，所使用的数据和查询也是真实用到的</td>
-</tr>
-</tbody></table>
-<p><strong>特性：</strong></p>
-<ol>
-<li><strong>可重复性</strong>  可进行重复性的测试，这样做有利于比较每次的测试结果，得到性能结果的长期变化趋势，为系统调优和上线前的容量规划做参考。</li>
-<li><strong>可观测性</strong> 通过全方位的监控（包括测试开始到结束，执行机、服务器、数据库），及时了解和分析测试过程发生了什么</li>
-<li><strong>可展示性</strong> 相关人员可以直观明了的了解测试结果</li>
-<li><strong>真实性</strong> 测试结果反映了客户体验到的真实的情况</li>
-<li><strong>可执行性</strong> 相关人员可以快速的进行测试验证修改调优</li>
-</ol>
-<h4 id="1-1-为什么需要基准测试？"><a href="#1-1-为什么需要基准测试？" class="headerlink" title="1.1 为什么需要基准测试？"></a>1.1 为什么需要基准测试？</h4><ul>
-<li>验证基于系统的一些假设，确认这些假设是否符合实际情况。</li>
-<li>重现系统中的某些异常行为，解决这些异常。</li>
-<li>测试系统当前的运行情况。</li>
-<li>模拟比当前系统更高的负载。</li>
-<li>规划未来的业务增长。</li>
-<li>测试应用适应可变环境的能力</li>
-<li>测试不同的硬件、软件和操作系统配置。</li>
-<li>证明新采购的设备是否配置正确。</li>
-<li>…..</li>
-</ul>
-<h4 id="1-2-基准测试的策略"><a href="#1-2-基准测试的策略" class="headerlink" title="1.2 基准测试的策略"></a>1.2 基准测试的策略</h4><p><strong>基准测试</strong>有两种主要的策略：集成式（对整个系统的基准测试）、单组件式（单独测试MySQL）。</p>
-<p>需要测试的<strong>测试指标</strong>：吞吐量、响应时间、并发性、可扩展性。</p>
-<p>总的来说，<strong>测试那些对用户来说最重要的指标</strong>。</p>
-<h4 id="1-3-基准测试方法"><a href="#1-3-基准测试方法" class="headerlink" title="1.3 基准测试方法"></a>1.3 基准测试方法</h4><p>基准测试的一般步骤：</p>
-<ol>
-<li>提出问题并明确目标。</li>
-<li>采用标准的基准测试&#x2F;设计专用的测试。</li>
-<li>针对数据运行查询。</li>
-</ol>
-<p>在测试过程中或完毕之后，详细地写下测试规划和测试记录。测试可能需要多次反复运行，因此需要精确地重现测试过程。</p>
-<blockquote>
-<p>测试规划应该记录<strong>测试数据</strong>、<strong>系统配置的步骤</strong>、<strong>如何测量和分析结果</strong>、<strong>以及预热的方案</strong>等。</p>
-</blockquote>
-<p>应该建立将参数和结果文档化的规范，每一轮测试都必须进行详细记录。可以使用电子表格或者记事本形式。</p>
-<h4 id="1-4-基准测试应该运行多长时间"><a href="#1-4-基准测试应该运行多长时间" class="headerlink" title="1.4 基准测试应该运行多长时间"></a>1.4 基准测试应该运行多长时间</h4><p>基准测试应该运行足够长的时间。（系统如果有大量的数据和内存，等待他到达稳定状态需要非常长的时间。）</p>
-<p><img src="/%E9%AB%98%E6%80%A7%E8%83%BDMySQL-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%BA%8C/1.png"></p>
-<p>这是一个在已知系统上执行测试的例子，系统预热后，读I&#x2F;O活动在三四个小时后曲线趋于稳定。（一些写I&#x2F;O可能至少在八小时内变化还是很大，具体根据实际情况来考虑）</p>
-<h4 id="1-5-获取系统性能和状态"><a href="#1-5-获取系统性能和状态" class="headerlink" title="1.5 获取系统性能和状态"></a>1.5 获取系统性能和状态</h4><p>在执行基准测试的时候，要尽可能多地收集被测试系统的信息。</p>
-<p>最好为基准测试建立一个目录，并且每执行一轮测试都创建单独的子目录，将<code>测试结果、配置文件、测试指标、脚本和其他相关说明</code>都保存在其中。</p>
-<p>需要记录的数据包括<strong>系统状态</strong>和<strong>性能指标</strong>，如CPU使用率、磁盘I&#x2F;O、网络流量统计、SHOWGLOBAL STATUS 计数器。</p>
-<h4 id="1-6-获得准确的测试结果"><a href="#1-6-获得准确的测试结果" class="headerlink" title="1.6 获得准确的测试结果"></a>1.6 获得准确的测试结果</h4><p>在判断结果正确与否之前，先想一下：</p>
-<ul>
-<li><strong>是否选择了正确的基准测试？</strong></li>
-<li><strong>是否为问题收集了相关的数据？</strong></li>
-<li><strong>是否采用了错误的测试标准？</strong></li>
-</ul>
-<p>然后，<strong>确认测试结果是否可重复</strong>。每次重新测试之前要确保系统的状态是一致的。需要测试的系统是经过预热的系统，还需要确保预热的时间足够长。如果预热采用的是<strong>随机查询</strong>，那么测试结果可能就是<strong>不可重复</strong>的。如果测试的过程会修改数据或者schema，那么每次测试前，需要利用快照还原数据。</p>
-<p>影响测试结果的因素有很多，如<code>外部的压力、性能分析和监控系统、详细的日志记录、周期性作业</code>等。<strong>每次测试中，修改的参数应该尽可能少</strong>。如果必须要一次修改多个参数，那么可能会丢失一些信息。有些参数依赖其他参数，这些参数可能无法单独修改。有时候甚至都没有意识到这些依赖，这给测试带来了复杂性。</p>
-<h4 id="1-7-运行基准测试并分析结果"><a href="#1-7-运行基准测试并分析结果" class="headerlink" title="1.7 运行基准测试并分析结果"></a>1.7 运行基准测试并分析结果</h4><p>通常来说，<strong>自动化基准测试</strong>是个好主意。这样做可以获得更精准的测试结果。因为自动化的过程可以防止测试人员偶尔遗漏某些步骤，或者误操作。另外有助于归档整个测试过程。</p>
-<h3 id="二、基准测试工具"><a href="#二、基准测试工具" class="headerlink" title="二、基准测试工具"></a>二、基准测试工具</h3><h4 id="2-1-集成式测试工具"><a href="#2-1-集成式测试工具" class="headerlink" title="2.1 集成式测试工具"></a>2.1 集成式测试工具</h4><ul>
-<li><strong>ab</strong> 一个Apache HTTP 服务器基准测试工具。它可以测试HTTP服务器每秒最多可以处理多少请求。如果测试的是<strong>Web应用服务</strong>，这个结果可以转换成整个应用每秒可以满足多少请求。具体使用命令可以<a href="http://httpd.apache.org/docs/2.0/programs/ab.html">参考网址</a></li>
-<li><strong>http_load</strong> 这个工具概念上和ab类似，但是比ab更灵活，可以通过一个输入文件提供多个URL。可以随机测试、定制http_load按照时间比率进行测试。具体使用命令可以<a href="http://www.acme.com/software/http_load/">参考网址</a></li>
-<li><strong>JMeter</strong> 一个Java应用程序，可以加载其他应用并测试其性能。可以测试WEB引用，也可以测试FTP服务器、通过JDBC测试数据库查询。比ab和http_load更复杂，功能也更多，可以对测试进行记录、绘图，然后离线重演。具体使用可以<a href="https://jmeter.apache.org/">参考网址</a></li>
-</ul>
-<h4 id="2-2-单组件式测试工具"><a href="#2-2-单组件式测试工具" class="headerlink" title="2.2 单组件式测试工具"></a>2.2 单组件式测试工具</h4><ul>
-<li><strong>mysqlslap</strong> 可以模拟服务器的负载，并输出计时信息。它包含在<a href="https://dev.mysql.com/doc/refman/8.0/en/mysqlslap.html">MySQL5.1的发行包</a>中。测试时可以执行并发连接数，并指定SQL语句。</li>
-<li><strong>MySQL Benchmark Suite</strong> 在MySQL的发行包中也提供了一款自己的基准测试套件，可以用在不同数据库服务器上进行比较测试。它是单线程的，主要用于测试服务器执行查询的速度。结果会显示哪种类型的操作在服务器上执行得更快。</li>
-<li><strong>Super Smack</strong> 一款用于MySQL和PostgreSQL的基准测试工具，可以提供压力测试和负载生成。这是一个复杂而强大的工具，可以模拟多用户访问，可以加载测试数据到数据库，并支持使用随机数据填充测试表。——》<a href="http://vegan.net/tony/supersmack/">入口</a>（现在好像没有维护了，已崩）</li>
-<li><strong>sysbench</strong> 一款<strong>多线程</strong>系统压测工具。它可以根据影响数据库服务器性能的各种因素来评估系统的性能。sysbench是一款受大家喜欢的全能测试工具，支持MySQL、操作系统和硬件的硬件测试。——》<a href="https://launchpad.net/sysbench">入口</a></li>
-</ul>
-<p>这里先简单介绍一下这些工具，后面会有具体使用的案例，以及提供工具的安装包。</p>
-]]></content>
-      <categories>
-        <category>开发</category>
-        <category>笔记</category>
-      </categories>
-      <tags>
-        <tag>Mysql</tag>
-        <tag>数据库</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>游戏开发之路5</title>
-    <url>/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF5/</url>
-    <content><![CDATA[<h3 id="经验分享"><a href="#经验分享" class="headerlink" title="经验分享"></a>经验分享</h3><h4 id="第三轮demo比赛总结"><a href="#第三轮demo比赛总结" class="headerlink" title="第三轮demo比赛总结"></a>第三轮demo比赛总结</h4><p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;这轮题目自拟，然后我们定了一个<strong>冒险+动作</strong>的游戏，参考了<strong>彩虹岛W</strong> 、<strong>冒险岛M</strong> 、星之骑士等动作冒险手游。这轮时间大概有13天半（去掉第一天的定方向，其实也不是很多，自拟的题目还是难抉择啊。），然后我们就想做一个比较大一点的游戏，策划也想的非常大，冒险+动作都要。既要<strong>设计关卡</strong> ，又要设计<strong>人物动作</strong>。</p>
-<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;由于这次主要逻辑不是我写的，所以我也不能说的很详细，整体框架是，人物动作由<strong>3DMax</strong> 完成，并且绑好骨骼做好动作。然后直接丢Unity里使用，但是场景是2D的，就人物是3D的，所以调整了很久。人物大概用了24个动作，然后Unity用状态机来管理，写了一个接口供逻辑调用。逻辑里面写了人物数值属性、输入控制、攻击受击死亡等状态；怪物属性、状态、AI行为树（用了Behavior插件）；还有BOSS专门写了AI。这次我负责的是2D怪物的动画，我用的<strong>2Danima</strong>插件绑的2D骨骼然后录制动画，总共2只Boss和6只小怪。Boss有8套动作、每种小怪有5套动作。</p>
-<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<strong>转折点</strong>：中间有导师探班的时候，说我们的游戏应该最好偏向于某一方面：<strong>动作</strong> OR <strong>冒险</strong> 。最后我们选择了动作（偏复杂一点的路，虽然最后也没有成功）。既然选择了动作，我们就要把很多关卡设计方面的东西都砍掉，专注打击感的提升，我们为此做了：<strong>刀光</strong>、<strong>爆点</strong>、屏幕抖动、击退和挑飞等<strong>控制效果</strong>、还有一些蓄力快斩之类的节奏感<strong>技能</strong>。到了Deadline的前一天，我们整合出现了问题，导致提交作品的时候，没能交上一个比较完善的作品，UI部分还有一堆BUG，不然我有信心一定能拿第一。（算是一点遗憾把，没能把自己最好的一面展现出来）</p>
-<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;比赛过程中，我在前五天，研究unity的一个联网引擎——PhotonServer，想要吃透它，结果也是学了个半吊子把，最后也没用上联网模式，由于当初定的是单人模式逻辑写的都死死的，后期想要转联网，还需要重构代码，比较耗时间。于是就干脆把联网部分砍掉。（这次我用的联网部分跟2D动画，以后若是有时间，再写专门的一篇文章介绍。）</p>
-<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<strong>总结</strong>： 唉，失败也是难免的。整理整理失败的原因，还是可以学到挺多东西的。感觉这轮比赛程序可能要背很大程度的锅，美术在最后三天前结束了他们的任务，而且我们程序还是没能完成任务，说明还是有很大的问题的。我来复盘一下程序这边13天做了啥把。<strong>前五天</strong>，我做了一个小型的联机Demo，未接入。其他部分做了单人模式的主逻辑、UI未开工、基本程序团队处于养老划水状态、很闲。<strong>第六天</strong>开始，我做一些2D动画方面的东西，并且继续研究联机，3D角色建模完成，导入Unity开始调整动作。<strong>第七、八天</strong>，继续调角色动作、并且整合美术关卡资源做成预制体，交由策划进行关卡摆放。<strong>第九、十天</strong>，各种特效的选取调整、策划摆完关卡不满意美术摆。<strong>第十一天</strong>开始做UI，开始了连续三天的通宵做UI，但是没想到UI是这么复杂，导致最后一天才做完UI准备接入，忘了说我联网在第十天开始就砍掉，准备帮助一起做主逻辑部分。最后接入的时候出了很多问题，Unity2018也经常卡死崩溃_ (:з)∠) _。如果UI能早点开始做，我们也不会落到这种地步。</p>
-<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<strong>总的来说</strong> ，还是没有规划好，每天的任务清单，全凭感觉，但偏偏这轮感觉出了差错，本以为打包一次就几分钟，然后Unity打包一次大概30分钟，这次浪费了很多时间。</p>
-<p>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<strong>除此之外</strong> ，我想说一句：一个项目的成功与否，在立项初期就已经决定好了。策划在这一步起<strong>关键性作用</strong>，一个好策划，提出了一个好想法，那这个项目已经成功了一半了，后面就看程序怎么实现它、美术如何打扮它。而且一个好策划最好能说出这个项目的卖点，并且能讲的非常详细不是很笼统，我相信很多人都会愿意配合，不然就说一句我们来做一个动作类游戏吧。这。。。怎么讲，动作类游戏，谁TM知道你想要做啥啊，跟没讲一样，而且这么一说士气就弱了三分，60分及格，顶多就一半30分了。<strong>开头很重要。</strong>这决定了这个项目能达到的最高高度。其次才是程序美术如何让它达到这个高度。</p>
-<p>最后放一张这轮游戏的海报：</p>
-<p><img src="/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91%E4%B9%8B%E8%B7%AF5/%E6%B5%B7%E6%8A%A5.jpg"></p>
-]]></content>
-      <categories>
-        <category>life</category>
-      </categories>
-      <tags>
-        <tag>游戏开发</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>高性能MySQL 读书笔记一</title>
     <url>/%E9%AB%98%E6%80%A7%E8%83%BDmysql-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B8%80/</url>
     <content><![CDATA[<h2 id="高性能MySQL-读书笔记一"><a href="#高性能MySQL-读书笔记一" class="headerlink" title="高性能MySQL 读书笔记一"></a>高性能MySQL 读书笔记一</h2><h3 id="一、MySQL的逻辑架构"><a href="#一、MySQL的逻辑架构" class="headerlink" title="一、MySQL的逻辑架构"></a>一、MySQL的逻辑架构</h3><p><img src="/%E9%AB%98%E6%80%A7%E8%83%BDMySQL-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B8%80/1.png"></p>
@@ -1149,6 +1056,99 @@
 <li><p><strong>NDB集群引擎</strong>  MySQL AB公司从索尼爱立信公司收购了NDB数据库，然后开发了NDB集群引擎。</p>
 </li>
 </ul>
+]]></content>
+      <categories>
+        <category>开发</category>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>Mysql</tag>
+        <tag>数据库</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>高性能MySQL 读书笔记二</title>
+    <url>/%E9%AB%98%E6%80%A7%E8%83%BDmysql-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%BA%8C/</url>
+    <content><![CDATA[<h2 id="高性能MySQL-读书笔记二"><a href="#高性能MySQL-读书笔记二" class="headerlink" title="高性能MySQL 读书笔记二"></a>高性能MySQL 读书笔记二</h2><h3 id="一、MySQL基准测试"><a href="#一、MySQL基准测试" class="headerlink" title="一、MySQL基准测试"></a>一、MySQL基准测试</h3><p><strong>基准测试</strong>是针对系统设计的一种压力测试。通常的目标是为了掌握系统的行为。基准测试是一种测量和评估软件性能指标的活动用于建立某个时刻的<strong>性能基准</strong>，以便当系统发生软硬件变化时重新进行基准测试以评估变化对<strong>性能</strong>的影响。</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>基准测试</th>
+<th>压力测试</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>对比</td>
+<td>直接、简单、易于比较，用于评估服务器的处理能力</td>
+<td>对真实的业务数据进行测试，获得真实系统所能承受的压力</td>
+</tr>
+<tr>
+<td></td>
+<td>可能不关心<strong>业务逻辑</strong>，所使用的查询和业务的真实性可以和业务环境没关系</td>
+<td>需要针对不同主题，所使用的数据和查询也是真实用到的</td>
+</tr>
+</tbody></table>
+<p><strong>特性：</strong></p>
+<ol>
+<li><strong>可重复性</strong>  可进行重复性的测试，这样做有利于比较每次的测试结果，得到性能结果的长期变化趋势，为系统调优和上线前的容量规划做参考。</li>
+<li><strong>可观测性</strong> 通过全方位的监控（包括测试开始到结束，执行机、服务器、数据库），及时了解和分析测试过程发生了什么</li>
+<li><strong>可展示性</strong> 相关人员可以直观明了的了解测试结果</li>
+<li><strong>真实性</strong> 测试结果反映了客户体验到的真实的情况</li>
+<li><strong>可执行性</strong> 相关人员可以快速的进行测试验证修改调优</li>
+</ol>
+<h4 id="1-1-为什么需要基准测试？"><a href="#1-1-为什么需要基准测试？" class="headerlink" title="1.1 为什么需要基准测试？"></a>1.1 为什么需要基准测试？</h4><ul>
+<li>验证基于系统的一些假设，确认这些假设是否符合实际情况。</li>
+<li>重现系统中的某些异常行为，解决这些异常。</li>
+<li>测试系统当前的运行情况。</li>
+<li>模拟比当前系统更高的负载。</li>
+<li>规划未来的业务增长。</li>
+<li>测试应用适应可变环境的能力</li>
+<li>测试不同的硬件、软件和操作系统配置。</li>
+<li>证明新采购的设备是否配置正确。</li>
+<li>…..</li>
+</ul>
+<h4 id="1-2-基准测试的策略"><a href="#1-2-基准测试的策略" class="headerlink" title="1.2 基准测试的策略"></a>1.2 基准测试的策略</h4><p><strong>基准测试</strong>有两种主要的策略：集成式（对整个系统的基准测试）、单组件式（单独测试MySQL）。</p>
+<p>需要测试的<strong>测试指标</strong>：吞吐量、响应时间、并发性、可扩展性。</p>
+<p>总的来说，<strong>测试那些对用户来说最重要的指标</strong>。</p>
+<h4 id="1-3-基准测试方法"><a href="#1-3-基准测试方法" class="headerlink" title="1.3 基准测试方法"></a>1.3 基准测试方法</h4><p>基准测试的一般步骤：</p>
+<ol>
+<li>提出问题并明确目标。</li>
+<li>采用标准的基准测试&#x2F;设计专用的测试。</li>
+<li>针对数据运行查询。</li>
+</ol>
+<p>在测试过程中或完毕之后，详细地写下测试规划和测试记录。测试可能需要多次反复运行，因此需要精确地重现测试过程。</p>
+<blockquote>
+<p>测试规划应该记录<strong>测试数据</strong>、<strong>系统配置的步骤</strong>、<strong>如何测量和分析结果</strong>、<strong>以及预热的方案</strong>等。</p>
+</blockquote>
+<p>应该建立将参数和结果文档化的规范，每一轮测试都必须进行详细记录。可以使用电子表格或者记事本形式。</p>
+<h4 id="1-4-基准测试应该运行多长时间"><a href="#1-4-基准测试应该运行多长时间" class="headerlink" title="1.4 基准测试应该运行多长时间"></a>1.4 基准测试应该运行多长时间</h4><p>基准测试应该运行足够长的时间。（系统如果有大量的数据和内存，等待他到达稳定状态需要非常长的时间。）</p>
+<p><img src="/%E9%AB%98%E6%80%A7%E8%83%BDMySQL-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%BA%8C/1.png"></p>
+<p>这是一个在已知系统上执行测试的例子，系统预热后，读I&#x2F;O活动在三四个小时后曲线趋于稳定。（一些写I&#x2F;O可能至少在八小时内变化还是很大，具体根据实际情况来考虑）</p>
+<h4 id="1-5-获取系统性能和状态"><a href="#1-5-获取系统性能和状态" class="headerlink" title="1.5 获取系统性能和状态"></a>1.5 获取系统性能和状态</h4><p>在执行基准测试的时候，要尽可能多地收集被测试系统的信息。</p>
+<p>最好为基准测试建立一个目录，并且每执行一轮测试都创建单独的子目录，将<code>测试结果、配置文件、测试指标、脚本和其他相关说明</code>都保存在其中。</p>
+<p>需要记录的数据包括<strong>系统状态</strong>和<strong>性能指标</strong>，如CPU使用率、磁盘I&#x2F;O、网络流量统计、SHOWGLOBAL STATUS 计数器。</p>
+<h4 id="1-6-获得准确的测试结果"><a href="#1-6-获得准确的测试结果" class="headerlink" title="1.6 获得准确的测试结果"></a>1.6 获得准确的测试结果</h4><p>在判断结果正确与否之前，先想一下：</p>
+<ul>
+<li><strong>是否选择了正确的基准测试？</strong></li>
+<li><strong>是否为问题收集了相关的数据？</strong></li>
+<li><strong>是否采用了错误的测试标准？</strong></li>
+</ul>
+<p>然后，<strong>确认测试结果是否可重复</strong>。每次重新测试之前要确保系统的状态是一致的。需要测试的系统是经过预热的系统，还需要确保预热的时间足够长。如果预热采用的是<strong>随机查询</strong>，那么测试结果可能就是<strong>不可重复</strong>的。如果测试的过程会修改数据或者schema，那么每次测试前，需要利用快照还原数据。</p>
+<p>影响测试结果的因素有很多，如<code>外部的压力、性能分析和监控系统、详细的日志记录、周期性作业</code>等。<strong>每次测试中，修改的参数应该尽可能少</strong>。如果必须要一次修改多个参数，那么可能会丢失一些信息。有些参数依赖其他参数，这些参数可能无法单独修改。有时候甚至都没有意识到这些依赖，这给测试带来了复杂性。</p>
+<h4 id="1-7-运行基准测试并分析结果"><a href="#1-7-运行基准测试并分析结果" class="headerlink" title="1.7 运行基准测试并分析结果"></a>1.7 运行基准测试并分析结果</h4><p>通常来说，<strong>自动化基准测试</strong>是个好主意。这样做可以获得更精准的测试结果。因为自动化的过程可以防止测试人员偶尔遗漏某些步骤，或者误操作。另外有助于归档整个测试过程。</p>
+<h3 id="二、基准测试工具"><a href="#二、基准测试工具" class="headerlink" title="二、基准测试工具"></a>二、基准测试工具</h3><h4 id="2-1-集成式测试工具"><a href="#2-1-集成式测试工具" class="headerlink" title="2.1 集成式测试工具"></a>2.1 集成式测试工具</h4><ul>
+<li><strong>ab</strong> 一个Apache HTTP 服务器基准测试工具。它可以测试HTTP服务器每秒最多可以处理多少请求。如果测试的是<strong>Web应用服务</strong>，这个结果可以转换成整个应用每秒可以满足多少请求。具体使用命令可以<a href="http://httpd.apache.org/docs/2.0/programs/ab.html">参考网址</a></li>
+<li><strong>http_load</strong> 这个工具概念上和ab类似，但是比ab更灵活，可以通过一个输入文件提供多个URL。可以随机测试、定制http_load按照时间比率进行测试。具体使用命令可以<a href="http://www.acme.com/software/http_load/">参考网址</a></li>
+<li><strong>JMeter</strong> 一个Java应用程序，可以加载其他应用并测试其性能。可以测试WEB引用，也可以测试FTP服务器、通过JDBC测试数据库查询。比ab和http_load更复杂，功能也更多，可以对测试进行记录、绘图，然后离线重演。具体使用可以<a href="https://jmeter.apache.org/">参考网址</a></li>
+</ul>
+<h4 id="2-2-单组件式测试工具"><a href="#2-2-单组件式测试工具" class="headerlink" title="2.2 单组件式测试工具"></a>2.2 单组件式测试工具</h4><ul>
+<li><strong>mysqlslap</strong> 可以模拟服务器的负载，并输出计时信息。它包含在<a href="https://dev.mysql.com/doc/refman/8.0/en/mysqlslap.html">MySQL5.1的发行包</a>中。测试时可以执行并发连接数，并指定SQL语句。</li>
+<li><strong>MySQL Benchmark Suite</strong> 在MySQL的发行包中也提供了一款自己的基准测试套件，可以用在不同数据库服务器上进行比较测试。它是单线程的，主要用于测试服务器执行查询的速度。结果会显示哪种类型的操作在服务器上执行得更快。</li>
+<li><strong>Super Smack</strong> 一款用于MySQL和PostgreSQL的基准测试工具，可以提供压力测试和负载生成。这是一个复杂而强大的工具，可以模拟多用户访问，可以加载测试数据到数据库，并支持使用随机数据填充测试表。——》<a href="http://vegan.net/tony/supersmack/">入口</a>（现在好像没有维护了，已崩）</li>
+<li><strong>sysbench</strong> 一款<strong>多线程</strong>系统压测工具。它可以根据影响数据库服务器性能的各种因素来评估系统的性能。sysbench是一款受大家喜欢的全能测试工具，支持MySQL、操作系统和硬件的硬件测试。——》<a href="https://launchpad.net/sysbench">入口</a></li>
+</ul>
+<p>这里先简单介绍一下这些工具，后面会有具体使用的案例，以及提供工具的安装包。</p>
 ]]></content>
       <categories>
         <category>开发</category>
